@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UN General Debate 2026</title>
+<title>__PAGE_TITLE__</title>
 <meta name="description" content="Topics, distributions, readability and international relations lenses across the 2026 UN General Assembly general debate.">
 <style>
 :root {
@@ -69,6 +69,8 @@ table.data { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-
 table.data th, table.data td { border-bottom: 1px solid var(--grid); padding: 5px 6px; text-align: left; vertical-align: top; }
 table.data th { color: var(--ink-2); font-weight: 600; cursor: pointer; user-select: none; }
 table.data td.n, table.data th.n { text-align: right; font-variant-numeric: tabular-nums; }
+#speech-table th { position: sticky; top: 0; background: var(--surface); }
+#speech-table td:nth-child(4) { white-space: nowrap; }
 .scroll { overflow-x: auto; }
 blockquote { margin: 10px 0 14px; padding: 8px 14px; border-left: 3px solid var(--series); background: var(--surface); border-radius: 0 6px 6px 0; }
 blockquote p { margin: 0 0 4px; }
@@ -80,80 +82,123 @@ blockquote cite { color: var(--ink-2); font-size: 0.82rem; font-style: normal; }
 .tag { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: 0 8px; font-size: 0.78rem; color: var(--ink-2); margin: 2px 4px 2px 0; }
 input[type=search] { width: 100%; max-width: 420px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--axis); background: var(--surface); color: var(--ink); font: inherit; }
 #tip { position: fixed; pointer-events: none; z-index: 10; background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 6px; padding: 6px 9px; font-size: 0.8rem; box-shadow: 0 4px 16px rgba(0,0,0,0.15); display: none; max-width: 280px; }
+
+.kicker { font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.35; font-weight: 600; max-width: 34ch; margin: 12px 0 20px; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; color: var(--muted); margin: 56px 0 0; }
+.eyebrow + h2 { border-top: none; margin-top: 4px; padding-top: 0; }
+.scqa { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0 8px; }
+.scqa div { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 0.95rem; }
+.scqa b { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+ol.messages { counter-reset: m; list-style: none; padding: 0; margin: 16px 0; display: grid; gap: 10px; }
+ol.messages li { counter-increment: m; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px 12px 52px; position: relative; }
+ol.messages li::before { content: counter(m); position: absolute; left: 14px; top: 10px; width: 26px; height: 26px; border-radius: 50%; background: var(--series); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 0.85rem; }
+ol.messages a { color: var(--ink); text-decoration: none; font-weight: 600; }
+ol.messages span { display: block; color: var(--ink-2); font-size: 0.92rem; margin-top: 2px; }
+.questions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 12px 0; }
+.questions div { border-left: 3px solid var(--series); padding: 4px 12px; }
+.questions b { display: block; }
+.questions span { color: var(--ink-2); font-size: 0.9rem; }
+figure picture img { width: 100%; height: auto; display: block; }
+.so-what { font-weight: 600; }
+table.p5 td:first-child { font-weight: 600; }
 footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 @media (max-width: 560px) { h1 { font-size: 1.6rem; } .hbar { grid-template-columns: 42% 1fr auto; } }
 </style>
 </head>
 <body>
 <nav><div>
-  <a href="#overview">Overview</a><a href="#who">Who spoke</a><a href="#topics">Topics</a><a href="#issues">Issues</a>
-  <a href="#distributions">Distributions</a><a href="#notable">What stood out</a><a href="#theory">IR theory</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+  <a href="#answer">The answer</a><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a>
+  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
 </div></nav>
-<header>
-  <h1>The 2026 UN General Debate</h1>
-  <p class="lede">__LEDE__</p>
+<header id="answer">
+  <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
+  <h1>__TITLE__</h1>
+  <p class="kicker">__KICKER__</p>
+  <div class="scqa">__SCQA__</div>
 </header>
 <main>
-  <section id="overview">
-    <div class="kpis" id="kpis"></div>
+  <section>
+    <h2>Four things the debate tells us</h2>
+    <ol class="messages">__MESSAGES__</ol>
   </section>
 
-  <section id="who">
-    <h2>Who spoke</h2>
-    __WHO__
-    <div class="grid2">
-      <figure><h4>Member states by the rank of their speaker</h4><div id="roles"></div></figure>
-      <figure><h4>Share of each day's speakers who were heads of state or government</h4><div id="days"></div></figure>
-    </div>
+  <section id="why">
+    <p class="eyebrow">Why it matters</p>
+    <h2>__WHY_TITLE__</h2>
+    __WHY__
+    <div class="questions">__QUESTIONS__</div>
   </section>
 
-  <section id="topics">
-    <h2>Topics</h2>
+  <section id="agenda">
+    <p class="eyebrow">1 · What is on the world's mind</p>
+    <h2>__AGENDA_TITLE__</h2>
+    __AGENDA__
+    <figure><h4>Share of speeches mentioning each issue, 2011–2026</h4>__FIG_TREND__
+      <figcaption>Each panel shares one scale, from none to every speech. 2011–2025 from the UN General Debate Corpus; 2026 from this pipeline.</figcaption></figure>
+    <figure><h4>Who mentioned artificial intelligence in 2026</h4>__FIG_AI__</figure>
+    <details><summary>All sixteen issues tracked in 2026</summary><div id="issue-bars" style="margin-top:12px"></div></details>
+  </section>
+
+  <section id="wars">
+    <p class="eyebrow">2 · Whose wars count</p>
+    <h2>__WARS_TITLE__</h2>
+    __WARS__
+    <figure><h4>Which of the two wars of recent years each speech mentioned</h4>__FIG_WARS__
+      <figcaption>A mention means naming the place at least once. Poland, for one, spoke five times of Russia's aggression without naming Ukraine.</figcaption></figure>
     __TOPICS__
-    <figure><h4>Speeches by their main topic</h4><div id="topic-bars"></div></figure>
     <figure><h4>How much of each region's speeches each topic accounts for</h4><div class="scroll" id="topic-heat"></div>
-      <figcaption>Average share of a speech's content in the topic, by region. A stronger shade is more.</figcaption></figure>
+      <figcaption>Average share of a speech's content in the topic. A stronger shade is more.</figcaption></figure>
   </section>
 
-  <section id="issues">
-    <h2>Issues raised</h2>
-    __ISSUES__
-    <figure><h4>Share of speeches that mention each issue at least once</h4><div id="issue-bars"></div></figure>
-    <figure><h4>Share of each region's speeches that mention the issue</h4><div class="scroll" id="issue-heat"></div></figure>
+  <section id="leaders">
+    <p class="eyebrow">3 · Who showed up</p>
+    <h2>__LEADERS_TITLE__</h2>
+    __LEADERS__
+    <figure><h4>G20 members sending their head of state or government</h4>__FIG_LEADERS__</figure>
+    <figure><h4>Who each country sent in 2026</h4>__FIG_RANK__</figure>
+    __P5__
   </section>
 
-  <section id="distributions">
-    <h2>Distributions and readability</h2>
-    __DISTRIBUTIONS__
+  <section id="order">
+    <p class="eyebrow">4 · How states see the order</p>
+    <h2>__ORDER_TITLE__</h2>
+    __ORDER__
+    <figure><h4>Phrases that separate one reading of world order from another</h4><div class="scroll" id="marker-heat"></div>
+      <figcaption>Share of each region's speeches that use the phrase at least once. Total speeches in brackets.</figcaption></figure>
+  </section>
+
+  <section id="lenses">
+    <p class="eyebrow">5 · Through international relations theory</p>
+    <h2>__LENSES_TITLE__</h2>
+    __THEORY__
+    <figure><h4>Each lens's vocabulary by region, per 1,000 words</h4>__FIG_DOTS__</figure>
+    <figure><h4>Where each lens is strongest: countries whose speech leans that way</h4>__FIG_LENSMAPS__
+      <figcaption>A speech leans towards a lens when its vocabulary for it is at least half a standard deviation above the debate's average. __NOLEAN__ speeches lean towards none.</figcaption></figure>
+    __LENSCARDS__
+  </section>
+
+  <section id="reading">
+    <p class="eyebrow">How the speeches read</p>
+    <h2>__READING_TITLE__</h2>
+    __READING__
+    <figure><h4>Every speech, by length and region</h4>__FIG_SWARM__</figure>
     <div class="grid2">
-      <figure><h4>Speech length, in words</h4><div id="words-hist"></div></figure>
-      <figure><h4>Reading grade of the delegations' written statements</h4><div id="grade-hist"></div></figure>
+      <figure><h4>Reading grade of the written statements</h4><div id="grade-hist"></div></figure>
+      <figure><h4>Share of the filed statement actually said</h4><div id="delivered-hist"></div></figure>
     </div>
-    <figure><h4>Share of the filed statement that was actually said</h4><div id="delivered-hist"></div>
-      <figcaption>Only speeches where both the statement and a transcript in the spoken language exist.</figcaption></figure>
   </section>
 
   <section id="notable">
+    <p class="eyebrow">Detail</p>
     <h2>What stood out</h2>
     <div class="callouts">__NOTABLE__</div>
-  </section>
-
-  <section id="theory">
-    <h2>Through international relations theory</h2>
-    __THEORY__
-    <figure><h4>How often each region uses each theory's vocabulary, per 1,000 words</h4><div class="grid2 two" id="frame-bars"></div></figure>
-    <figure><h4>Which theory each region's speeches lean towards</h4><div class="scroll" id="lean-heat"></div>
-      <figcaption>Share of each region's speeches. A speech leans towards a theory when its vocabulary for it is at least half a standard deviation above the debate's average.</figcaption></figure>
-    <figure><h4>Phrases that separate one reading of world order from another</h4><div class="scroll" id="marker-heat"></div>
-      <figcaption>Share of each region's speeches that use the phrase at least once.</figcaption></figure>
-    __LENSES__
   </section>
 
   <section id="speeches">
     <h2>All speeches</h2>
     <p>Search by delegation, speaker, topic or lean. Click a column to sort. Each delegation links to its UN page, with the video, the filed statement and the transcripts.</p>
     <input type="search" id="q" placeholder="Search speeches" aria-label="Search speeches">
-    <div class="scroll"><table class="data" id="speech-table"></table></div>
+    <div class="scroll" style="max-height:640px;overflow-y:auto;border:1px solid var(--border);border-radius:8px"><table class="data" id="speech-table"></table></div>
   </section>
 
   <section id="method">
@@ -235,44 +280,20 @@ function heat(id, rows, cols, value, format, rowLabel) {
   el.querySelectorAll("td").forEach((td) => { const r = rows[+td.dataset.r], c = cols[+td.dataset.c]; hover(td, `<b>${esc(rowLabel(r))}</b><br>${esc(c)}: ${esc(format(value(r, c)))}`); });
 }
 
-// overview
-const O = D.overview;
-$("kpis").innerHTML = [
-  [num(O.speeches), "speeches with an English text"],
-  [O.member_states + " of 193", "member states in this analysis"],
-  [pct(O.heads_share), "of member states sent a head of state or government"],
-  [num(O.words_median), "words in the median speech"],
-  [num(O.words_total), "words in all"],
-].map(([v, l]) => `<div class="kpi"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("");
-
-hbar("roles", O.roles.map(([g, n]) => ({label: ROLE_NAMES[g], value: n})), (v) => String(v), ["Rank", "Member states"]);
-hbar("days", D.distributions.days.map((d) => ({label: new Date(d.date + "T12:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short"}) + ` (${d.speeches})`, value: d.heads_share,
-  tip: `<b>${d.date}</b><br>${d.speeches} member-state speeches<br>${pct(d.heads_share)} heads of state or government<br>median ${num(d.words_median)} words`})), pct, ["Day (speeches)", "Heads of state or government"]);
-
 // topics
-hbar("topic-bars", D.topics.map((t) => ({label: t.label, value: t.speeches, tip: `<b>${esc(t.label)}</b><br>${t.speeches} speeches<br>Terms: ${esc(t.terms.slice(0, 8).join(", "))}<br>Most typical: ${esc(t.leaders.slice(0, 4).join(", "))}`})), String, ["Topic", "Speeches"]);
 heat("topic-heat", D.topics, REGIONS, (t, r) => t.by_region[r], pct, (t) => t.label);
 $("topic-heat").appendChild(tableView(["Topic", "Top terms", "Most typical speeches"], D.topics.map((t) => [t.label, t.terms.join(", "), t.leaders.join(", ")])));
 
 // issues
 hbar("issue-bars", D.issues.map((i) => ({label: i.name, value: i.share, tip: `<b>${esc(i.name)}</b><br>${i.speeches} speeches (${pct(i.share)})`})), pct, ["Issue", "Share of speeches"]);
-heat("issue-heat", D.issues, REGIONS, (i, r) => i.by_region[r], pct, (i) => i.name);
 
 // distributions
 const Dd = D.distributions;
-histogram("words-hist", Dd.words, "Words", (v) => num(v), {value: O.words_median, label: "median " + num(O.words_median)});
 histogram("grade-hist", Dd.grade, "Flesch–Kincaid grade", (v) => String(v), {value: Dd.grade_median, label: "median " + Dd.grade_median});
 histogram("delivered-hist", Dd.delivered, "Share of the filed text that was said", (v) => pct(v), {value: Dd.delivered_median, label: "median " + pct(Dd.delivered_median)});
 
 // theory
 const F = D.frames;
-F.names.forEach((f, i) => {
-  const box = document.createElement("div"); box.innerHTML = `<h4 style="margin:0 0 8px;font-size:.9rem">${esc(f)}</h4><div id="fb${i}"></div>`;
-  $("frame-bars").appendChild(box);
-  hbar("fb" + i, F.by_group.region.map((g) => ({label: g.group, value: g[f], tip: `<b>${esc(g.group)}</b><br>${esc(f)}: ${g[f]} per 1,000 words<br>${g.count} speeches`})), (v) => v.toFixed(1), ["Region", "Per 1,000 words"]);
-});
-const LEANS = [...F.names, "No clear lean"];
-heat("lean-heat", LEANS, REGIONS, (l, r) => { const c = F.lean_by_region[r] || {}, n = Object.values(c).reduce((a, b) => a + b, 0); return n ? (c[l] || 0) / n : 0; }, pct, (l) => l);
 heat("marker-heat", D.markers, REGIONS, (m, r) => m.by_region[r], pct, (m) => `${m.name} (${m.speeches})`);
 
 // all speeches
