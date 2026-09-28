@@ -13222,5 +13222,266 @@
    },
    "lean": "Realism"
   }
- ]
+ ],
+ "trends": [
+  {
+   "year": 2011,
+   "speeches": 194,
+   "g20_heads": 11,
+   "heads_share": 0.588,
+   "Artificial intelligence": 0.0,
+   "Climate change": 0.727,
+   "Gaza and Palestine": 0.747,
+   "Ukraine": 0.026,
+   "Iran and the Gulf war": 0.072,
+   "Terrorism": 0.562
+  },
+  {
+   "year": 2012,
+   "speeches": 195,
+   "g20_heads": 11,
+   "heads_share": 0.533,
+   "Artificial intelligence": 0.0,
+   "Climate change": 0.615,
+   "Gaza and Palestine": 0.513,
+   "Ukraine": 0.015,
+   "Iran and the Gulf war": 0.2,
+   "Terrorism": 0.472
+  },
+  {
+   "year": 2013,
+   "speeches": 193,
+   "g20_heads": 9,
+   "heads_share": 0.585,
+   "Artificial intelligence": 0.0,
+   "Climate change": 0.58,
+   "Gaza and Palestine": 0.497,
+   "Ukraine": 0.01,
+   "Iran and the Gulf war": 0.145,
+   "Terrorism": 0.658
+  },
+  {
+   "year": 2014,
+   "speeches": 194,
+   "g20_heads": 15,
+   "heads_share": 0.619,
+   "Artificial intelligence": 0.0,
+   "Climate change": 0.758,
+   "Gaza and Palestine": 0.598,
+   "Ukraine": 0.428,
+   "Iran and the Gulf war": 0.119,
+   "Terrorism": 0.799
+  },
+  {
+   "year": 2015,
+   "speeches": 193,
+   "g20_heads": 12,
+   "heads_share": 0.637,
+   "Artificial intelligence": 0.0,
+   "Climate change": 0.777,
+   "Gaza and Palestine": 0.394,
+   "Ukraine": 0.181,
+   "Iran and the Gulf war": 0.373,
+   "Terrorism": 0.72
+  },
+  {
+   "year": 2016,
+   "speeches": 194,
+   "g20_heads": 13,
+   "heads_share": 0.619,
+   "Artificial intelligence": 0.01,
+   "Climate change": 0.814,
+   "Gaza and Palestine": 0.397,
+   "Ukraine": 0.134,
+   "Iran and the Gulf war": 0.093,
+   "Terrorism": 0.789
+  },
+  {
+   "year": 2017,
+   "speeches": 196,
+   "g20_heads": 11,
+   "heads_share": 0.597,
+   "Artificial intelligence": 0.01,
+   "Climate change": 0.832,
+   "Gaza and Palestine": 0.393,
+   "Ukraine": 0.133,
+   "Iran and the Gulf war": 0.148,
+   "Terrorism": 0.796
+  },
+  {
+   "year": 2018,
+   "speeches": 196,
+   "g20_heads": 11,
+   "heads_share": 0.612,
+   "Artificial intelligence": 0.056,
+   "Climate change": 0.755,
+   "Gaza and Palestine": 0.439,
+   "Ukraine": 0.082,
+   "Iran and the Gulf war": 0.153,
+   "Terrorism": 0.668
+  },
+  {
+   "year": 2019,
+   "speeches": 195,
+   "g20_heads": 11,
+   "heads_share": 0.626,
+   "Artificial intelligence": 0.082,
+   "Climate change": 0.903,
+   "Gaza and Palestine": 0.323,
+   "Ukraine": 0.077,
+   "Iran and the Gulf war": 0.195,
+   "Terrorism": 0.59
+  },
+  {
+   "year": 2020,
+   "speeches": 193,
+   "g20_heads": 18,
+   "heads_share": 0.813,
+   "Artificial intelligence": 0.052,
+   "Climate change": 0.777,
+   "Gaza and Palestine": 0.321,
+   "Ukraine": 0.062,
+   "Iran and the Gulf war": 0.119,
+   "Terrorism": 0.518
+  },
+  {
+   "year": 2021,
+   "speeches": 194,
+   "g20_heads": 15,
+   "heads_share": 0.784,
+   "Artificial intelligence": 0.036,
+   "Climate change": 0.923,
+   "Gaza and Palestine": 0.314,
+   "Ukraine": 0.088,
+   "Iran and the Gulf war": 0.108,
+   "Terrorism": 0.515
+  },
+  {
+   "year": 2022,
+   "speeches": 193,
+   "g20_heads": 10,
+   "heads_share": 0.663,
+   "Artificial intelligence": 0.026,
+   "Climate change": 0.902,
+   "Gaza and Palestine": 0.306,
+   "Ukraine": 0.736,
+   "Iran and the Gulf war": 0.14,
+   "Terrorism": 0.425
+  },
+  {
+   "year": 2023,
+   "speeches": 192,
+   "g20_heads": 9,
+   "heads_share": 0.688,
+   "Artificial intelligence": 0.229,
+   "Climate change": 0.943,
+   "Gaza and Palestine": 0.359,
+   "Ukraine": 0.651,
+   "Iran and the Gulf war": 0.13,
+   "Terrorism": 0.495
+  },
+  {
+   "year": 2024,
+   "speeches": 192,
+   "g20_heads": 8,
+   "heads_share": 0.599,
+   "Artificial intelligence": 0.307,
+   "Climate change": 0.802,
+   "Gaza and Palestine": 0.729,
+   "Ukraine": 0.62,
+   "Iran and the Gulf war": 0.161,
+   "Terrorism": 0.594
+  },
+  {
+   "year": 2025,
+   "speeches": 190,
+   "g20_heads": 12,
+   "heads_share": 0.653,
+   "Artificial intelligence": 0.379,
+   "Climate change": 0.821,
+   "Gaza and Palestine": 0.789,
+   "Ukraine": 0.563,
+   "Iran and the Gulf war": 0.179,
+   "Terrorism": 0.532
+  },
+  {
+   "year": 2026,
+   "speeches": 194,
+   "g20_heads": 9,
+   "heads_share": 0.593,
+   "Artificial intelligence": 0.68,
+   "Climate change": 0.758,
+   "Gaza and Palestine": 0.562,
+   "Ukraine": 0.418,
+   "Iran and the Gulf war": 0.351,
+   "Terrorism": 0.371
+  }
+ ],
+ "leaders": {
+  "p5": [
+   {
+    "iso3": "USA",
+    "delegation": "United States of America",
+    "speaker": "Donald Trump",
+    "title": "President",
+    "previous": {
+     "speaker": "Donald Trump",
+     "title": "President"
+    }
+   },
+   {
+    "iso3": "CHN",
+    "delegation": "China",
+    "speaker": "Han Zheng",
+    "title": "Vice President",
+    "previous": {
+     "speaker": "Li Qiang",
+     "title": "Premier of the State Council"
+    }
+   },
+   {
+    "iso3": "RUS",
+    "delegation": "Russian Federation",
+    "speaker": "Sergey Lavrov",
+    "title": "Minister for Foreign Affairs",
+    "previous": {
+     "speaker": "Sergey Lavrov",
+     "title": "Minister for Foreign Affairs"
+    }
+   },
+   {
+    "iso3": "GBR",
+    "delegation": "United Kingdom of Great Britain and Northern Ireland",
+    "speaker": "Andy Burnham",
+    "title": "Prime Minister",
+    "previous": {
+     "speaker": "David Lammy",
+     "title": "Deputy Prime Minister"
+    }
+   },
+   {
+    "iso3": "FRA",
+    "delegation": "France",
+    "speaker": "Emmanuel Macron",
+    "title": "President",
+    "previous": {
+     "speaker": "Emmanuel Macron",
+     "title": "President"
+    }
+   }
+  ],
+  "g20_not_leader": [
+   "Canada",
+   "China",
+   "Germany",
+   "India",
+   "Indonesia",
+   "Italy",
+   "Mexico",
+   "Russian Federation",
+   "Saudi Arabia",
+   "South Africa"
+  ],
+  "heads_share_outside_g20": 0.606
+ }
 }
