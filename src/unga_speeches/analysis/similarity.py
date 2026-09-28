@@ -1,5 +1,6 @@
 """How alike speeches are in vocabulary: the closest pairs, and blocs of speeches that sound alike."""
 
+import re
 from collections import Counter
 from difflib import SequenceMatcher
 
@@ -39,10 +40,26 @@ def tfidf(speeches: list[Speech]):
     return matrix, vectoriser.get_feature_names_out()
 
 
-def longest_shared_run(a: str, b: str) -> int:
-    """Length in words of the longest passage two texts share, which separates copied text from shared vocabulary."""
+CONTEXT_WORDS = 25
+_BARE = re.compile(r"[^\w]+")
+
+
+def shared_passage(a: str, b: str) -> dict:
+    """The longest run of words two texts share, matched ignoring case and punctuation, shown as written with its context in each."""
     x, y = a.split(), b.split()
-    return max(block.size for block in SequenceMatcher(None, x, y, autojunk=False).get_matching_blocks())
+    bare_x, bare_y = [_BARE.sub("", w).lower() for w in x], [_BARE.sub("", w).lower() for w in y]
+    block = max(SequenceMatcher(None, bare_x, bare_y, autojunk=False).get_matching_blocks(), key=lambda m: m.size)
+
+    def context(words: list[str], start: int) -> dict:
+        return {
+            "before": " ".join(words[max(0, start - CONTEXT_WORDS) : start]),
+            "passage": " ".join(words[start : start + block.size]),
+            "after": " ".join(words[start + block.size : start + block.size + CONTEXT_WORDS]),
+            "cut_start": start > CONTEXT_WORDS,
+            "cut_end": start + block.size + CONTEXT_WORDS < len(words),
+        }
+
+    return {"words": block.size, "a": context(x, block.a), "b": context(y, block.b)}
 
 
 def matrices(speeches: list[Speech]):
@@ -55,15 +72,19 @@ def build(speeches: list[Speech], matrix, terms, similarity) -> dict:
     n = len(speeches)
 
     upper = [(similarity[i, j], i, j) for i in range(n) for j in range(i + 1, n)]
-    pairs = [
-        {
-            "a": speeches[i].slug,
-            "b": speeches[j].slug,
-            "similarity": round(float(sim), 3),
-            "longest_shared_words": longest_shared_run(speeches[i].text, speeches[j].text),
-        }
-        for sim, i, j in sorted(upper, reverse=True)[:TOP_PAIRS]
-    ]
+    pairs = []
+    for sim, i, j in sorted(upper, reverse=True)[:TOP_PAIRS]:
+        # the speech text, without transcript headers or the chair's words, which every transcript shares
+        passage = shared_passage(speeches[i].text, speeches[j].text)
+        pairs.append(
+            {
+                "a": speeches[i].slug,
+                "b": speeches[j].slug,
+                "similarity": round(float(sim), 3),
+                "longest_shared_words": passage["words"],
+                "shared": passage,
+            }
+        )
 
     labels = AgglomerativeClustering(n_clusters=N_BLOCS, linkage="ward").fit_predict(matrix.toarray())
     blocs = []

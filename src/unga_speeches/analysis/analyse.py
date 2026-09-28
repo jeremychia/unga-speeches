@@ -1,6 +1,5 @@
 """Every figure the 2026 page shows, computed in one place and written as data.json."""
 
-import re
 import statistics
 from collections import Counter, defaultdict
 
@@ -21,7 +20,7 @@ OUTLIER_Z = 2.5
 # a speech leans towards a theory only if its vocabulary for it sits this far above the debate's average
 LEAN_Z = 0.5
 NO_LEAN = "No clear lean"
-CHARTER_OR_LAW = re.compile(r"\bcharter\b|international law", re.I)
+CHARTER_OR_LAW = lexicons.CHARTER_OR_LAW
 
 
 def _z(values: list[float]) -> list[float]:
@@ -84,9 +83,12 @@ def build(session: int) -> dict:
         r["distinctive_words"] = w["words"]
         r["similar"] = w["similar"]
         r["quote"] = words.representative_sentence(s.verbatim, w["words"])
+        r["evidence"] = lexicons.evidence(s.verbatim, r["issues"], r["markers"])
+        r["g20"] = r["iso3"] in G20
+        r["charter_or_law"] = "UN Charter or international law" in r["evidence"] or bool(CHARTER_OR_LAW.search(s.text))
     states = [r for r in rows if r["status"] == "member_state"]
     overview = _overview(rows, states)
-    overview["charter_or_law"] = sum(bool(CHARTER_OR_LAW.search(s.text)) for s in speeches)
+    overview["charter_or_law"] = sum(r["charter_or_law"] for r in rows)
     return {
         "session": session,
         "year": session_year(session),
@@ -267,13 +269,20 @@ def _anomalies(speeches: list[Speech], rows: list[dict], similar) -> dict:
             {
                 "a": rows[i]["delegation"],
                 "b": rows[j]["delegation"],
+                "slug_a": rows[i]["slug"],
+                "slug_b": rows[j]["slug"],
                 "similarity": round(float(v), 3),
-                "longest_shared_words": similarity.longest_shared_run(speeches[i].text, speeches[j].text),
+                **_shared(speeches[i].text, speeches[j].text),
             }
             for v, i, j in closest
         ],
         "least_delivered": [brief(r, delivered_share=r["delivered_share"]) for r in delivered[:6]],
     }
+
+
+def _shared(a: str, b: str) -> dict:
+    passage = similarity.shared_passage(a, b)
+    return {"longest_shared_words": passage["words"], "shared": passage}
 
 
 def _topics(fitted: list[topics.Topic], rows: list[dict]) -> list[dict]:
