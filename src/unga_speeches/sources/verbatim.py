@@ -22,7 +22,7 @@ log = logging.getLogger(__name__)
 FIRST_DIGITAL_SESSION = 48
 DOCUMENT_URL = "https://documents.un.org/api/symbol/access?s={symbol}&l=en&t=pdf"
 # the general debate never runs past this meeting number; scanning stops after a run of missing meetings
-MAX_MEETING = 60
+MAX_MEETING = 90
 MAX_MISSING_IN_A_ROW = 5
 # once the debate has started, this many meetings in a row without it means it has ended
 MEETINGS_AFTER_DEBATE = 3
@@ -32,7 +32,9 @@ DEBATE_UNDER_WAY = 100
 BODY_MIN_SIZE = 9.5  # page headers and footers are set smaller
 # page numbers, the document number ("23-27138 (E)") and its barcode ("*2327138*"), some set at body size
 PAGE_FURNITURE = re.compile(r"\d{1,3}|\d{2}-\d{5}\s*\(E\)|\*\d{7,}\*|\d{1,3}\s*/\s*\d{1,3}")
-PRESIDING = re.compile(r"^the\s*(acting\s*|temporary\s*)?president\b|^the\s*chair", re.I)
+PRESIDING = re.compile(r"^the\s*(acting\s*|temporary\s*)?president\b|^the\s*(co-)?chair", re.I)
+# un officials speak in the debate under their office, never a country
+UN_OFFICIAL = re.compile(r"^the\s*(deputy\s*)?secretary-general|under-secretary-general|high representative", re.I)
 GAP_AS_SPACE = 0.15  # a gap wider than this share of the font size between glyphs is a word space
 LANGUAGE_NOTE = re.compile(r"\((?:spoke in|interpretation from) ([^;)]+)(;[^)]*)?\)", re.I)
 LABEL_COUNTRY = re.compile(r"\(([^()]+)\)\s*(?:\((?:spoke|interpretation)[^)]*\))?\s*$")
@@ -257,7 +259,8 @@ def _agenda_state(block: _Block) -> bool | None:
     lowered = block.text.lower()
     if lowered.startswith("general debate") or lowered.startswith("agenda item") and "general debate" in lowered[:200]:
         return True
-    if lowered.startswith("agenda item") or block.all_bold and re.search(r"summit|high-level|commemorat", lowered):
+    # a heading, not a speaker's turn, that names a summit or a high-level meeting
+    if lowered.startswith("agenda item") or ":" not in block.text[:80] and re.search(r"summit|high-level|commemorat", lowered):
         return False
     return None
 
@@ -309,6 +312,8 @@ def parse_meeting(path: Path, session: int, meeting: int) -> list[VerbatimSpeech
             iso3 = countries.resolve(country.group(1))
         if not iso3 and introduction:
             iso3 = countries.find(introduction)
+        if UN_OFFICIAL.search(label):
+            iso3 = "UN-SG" if re.match(r"^the\s*secretary-general", label, re.I) else None
         current = VerbatimSpeech(
             session=session,
             year=session_year(session),

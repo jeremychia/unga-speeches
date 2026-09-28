@@ -60,6 +60,7 @@ ALIASES = {
     "turkiye": "TUR",
     "sao tome et principe": "STP",
     "somali republic": "SOM",
+    "united mexican states": "MEX",
     "pope": "VAT",
     # formal names that do not end in the short name
     "french republic": "FRA",
