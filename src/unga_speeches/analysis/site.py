@@ -7,7 +7,7 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 
-from unga_speeches.analysis import analyse, geo, lexicons, topics
+from unga_speeches.analysis import analyse, corpus, geo, lexicons, topics
 from unga_speeches.analysis.highlights import HIGHLIGHTS
 from unga_speeches.config import OUTPUT_DIR, PROJECT_ROOT
 
@@ -34,6 +34,11 @@ LENS_TEXT = {
         "These approaches read speeches for grievance about structure: colonialism, reparations, sanctions, debt and double standards."
     ),
 }
+
+
+def _drill(label, **spec) -> str:
+    """A figure the reader can click to see the speeches behind it."""
+    return f"<button type='button' class='drill' data-drill='{html.escape(json.dumps(spec), quote=True)}'>{label}</button>"
 
 
 def _p(text: str) -> str:
@@ -67,9 +72,19 @@ def _check_quotes(d: dict, highlights: list) -> None:
     sources = _verbatim_texts(d["session"])
     quotes = [(e["slug"], e["quote"]) for examples in d["frames"]["exemplars"].values() for e in examples]
     quotes += [(r["slug"], r["quote"]) for r in d["speeches"]] + [(h.slug, h.quote) for h in highlights]
+    quotes += [(r["slug"], e["text"]) for r in d["speeches"] for e in r["evidence"].values()]
     for slug, quote in quotes:
         if quote and not any(_normalise(quote) in t for t in sources.get(slug, [])):
             raise ValueError(f"quote for {slug} is not in its source text: {quote[:80]}")
+    # shared passages come from the speech text with headers and page furniture removed, so they are checked against it
+    cleaned = {s.slug: _normalise(s.text) for s in corpus.load(d["session"])}
+    for pair in d["similarity"]["pairs"] + d["anomalies"]["similar_pairs"]:
+        slugs = (pair.get("slug_a", pair["a"]), pair.get("slug_b", pair["b"]))
+        for side, slug in zip(("a", "b"), slugs, strict=True):
+            c = pair["shared"][side]
+            excerpt = " ".join(x for x in (c["before"], c["passage"], c["after"]) if x)
+            if _normalise(excerpt) not in cleaned[slug]:
+                raise ValueError(f"shared passage for {slug} is not in its speech text: {excerpt[:80]}")
 
 
 def _region_of_most(rows: list[dict], key: str, value: str) -> tuple[str, int, int]:
@@ -176,24 +191,24 @@ def build(session: int) -> Path:
             (
                 "agenda",
                 "AI joined climate as the world's shared agenda",
-                f"{_pct(ai['share'])} of speeches raised AI, up from {_pct(last['Artificial intelligence'])} in {last['year']} and {_pct(y2023['Artificial intelligence'])} in 2023.",
+                f"{_drill(_pct(ai['share']), kind='mention', name='Artificial intelligence')} of speeches raised AI, up from {_pct(last['Artificial intelligence'])} in {last['year']} and {_pct(y2023['Artificial intelligence'])} in 2023.",
             ),
             (
                 "wars",
                 "Beyond Europe and Asia, the wars of recent years are fading from view",
-                f"Gaza or Palestine fell from {_pct(last['Gaza or Palestine'])} of speeches to {_pct(gaza['share'])}, and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_pct(ukr['share'])}. "
+                f"Gaza or Palestine fell from {_pct(last['Gaza or Palestine'])} of speeches to {_drill(_pct(gaza['share']), kind='mention', name='Gaza or Palestine')}, and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_drill(_pct(ukr['share']), kind='mention', name='Ukraine')}. "
                 "Most speeches from the Americas and the Pacific name neither.",
             ),
             (
                 "leaders",
                 "The most powerful were the least likely to come",
-                f"{g20_now} of 19 G20 members sent their leader, down from {g20_last} in {last['year']}."
+                f"{_drill(f'{g20_now} of 19', kind='rank', g20=True)} G20 members sent their leader, down from {g20_last} in {last['year']}."
                 + (f" China sent its {china['title']}." if china else ""),
             ),
             (
                 "order",
                 "States argued over the rules, not for a new order",
-                f"{_pct(law)} invoked the UN Charter or international law. Only {markers['Multipolar']['speeches']} speeches said “multipolar”.",
+                f"{_drill(_pct(law), kind='mention', name='UN Charter or international law')} invoked the UN Charter or international law. Only {_drill(markers['Multipolar']['speeches'], kind='mention', name='Multipolar')} speeches said “multipolar”.",
             ),
         ]
     )
@@ -218,12 +233,12 @@ def build(session: int) -> Path:
 
     agenda = (
         _p(
-            f"<b>In 2022, {_pct(y2022['Artificial intelligence'])} of speeches mentioned artificial intelligence. This year {_pct(ai['share'])} did.</b> "
-            f"Only climate change is raised more often ({_pct(cc['share'])}), and it has been raised by at least {_pct(climate_floor)} of speeches in every year since {first_year}."
+            f"<b>In 2022, {_pct(y2022['Artificial intelligence'])} of speeches mentioned artificial intelligence. This year {_drill(_pct(ai['share']), kind='mention', name='Artificial intelligence')} did.</b> "
+            f"Only climate change is raised more often ({_drill(_pct(cc['share']), kind='mention', name='Climate change')}), and it has been raised by at least {_pct(climate_floor)} of speeches in every year since {first_year}."
         )
         + _p(
             f"AI is raised in every region: by at least {_pct(min(ai_regions.values()))} of the speeches in each, led by Europe at {_pct(ai_regions['Europe'])}. "
-            f"Terrorism went the other way: {_pct(now['Terrorism'])} of speeches mentioned it"
+            f"Terrorism went the other way: {_drill(_pct(now['Terrorism']), kind='mention', name='Terrorism')} of speeches mentioned it"
             + (f", the lowest since at least {first_year}." if terrorism_lowest else ".")
         )
         + _p(
@@ -232,8 +247,8 @@ def build(session: int) -> Path:
     )
 
     wars = _p(
-        f"<b>Attention to the wars of recent years is falling.</b> Gaza or Palestine fell from {_pct(last['Gaza or Palestine'])} of speeches in {last['year']} to {_pct(gaza['share'])}, "
-        f"and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_pct(ukr['share'])}. Attention went to the Gulf instead: {_pct(gulf['share'])} of speeches mentioned Iran or the Gulf war, "
+        f"<b>Attention to the wars of recent years is falling.</b> Gaza or Palestine fell from {_pct(last['Gaza or Palestine'])} of speeches in {last['year']} to {_drill(_pct(gaza['share']), kind='mention', name='Gaza or Palestine')}, "
+        f"and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_drill(_pct(ukr['share']), kind='mention', name='Ukraine')}. Attention went to the Gulf instead: {_drill(_pct(gulf['share']), kind='mention', name='Iran and the Gulf war')} of speeches mentioned Iran or the Gulf war, "
         f"against {_pct(last['Iran and the Gulf war'])} last year."
     ) + _p(
         (
@@ -262,8 +277,8 @@ def build(session: int) -> Path:
     )
     leaders = (
         _p(
-            f"<b>{_pct(o['heads_share'])} of member states sent a head of state or government, down from {_pct(last['heads_share'])} last year.</b> "
-            f"The fall is sharpest among the largest economies: {g20_now} of 19 G20 members sent their leader, against {g20_last} in {last['year']}. "
+            f"<b>{_drill(_pct(o['heads_share']), kind='rank')} of member states sent a head of state or government, down from {_pct(last['heads_share'])} last year.</b> "
+            f"The fall is sharpest among the largest economies: {_drill(f'{g20_now} of 19', kind='rank', g20=True)} G20 members sent their leader, against {g20_last} in {last['year']}. "
             f"Outside the G20, {_pct(lead['heads_share_outside_g20'])} did."
         )
         + _p(
@@ -279,8 +294,8 @@ def build(session: int) -> Path:
     )
 
     order = _p(
-        f"<b>{_pct(law)} of speeches appeal to the UN Charter or international law.</b> Only {markers['Multipolar']['speeches']} use the word “multipolar”, "
-        f"{markers['Spheres of influence']['speeches']} speak of spheres of influence and {markers['Rules-based order']['speeches']} of a rules-based order. "
+        f"<b>{_drill(_pct(law), kind='mention', name='UN Charter or international law')} of speeches appeal to the UN Charter or international law.</b> Only {_drill(markers['Multipolar']['speeches'], kind='mention', name='Multipolar')} use the word “multipolar”, "
+        f"{_drill(markers['Spheres of influence']['speeches'], kind='mention', name='Spheres of influence')} speak of spheres of influence and {_drill(markers['Rules-based order']['speeches'], kind='mention', name='Rules-based order')} of a rules-based order. "
         "Speakers want the existing rules applied and reformed, not replaced."
     ) + _p(
         f"What differs is who they think bends the rules. African speeches accuse others of double standards ({_pct(markers['Double standards']['by_region']['Africa'])}) "
@@ -312,10 +327,10 @@ def build(session: int) -> Path:
     cards.append(f"<div class='lens'><h3>Reading the debate as a whole</h3>{_synthesis(d)}</div>")
 
     reading = _p(
-        f"<b>The median speech runs to {o['words_median']:,} words, about 15 to 20 minutes.</b> The written statements read at a median Flesch–Kincaid grade of "
-        f"{dist['grade_median']}, around first-year university, with {dist['sentence_words_median']} words to a sentence."
+        f"<b>The median speech runs to {_drill(format(o['words_median'], ','), kind='metric', field='words')} words, about 15 to 20 minutes.</b> The written statements read at a median Flesch–Kincaid grade of "
+        f"{_drill(dist['grade_median'], kind='metric', field='grade')}, around first-year university, with {dist['sentence_words_median']} words to a sentence."
     ) + _p(
-        f"Speakers deliver most of what they file: the median speech says {_pct(dist['delivered_median'])} of its written statement. "
+        f"Speakers deliver most of what they file: the median speech says {_drill(_pct(dist['delivered_median']), kind='metric', field='delivered')} of its written statement. "
         "The gaps come from speeches cut short and from speakers who switch language mid-speech."
     )
 
@@ -329,27 +344,43 @@ def build(session: int) -> Path:
     pair = an["similar_pairs"][0]
     multipolar_users = [r["delegation"] for r in rows if "Multipolar" in r["markers"]]
     taiwan = [r["delegation"] for r in rows if "Taiwan" in r["issues"]]
+
+    def see_all(label: str, **spec) -> str:
+        return f"<p class='small' style='margin:6px 0 0'>{_drill(label, **spec)}</p>"
+
+    def shared(x: dict) -> str:
+        def side(c: dict, name: str) -> str:
+            return (
+                f"<p><b>{_e(name)}:</b> “{'…' if c['cut_start'] else ''}{_e(c['before'])} <mark>{_e(c['passage'])}</mark> "
+                f"{_e(c['after'])}{'…' if c['cut_end'] else ''}”</p>"
+            )
+
+        return f"<div class='shared'>{side(x['shared']['a'], x['a'])}{side(x['shared']['b'], x['b'])}</div>"
+
     notable = [
         (
             "The longest and the shortest",
             f"{_e(an['longest'][0]['delegation'])} used {an['longest'][0]['words']:,} words, {an['longest'][0]['words'] / o['words_median']:.1f} times the median; "
             f"{_e(an['shortest'][0]['delegation'])} used {an['shortest'][0]['words']:,}."
             + ranked(an["longest"], lambda i: f"{i['words']:,} words", "The five longest")
-            + ranked(an["shortest"], lambda i: f"{i['words']:,} words", "The five shortest"),
+            + ranked(an["shortest"], lambda i: f"{i['words']:,} words", "The five shortest")
+            + see_all("Every speech by length", kind="metric", field="words"),
         ),
         (
             "The densest and the plainest prose",
             f"{_e(an['densest'][0]['delegation'])}'s statement averages {an['densest'][0]['sentence_words']} words a sentence, a reading grade of {an['densest'][0]['grade']}. "
             f"{_e(an['plainest'][0]['delegation'])}'s reads at grade {an['plainest'][0]['grade']}."
             + ranked(an["densest"], lambda i: f"grade {i['grade']}, {i['sentence_words']} words a sentence", "The five densest")
-            + ranked(an["plainest"], lambda i: f"grade {i['grade']}, {i['sentence_words']} words a sentence", "The five plainest"),
+            + ranked(an["plainest"], lambda i: f"grade {i['grade']}, {i['sentence_words']} words a sentence", "The five plainest")
+            + see_all("Every statement by reading grade", kind="metric", field="grade"),
         ),
         (
             "The most alike",
-            f"{_e(pair['a'])} and {_e(pair['b'])} share the most vocabulary, yet their longest shared passage is {pair['longest_shared_words']} words: alike in theme, not copied."
-            + "<details><summary>The five closest pairs</summary><ol>"
+            f"{_e(pair['a'])} and {_e(pair['b'])} share the most vocabulary. Their longest shared passage is {pair['longest_shared_words']} words, highlighted here in each speech:"
+            + shared(pair)
+            + "<details><summary>The five closest pairs, with their shared passages</summary><ol>"
             + "".join(
-                f"<li>{_e(x['a'])} and {_e(x['b'])}: similarity {x['similarity']:.2f}, longest shared passage {x['longest_shared_words']} words</li>"
+                f"<li>{_e(x['a'])} and {_e(x['b'])}: similarity {x['similarity']:.2f}, longest shared passage {x['longest_shared_words']} words{shared(x)}</li>"
                 for x in an["similar_pairs"]
             )
             + "</ol></details>",
@@ -367,21 +398,29 @@ def build(session: int) -> Path:
             "Filed but not said",
             f"{_e(an['least_delivered'][0]['delegation'])} said {_pct(an['least_delivered'][0]['delivered_share'])} of its filed text, the lowest of the debate. "
             "The gaps come from speeches cut short and from speakers switching language."
-            + ranked(an["least_delivered"][:5], lambda i: f"{_pct(i['delivered_share'])} of the filed text said", "The five lowest"),
+            + ranked(an["least_delivered"][:5], lambda i: f"{_pct(i['delivered_share'])} of the filed text said", "The five lowest")
+            + see_all("Every speech by share delivered", kind="metric", field="delivered"),
         ),
         (
             "A rare word",
-            f"Only {len(multipolar_users)} speeches say “multipolar”: {_e(', '.join(multipolar_users[:-1]))} and {_e(multipolar_users[-1])}. The word has no single camp.",
+            f"Only {_drill(len(multipolar_users), kind='mention', name='Multipolar')} speeches say “multipolar”: {_e(', '.join(multipolar_users[:-1]))} and {_e(multipolar_users[-1])}. "
+            "The word has no single camp.",
         ),
         (
             "Palestine as a question of statehood",
-            f"{gaza['speeches']} speeches mention Gaza or Palestine. Of these, {gaza_only['speeches']} name Gaza, and {statehood['speeches']} speak of Palestinian statehood: the two-state solution or recognising Palestine.",
+            f"{_drill(gaza['speeches'], kind='mention', name='Gaza or Palestine')} speeches mention Gaza or Palestine. Of these, "
+            f"{_drill(gaza_only['speeches'], kind='mention', name='Gaza')} name Gaza, and {_drill(statehood['speeches'], kind='mention', name='Palestinian statehood')} "
+            "speak of Palestinian statehood: the two-state solution or recognising Palestine.",
         ),
         (
             "The next Secretary-General",
-            f"{issues['The next Secretary-General']['speeches']} speeches mention choosing the next Secretary-General, whose term begins in 2027.",
+            f"{_drill(issues['The next Secretary-General']['speeches'], kind='mention', name='The next Secretary-General')} speeches mention choosing the next Secretary-General, "
+            "whose term begins in 2027.",
         ),
-        ("Taiwan", f"{len(taiwan)} speeches mention Taiwan, which has no seat and gives no speech: {_e(', '.join(taiwan))}."),
+        (
+            "Taiwan",
+            f"{_drill(len(taiwan), kind='mention', name='Taiwan')} speeches mention Taiwan, which has no seat and gives no speech: {_e(', '.join(taiwan))}.",
+        ),
     ]
     notable_html = "".join(f"<div class='callout'><b>{t}</b>{body}</div>" for t, body in notable if body)
 
@@ -396,7 +435,7 @@ def build(session: int) -> Path:
 
     sim = d["similarity"]
     closest = sim["pairs"][0]
-    longest_run = max(x["longest_shared_words"] for x in sim["pairs"])
+    longest_pair = max(sim["pairs"], key=lambda x: x["longest_shared_words"])
     blocs = sim["blocs"]
     regional_blocs = [b for b in blocs if max(b["regions"].values()) / len(b["members"]) > 0.7]
     tightest = max(blocs, key=lambda b: b["within"])
@@ -410,7 +449,10 @@ def build(session: int) -> Path:
 
     alike_html = _p(
         f"<b>The closest pair is {_e(by_slug[closest['a']]['delegation'])} and {_e(by_slug[closest['b']]['delegation'])}, at {closest['similarity']:.2f}.</b> "
-        f"Among the twenty closest pairs, no two speeches share more than {longest_run} words in a row, so the likeness is in themes and vocabulary, not copied text."
+        "Their likeness is mostly shared vocabulary, not shared text. "
+        f"Among the twenty closest pairs, the longest passage any two share is {longest_pair['longest_shared_words']} words, between "
+        f"{_e(by_slug[longest_pair['a']]['delegation'])} and {_e(by_slug[longest_pair['b']]['delegation'])}: “{_e(longest_pair['shared']['a']['passage'])}”. "
+        "Click a pair below to read its shared passage in context."
     ) + _p(
         f"Clustering the speeches finds {len(blocs)} blocs, and {len(regional_blocs)} of them are mostly one region. "
         f"The tightest is {_e(bloc_name(tightest))} (cohesion {tightest['within']:.2f})."
