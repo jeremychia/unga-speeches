@@ -17,6 +17,9 @@ UNGDC_DIR = RAW_DIR / "ungdc"
 DATASET_URL = "https://doi.org/10.7910/DVN/0TJX8Y"
 TEXT_FILE = re.compile(r"(?P<iso3>[A-Z]{2,4})_(?P<session>\d+)_(?P<year>\d{4})\.txt$")
 
+# codes in the speaker workbook that differ from the ones its text files use
+CODE_FIXES = {"CZK": "CSK", "DKN": "DNK", "EC": "EU", "PAR": "PRY", "PKR": "PRK", "POR": "PRT", "YDYE": "YMD", "ZFA": "ZAF"}
+
 # the speaker workbook's headers vary between releases; map them onto one set of names
 COLUMN_ALIASES = {
     "year": "year",
@@ -40,6 +43,7 @@ def load_speakers(path: Path | None = None) -> pd.DataFrame:
     missing = {"year", "session", "iso3", "speaker_title"} - set(frame.columns)
     if missing:
         raise ValueError(f"speaker workbook is missing {sorted(missing)}; its columns are {list(frame.columns)}")
+    frame["iso3"] = frame["iso3"].astype(str).str.strip().replace(CODE_FIXES)
     frame["role"] = [roles.classify(t if isinstance(t, str) else None) for t in frame["speaker_title"]]
     frame["role_group"] = frame["role"].map(roles.ROLE_GROUP)
     return frame
