@@ -5,7 +5,9 @@ import re
 # an issue is raised when any pattern appears once
 ISSUES = {
     "Ukraine": r"\bukrain",
-    "Gaza and Palestine": r"\bgaza\b|\bpalestin",
+    "Gaza or Palestine": r"\bgaza\b|\bpalestin",
+    "Gaza": r"\bgaza\b",
+    "Palestinian statehood": r"two-state|palestinian state|state of palestine|recogni[sz]\w*\s+(of\s+)?(the\s+)?(state\s+of\s+)?palestin",
     "Iran and the Gulf war": r"\biran\b|\biranian|persian gulf|gulf war|\bhormuz",
     "Sudan": r"(?<!south )\bsudan\b",
     "Haiti": r"\bhaiti",
