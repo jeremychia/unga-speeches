@@ -16,10 +16,10 @@ ALIASES = {
     "serbia and montenegro": "SCG", "united kingdom": "GBR", "united states": "USA", "russia": "RUS",
     "republic of korea": "KOR", "democratic people's republic of korea": "PRK", "iran": "IRN", "syria": "SYR",
     "venezuela": "VEN", "bolivia": "BOL", "tanzania": "TZA", "moldova": "MDA", "laos": "LAO", "vietnam": "VNM",
-    "palestine": "PSE", "state of palestine": "PSE", "holy see": "VAT", "european union": "EU", "european community": "EU",
+    "palestine": "PSE", "state of palestine": "PSE", "holy see": "VAT", "european union": "EU", "european community": "EU", "european council": "EU", "european commission": "EU",
     "micronesia": "FSM", "brunei": "BRN", "gambia": "GMB", "the gambia": "GMB", "sao tome and principe": "STP",
     "cote d'ivoire": "CIV", "timor-leste": "TLS", "east timor": "TLS", "democratic republic of timor-leste": "TLS",
-    "eswatini": "SWZ", "czechia": "CZE", "turkiye": "TUR", "sao tome et principe": "STP",
+    "eswatini": "SWZ", "czechia": "CZE", "turkiye": "TUR", "sao tome et principe": "STP", "somali republic": "SOM", "pope": "VAT",
     # formal names that do not end in the short name
     "french republic": "FRA", "argentine republic": "ARG", "italian republic": "ITA", "portuguese republic": "PRT",
     "hellenic republic": "GRC", "lebanese republic": "LBN", "gabonese republic": "GAB", "togolese republic": "TGO",

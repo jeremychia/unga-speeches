@@ -25,6 +25,8 @@ MAX_MEETING = 60
 MAX_MISSING_IN_A_ROW = 5
 # once the debate has started, this many meetings in a row without it means it has ended
 MEETINGS_AFTER_DEBATE = 3
+# opening and summit meetings can hold a few addresses, so the end is only watched for once the debate is under way
+DEBATE_UNDER_WAY = 100
 
 BODY_MIN_SIZE = 9.5  # page headers and footers are set smaller
 # page numbers, the document number ("23-27138 (E)") and its barcode ("*2327138*"), some set at body size
@@ -36,7 +38,7 @@ LABEL_COUNTRY = re.compile(r"\(([^()]+)\)\s*(?:\((?:spoke|interpretation)[^)]*\)
 ADDRESS_HEADING = re.compile(r"^Address by (?P<speaker>.+?)(?:, (?P<title>.+))?$", re.S)
 # the stage direction names the speaker when a record has no heading
 ESCORTED = re.compile(r"^(?P<speaker>.+?)(?:, (?P<title>.+?),)? was escorted into", re.S)
-REPLY = re.compile(r"right of reply|reply to the statement|in response to the statement|respond to the statement|for the second time|take the floor again", re.I)
+RIGHT_OF_REPLY = re.compile(r"right of reply", re.I)
 LANGUAGE_CODES = {
     "english": "en", "french": "fr", "spanish": "es", "russian": "ru", "arabic": "ar", "chinese": "zh",
     "portuguese": "pt", "german": "de", "japanese": "ja", "italian": "it", "farsi": "fa", "persian": "fa",
@@ -60,7 +62,7 @@ class VerbatimSpeech:
     meeting: str
     meeting_url: str
     order_in_meeting: int
-    kind: str  # general_debate or right_of_reply
+    kind: str  # general_debate, right_of_reply or other_intervention
     page: int
     iso3: str | None
     label: str
@@ -179,64 +181,84 @@ def _split_turn(block: _Block) -> tuple[str, str] | None:
     return match.group(1).strip(), block.text[match.end():]
 
 
+def _agenda_state(block: _Block) -> bool | None:
+    """True when a heading opens the general debate, False when it opens other business, None when it is not an agenda heading."""
+    if not block.bold_prefix:
+        return None
+    lowered = block.text.lower()
+    if lowered.startswith("general debate") or lowered.startswith("agenda item") and "general debate" in lowered[:200]:
+        return True
+    if lowered.startswith("agenda item") or block.all_bold and re.search(r"summit|high-level|commemorat", lowered):
+        return False
+    return None
+
+
 def parse_meeting(path: Path, session: int, meeting: int) -> list[VerbatimSpeech]:
-    speeches, current, heading = [], None, None
-    in_debate = replies = False
+    speeches, current = [], None
+    heading_text, escorted, last_was_heading = None, None, False
+    # none until the record says which agenda item is under way; some records never say
+    in_debate: bool | None = None
+    replies = False
+    introduction = None
     for block in _blocks(path):
-        if block.all_bold:
-            lowered = block.text.lower()
-            if lowered.startswith("general debate") or "general debate" in lowered and lowered.startswith("agenda item"):
-                in_debate = True
-            elif lowered.startswith("agenda item") and "general debate" not in lowered:
-                in_debate = False
-            match = ADDRESS_HEADING.match(block.text)
-            if match:
-                heading, in_debate = match, True
-            current = None
+        state = _agenda_state(block)
+        if state is not None:
+            in_debate, current, last_was_heading = state, None, False
             continue
+        if block.all_bold:
+            # a heading can run over two blocks: "Address by Mr. X," then "President of Y"
+            if block.text.startswith("Address by"):
+                heading_text, escorted = block.text, None
+            elif last_was_heading and heading_text:
+                heading_text += " " + block.text
+            current, last_was_heading = None, block.text.startswith("Address by") or last_was_heading
+            continue
+        last_was_heading = False
         if block.italic and not block.bold_prefix:
-            escorted = ESCORTED.match(block.text)
-            if escorted and not heading:
-                heading = escorted
+            match = ESCORTED.match(block.text)
+            if match:
+                escorted = match
             continue  # stage directions: "was escorted into the General Assembly Hall"
         turn = _split_turn(block)
-        if turn:
-            label, text = turn
-            if PRESIDING.search(label):
-                if "right of reply" in text.lower():
-                    replies = True
-                current = None
-                continue
-            if not in_debate:
-                current = None
-                continue
-            replies = replies or bool(REPLY.search(text[:400]))
-            language = LANGUAGE_NOTE.search(label)
-            country = LABEL_COUNTRY.search(label)
-            iso3 = countries.find(heading.group(0)) if heading else None
-            if not iso3 and country:
-                iso3 = countries.resolve(country.group(1))
-            current = VerbatimSpeech(
-                session=session,
-                year=session_year(session),
-                meeting=symbol(session, meeting),
-                meeting_url=DOCUMENT_URL.format(symbol=symbol(session, meeting)),
-                order_in_meeting=len(speeches) + 1,
-                kind="right_of_reply" if replies else "general_debate",
-                page=block.page,
-                iso3=iso3,
-                label=LANGUAGE_NOTE.sub("", label).strip(),
-                heading_speaker=heading.group("speaker").strip() if heading else None,
-                heading_title=re.sub(r"\s+", " ", heading.group("title")).strip() if heading and heading.group("title") else None,
-                spoken_language=LANGUAGE_CODES.get(language.group(1).strip().lower(), language.group(1).strip().lower()) if language else "en",
-                spoken_language_note=language.group(0) if language else None,
-                interpretation_note=language.group(2).strip("; ") if language and language.group(2) else None,
-                text=text,
-            )
-            speeches.append(current)
-            heading = None
-        elif current:
-            current.text += "\n\n" + block.text
+        if not turn:
+            if current:
+                current.text += "\n\n" + block.text
+            continue
+        label, text = turn
+        current = None
+        if PRESIDING.search(label):
+            replies = replies or "right of reply" in text.lower()
+            introduction = text  # "I now give the floor to ... of the Kingdom of Morocco"
+            continue
+        if in_debate is False:
+            continue
+        heading = ADDRESS_HEADING.match(heading_text) if heading_text else None
+        language = LANGUAGE_NOTE.search(label)
+        country = LABEL_COUNTRY.search(label)
+        iso3 = (countries.find(heading.group(0)) if heading else None) or (countries.find(escorted.group(0)) if escorted else None)
+        if not iso3 and country:
+            iso3 = countries.resolve(country.group(1))
+        if not iso3 and introduction:
+            iso3 = countries.find(introduction)
+        current = VerbatimSpeech(
+            session=session,
+            year=session_year(session),
+            meeting=symbol(session, meeting),
+            meeting_url=DOCUMENT_URL.format(symbol=symbol(session, meeting)),
+            order_in_meeting=len(speeches) + 1,
+            kind="right_of_reply" if replies or RIGHT_OF_REPLY.search(text[:400]) else "general_debate",
+            page=block.page,
+            iso3=iso3,
+            label=LANGUAGE_NOTE.sub("", label).strip(),
+            heading_speaker=heading.group("speaker").strip() if heading else None,
+            heading_title=re.sub(r"\s+", " ", heading.group("title")).strip() if heading and heading.group("title") else None,
+            spoken_language=LANGUAGE_CODES.get(language.group(1).strip().lower(), language.group(1).strip().lower()) if language else "en",
+            spoken_language_note=language.group(0) if language else None,
+            interpretation_note=language.group(2).strip("; ") if language and language.group(2) else None,
+            text=text,
+        )
+        speeches.append(current)
+        heading_text, escorted, introduction = None, None, None
     return speeches
 
 
@@ -251,16 +273,17 @@ def build_session(session: int, client: Client | None = None) -> Path:
             continue
         missing = 0
         found = parse_meeting(path, session, meeting)
-        quiet = quiet + 1 if speeches and not found else 0
+        quiet = quiet + 1 if len(speeches) >= DEBATE_UNDER_WAY and not found else 0
         speeches += found
         log.info("%s: %d general debate speeches", symbol(session, meeting), len(found))
-    # a delegation's second turn in the debate answers someone, even when it does not say so
-    spoken = set()
+    # a delegation's debate speech is its longest turn; the rest introduce a video, raise a point of order or answer someone
+    longest: dict[str, VerbatimSpeech] = {}
     for s in speeches:
-        if s.kind == "general_debate" and s.iso3:
-            if s.iso3 in spoken:
-                s.kind = "right_of_reply"
-            spoken.add(s.iso3)
+        if s.kind == "general_debate" and s.iso3 and (s.iso3 not in longest or len(s.text) > len(longest[s.iso3].text)):
+            longest[s.iso3] = s
+    for s in speeches:
+        if s.kind == "general_debate" and s.iso3 and longest[s.iso3] is not s:
+            s.kind = "other_intervention"
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUTPUT_DIR / f"verbatim_{session}.jsonl"
     with out.open("w", encoding="utf-8") as f:
