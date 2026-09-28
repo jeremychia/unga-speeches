@@ -10,7 +10,7 @@ PAGE_MARK = re.compile(r"^(page\s*)?\d{1,3}(\s*(of|/|de|из)\s*\d{1,3})?$|^-\s*
 # the presiding officer's words that open and close each transcript
 PRESIDING_LINE = re.compile(
     r"^(the (general )?assembly will (now )?hear|on behalf of the (general )?assembly|i thank the .{0,120} for (his|her|their|the)|i would (like|wish) to thank (the )?(president|prime minister|minister|vice|king|his|her)|i would like\.?$|i (now )?(request|ask) (the )?protocol|(and )?(i )?invite (him|her) to|on behalf of the general assembly|"
-    r"i now give the floor|i give the floor|thank you\.?$|merci\.?$|gracias\.?$|l'assemblée va|je prie le protocole|la asamblea escuchará|solicito al protocolo)",
+    r"i now give the floor|i (now )?invite|i give the floor|thank you\.?$|merci\.?$|gracias\.?$|l'assemblée va|je prie le protocole|la asamblea escuchará|solicito al protocolo)",
     re.I,
 )
 CLOSING_INLINE = re.compile(
@@ -52,8 +52,10 @@ def clean(text: str, kind: str) -> str:
 def _join(lines: list[str]) -> str:
     out = lines[0]
     for line in lines[1:]:
-        # word processors rarely hyphenate, so a line-end hyphen is a compound ("well-known") and is kept
-        if out.endswith("-") and out[-2:-1].isalpha():
+        # a typographic or soft hyphen at a line end splits one word; a plain hyphen there joins a compound ("well-known")
+        if out[-1:] in "\u2010\u00ad" and out[-2:-1].isalpha() and line[:1].islower():
+            out = out[:-1] + line
+        elif out.endswith("-") and out[-2:-1].isalpha():
             out += line
         elif re.search(r"[　-鿿]$", out) and re.match(r"[　-鿿]", line):
             out += line
