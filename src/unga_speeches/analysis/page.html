@@ -137,6 +137,36 @@ select { font: inherit; padding: 7px 10px; border-radius: 6px; border: 1px solid
 .highlight .meta { color: var(--ink-2); font-size: 0.82rem; }
 .callout details { margin-top: 6px; }
 .callout ol { margin: 6px 0 0; padding-left: 18px; font-size: 0.88rem; }
+
+.drill { color: inherit; font: inherit; background: none; border: none; padding: 0; cursor: pointer; text-decoration: underline dotted var(--series); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.drill:hover, .drill:focus-visible { color: var(--series); outline: none; }
+.hbar .row.clickable .label, .hbar .row.clickable .bar, .heat td.clickable { cursor: pointer; }
+#drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100%); background: var(--surface); border-left: 1px solid var(--border); box-shadow: -8px 0 32px rgba(0,0,0,0.18); z-index: 20; transform: translateX(100%); transition: transform .2s ease; display: flex; flex-direction: column; }
+#drawer.open { transform: none; }
+#drawer header { padding: 16px 18px 8px; border-bottom: 1px solid var(--border); max-width: none; margin: 0; }
+#drawer header h3 { margin: 0 32px 4px 0; font-size: 1.15rem; }
+#drawer header p { margin: 0; color: var(--ink-2); font-size: 0.88rem; }
+#drawer .close { position: absolute; top: 12px; right: 12px; font: inherit; font-size: 1.3rem; line-height: 1; background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--ink-2); cursor: pointer; width: 32px; height: 32px; }
+#drawer .body { overflow-y: auto; padding: 12px 18px 24px; }
+#drawer .regions { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+#drawer .regions button { font: inherit; font-size: 0.8rem; border: 1px solid var(--axis); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+#drawer .regions button[aria-pressed="true"] { background: var(--series); border-color: var(--series); color: #fff; }
+#drawer ol.items { list-style: none; padding: 0; margin: 0; }
+#drawer ol.items li { padding: 8px 0; border-bottom: 1px solid var(--grid); font-size: 0.88rem; }
+#drawer ol.items .who { display: flex; justify-content: space-between; gap: 10px; }
+#drawer ol.items .who a { font-weight: 600; }
+#drawer ol.items .val { font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
+#drawer ol.items .ev { color: var(--ink-2); margin-top: 3px; }
+#drawer .mini { height: 6px; background: var(--grid); border-radius: 3px; margin-top: 4px; position: relative; }
+#drawer .mini span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--series); border-radius: 3px; }
+#scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 19; display: none; }
+#scrim.open { display: block; }
+@media (max-width: 640px) { #drawer { top: auto; height: 82vh; width: 100%; border-left: none; border-top: 1px solid var(--border); border-radius: 12px 12px 0 0; transform: translateY(100%); } }
+mark { background: color-mix(in srgb, var(--series) 28%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }
+.shared { margin: 6px 0 10px; font-size: 0.88rem; color: var(--ink-2); }
+.shared p { margin: 4px 0; }
+tr.detail td { background: var(--page); }
+tr.pair { cursor: pointer; }
 footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 @media (max-width: 560px) { h1 { font-size: 1.6rem; } .hbar { grid-template-columns: 42% 1fr auto; } }
 </style>
@@ -234,7 +264,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
       <label class="small" for="alike-pick">Compare with</label><br><select id="alike-pick" aria-label="Compare with"></select>
       <div class="map" id="map-alike" style="margin-top:10px"></div><div class="legend" id="legend-alike"></div>
       <figcaption>Cosine similarity of the two speeches' word profiles: 0 shares no distinctive vocabulary, 1 is identical. Click any country to compare with it instead.</figcaption></figure>
-    <figure><h4>The twenty closest pairs of speeches</h4><div class="scroll"><table class="data" id="pairs-table"></table></div>
+    <figure><h4>The twenty closest pairs of speeches <span class="small" style="font-weight:400">· click a row to see the shared passage</span></h4><div class="scroll"><table class="data" id="pairs-table"></table></div>
       <figcaption>The longest shared passage shows whether a pair shares wording or only themes: a handful of words is theme, a long run would be copied text.</figcaption></figure>
     <figure><h4>Eight blocs of speeches that sound alike</h4><div class="minimaps four" id="bloc-maps"></div>
       <figcaption>Groups found by clustering the word profiles (Ward's method). Cohesion is the average similarity within the bloc, against the average to everyone outside it.</figcaption></figure>
@@ -290,6 +320,11 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 </main>
 <footer>__FOOTER__</footer>
 <div id="tip" role="tooltip"></div>
+<div id="scrim"></div>
+<aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+  <header><h3 id="drawer-title"></h3><p id="drawer-sub"></p><button class="close" type="button" aria-label="Close">×</button></header>
+  <div class="body" id="drawer-body"></div>
+</aside>
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const D = JSON.parse(document.getElementById("data").textContent);
@@ -437,11 +472,12 @@ worldMap("map-rank", (s) => rank(s)[0], [...Object.values(ROLE_RANK).map(([v, l]
 
 // small multiples: one map per lens, so all four read at a glance
 function miniMaps(containerId, items) {
-  $(containerId).innerHTML = items.map((it, i) => `<div><h5>${esc(it.title)}</h5><div class="map" id="${containerId}-${i}"></div><p class="small">${esc(it.caption || "")}</p></div>`).join("");
+  $(containerId).innerHTML = items.map((it, i) => `<div><h5>${it.drill ? `<button type="button" class="drill" data-drill='${esc(JSON.stringify(it.drill))}'>${esc(it.title)}</button>` : esc(it.title)}</h5><div class="map" id="${containerId}-${i}"></div><p class="small">${esc(it.caption || "")}</p></div>`).join("");
   items.forEach((it, i) => worldMap(`${containerId}-${i}`, it.colour, null, it.tip));
 }
 miniMaps("lens-maps", D.frames.names.map((f) => ({
   title: `${f} (${D.frames.lean_counts[f] || 0} speeches)`,
+  drill: {kind: "lean", lens: f},
   colour: (s) => s.lean === f ? "--c1" : "--none",
   tip: (s) => `Leans: ${esc(s.lean)}<br>${esc(f)}: ${s.frame_z[f] > 0 ? "+" : ""}${s.frame_z[f]} sd from the average`,
 })));
@@ -540,10 +576,143 @@ const BLOC_OF = {};
 SIM.blocs.forEach((b, i) => b.members.forEach((slug) => BLOC_OF[slug] = i));
 miniMaps("bloc-maps", SIM.blocs.map((b) => ({
   title: `${b.label} (${b.members.length})`,
+  drill: {kind: "bloc", index: SIM.blocs.indexOf(b)},
   caption: `Cohesion ${b.within.toFixed(3)} within, against ${b.outside.toFixed(3)} outside${b.loose ? ": a loose group" : ""}. Words: ${b.words.slice(0, 5).join(", ")}.`,
   colour: (s) => b.members.includes(s.slug) ? "--c1" : "--none",
   tip: (s) => `Bloc: ${esc(SIM.blocs[BLOC_OF[s.slug]].label)}`,
 })));
+
+
+// ---------- drill-down ----------
+const DEFINITIONS = {
+  mention: "A speech counts when it names this at least once. The sentence shown is where it first does, quoted from the speech's English text.",
+  rank: "The office of the person who gave the speech, from the UN's speaker page.",
+  words: "Words in the speech's English text, after removing page furniture and the chair's words.",
+  grade: "Flesch–Kincaid reading grade of the delegation's written statement. Transcripts are not scored, because a machine sets their punctuation.",
+  delivered: "Share of the filed statement that the transcript in the spoken language shows was said.",
+  topic: "Speeches whose largest share of content falls in this topic, from the twelve-topic model.",
+  lean: "A speech leans towards a lens when its vocabulary for it is at least half a standard deviation above the debate's average.",
+  bloc: "Speeches grouped by the similarity of their word profiles (Ward clustering).",
+};
+const drawer = $("drawer"), scrim = $("scrim");
+function closeDrawer() { drawer.classList.remove("open"); scrim.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); if (drawer._from) drawer._from.focus(); }
+drawer.querySelector(".close").onclick = closeDrawer;
+scrim.onclick = closeDrawer;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer(); });
+
+// every drill returns the speeches behind a figure, and how to show each one
+function drillSpec(spec) {
+  const pool = D.speeches.filter((s) => s.iso3 || spec.all);
+  switch (spec.kind) {
+    case "mention": {
+      const hits = (s) => spec.name === "UN Charter or international law" ? s.charter_or_law : (s.issues.includes(spec.name) || s.markers.includes(spec.name));
+      return {title: spec.name, def: DEFINITIONS.mention, pool: D.speeches, test: hits,
+        show: (s) => { const e = s.evidence[spec.name]; return e ? `“${e.cut_start ? "…" : ""}${esc(e.text)}${e.cut_end ? "…" : ""}”` : ""; }};
+    }
+    case "rank": {
+      const members = D.speeches.filter((s) => s.status === "member_state" && (!spec.g20 || s.g20));
+      return {title: spec.g20 ? "Who the G20 sent" : "Who each member state sent", def: DEFINITIONS.rank, pool: members,
+        test: (s) => s.role_group === "head_of_state_or_government", sortTest: true,
+        value: (s) => s.role_group === "head_of_state_or_government" ? "Leader" : ROLE_NAMES[s.role_group] || s.role_group,
+        show: (s) => `${esc(s.speaker)}, ${esc(s.title)}`, listAll: true};
+    }
+    case "metric": {
+      const get = {words: (s) => s.words, grade: (s) => s.readability ? s.readability.grade : null, delivered: (s) => s.delivered_share}[spec.field];
+      const fmt = {words: num, grade: (v) => v.toFixed(1), delivered: pct}[spec.field];
+      const withValue = D.speeches.filter((s) => get(s) != null);
+      return {title: {words: "Speech length", grade: "Reading grade of the written statements", delivered: "Share of the filed text actually said"}[spec.field],
+        def: DEFINITIONS[spec.field], pool: withValue, test: () => true, metric: {get, fmt, max: Math.max(...withValue.map(get)), median: median(withValue.map(get))}, listAll: true};
+    }
+    case "topic":
+      return {title: spec.label, def: DEFINITIONS.topic, pool: D.speeches, test: (s) => s.topic === spec.label,
+        show: (s) => `Distinctive words: ${esc(s.distinctive_words.slice(0, 6).join(", "))}`};
+    case "lean":
+      return {title: `Leans towards ${spec.lens.toLowerCase()}`, def: DEFINITIONS.lean, pool: D.speeches, test: (s) => s.lean === spec.lens,
+        value: (s) => spec.lens in s.frame_z ? `${s.frame_z[spec.lens] > 0 ? "+" : ""}${s.frame_z[spec.lens].toFixed(1)} sd` : "",
+        show: (s) => s.quote ? `“${esc(s.quote)}”` : ""};
+    case "bloc": {
+      const b = D.similarity.blocs[spec.index];
+      return {title: b.label, def: `${DEFINITIONS.bloc} Cohesion ${b.within.toFixed(3)} within, against ${b.outside.toFixed(3)} outside.`, pool: D.speeches,
+        test: (s) => b.members.includes(s.slug), show: (s) => `Closest: ${esc(s.similar.map((x) => x.delegation).join(", "))}`};
+    }
+  }
+}
+
+function drill(spec, from, region = null) {
+  const d = drillSpec(spec);
+  const inRegion = (s) => !region || s.region === region;
+  const matched = d.pool.filter((s) => d.test(s));
+  const counts = REGIONS.map((r) => { const all = d.pool.filter((s) => s.region === r), m = all.filter((s) => d.test(s)); return [r, m.length, all.length]; });
+  let items = (d.listAll ? d.pool : matched).filter(inRegion);
+  if (d.metric) items = [...items].sort((a, b) => d.metric.get(b) - d.metric.get(a));
+  else if (d.sortTest) items = [...items].sort((a, b) => (d.test(b) - d.test(a)) || a.delegation.localeCompare(b.delegation));
+  else items = [...items].sort((a, b) => a.delegation.localeCompare(b.delegation));
+  $("drawer-title").textContent = d.title + (region ? ` · ${region}` : "");
+  $("drawer-sub").textContent = d.metric
+    ? `${d.pool.length} speeches · median ${d.metric.fmt(d.metric.median)}`
+    : `${matched.length} of ${d.pool.length} speeches (${pct(matched.length / d.pool.length)})`;
+  const regionButtons = `<div class="regions" role="group" aria-label="Filter by region"><button type="button" data-region="" aria-pressed="${!region}">All regions</button>` +
+    counts.map(([r, m, all]) => `<button type="button" data-region="${r}" aria-pressed="${region === r}">${r}: ${d.metric ? all : `${m} of ${all}`}</button>`).join("") + "</div>";
+  const rows = items.map((s) => {
+    const val = d.metric ? d.metric.fmt(d.metric.get(s)) : d.value ? d.value(s) : "";
+    const bar = d.metric ? `<div class="mini"><span style="width:${(100 * d.metric.get(s) / d.metric.max).toFixed(1)}%"></span></div>` : "";
+    const detail = d.show ? d.show(s) : "";
+    return `<li><div class="who"><a href="#country" data-slug="${esc(s.slug)}">${esc(s.delegation)}</a><span class="val">${esc(val)}</span></div>${bar}${detail ? `<div class="ev">${detail}</div>` : ""}</li>`;
+  }).join("");
+  $("drawer-body").innerHTML = `<p class="small">${esc(d.def)}</p>${regionButtons}<ol class="items">${rows || "<li>No speeches.</li>"}</ol>`;
+  $("drawer-body").querySelectorAll(".regions button").forEach((b) => b.onclick = () => drill(spec, from, b.dataset.region || null));
+  $("drawer-body").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); closeDrawer(); openProfile(a.dataset.slug); });
+  drawer._from = from || drawer._from;
+  drawer.classList.add("open"); scrim.classList.add("open"); drawer.setAttribute("aria-hidden", "false");
+  drawer.querySelector(".close").focus();
+}
+// any element with data-drill opens the drawer
+document.addEventListener("click", (e) => {
+  const el = e.target.closest("[data-drill]");
+  if (!el) return;
+  e.preventDefault();
+  drill(JSON.parse(el.dataset.drill), el);
+});
+
+// make chart marks drillable too
+function drillable(containerId, specFor) {
+  $(containerId).querySelectorAll(".hbar .row").forEach((row, i) => {
+    const spec = specFor(i);
+    if (!spec) return;
+    row.classList.add("clickable");
+    [...row.children].forEach((c) => { c.dataset.drill = JSON.stringify(spec); c.setAttribute("role", "button"); c.tabIndex = 0; });
+  });
+}
+drillable("issue-bars", (i) => ({kind: "mention", name: D.issues[i].name}));
+function drillableHeat(containerId, rowsList, specFor) {
+  $(containerId).querySelectorAll("td[data-r]").forEach((td) => {
+    const spec = specFor(rowsList[+td.dataset.r], REGIONS[+td.dataset.c]);
+    td.classList.add("clickable");
+    td.addEventListener("click", () => drill(spec.spec, td, spec.region));
+  });
+}
+drillableHeat("topic-heat", D.topics, (t, r) => ({spec: {kind: "topic", label: t.label}, region: r}));
+drillableHeat("marker-heat", D.markers, (m, r) => ({spec: {kind: "mention", name: m.name}, region: r}));
+
+// the closest pairs expand to show their shared passage in context
+function sharedHtml(pair, nameA, nameB) {
+  const side = (c, name) => `<p><b>${esc(name)}:</b> “${c.cut_start ? "…" : ""}${esc(c.before)} <mark>${esc(c.passage)}</mark> ${esc(c.after)}${c.cut_end ? "…" : ""}”</p>`;
+  return `<div class="shared">${side(pair.shared.a, nameA)}${side(pair.shared.b, nameB)}</div>`;
+}
+$("pairs-table").querySelectorAll("tbody tr").forEach((tr, i) => {
+  const p = SIM.pairs[i];
+  tr.classList.add("pair");
+  tr.title = "Show the shared passage";
+  tr.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    const next = tr.nextElementSibling;
+    if (next && next.classList.contains("detail")) { next.remove(); return; }
+    const detail = document.createElement("tr");
+    detail.className = "detail";
+    detail.innerHTML = `<td colspan="4"><p class="small">The longest run of words the two speeches share (${p.longest_shared_words}), highlighted in each speech's English text, with transcript headers, the chair's words and page numbers left out.</p>${sharedHtml(p, BY_SLUG[p.a].delegation, BY_SLUG[p.b].delegation)}</td>`;
+    tr.after(detail);
+  });
+});
 
 // all speeches
 const cols = [

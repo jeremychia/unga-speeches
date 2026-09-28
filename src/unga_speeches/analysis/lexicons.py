@@ -149,3 +149,45 @@ def densest_sentence(text: str, frame: str) -> str:
                 best, best_count = sentence, count
     # a typographic or soft hyphen followed by a space is the pdf's line break inside a word
     return re.sub(r"(\w)[\u2010\u00ad] (\w)", r"\1\2", best)
+
+
+EVIDENCE_CHARS = 300
+# the claim every speech makes about the order, counted in the story and shown with its evidence
+CHARTER_OR_LAW = re.compile(r"\bcharter\b|international law", re.I)
+
+
+def first_mention(verbatim: str, pattern: re.Pattern) -> dict | None:
+    """The first sentence that matches, cut to about EVIDENCE_CHARS around the match, as an exact substring of the text."""
+    for sentence in SENTENCE.split(verbatim):
+        match = pattern.search(sentence)
+        if not match:
+            continue
+        sentence = sentence.strip()
+        match = pattern.search(sentence)
+        start = max(0, match.start() - EVIDENCE_CHARS // 2)
+        end = min(len(sentence), start + EVIDENCE_CHARS)
+        start = max(0, end - EVIDENCE_CHARS)
+        # widen to whole words so an excerpt never starts or ends mid-word
+        while start > 0 and not sentence[start - 1].isspace():
+            start -= 1
+        while end < len(sentence) and not sentence[end].isspace():
+            end += 1
+        return {"text": sentence[start:end].strip(), "cut_start": start > 0, "cut_end": end < len(sentence)}
+    return None
+
+
+def evidence(verbatim: str, issue_names: list[str], marker_names: list[str]) -> dict[str, dict]:
+    """For each issue and phrase a speech raises, the sentence where it first does, plus the charter or international law."""
+    found = {}
+    for name in issue_names:
+        hit = first_mention(verbatim, _ISSUE_PATTERNS[name])
+        if hit:
+            found[name] = hit
+    for name in marker_names:
+        hit = first_mention(verbatim, _MARKER_PATTERNS[name])
+        if hit:
+            found[name] = hit
+    hit = first_mention(verbatim, CHARTER_OR_LAW)
+    if hit:
+        found["UN Charter or international law"] = hit
+    return found
