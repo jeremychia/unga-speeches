@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from xml.etree import ElementTree
 
+import requests
 from bs4 import BeautifulSoup
 
 from .config import GADEBATE_BASE, RAW_DIR, UN_LANGUAGES
@@ -165,4 +166,10 @@ def fetch_transcript(client: Client, page: SpeakerPage, language: str):
     if prepare.status_code != 200 or "json" not in prepare.headers.get("content-type", ""):
         return None
     signed = GADEBATE_BASE + prepare.json()["url"]
-    return client.fetch(signed, dest, source_url=f"{GADEBATE_BASE}/{language}/{page.session}/{page.slug}")
+    try:
+        return client.fetch(signed, dest, source_url=f"{GADEBATE_BASE}/{language}/{page.session}/{page.slug}")
+    except requests.HTTPError as error:
+        # the signed link is refused now and then, most often for older sessions
+        if error.response is not None and error.response.status_code == 403:
+            return None
+        raise

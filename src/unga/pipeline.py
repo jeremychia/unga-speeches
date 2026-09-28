@@ -160,7 +160,7 @@ def run_session(session: int, refresh: bool = False, only: set[str] | None = Non
     delegations = load_delegations()
     by_slug = {d["slug"]: d for d in delegations if d["slug"]}
     listed = gadebate.discover(client, {session}, force=refresh_pages)
-    speeches, pending = [], []
+    speeches, pending, failed = [], [], []
     for _, slug, _lastmod in listed:
         if only and slug not in only:
             continue
@@ -171,12 +171,19 @@ def run_session(session: int, refresh: bool = False, only: set[str] | None = Non
             continue
         page = gadebate.parse_page(path.read_text(encoding="utf-8"), session, slug)
         meta = json.loads(path.with_suffix(path.suffix + ".meta.json").read_text())
-        speech = build_speech(client, page, by_slug.get(slug, {}), meta["retrieved_at"])
+        try:
+            speech = build_speech(client, page, by_slug.get(slug, {}), meta["retrieved_at"])
+        except Exception:
+            log.exception("%s: failed, rerun the session to retry", slug)
+            failed.append(slug)
+            continue
         render(speech, SPEECHES_DIR / str(session) / slug)
         speeches.append(speech)
         log.info("%s: %s (%s), original %s, english %s", slug, speech.speaker_name, speech.role, speech.original_language, speech.english_source)
     if not only:
         write_outputs(session, speeches, pending, delegations)
+    if failed:
+        log.warning("%d speeches failed: %s", len(failed), ", ".join(failed))
     return speeches
 
 
