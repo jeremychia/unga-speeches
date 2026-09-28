@@ -4,6 +4,8 @@ Every speech from the UN General Assembly's annual general debate, 1946 to 2026.
 
 The speeches are found, read and split by a deterministic Python pipeline. No AI model or web search is involved in the extraction. The [methodology](docs/methodology.md) covers each step.
 
+**Read the 2026 analysis:** [jeremychia.github.io/unga-speeches](https://jeremychia.github.io/unga-speeches/). It covers topics, issues, readability, what stood out, and four international relations lenses, with every quote checked against its source.
+
 ## At a glance
 
 <!-- numbers -->
@@ -63,6 +65,8 @@ The corpus files have to be downloaded by hand first; see [development](docs/dev
 | [`src/unga_speeches/extract/`](src/unga_speeches/extract/) | Pdf text extraction and the cleaned copies for analysis |
 | [`src/unga_speeches/enrich/`](src/unga_speeches/enrich/) | Speaker rank, country names, and the filed-against-delivered check |
 | [`src/unga_speeches/build/`](src/unga_speeches/build/) | Speech pages, reports, the combined dataset and release packaging |
+| [`src/unga_speeches/analysis/`](src/unga_speeches/analysis/) | The session analysis: topics, word lists, readability, and the page in `site/` (`make site SESSION=81`) |
+| `site/` | The built analysis page, published to GitHub Pages on every push to `main` |
 | [`reference/`](reference/) | The hand-maintained inputs: delegations, and sources for texts the UN lacks |
 | [`reports/`](reports/) | Generated completeness and source-agreement reports |
 | [`docs/`](docs/) | [Methodology](docs/methodology.md), [data dictionary](docs/data-dictionary.md), [sources and terms](docs/sources.md), [development](docs/development.md) |
