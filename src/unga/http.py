@@ -39,7 +39,13 @@ class Client:
     def request(self, method: str, url: str, **kwargs) -> requests.Response:
         for attempt in range(4):
             self._wait()
-            response = self.session.request(method, url, timeout=60, **kwargs)
+            try:
+                response = self.session.request(method, url, timeout=60, **kwargs)
+            except (requests.ConnectionError, requests.Timeout):
+                if attempt == 3:
+                    raise
+                time.sleep(2**attempt * 5)
+                continue
             if response.status_code in (429, 500, 502, 503, 504):
                 time.sleep(2**attempt * 5)
                 continue
