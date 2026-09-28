@@ -1,7 +1,7 @@
 import argparse
 import logging
 
-from unga_speeches.build import dataset, session
+from unga_speeches.build import dataset, release, session
 from unga_speeches.sources import ungdc, verbatim
 
 
@@ -21,6 +21,7 @@ def main() -> None:
 
     sub.add_parser("history", help="merge the UN General Debate Corpus (1946 onwards) with its speaker list")
 
+    sub.add_parser("release", help="package the tables and speech pages into dist/ for a data release")
     sub.add_parser("dataset", help="combine the corpus, the verbatim records and gadebate into one table")
 
     records = sub.add_parser("verbatim", help="split the UN verbatim records of one or more sessions (48 onwards) into speeches")
@@ -36,6 +37,8 @@ def main() -> None:
     elif args.command == "verbatim":
         for s in args.sessions:
             logging.info("wrote %s", verbatim.build_session(s))
+    elif args.command == "release":
+        logging.info("wrote %s", release.package())
     elif args.command == "dataset":
         logging.info("wrote %s", dataset.build())
     elif args.command == "history":
