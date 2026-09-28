@@ -20,6 +20,9 @@ MAX_MIXED_SCRIPT_SHARE = 0.01
 # a page image with little text beside it is a scan or a printout, e.g. a web page saved to pdf with the speech as pictures
 SCAN_MIN_IMAGE_PAGE_SHARE = 0.9
 SCAN_MAX_CHARS_PER_PAGE = 400
+# a capital inside a lowercase word, e.g. "diLerences" where the font maps the "ff" ligature to "L"
+MIS_MAPPED_LIGATURE = re.compile(r"\b[a-z]+[A-Z][a-z]{2,}\b")
+MIN_MIS_MAPPED = 3
 NON_LATIN = re.compile(r"[\u0370-\u052F\u0590-\u08FF\u0900-\u0DFF\u0E00-\u10FF\u1200-\u139F\u1780-\u17FF\uFB50-\uFDFF\uFE70-\uFEFF]")
 INDIC = re.compile(r"[\u0900-\u0DFF]")
 # too few non-latin words to judge, e.g. one cyrillic letter typed into an english word
@@ -142,6 +145,9 @@ def extract(path: Path, ocr_language: str = "eng") -> ExtractedText:
             else:
                 text, method = "", "none"
                 warnings.append("text layer unusable and tesseract is not installed, so no text was taken from this pdf")
+        mis_mapped = MIS_MAPPED_LIGATURE.findall(text)
+        if len(mis_mapped) >= MIN_MIS_MAPPED:
+            warnings.append(f"a ligature is mis-mapped in the pdf, e.g. {mis_mapped[0]!r}; read those words in the pdf itself")
         pages = doc.page_count
     language, confidence = detect_language(text) if text else (None, None)
     return ExtractedText(text, pages, method, language, confidence, warnings)
