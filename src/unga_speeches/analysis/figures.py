@@ -112,7 +112,9 @@ MAP_DPI = 170
 
 def _save(fig, out_dir: Path, name: str, mode: str) -> None:
     raster = name.startswith("map-")
-    fig.savefig(out_dir / f"{name}-{mode}.{'png' if raster else 'svg'}", bbox_inches="tight", pad_inches=0.08, dpi=MAP_DPI if raster else "figure")
+    fig.savefig(
+        out_dir / f"{name}-{mode}.{'png' if raster else 'svg'}", bbox_inches="tight", pad_inches=0.08, dpi=MAP_DPI if raster else "figure"
+    )
     plt.close(fig)
 
 
