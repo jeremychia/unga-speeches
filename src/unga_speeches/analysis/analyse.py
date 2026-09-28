@@ -6,15 +6,19 @@ from collections import Counter, defaultdict
 from difflib import SequenceMatcher
 
 import numpy as np
+import pandas as pd
 import textstat
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from unga_speeches.analysis import lexicons, topics
 from unga_speeches.analysis.corpus import Speech, load
-from unga_speeches.config import session_year
+from unga_speeches.config import OUTPUT_DIR, session_year
 
 REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"]
+G20 = set("ARG AUS BRA CAN CHN FRA DEU IND IDN ITA JPN KOR MEX RUS SAU ZAF TUR GBR USA".split())
+TREND_ISSUES = ["Artificial intelligence", "Climate change", "Gaza and Palestine", "Ukraine", "Iran and the Gulf war", "Terrorism"]
+TREND_FROM_SESSION = 66  # 2011
 ROLE_GROUPS = ["head_of_state_or_government", "deputy_head", "foreign_minister", "other_minister", "diplomat"]
 OUTLIER_Z = 2.5
 # a speech leans towards a theory only if its vocabulary for it sits this far above the debate's average
@@ -92,7 +96,74 @@ def build(session: int) -> dict:
         "markers": _shares(rows, "markers", lexicons.MARKERS),
         "frames": _frames(speeches, rows),
         "speeches": rows,
+        "trends": _trends(session, speeches, rows),
+        "leaders": _leaders(session, rows),
     }
+
+
+P5 = ["USA", "CHN", "RUS", "GBR", "FRA"]
+
+
+def _leaders(session: int, rows: list[dict]) -> dict:
+    """Who the permanent members sent this year and last, and which of the G20 sent someone other than their leader."""
+    by_code = {r["iso3"]: r for r in rows if r["iso3"]}
+    previous = {}
+    path = OUTPUT_DIR / "history_ungdc.parquet"
+    if path.exists():
+        history = pd.read_parquet(path)
+        for r in history[(history.session == session - 1) & history.iso3.isin(P5)].itertuples():
+            previous[r.iso3] = {"speaker": r.speaker_name, "title": (r.speaker_title or "").strip()}
+    states = [r for r in rows if r["status"] == "member_state"]
+    rest = [r for r in states if r["iso3"] not in G20]
+    return {
+        "p5": [
+            {
+                "iso3": c,
+                "delegation": by_code[c]["delegation"],
+                "speaker": by_code[c]["speaker"],
+                "title": by_code[c]["title"],
+                "previous": previous.get(c),
+            }
+            for c in P5
+            if c in by_code
+        ],
+        "g20_not_leader": sorted(
+            by_code[c]["delegation"] for c in G20 if c in by_code and by_code[c]["role_group"] != "head_of_state_or_government"
+        ),
+        "heads_share_outside_g20": round(sum(r["role_group"] == "head_of_state_or_government" for r in rest) / len(rest), 3),
+    }
+
+
+def _trends(session: int, speeches: list[Speech], rows: list[dict]) -> list[dict]:
+    """Issue attention and leaders' attendance for each year from 2011, from the corpus, then this session's own texts."""
+    path = OUTPUT_DIR / "history_ungdc.parquet"
+    out = []
+    if path.exists():
+        history = pd.read_parquet(path)
+        history = history[history.text_en.notna() & (history.session >= TREND_FROM_SESSION) & (history.session < session)]
+        for s, group in history.groupby("session"):
+            found = [lexicons.issues(t) for t in group.text_en]
+            g20 = group[group.iso3.isin(G20)]
+            out.append(
+                {
+                    "year": session_year(int(s)),
+                    "speeches": len(group),
+                    "g20_heads": int((g20.role_group == "head_of_state_or_government").sum()),
+                    "heads_share": round(float((group.role_group == "head_of_state_or_government").mean()), 3),
+                    **{i: round(sum(f[i] for f in found) / len(found), 3) for i in TREND_ISSUES},
+                }
+            )
+    states = [r for r in rows if r["status"] == "member_state"]
+    out.append(
+        {
+            "year": session_year(session),
+            "speeches": len(rows),
+            "g20_heads": sum(r["iso3"] in G20 and r["role_group"] == "head_of_state_or_government" for r in rows),
+            "heads_share": round(sum(r["role_group"] == "head_of_state_or_government" for r in states) / len(states), 3),
+            **{i: round(sum(i in r["issues"] for r in rows) / len(rows), 3) for i in TREND_ISSUES},
+        }
+    )
+    return out
 
 
 def _overview(rows: list[dict], states: list[dict]) -> dict:
