@@ -51,6 +51,7 @@ How the speeches are found, read, split and combined, and what each text in the 
 
 ## Limits
 
+- **The records match 98.9% of the corpus's speeches for 1993–2024.** The largest gap is 2001, whose meeting record A/56/PV.45 is missing from the UN's document system. Its speeches still take their English from the corpus. [`reports/sources.md`](../reports/sources.md) gives the figures per session.
 - **Before 1993 the corpus is the only source.** The UN's records for those years are scans, and the corpus was built from the same records.
 - **2026 has no verbatim records yet.** The UN publishes them months after the debate. Until then the spoken language comes from the statement files, and it is unknown when a delegation filed only English.
 - **Interpreters read from the text a delegation supplies.** So when only an English text exists, neither the pdf nor the audio shows whether the leader spoke English. Only the verbatim record settles it.
