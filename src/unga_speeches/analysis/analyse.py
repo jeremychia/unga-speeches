@@ -11,13 +11,13 @@ import textstat
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from unga_speeches.analysis import lexicons, topics
+from unga_speeches.analysis import lexicons, topics, words
 from unga_speeches.analysis.corpus import Speech, load
 from unga_speeches.config import OUTPUT_DIR, session_year
 
 REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"]
 G20 = set("ARG AUS BRA CAN CHN FRA DEU IND IDN ITA JPN KOR MEX RUS SAU ZAF TUR GBR USA".split())
-TREND_ISSUES = ["Artificial intelligence", "Climate change", "Gaza and Palestine", "Ukraine", "Iran and the Gulf war", "Terrorism"]
+TREND_ISSUES = ["Artificial intelligence", "Climate change", "Gaza or Palestine", "Ukraine", "Iran and the Gulf war", "Terrorism"]
 TREND_FROM_SESSION = 66  # 2011
 ROLE_GROUPS = ["head_of_state_or_government", "deputy_head", "foreign_minister", "other_minister", "diplomat"]
 OUTLIER_Z = 2.5
@@ -82,6 +82,10 @@ def build(session: int) -> dict:
             }
         )
 
+    for r, s, w in zip(rows, speeches, words.per_speech(speeches), strict=True):
+        r["distinctive_words"] = w["words"]
+        r["similar"] = w["similar"]
+        r["quote"] = words.representative_sentence(s.verbatim, w["words"])
     states = [r for r in rows if r["status"] == "member_state"]
     overview = _overview(rows, states)
     overview["charter_or_law"] = sum(bool(CHARTER_OR_LAW.search(s.text)) for s in speeches)
@@ -92,11 +96,14 @@ def build(session: int) -> dict:
         "distributions": _distributions(rows, states),
         "anomalies": _anomalies(speeches, rows),
         "topics": _topics(fitted, rows),
+        # each speech's topic_weights follow this order, which is the model's, not the sorted one above
+        "topic_order": [t.label for t in fitted],
         "issues": _issues(rows),
         "markers": _shares(rows, "markers", lexicons.MARKERS),
         "frames": _frames(speeches, rows),
         "speeches": rows,
         "trends": _trends(session, speeches, rows),
+        "vocabulary": {**words.common(speeches), "by_region": words.distinctive_by_group(speeches, REGIONS, lambda s: s.region)},
         "leaders": _leaders(session, rows),
     }
 
@@ -242,16 +249,30 @@ def _anomalies(speeches: list[Speech], rows: list[dict]) -> dict:
         for j in range(i + 1, len(rows))
     ]
     delivered = sorted((r for r in rows if r["delivered_share"] is not None), key=lambda r: r["delivered_share"])
+    by_words = sorted(rows, key=lambda r: r["words"])
+    by_grade = sorted(statements, key=lambda r: r["readability"]["grade"])
+
+    def brief(r: dict, **extra) -> dict:
+        return {"slug": r["slug"], "delegation": r["delegation"], "speaker": r["speaker"], "english_kind": r["english_kind"], **extra}
+
     return {
+        "longest": [brief(r, words=r["words"]) for r in by_words[::-1][:5]],
+        "shortest": [brief(r, words=r["words"]) for r in by_words[:5]],
+        "densest": [
+            brief(r, grade=r["readability"]["grade"], sentence_words=r["readability"]["sentence_words"]) for r in by_grade[::-1][:5]
+        ],
+        "plainest": [brief(r, grade=r["readability"]["grade"], sentence_words=r["readability"]["sentence_words"]) for r in by_grade[:5]],
         "length": sorted(long_short, key=lambda a: -a["z"]),
         "readability": sorted(readability, key=lambda a: -a["z"]),
-        "most_distinctive": [{"delegation": rows[i]["delegation"], "similarity": round(float(distinct[i]), 3)} for i in order[:5]],
+        "most_distinctive": [
+            {"slug": rows[i]["slug"], "delegation": rows[i]["delegation"], "similarity": round(float(distinct[i]), 3)} for i in order[:5]
+        ],
         "most_typical": [{"delegation": rows[i]["delegation"], "similarity": round(float(distinct[i]), 3)} for i in order[::-1][:5]],
         "similar_pairs": [
             {**p, "longest_shared_words": _longest_shared_run(speeches, p["a"], p["b"])}
             for p in sorted(pairs, key=lambda p: -p["similarity"])[:5]
         ],
-        "least_delivered": [{"delegation": r["delegation"], "delivered_share": r["delivered_share"]} for r in delivered[:6]],
+        "least_delivered": [brief(r, delivered_share=r["delivered_share"]) for r in delivered[:6]],
     }
 
 

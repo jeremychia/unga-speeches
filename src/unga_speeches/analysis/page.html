@@ -12,20 +12,22 @@
   --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10); --series: #2a78d6; --link: #1c5cab;
   --r100: #cde2fb; --r200: #9ec5f4; --r300: #6da7ec; --r400: #3987e5; --r500: #256abf; --r600: #184f95; --r700: #0d366b;
   --cell-lo: #0b0b0b; --cell-hi: #ffffff;
+  --c1: #2a78d6; --c2: #eb6834; --c3: #1baf7a; --none: #dcdbd4; --hatch: #c3c2b7;
+  --o1: #86b6ef; --o2: #3987e5; --o3: #1c5cab; --o4: #0d366b; --neg: #e34948;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
     --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --series: #3987e5; --link: #86b6ef;
-    --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b;
+    --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b; --c1: #3987e5; --c2: #d95926; --c3: #199e70; --none: #484844; --hatch: #383835; --o1: #184f95; --o2: #3987e5; --o3: #86b6ef; --o4: #cde2fb; --neg: #e66767;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
   --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --series: #3987e5; --link: #86b6ef;
-  --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b;
+  --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b; --c1: #3987e5; --c2: #d95926; --c3: #199e70; --none: #484844; --hatch: #383835; --o1: #184f95; --o2: #3987e5; --o3: #86b6ef; --o4: #cde2fb; --neg: #e66767;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
@@ -101,6 +103,36 @@ ol.messages span { display: block; color: var(--ink-2); font-size: 0.92rem; marg
 figure picture img { width: 100%; height: auto; display: block; }
 .so-what { font-weight: 600; }
 table.p5 td:first-child { font-weight: 600; }
+
+.map svg { width: 100%; height: auto; display: block; }
+.map path, .map circle { cursor: pointer; transition: opacity .12s; }
+.map path:hover, .map circle:hover { stroke: var(--ink); stroke-width: 1.2; }
+.map .dim { opacity: 0.35; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.85rem; color: var(--ink-2); margin-top: 8px; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--sw); border: 1px solid var(--border); }
+.legend .hatched::before { background: repeating-linear-gradient(45deg, var(--hatch) 0 2px, transparent 2px 5px); }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 10px; }
+.seg button { font: inherit; font-size: 0.85rem; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--axis); background: var(--surface); color: var(--ink-2); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--series); border-color: var(--series); color: #fff; }
+select { font: inherit; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--axis); background: var(--surface); color: var(--ink); max-width: 100%; }
+.profile { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 12px; }
+.profile h3 { margin: 0 0 2px; font-size: 1.3rem; }
+.profile .sub { color: var(--ink-2); margin: 0 0 12px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 12px 0; }
+.facts div { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; }
+.facts b { display: block; font-size: 1.2rem; }
+.facts span { color: var(--ink-2); font-size: 0.8rem; }
+.chips .tag.on { background: var(--series); border-color: var(--series); color: #fff; }
+.zbar { display: grid; grid-template-columns: 170px 1fr 48px; gap: 6px 10px; align-items: center; font-size: 0.85rem; }
+.zbar .track { position: relative; height: 12px; background: linear-gradient(var(--axis), var(--axis)) center / 1px 100% no-repeat; }
+.zbar .fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+.cols5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.cols5 ol { margin: 4px 0 0; padding-left: 20px; font-size: 0.9rem; }
+.highlight { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+.highlight h3 { margin: 0 0 6px; }
+.highlight .meta { color: var(--ink-2); font-size: 0.82rem; }
+.callout details { margin-top: 6px; }
+.callout ol { margin: 6px 0 0; padding-left: 18px; font-size: 0.88rem; }
 footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 @media (max-width: 560px) { h1 { font-size: 1.6rem; } .hbar { grid-template-columns: 42% 1fr auto; } }
 </style>
@@ -108,7 +140,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 <body>
 <nav><div>
   <a href="#answer">The answer</a><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a>
-  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
 </div></nav>
 <header id="answer">
   <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
@@ -135,7 +167,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     __AGENDA__
     <figure><h4>Share of speeches mentioning each issue, 2011–2026</h4>__FIG_TREND__
       <figcaption>Each panel shares one scale, from none to every speech. 2011–2025 from the UN General Debate Corpus; 2026 from this pipeline.</figcaption></figure>
-    <figure><h4>Who mentioned artificial intelligence in 2026</h4>__FIG_AI__</figure>
+    <figure><h4>Who mentioned artificial intelligence in 2026</h4><div class="map" id="map-ai"></div><div class="legend" id="legend-ai"></div></figure>
     <details><summary>All sixteen issues tracked in 2026</summary><div id="issue-bars" style="margin-top:12px"></div></details>
   </section>
 
@@ -143,7 +175,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <p class="eyebrow">2 · Whose wars count</p>
     <h2>__WARS_TITLE__</h2>
     __WARS__
-    <figure><h4>Which of the two wars of recent years each speech mentioned</h4>__FIG_WARS__
+    <figure><h4>Who named Ukraine, and who named Gaza or Palestine</h4><div class="map" id="map-wars"></div><div class="legend" id="legend-wars"></div>
       <figcaption>A mention means naming the place at least once. Poland, for one, spoke five times of Russia's aggression without naming Ukraine.</figcaption></figure>
     __TOPICS__
     <figure><h4>How much of each region's speeches each topic accounts for</h4><div class="scroll" id="topic-heat"></div>
@@ -155,7 +187,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <h2>__LEADERS_TITLE__</h2>
     __LEADERS__
     <figure><h4>G20 members sending their head of state or government</h4>__FIG_LEADERS__</figure>
-    <figure><h4>Who each country sent in 2026</h4>__FIG_RANK__</figure>
+    <figure><h4>Who each country sent in 2026</h4><div class="map" id="map-rank"></div><div class="legend" id="legend-rank"></div></figure>
     __P5__
   </section>
 
@@ -172,9 +204,22 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <h2>__LENSES_TITLE__</h2>
     __THEORY__
     <figure><h4>Each lens's vocabulary by region, per 1,000 words</h4>__FIG_DOTS__</figure>
-    <figure><h4>Where each lens is strongest: countries whose speech leans that way</h4>__FIG_LENSMAPS__
+    <figure><h4>Where each lens is strongest: countries whose speech leans that way</h4><div class="seg" id="lens-buttons" role="group" aria-label="Choose a lens"></div><div class="map" id="map-lens"></div><div class="legend" id="legend-lens"></div>
       <figcaption>A speech leans towards a lens when its vocabulary for it is at least half a standard deviation above the debate's average. __NOLEAN__ speeches lean towards none.</figcaption></figure>
     __LENSCARDS__
+  </section>
+
+  <section id="vocabulary">
+    <p class="eyebrow">6 · The words they used</p>
+    <h2>__VOCAB_TITLE__</h2>
+    __VOCAB__
+    <div class="grid2">
+      <figure><h4>The thirty commonest words</h4><div id="word-bars"></div></figure>
+      <figure><h4>The twenty commonest word pairs</h4><div id="phrase-bars"></div>
+        <figcaption>Small words such as “and” and “of” are skipped, so “peace security” is “peace and security”.</figcaption></figure>
+    </div>
+    <figure><h4>The words each region uses more than the rest</h4><div class="cols5" id="region-words"></div>
+      <figcaption>Weighted log-odds with an informative prior (Monroe, Colaresi and Quinn, 2008), comparing each region with all the others.</figcaption></figure>
   </section>
 
   <section id="reading">
@@ -192,6 +237,25 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <p class="eyebrow">Detail</p>
     <h2>What stood out</h2>
     <div class="callouts">__NOTABLE__</div>
+  </section>
+
+  <section id="worth-reading">
+    <p class="eyebrow">Detail</p>
+    <h2>Eight speeches worth reading in full</h2>
+    <p>Chosen because each carries one thread of the story. The notes are our reading; the quotes are checked word for word against the source, and the figures come from the data.</p>
+    __HIGHLIGHTS__
+  </section>
+
+  <section id="country">
+    <p class="eyebrow">Explore</p>
+    <h2>Country by country</h2>
+    <p>Colour the map by any issue, phrase, topic or lean, then click a country, or pick one from the list, to see its speech in detail.</p>
+    <label class="small" for="explore-by">Colour the map by</label><br>
+    <select id="explore-by" aria-label="Colour the map by"></select>
+    <figure><div class="map" id="map-explore"></div><div class="legend" id="legend-explore"></div></figure>
+    <label class="small" for="country-pick">Country or delegation</label><br>
+    <select id="country-pick" aria-label="Choose a country"></select>
+    <div class="profile" id="profile"></div>
   </section>
 
   <section id="speeches">
@@ -296,9 +360,141 @@ histogram("delivered-hist", Dd.delivered, "Share of the filed text that was said
 const F = D.frames;
 heat("marker-heat", D.markers, REGIONS, (m, r) => m.by_region[r], pct, (m) => `${m.name} (${m.speeches})`);
 
+
+// ---------- interactive maps ----------
+const BY_ISO = Object.fromEntries(D.speeches.filter((s) => s.iso3).map((s) => [s.iso3, s]));
+const ROLE_RANK = {head_of_state_or_government: ["--o4", "Head of state or government"], deputy_head: ["--o3", "Deputy head"], foreign_minister: ["--o2", "Foreign minister"]};
+const OTHER_RANK = ["--o1", "Other minister or diplomat"];
+const svgNS = "http://www.w3.org/2000/svg";
+
+// draws the world once per map; colour(speech) returns a css variable name, or null for "no speech"
+function worldMap(id, colour, legend, tipExtra) {
+  const el = $(id), G = D.geo;
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${G.width} ${G.height}`);
+  svg.setAttribute("role", "img");
+  svg.innerHTML = `<defs><pattern id="${id}-h" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="var(--hatch)" stroke-width="1.6"/></pattern></defs>`;
+  const dots = [];
+  for (const shape of G.shapes) {
+    const s = BY_ISO[shape.iso3], c = s ? colour(s) : null;
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", shape.d);
+    path.setAttribute("fill", c ? `var(${c})` : `url(#${id}-h)`);
+    path.setAttribute("stroke", "var(--surface)");
+    path.setAttribute("stroke-width", "0.4");
+    path.dataset.iso = shape.iso3;
+    svg.appendChild(path);
+    if (shape.dot && s) dots.push([shape, c]);
+  }
+  for (const [shape, c] of dots) {
+    const dot = document.createElementNS(svgNS, "circle");
+    dot.setAttribute("cx", shape.dot[0]); dot.setAttribute("cy", shape.dot[1]); dot.setAttribute("r", 3.6);
+    dot.setAttribute("fill", `var(${c})`); dot.setAttribute("stroke", "var(--surface)"); dot.setAttribute("stroke-width", "1");
+    dot.dataset.iso = shape.iso3;
+    svg.appendChild(dot);
+  }
+  el.replaceChildren(svg);
+  const names = Object.fromEntries(G.shapes.map((g) => [g.iso3, g.name]));
+  svg.querySelectorAll("[data-iso]").forEach((node) => {
+    const s = BY_ISO[node.dataset.iso];
+    const html = s
+      ? `<b>${esc(s.delegation)}</b><br>${esc(s.speaker)}, ${esc(s.title)}${tipExtra ? "<br>" + tipExtra(s) : ""}<br><span class="small">Click for the country profile</span>`
+      : `<b>${esc(names[node.dataset.iso] || node.dataset.iso)}</b><br>No speech in the debate`;
+    hover(node, html);
+    if (s) node.addEventListener("click", () => openProfile(s.slug));
+  });
+  if (legend) $(id.replace("map-", "legend-")).innerHTML = legend.map(([label, v]) => v ? `<span style="--sw:var(${v})">${esc(label)}</span>` : `<span class="hatched">${esc(label)}</span>`).join("");
+}
+
+const has = (s, issue) => s.issues.includes(issue);
+worldMap("map-ai", (s) => has(s, "Artificial intelligence") ? "--c1" : "--none", [["Mentions AI", "--c1"], ["Does not", "--none"], ["No speech", null]],
+  (s) => has(s, "Artificial intelligence") ? "Mentions AI" : "Does not mention AI");
+const GP = "Gaza or Palestine";
+const war = (s) => has(s, "Ukraine") && has(s, GP) ? "--c3" : has(s, "Ukraine") ? "--c1" : has(s, GP) ? "--c2" : "--none";
+worldMap("map-wars", war, [["Both", "--c3"], ["Ukraine only", "--c1"], ["Gaza or Palestine only", "--c2"], ["Neither", "--none"], ["No speech", null]],
+  (s) => ({"--c3": "Names Ukraine, and Gaza or Palestine", "--c1": "Names Ukraine only", "--c2": "Names Gaza or Palestine only", "--none": "Names neither"})[war(s)]);
+const rank = (s) => (ROLE_RANK[s.role_group] || OTHER_RANK);
+worldMap("map-rank", (s) => rank(s)[0], [...Object.values(ROLE_RANK).map(([v, l]) => [l, v]), [OTHER_RANK[1], OTHER_RANK[0]], ["No speech", null]], (s) => rank(s)[1]);
+
+function lensMap(lens) {
+  worldMap("map-lens", (s) => s.lean === lens ? "--c1" : "--none", [[`Leans towards ${lens.toLowerCase()}`, "--c1"], ["Other or no clear lean", "--none"], ["No speech", null]],
+    (s) => `Leans: ${esc(s.lean)}<br>${esc(lens)}: ${s.frame_z[lens] > 0 ? "+" : ""}${s.frame_z[lens]} sd from average`);
+  $("lens-buttons").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lens === lens)));
+}
+$("lens-buttons").innerHTML = D.frames.names.map((f) => `<button type="button" data-lens="${esc(f)}">${esc(f)} (${D.frames.lean_counts[f] || 0})</button>`).join("");
+$("lens-buttons").querySelectorAll("button").forEach((b) => b.onclick = () => lensMap(b.dataset.lens));
+lensMap(D.frames.names[0]);
+
+// ---------- explorer ----------
+const EXPLORE = [
+  ...D.issues.map((i) => ({group: "Issue raised", label: i.name, test: (s) => s.issues.includes(i.name), on: "Mentions it", off: "Does not"})),
+  ...D.markers.map((m) => ({group: "Phrase used", label: m.name, test: (s) => s.markers.includes(m.name), on: "Uses it", off: "Does not"})),
+  ...D.topics.map((t) => ({group: "Main topic", label: t.label, test: (s) => s.topic === t.label, on: "Main topic", off: "Another topic"})),
+  ...[...D.frames.names, "No clear lean"].map((f) => ({group: "Theory lean", label: f, test: (s) => s.lean === f, on: "Leans this way", off: "Does not"})),
+];
+const groups = [...new Set(EXPLORE.map((e) => e.group))];
+$("explore-by").innerHTML = groups.map((g) => `<optgroup label="${esc(g)}">` + EXPLORE.map((e, i) => e.group === g ? `<option value="${i}">${esc(e.label)}</option>` : "").join("") + "</optgroup>").join("");
+function explore() {
+  const e = EXPLORE[+$("explore-by").value], n = D.speeches.filter(e.test).length;
+  worldMap("map-explore", (s) => e.test(s) ? "--c1" : "--none", [[`${e.on} (${n})`, "--c1"], [e.off, "--none"], ["No speech", null]], (s) => e.test(s) ? e.on : e.off);
+}
+$("explore-by").onchange = explore;
+explore();
+
+// ---------- country profile ----------
+const TOPICS = D.topics.map((t) => t.label);
+$("country-pick").innerHTML = [...D.speeches].sort((a, b) => a.delegation.localeCompare(b.delegation)).map((s) => `<option value="${esc(s.slug)}">${esc(s.delegation)}</option>`).join("");
+const median = (xs) => { const v = [...xs].sort((a, b) => a - b), m = v.length >> 1; return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2; };
+const MEDIAN_WORDS = median(D.speeches.map((s) => s.words));
+function openProfile(slug, scroll = true) {
+  const s = D.speeches.find((x) => x.slug === slug);
+  if (!s) return;
+  $("country-pick").value = slug;
+  // the fitted topics' weights are stored in the model's order, so find each label's index there
+  const order = D.topic_order || TOPICS;
+  const topicShares = order.map((label, i) => [label, s.topic_weights[i]]).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  const zRows = D.frames.names.map((f) => {
+    const z = s.frame_z[f], w = Math.min(50, Math.abs(z) * 16);
+    return `<div>${esc(f)}</div><div class="track"><div class="fill" style="${z >= 0 ? `left:50%;width:${w}%;background:var(--c1)` : `right:50%;width:${w}%;background:var(--neg)`}"></div></div><div class="n">${z > 0 ? "+" : ""}${z.toFixed(1)}</div>`;
+  }).join("");
+  const chips = (all, onList) => all.map((x) => `<span class="tag ${onList.includes(x) ? "on" : ""}">${esc(x)}</span>`).join("");
+  const facts = [
+    [num(s.words), `words, ${(s.words / MEDIAN_WORDS).toFixed(1)}× the median`],
+    [s.readability ? s.readability.grade.toFixed(1) : "–", s.readability ? "reading grade of the statement" : "reading grade (transcript, not scored)"],
+    [s.delivered_share != null ? pct(s.delivered_share) : "–", "of the filed text actually said"],
+    [s.language === "not known" ? "Not known" : s.language.toUpperCase(), "language spoken"],
+    [s.lean, "theory lean"],
+  ];
+  $("profile").innerHTML = `
+    <h3>${esc(s.delegation)}</h3>
+    <p class="sub">${esc(s.speaker)}, ${esc(s.title)} · ${esc(s.region)} · ${new Date(s.date + "T12:00").toLocaleDateString("en-GB", {day: "numeric", month: "long"})} ·
+      <a href="${esc(s.page_url)}">UN page with video and texts</a></p>
+    <div class="facts">${facts.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("")}</div>
+    ${s.quote ? `<blockquote><p>“${esc(s.quote)}”</p><cite>The sentence carrying most of the speech's distinctive words · ${s.english_kind === "transcript" ? "the UN interpreters’ English" : "the delegation’s English text"} · <a href="${esc(s.english_url)}">source</a></cite></blockquote>` : ""}
+    <div class="grid2">
+      <div><h4>Main topics</h4><div class="hbar">${topicShares.map(([l, v]) => `<div class="label" title="${esc(l)}">${esc(l)}</div><div class="track"><div class="bar" style="width:${(100 * v).toFixed(0)}%"></div></div><div class="value">${pct(v)}</div>`).join("")}</div></div>
+      <div><h4>Theory lenses, against the debate's average</h4><div class="zbar">${zRows}</div><p class="small">Standard deviations above (blue) or below (red) the average speech.</p></div>
+    </div>
+    <h4>Words that set this speech apart</h4><div class="chips">${s.distinctive_words.map((w) => `<span class="tag on">${esc(w)}</span>`).join("")}</div>
+    <h4>Issues raised</h4><div class="chips">${chips(D.issues.map((i) => i.name), s.issues)}</div>
+    <h4>Phrases used</h4><div class="chips">${chips(D.markers.map((m) => m.name), s.markers)}</div>
+    <h4>Closest speeches in vocabulary</h4><p>${s.similar.map((x) => `<a href="#country" data-slug="${esc(x.slug)}">${esc(x.delegation)}</a> (${x.similarity.toFixed(2)})`).join(" · ")}</p>`;
+  $("profile").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.slug); });
+  if (scroll) $("country").scrollIntoView({behavior: "smooth", block: "start"});
+}
+$("country-pick").onchange = () => openProfile($("country-pick").value, false);
+openProfile((D.speeches.find((s) => s.iso3 === "PSE") || D.speeches[0]).slug, false);
+document.querySelectorAll("a[data-profile]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.profile); });
+
+// ---------- vocabulary ----------
+const V = D.vocabulary;
+hbar("word-bars", V.words.map((w) => ({label: w.word, value: w.count, tip: `<b>${esc(w.word)}</b><br>${num(w.count)} times, in ${w.speeches} speeches`})), num, ["Word", "Times used"]);
+hbar("phrase-bars", V.phrases.map((w) => ({label: w.phrase, value: w.count, tip: `<b>${esc(w.phrase)}</b><br>${num(w.count)} times, in ${w.speeches} speeches`})), num, ["Word pair", "Times used"]);
+$("region-words").innerHTML = REGIONS.map((r) => `<div><h4 style="margin:0">${esc(r)}</h4><ol>${V.by_region[r].map((w) => `<li>${esc(w.word)} <span class="small">(${w.count})</span></li>`).join("")}</ol></div>`).join("");
+
 // all speeches
 const cols = [
-  ["Delegation", (s) => s.delegation, (s) => `<a href="${esc(s.page_url)}">${esc(s.delegation)}</a>`],
+  ["Delegation", (s) => s.delegation, (s) => `<a href="#country" data-slug="${esc(s.slug)}">${esc(s.delegation)}</a>`],
   ["Speaker", (s) => s.speaker, (s) => `${esc(s.speaker)}<br><span class="small">${esc(s.title)}</span>`],
   ["Region", (s) => s.region], ["Date", (s) => s.date, (s) => new Date(s.date + "T12:00").toLocaleDateString("en-GB", {day: "numeric", month: "short"})],
   ["Words", (s) => s.words, (s) => num(s.words), "n"],
@@ -313,6 +509,7 @@ function drawTable() {
     .sort((a, b) => { const x = cols[sortBy][1](a), y = cols[sortBy][1](b); return (x > y ? 1 : x < y ? -1 : 0) * (asc ? 1 : -1); });
   $("speech-table").innerHTML = "<thead><tr>" + cols.map((c, i) => `<th data-i="${i}" class="${c[3] || ""}">${esc(c[0])}${i === sortBy ? (asc ? " ▲" : " ▼") : ""}</th>`).join("") + "</tr></thead><tbody>" +
     rows.map((s) => "<tr>" + cols.map((c) => `<td class="${c[3] || ""}">${c[2] ? c[2](s) : esc(c[1](s))}</td>`).join("") + "</tr>").join("") + "</tbody>";
+  $("speech-table").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.slug); });
   $("speech-table").querySelectorAll("th").forEach((th) => th.onclick = () => { const i = +th.dataset.i; asc = i === sortBy ? !asc : true; sortBy = i; drawTable(); });
 }
 $("q").addEventListener("input", drawTable);

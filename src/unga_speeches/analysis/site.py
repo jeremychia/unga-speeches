@@ -7,7 +7,8 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 
-from unga_speeches.analysis import analyse, lexicons, topics
+from unga_speeches.analysis import analyse, geo, lexicons, topics
+from unga_speeches.analysis.highlights import HIGHLIGHTS
 from unga_speeches.config import OUTPUT_DIR, PROJECT_ROOT
 
 SITE_DIR = PROJECT_ROOT / "site"
@@ -61,13 +62,14 @@ def _verbatim_texts(session: int) -> dict[str, list[str]]:
     return texts
 
 
-def _check_quotes(d: dict) -> None:
-    """Every quote must appear word for word in a stored source text; a quote that does not stops the build."""
+def _check_quotes(d: dict, highlights: list) -> None:
+    """Every quote on the page must appear word for word in a stored source text; one that does not stops the build."""
     sources = _verbatim_texts(d["session"])
-    for frame, examples in d["frames"]["exemplars"].items():
-        for e in examples:
-            if e["quote"] and not any(_normalise(e["quote"]) in t for t in sources.get(e["slug"], [])):
-                raise ValueError(f"quote for {e['delegation']} ({frame}) is not in its source text: {e['quote'][:80]}")
+    quotes = [(e["slug"], e["quote"]) for examples in d["frames"]["exemplars"].values() for e in examples]
+    quotes += [(r["slug"], r["quote"]) for r in d["speeches"]] + [(h.slug, h.quote) for h in highlights]
+    for slug, quote in quotes:
+        if quote and not any(_normalise(quote) in t for t in sources.get(slug, [])):
+            raise ValueError(f"quote for {slug} is not in its source text: {quote[:80]}")
 
 
 def _region_of_most(rows: list[dict], key: str, value: str) -> tuple[str, int, int]:
@@ -78,10 +80,9 @@ def _region_of_most(rows: list[dict], key: str, value: str) -> tuple[str, int, i
 
 def _picture(name: str, alt: str) -> str:
     """A figure in its light and dark versions; the browser picks the one for the reader's theme."""
-    ext = "png" if name.startswith("map-") else "svg"
     return (
-        f"<picture><source srcset='figures/{name}-dark.{ext}' media='(prefers-color-scheme: dark)'>"
-        f"<img src='figures/{name}-light.{ext}' alt='{_e(alt)}' loading='lazy'></picture>"
+        f"<picture><source srcset='figures/{name}-dark.svg' media='(prefers-color-scheme: dark)'>"
+        f"<img src='figures/{name}-light.svg' alt='{_e(alt)}' loading='lazy'></picture>"
     )
 
 
@@ -90,15 +91,10 @@ def _figures(d: dict) -> None:
 
     out = SITE_DIR / "figures"
     out.mkdir(parents=True, exist_ok=True)
-    rows, world = d["speeches"], figures.world()
     figures.trend_multiples(d["trends"], out, analyse.TREND_ISSUES)
-    figures.issue_map(rows, world, out, "Artificial intelligence", "map-ai")
-    figures.wars_map(rows, world, out)
     figures.leaders_trend(d["trends"], out)
-    figures.rank_map(rows, world, out)
     figures.lens_dots(d["frames"]["by_group"]["region"], out, d["frames"]["names"])
-    figures.lens_maps(rows, world, out, d["frames"]["names"])
-    figures.length_swarm(rows, out, REGIONS)
+    figures.length_swarm(d["speeches"], out, REGIONS)
 
 
 def _year(trends: list[dict], year: int) -> dict:
@@ -107,7 +103,9 @@ def _year(trends: list[dict], year: int) -> dict:
 
 def build(session: int) -> Path:
     d = analyse.build(session)
-    _check_quotes(d)
+    chosen = HIGHLIGHTS.get(session, [])
+    _check_quotes(d, chosen)
+    d["geo"] = geo.paths()
     unlabelled = [t["label"] for t in d["topics"] if t["label"].startswith(topics.UNLABELLED)]
     if unlabelled:
         raise ValueError(f"topics need a label in analysis/topics.py before publishing: {unlabelled}")
@@ -121,10 +119,24 @@ def build(session: int) -> Path:
     now, last = _year(d["trends"], d["year"]), _year(d["trends"], d["year"] - 1)
     y2022, y2023 = _year(d["trends"], 2022), _year(d["trends"], 2023)
     ai, cc, gaza, ukr, gulf = (
-        issues[k] for k in ("Artificial intelligence", "Climate change", "Gaza and Palestine", "Ukraine", "Iran and the Gulf war")
+        issues[k] for k in ("Artificial intelligence", "Climate change", "Gaza or Palestine", "Ukraine", "Iran and the Gulf war")
     )
-    americas = [r for r in rows if r["region"] == "Americas"]
-    neither_americas = sum("Ukraine" not in r["issues"] and "Gaza and Palestine" not in r["issues"] for r in americas) / len(americas)
+    statehood = issues["Palestinian statehood"]
+    vocab = d["vocabulary"]
+    by_slug = {r["slug"]: r for r in rows}
+
+    def region_share(region: str, test) -> float:
+        members = [r for r in rows if r["region"] == region]
+        return sum(test(r) for r in members) / len(members)
+
+    def neither(r: dict) -> bool:
+        return "Ukraine" not in r["issues"] and "Gaza or Palestine" not in r["issues"]
+
+    lead_ukraine = max(REGIONS, key=lambda g: ukr["by_region"][g])
+    lead_gaza, second_gaza = sorted(REGIONS, key=lambda g: -gaza["by_region"][g])[:2]
+    majority_ukraine = [g for g in REGIONS if ukr["by_region"][g] > 0.5]
+    most_neither = sorted(REGIONS, key=lambda g: -region_share(g, neither))[:2]
+    gaza_only = issues["Gaza"]
     law = o["charter_or_law"] / o["speeches"]
     ai_regions = ai["by_region"]
     regional = [t for t in d["topics"] if (lambda r: r[1] / r[2] > 0.5)(_region_of_most(rows, "topic", t["label"]))]
@@ -137,7 +149,7 @@ def build(session: int) -> Path:
     title = "The world's attention has moved"
     kicker = (
         "In 2026 artificial intelligence became the one worry almost every country shares. "
-        "The wars that filled recent debates shrank to the regions that live with them. "
+        "The wars that filled recent debates faded from most speeches outside Europe and Asia. "
         "And fewer of the most powerful leaders came to say so in person."
     )
     scqa = "".join(
@@ -168,8 +180,9 @@ def build(session: int) -> Path:
             ),
             (
                 "wars",
-                "The wars of recent years became regional stories",
-                f"Gaza fell from {_pct(last['Gaza and Palestine'])} of speeches to {_pct(gaza['share'])}, and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_pct(ukr['share'])}. Europe still names Ukraine; the Global South names Gaza.",
+                "Beyond Europe and Asia, the wars of recent years are fading from view",
+                f"Gaza or Palestine fell from {_pct(last['Gaza or Palestine'])} of speeches to {_pct(gaza['share'])}, and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_pct(ukr['share'])}. "
+                "Most speeches from the Americas and the Pacific name neither.",
             ),
             (
                 "leaders",
@@ -219,12 +232,22 @@ def build(session: int) -> Path:
     )
 
     wars = _p(
-        f"<b>Attention to the wars of recent years is falling.</b> Gaza fell from {_pct(last['Gaza and Palestine'])} of speeches in {last['year']} to {_pct(gaza['share'])}, "
+        f"<b>Attention to the wars of recent years is falling.</b> Gaza or Palestine fell from {_pct(last['Gaza or Palestine'])} of speeches in {last['year']} to {_pct(gaza['share'])}, "
         f"and Ukraine from {_pct(y2022['Ukraine'])} in 2022 to {_pct(ukr['share'])}. Attention went to the Gulf instead: {_pct(gulf['share'])} of speeches mentioned Iran or the Gulf war, "
         f"against {_pct(last['Iran and the Gulf war'])} last year."
     ) + _p(
-        f"The map shows the split. Europe names Ukraine ({_pct(ukr['by_region']['Europe'])} of its speeches). Africa, the Arab world and South-East Asia name Gaza. "
-        f"Most of Latin America names neither: {_pct(neither_americas)} of speeches from the Americas mention neither war."
+        (
+            f"The map shows the split. {lead_ukraine} is the only region where most speeches name Ukraine ({_pct(ukr['by_region'][lead_ukraine])}). "
+            if majority_ukraine == [lead_ukraine]
+            else f"The map shows the split. {lead_ukraine} names Ukraine most ({_pct(ukr['by_region'][lead_ukraine])} of its speeches). "
+        )
+        + (
+            f"It also leads on Gaza or Palestine ({_pct(gaza['by_region'][lead_gaza])}), just ahead of {second_gaza} ({_pct(gaza['by_region'][second_gaza])}). "
+            if lead_gaza == lead_ukraine
+            else f"{lead_gaza} names Gaza or Palestine most ({_pct(gaza['by_region'][lead_gaza])}), ahead of {second_gaza} ({_pct(gaza['by_region'][second_gaza])}). "
+        )
+        + f"Most speeches from {most_neither[0].replace('Oceania', 'the Pacific').replace('Americas', 'the Americas')} ({_pct(region_share(most_neither[0], neither))}) "
+        f"and {most_neither[1].replace('Oceania', 'the Pacific').replace('Americas', 'the Americas')} ({_pct(region_share(most_neither[1], neither))}) name neither war."
     )
     topics_html = _p(
         f"<b>Each region also brought its own agenda.</b> In {len(regional)} of the {len(d['topics'])} topics a statistical model finds in the speeches, "
@@ -296,50 +319,93 @@ def build(session: int) -> Path:
         "The gaps come from speeches cut short and from speakers who switch language mid-speech."
     )
 
-    longest = an["length"][0]
-    complex_ = an["readability"][0] if an["readability"] else None
+    def ranked(items: list[dict], show, summary: str = "The top five") -> str:
+        return (
+            f"<details><summary>{summary}</summary><ol>"
+            + "".join(f"<li>{_e(i['delegation'])}: {show(i)}</li>" for i in items)
+            + "</ol></details>"
+        )
+
     pair = an["similar_pairs"][0]
-    least = an["least_delivered"][:2]
     multipolar_users = [r["delegation"] for r in rows if "Multipolar" in r["markers"]]
+    taiwan = [r["delegation"] for r in rows if "Taiwan" in r["issues"]]
     notable = [
         (
-            "The longest speech",
-            f"{_e(longest['delegation'])} spoke for {longest['words']:,} words, {longest['words'] / o['words_median']:.1f} times the median.",
+            "The longest and the shortest",
+            f"{_e(an['longest'][0]['delegation'])} used {an['longest'][0]['words']:,} words, {an['longest'][0]['words'] / o['words_median']:.1f} times the median; "
+            f"{_e(an['shortest'][0]['delegation'])} used {an['shortest'][0]['words']:,}."
+            + ranked(an["longest"], lambda i: f"{i['words']:,} words", "The five longest")
+            + ranked(an["shortest"], lambda i: f"{i['words']:,} words", "The five shortest"),
         ),
         (
-            "The densest prose",
-            f"{_e(complex_['delegation'])}'s statement averages {complex_['sentence_words']} words a sentence, a reading grade of {complex_['grade']}."
-            if complex_
-            else "",
+            "The densest and the plainest prose",
+            f"{_e(an['densest'][0]['delegation'])}'s statement averages {an['densest'][0]['sentence_words']} words a sentence, a reading grade of {an['densest'][0]['grade']}. "
+            f"{_e(an['plainest'][0]['delegation'])}'s reads at grade {an['plainest'][0]['grade']}."
+            + ranked(an["densest"], lambda i: f"grade {i['grade']}, {i['sentence_words']} words a sentence", "The five densest")
+            + ranked(an["plainest"], lambda i: f"grade {i['grade']}, {i['sentence_words']} words a sentence", "The five plainest"),
         ),
         (
             "The most alike",
-            (
-                f"{_e(pair['a'])} and {_e(pair['b'])} share the most vocabulary, yet their longest shared passage is {pair['longest_shared_words']} words: alike in theme, not copied. "
-                "Both belong to the Alliance of Sahel States."
+            f"{_e(pair['a'])} and {_e(pair['b'])} share the most vocabulary, yet their longest shared passage is {pair['longest_shared_words']} words: alike in theme, not copied."
+            + "<details><summary>The five closest pairs</summary><ol>"
+            + "".join(
+                f"<li>{_e(x['a'])} and {_e(x['b'])}: similarity {x['similarity']:.2f}, longest shared passage {x['longest_shared_words']} words</li>"
+                for x in an["similar_pairs"]
             )
-            if {pair["a"], pair["b"]} == {"Burkina Faso", "Mali"}
-            else f"{_e(pair['a'])} and {_e(pair['b'])} share the most vocabulary; their longest shared passage is {pair['longest_shared_words']} words.",
+            + "</ol></details>",
         ),
         (
             "The most distinctive",
-            f"{_e(an['most_distinctive'][0]['delegation'])} and {_e(an['most_distinctive'][1]['delegation'])} share the least vocabulary with everyone else.",
+            f"{_e(an['most_distinctive'][0]['delegation'])} and {_e(an['most_distinctive'][1]['delegation'])} share the least vocabulary with everyone else."
+            + ranked(
+                an["most_distinctive"],
+                lambda i: "its own words: " + _e(", ".join(by_slug[i["slug"]]["distinctive_words"][:5])),
+                "The five most distinctive",
+            ),
         ),
         (
             "Filed but not said",
-            f"{_e(least[0]['delegation'])} said {_pct(least[0]['delivered_share'])} of its filed text and {_e(least[1]['delegation'])} {_pct(least[1]['delivered_share'])}, the lowest of the debate.",
+            f"{_e(an['least_delivered'][0]['delegation'])} said {_pct(an['least_delivered'][0]['delivered_share'])} of its filed text, the lowest of the debate. "
+            "The gaps come from speeches cut short and from speakers switching language."
+            + ranked(an["least_delivered"][:5], lambda i: f"{_pct(i['delivered_share'])} of the filed text said", "The five lowest"),
         ),
         (
             "A rare word",
-            f"Only {len(multipolar_users)} speeches say “multipolar”, from {_e(', '.join(multipolar_users[:6]))} and others. The word has no single camp.",
+            f"Only {len(multipolar_users)} speeches say “multipolar”: {_e(', '.join(multipolar_users[:-1]))} and {_e(multipolar_users[-1])}. The word has no single camp.",
+        ),
+        (
+            "Palestine as a question of statehood",
+            f"{gaza['speeches']} speeches mention Gaza or Palestine. Of these, {gaza_only['speeches']} name Gaza, and {statehood['speeches']} speak of Palestinian statehood: the two-state solution or recognising Palestine.",
         ),
         (
             "The next Secretary-General",
             f"{issues['The next Secretary-General']['speeches']} speeches mention choosing the next Secretary-General, whose term begins in 2027.",
         ),
-        ("Taiwan", f"{issues['Taiwan']['speeches']} speeches mention Taiwan, which has no seat and gives no speech."),
+        ("Taiwan", f"{len(taiwan)} speeches mention Taiwan, which has no seat and gives no speech: {_e(', '.join(taiwan))}."),
     ]
     notable_html = "".join(f"<div class='callout'><b>{t}</b>{body}</div>" for t, body in notable if body)
+
+    top_two = [w["word"] for w in vocab["words"][:2]]
+    vocab_html = _p(
+        f"<b>“{top_two[0].capitalize()}” and “{top_two[1]}” are still the debate's commonest words.</b> "
+        "“Trust” also ranks high, because it is this session's theme. The pairs say more: “security council”, “human rights” and “artificial intelligence” lead them."
+    ) + _p(
+        "Each region's distinctive words read like its agenda: the Sahel and debt for Africa, the Caribbean and crime for the Americas, "
+        "Russia and aggression for Europe, the ocean and sea-level rise for the Pacific."
+    )
+
+    def highlight(h) -> str:
+        r = by_slug[h.slug]
+        near = ", ".join(x["delegation"] for x in r["similar"][:2])
+        return (
+            f"<div class='highlight'><h3>{_e(h.headline)}</h3><p>{_e(h.note)}</p>"
+            f"<blockquote><p>“{_e(h.quote)}”</p><cite>{_e(r['speaker'])}, {_e(r['delegation'])} · "
+            f"{'the UN interpreters’ English' if r['english_kind'] == 'transcript' else 'the delegation’s English text'} · <a href='{_e(r['page_url'])}'>source</a></cite></blockquote>"
+            f"<p class='meta'>{_e(r['title'])} · {r['words']:,} words · main topic: {_e(r['topic'])} · lean: {_e(r['lean'])} · closest speeches: {_e(near)} · "
+            f"<a href='#country' data-profile='{_e(h.slug)}'>open the profile</a></p></div>"
+        )
+
+    highlights_html = "".join(highlight(h) for h in chosen)
 
     method = "".join(
         _p(t)
@@ -353,7 +419,9 @@ def build(session: int) -> Path:
             "<b>Topics.</b> TF-IDF over words and word pairs, with names, salutations and transcript filler removed, and a twelve-topic NMF model with a fixed seed. "
             "Topic models shift when the texts change, so the labels are reviewed on every rebuild, and the build stops if a topic has none.",
             "<b>Theory lenses.</b> Word lists matched as prefixes, counted per 1,000 words and standardised across speeches. “Trust” is left out because it is this session's theme.",
-            "<b>Maps.</b> Natural Earth boundaries (public domain). States too small to see are drawn as dots. Hatched areas gave no speech, or are not UN members.",
+            "<b>Maps.</b> Natural Earth boundaries (public domain), simplified to about 15 km and drawn in the browser. States too small to see are drawn as dots. Hatched areas gave no speech, or are not UN members.",
+            "<b>Words.</b> Counts leave out common English words, names, salutations and transcript filler. Region words use weighted log-odds with an informative prior; each speech's distinctive words are its highest TF-IDF terms.",
+            "<b>Highlights.</b> The eight speeches worth reading are an editorial choice, and their notes are our reading. Their quotes are checked like every other quote on the page.",
             f"<b>Reproduce it.</b> The code and data are at <a href='{REPO}'>{REPO.removeprefix('https://')}</a>, and the <a href='data.json'>figures behind this page</a> are published beside it.",
         ]
     )
@@ -373,28 +441,27 @@ def build(session: int) -> Path:
         "__AGENDA_TITLE__": "AI went from the margins to the shared agenda in three years",
         "__AGENDA__": agenda,
         "__FIG_TREND__": _picture("trend-issues", "Six line charts of the share of speeches mentioning each issue from 2011 to 2026"),
-        "__FIG_AI__": _picture("map-ai", "World map of countries whose speech mentioned artificial intelligence"),
-        "__WARS_TITLE__": "The wars of recent years have become regional stories",
+        "__WARS_TITLE__": "Beyond Europe and Asia, the wars of recent years are fading from view",
         "__WARS__": wars,
         "__TOPICS__": topics_html,
-        "__FIG_WARS__": _picture("map-wars", "World map of which countries mentioned Ukraine, Gaza, both or neither"),
         "__LEADERS_TITLE__": "The most powerful were the least likely to come",
         "__LEADERS__": leaders,
         "__P5__": p5,
         "__FIG_LEADERS__": _picture("trend-leaders", "Line chart of G20 members sending their leader each year"),
-        "__FIG_RANK__": _picture("map-rank", "World map of the rank of each country's speaker"),
         "__ORDER_TITLE__": "States argue over the rules, not for a new order",
         "__ORDER__": order,
         "__LENSES_TITLE__": "Europe frames the world as security; Africa frames it as justice",
         "__THEORY__": theory,
         "__FIG_DOTS__": _picture("dots-lenses", "Dot plot of each region's use of each theory's vocabulary"),
-        "__FIG_LENSMAPS__": _picture("map-lenses", "Four world maps highlighting countries whose speech leans towards each theory"),
         "__NOLEAN__": str(frames["lean_counts"].get(analyse.NO_LEAN, 0)),
         "__LENSCARDS__": "".join(cards),
         "__READING_TITLE__": "Speeches are long, dense and mostly delivered as written",
         "__READING__": reading,
         "__FIG_SWARM__": _picture("swarm-length", "Swarm plot of every speech's length by region"),
         "__NOTABLE__": notable_html,
+        "__HIGHLIGHTS__": highlights_html,
+        "__VOCAB_TITLE__": f"“{top_two[0].capitalize()}” and “{top_two[1]}” still lead; each region has words of its own",
+        "__VOCAB__": vocab_html,
         "__METHOD__": method,
         "__FOOTER__": footer,
         "__DATA__": json.dumps(d, ensure_ascii=False).replace("</", "<\\/"),

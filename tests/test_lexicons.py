@@ -28,3 +28,15 @@ def test_markers():
 def test_densest_sentence_skips_salutations_and_rejoins_line_break_hyphens():
     text = "Madam President, Excellencies, our security and defence matter. We must strength‐ en our military and security posture against every threat now."
     assert densest_sentence(text, "Realism") == "We must strengthen our military and security posture against every threat now."
+
+
+def test_gaza_and_palestinian_statehood_are_separate_issues():
+    found = issues("We call for a ceasefire in Gaza.")
+    assert found["Gaza"] and not found["Palestinian statehood"]
+    found = issues("We support the two-state solution and recognise the State of Palestine.")
+    assert found["Palestinian statehood"] and not found["Gaza"]
+
+
+def test_gaza_or_palestine_covers_any_mention():
+    assert issues("The Palestinian people deserve peace.")["Gaza or Palestine"]
+    assert not issues("The Palestinian people deserve peace.")["Gaza"]
