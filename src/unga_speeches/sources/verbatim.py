@@ -35,6 +35,7 @@ PAGE_FURNITURE = re.compile(r"\d{1,3}|\d{2}-\d{5}\s*\(E\)|\*\d{7,}\*|\d{1,3}\s*/
 PRESIDING = re.compile(r"^the\s*(acting\s*|temporary\s*)?president\b|^the\s*(co-)?chair", re.I)
 # un officials speak in the debate under their office, never a country
 UN_OFFICIAL = re.compile(r"^the\s*(deputy\s*)?secretary-general|under-secretary-general|high representative", re.I)
+HEADING_TAIL = 15  # characters of non-bold text a heading can carry
 GAP_AS_SPACE = 0.15  # a gap wider than this share of the font size between glyphs is a word space
 LANGUAGE_NOTE = re.compile(r"\((?:spoke in|interpretation from) ([^;)]+)(;[^)]*)?\)", re.I)
 LABEL_COUNTRY = re.compile(r"\(([^()]+)\)\s*(?:\((?:spoke|interpretation)[^)]*\))?\s*$")
@@ -252,35 +253,41 @@ def _split_turn(block: _Block) -> tuple[str, str] | None:
     return match.group(1).strip(), block.text[match.end() :]
 
 
-def _agenda_state(block: _Block) -> bool | None:
-    """True when a heading opens the general debate, False when it opens other business, None when it is not an agenda heading."""
+def _agenda_state(block: _Block) -> str | None:
+    """debate, summit or other when a heading opens that business; None when the block is not an agenda heading."""
     if not block.bold_prefix:
         return None
     lowered = block.text.lower()
+    # a heading is bold apart from a short tail such as "(continued)"; a speaker's turn mentioning a summit is not one
+    is_heading = block.all_bold or len(block.text) - len(block.bold_prefix) <= HEADING_TAIL
     if lowered.startswith("general debate") or lowered.startswith("agenda item") and "general debate" in lowered[:200]:
-        return True
-    # a heading, not a speaker's turn, that names a summit or a high-level meeting
-    if lowered.startswith("agenda item") or ":" not in block.text[:80] and re.search(r"summit|high-level|commemorat", lowered):
-        return False
+        return "debate"
+    if is_heading and re.search(r"summit|high-level|commemorat", lowered):
+        return "summit"
+    if lowered.startswith("agenda item"):
+        return "other"
     return None
 
 
 def parse_meeting(path: Path, session: int, meeting: int) -> list[VerbatimSpeech]:
     speeches, current = [], None
     heading_text, escorted, last_was_heading = None, None, False
-    # none until the record says which agenda item is under way; some records never say
-    in_debate: bool | None = None
+    # none until the record says which business is under way; some records never say
+    business: str | None = None
     replies = False
     introduction = None
     for block in _blocks(path):
         state = _agenda_state(block)
         if state is not None:
-            in_debate, current, last_was_heading = state, None, False
+            business, current, last_was_heading = state, None, False
             continue
         if block.all_bold:
             # a heading can run over two blocks: "Address by Mr. X," then "President of Y"
             if block.text.startswith("Address by"):
                 heading_text, escorted = block.text, None
+                # heads of state follow the report of the secretary-general without a new agenda heading, but a summit has addresses too
+                if business != "summit":
+                    business = "debate"
             elif last_was_heading and heading_text:
                 heading_text += " " + block.text
             current, last_was_heading = None, block.text.startswith("Address by") or last_was_heading
@@ -302,7 +309,7 @@ def parse_meeting(path: Path, session: int, meeting: int) -> list[VerbatimSpeech
             replies = replies or "right of reply" in text.lower()
             introduction = text  # "I now give the floor to ... of the Kingdom of Morocco"
             continue
-        if in_debate is False:
+        if business in ("summit", "other"):
             continue
         heading = ADDRESS_HEADING.match(heading_text) if heading_text else None
         language = LANGUAGE_NOTE.search(label)
