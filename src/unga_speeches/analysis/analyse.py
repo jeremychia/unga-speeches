@@ -3,15 +3,12 @@
 import re
 import statistics
 from collections import Counter, defaultdict
-from difflib import SequenceMatcher
 
 import numpy as np
 import pandas as pd
 import textstat
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
-from unga_speeches.analysis import lexicons, topics, words
+from unga_speeches.analysis import lexicons, similarity, topics, words
 from unga_speeches.analysis.corpus import Speech, load
 from unga_speeches.config import OUTPUT_DIR, session_year
 
@@ -82,7 +79,8 @@ def build(session: int) -> dict:
             }
         )
 
-    for r, s, w in zip(rows, speeches, words.per_speech(speeches), strict=True):
+    matrix, terms, similar = similarity.matrices(speeches)
+    for r, s, w in zip(rows, speeches, words.per_speech(speeches, matrix, terms, similar), strict=True):
         r["distinctive_words"] = w["words"]
         r["similar"] = w["similar"]
         r["quote"] = words.representative_sentence(s.verbatim, w["words"])
@@ -94,7 +92,8 @@ def build(session: int) -> dict:
         "year": session_year(session),
         "overview": overview,
         "distributions": _distributions(rows, states),
-        "anomalies": _anomalies(speeches, rows),
+        "anomalies": _anomalies(speeches, rows, similar),
+        "similarity": similarity.build(speeches, matrix, terms, similar),
         "topics": _topics(fitted, rows),
         # each speech's topic_weights follow this order, which is the model's, not the sorted one above
         "topic_order": [t.label for t in fitted],
@@ -217,7 +216,7 @@ def _distributions(rows: list[dict], states: list[dict]) -> dict:
     }
 
 
-def _anomalies(speeches: list[Speech], rows: list[dict]) -> dict:
+def _anomalies(speeches: list[Speech], rows: list[dict], similar) -> dict:
     # compare lengths within one kind of text, since a transcript also carries the interpreter's words
     long_short = []
     for kind in ("statement", "transcript"):
@@ -238,16 +237,12 @@ def _anomalies(speeches: list[Speech], rows: list[dict]) -> dict:
         if abs(z) >= OUTLIER_Z
     ]
 
-    matrix = TfidfVectorizer(stop_words="english", sublinear_tf=True, min_df=2).fit_transform([s.text for s in speeches])
-    similarity = cosine_similarity(matrix)
-    np.fill_diagonal(similarity, np.nan)
-    distinct = np.nanmean(similarity, axis=1)
+    others = similar.copy()
+    np.fill_diagonal(others, np.nan)
+    distinct = np.nanmean(others, axis=1)
     order = np.argsort(distinct)
-    pairs = [
-        {"a": rows[i]["delegation"], "b": rows[j]["delegation"], "similarity": round(float(similarity[i, j]), 3)}
-        for i in range(len(rows))
-        for j in range(i + 1, len(rows))
-    ]
+    n = len(rows)
+    closest = sorted(((similar[i, j], i, j) for i in range(n) for j in range(i + 1, n)), reverse=True)[:5]
     delivered = sorted((r for r in rows if r["delivered_share"] is not None), key=lambda r: r["delivered_share"])
     by_words = sorted(rows, key=lambda r: r["words"])
     by_grade = sorted(statements, key=lambda r: r["readability"]["grade"])
@@ -269,17 +264,16 @@ def _anomalies(speeches: list[Speech], rows: list[dict]) -> dict:
         ],
         "most_typical": [{"delegation": rows[i]["delegation"], "similarity": round(float(distinct[i]), 3)} for i in order[::-1][:5]],
         "similar_pairs": [
-            {**p, "longest_shared_words": _longest_shared_run(speeches, p["a"], p["b"])}
-            for p in sorted(pairs, key=lambda p: -p["similarity"])[:5]
+            {
+                "a": rows[i]["delegation"],
+                "b": rows[j]["delegation"],
+                "similarity": round(float(v), 3),
+                "longest_shared_words": similarity.longest_shared_run(speeches[i].text, speeches[j].text),
+            }
+            for v, i, j in closest
         ],
         "least_delivered": [brief(r, delivered_share=r["delivered_share"]) for r in delivered[:6]],
     }
-
-
-def _longest_shared_run(speeches: list[Speech], a: str, b: str) -> int:
-    """Length in words of the longest passage two speeches share, which separates copied text from shared vocabulary."""
-    x, y = (next(s.text.split() for s in speeches if s.delegation == name) for name in (a, b))
-    return max(block.size for block in SequenceMatcher(None, x, y, autojunk=False).get_matching_blocks())
 
 
 def _topics(fitted: list[topics.Topic], rows: list[dict]) -> list[dict]:

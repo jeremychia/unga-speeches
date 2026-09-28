@@ -105,6 +105,10 @@ figure picture img { width: 100%; height: auto; display: block; }
 table.p5 td:first-child { font-weight: 600; }
 
 .map svg { width: 100%; height: auto; display: block; }
+.minimaps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px 18px; }
+.minimaps.four { grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.minimaps h5 { margin: 0 0 4px; font-size: 0.9rem; }
+.minimaps p.small { margin: 2px 0 0; }
 .map path, .map circle { cursor: pointer; transition: opacity .12s; }
 .map path:hover, .map circle:hover { stroke: var(--ink); stroke-width: 1.2; }
 .map .dim { opacity: 0.35; }
@@ -140,7 +144,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 <body>
 <nav><div>
   <a href="#answer">The answer</a><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a>
-  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
 </div></nav>
 <header id="answer">
   <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
@@ -204,7 +208,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <h2>__LENSES_TITLE__</h2>
     __THEORY__
     <figure><h4>Each lens's vocabulary by region, per 1,000 words</h4>__FIG_DOTS__</figure>
-    <figure><h4>Where each lens is strongest: countries whose speech leans that way</h4><div class="seg" id="lens-buttons" role="group" aria-label="Choose a lens"></div><div class="map" id="map-lens"></div><div class="legend" id="legend-lens"></div>
+    <figure><h4>Which country leans towards which theory</h4><div class="minimaps" id="lens-maps"></div>
       <figcaption>A speech leans towards a lens when its vocabulary for it is at least half a standard deviation above the debate's average. __NOLEAN__ speeches lean towards none.</figcaption></figure>
     __LENSCARDS__
   </section>
@@ -220,6 +224,20 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     </div>
     <figure><h4>The words each region uses more than the rest</h4><div class="cols5" id="region-words"></div>
       <figcaption>Weighted log-odds with an informative prior (Monroe, Colaresi and Quinn, 2008), comparing each region with all the others.</figcaption></figure>
+  </section>
+
+  <section id="alike">
+    <p class="eyebrow">7 · Who sounds like whom</p>
+    <h2>__ALIKE_TITLE__</h2>
+    __ALIKE__
+    <figure><h4>How close every speech is to the one you choose</h4>
+      <label class="small" for="alike-pick">Compare with</label><br><select id="alike-pick" aria-label="Compare with"></select>
+      <div class="map" id="map-alike" style="margin-top:10px"></div><div class="legend" id="legend-alike"></div>
+      <figcaption>Cosine similarity of the two speeches' word profiles: 0 shares no distinctive vocabulary, 1 is identical. Click any country to compare with it instead.</figcaption></figure>
+    <figure><h4>The twenty closest pairs of speeches</h4><div class="scroll"><table class="data" id="pairs-table"></table></div>
+      <figcaption>The longest shared passage shows whether a pair shares wording or only themes: a handful of words is theme, a long run would be copied text.</figcaption></figure>
+    <figure><h4>Eight blocs of speeches that sound alike</h4><div class="minimaps four" id="bloc-maps"></div>
+      <figcaption>Groups found by clustering the word profiles (Ward's method). Cohesion is the average similarity within the bloc, against the average to everyone outside it.</figcaption></figure>
   </section>
 
   <section id="reading">
@@ -368,7 +386,7 @@ const OTHER_RANK = ["--o1", "Other minister or diplomat"];
 const svgNS = "http://www.w3.org/2000/svg";
 
 // draws the world once per map; colour(speech) returns a css variable name, or null for "no speech"
-function worldMap(id, colour, legend, tipExtra) {
+function worldMap(id, colour, legend, tipExtra, click = (s) => openProfile(s.slug), clickHint = "Click for the country profile") {
   const el = $(id), G = D.geo;
   const svg = document.createElementNS(svgNS, "svg");
   svg.setAttribute("viewBox", `0 0 ${G.width} ${G.height}`);
@@ -398,10 +416,10 @@ function worldMap(id, colour, legend, tipExtra) {
   svg.querySelectorAll("[data-iso]").forEach((node) => {
     const s = BY_ISO[node.dataset.iso];
     const html = s
-      ? `<b>${esc(s.delegation)}</b><br>${esc(s.speaker)}, ${esc(s.title)}${tipExtra ? "<br>" + tipExtra(s) : ""}<br><span class="small">Click for the country profile</span>`
+      ? `<b>${esc(s.delegation)}</b><br>${esc(s.speaker)}, ${esc(s.title)}${tipExtra ? "<br>" + tipExtra(s) : ""}<br><span class="small">${typeof clickHint === "function" ? clickHint(s) : clickHint}</span>`
       : `<b>${esc(names[node.dataset.iso] || node.dataset.iso)}</b><br>No speech in the debate`;
     hover(node, html);
-    if (s) node.addEventListener("click", () => openProfile(s.slug));
+    if (s) node.addEventListener("click", () => click(s));
   });
   if (legend) $(id.replace("map-", "legend-")).innerHTML = legend.map(([label, v]) => v ? `<span style="--sw:var(${v})">${esc(label)}</span>` : `<span class="hatched">${esc(label)}</span>`).join("");
 }
@@ -414,16 +432,19 @@ const war = (s) => has(s, "Ukraine") && has(s, GP) ? "--c3" : has(s, "Ukraine") 
 worldMap("map-wars", war, [["Both", "--c3"], ["Ukraine only", "--c1"], ["Gaza or Palestine only", "--c2"], ["Neither", "--none"], ["No speech", null]],
   (s) => ({"--c3": "Names Ukraine, and Gaza or Palestine", "--c1": "Names Ukraine only", "--c2": "Names Gaza or Palestine only", "--none": "Names neither"})[war(s)]);
 const rank = (s) => (ROLE_RANK[s.role_group] || OTHER_RANK);
-worldMap("map-rank", (s) => rank(s)[0], [...Object.values(ROLE_RANK).map(([v, l]) => [l, v]), [OTHER_RANK[1], OTHER_RANK[0]], ["No speech", null]], (s) => rank(s)[1]);
+const rankCount = (label) => D.speeches.filter((s) => s.iso3 && rank(s)[1] === label).length;
+worldMap("map-rank", (s) => rank(s)[0], [...Object.values(ROLE_RANK).map(([v, l]) => [`${l} (${rankCount(l)})`, v]), [`${OTHER_RANK[1]} (${rankCount(OTHER_RANK[1])})`, OTHER_RANK[0]], ["No speech", null]], (s) => rank(s)[1]);
 
-function lensMap(lens) {
-  worldMap("map-lens", (s) => s.lean === lens ? "--c1" : "--none", [[`Leans towards ${lens.toLowerCase()}`, "--c1"], ["Other or no clear lean", "--none"], ["No speech", null]],
-    (s) => `Leans: ${esc(s.lean)}<br>${esc(lens)}: ${s.frame_z[lens] > 0 ? "+" : ""}${s.frame_z[lens]} sd from average`);
-  $("lens-buttons").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lens === lens)));
+// small multiples: one map per lens, so all four read at a glance
+function miniMaps(containerId, items) {
+  $(containerId).innerHTML = items.map((it, i) => `<div><h5>${esc(it.title)}</h5><div class="map" id="${containerId}-${i}"></div><p class="small">${esc(it.caption || "")}</p></div>`).join("");
+  items.forEach((it, i) => worldMap(`${containerId}-${i}`, it.colour, null, it.tip));
 }
-$("lens-buttons").innerHTML = D.frames.names.map((f) => `<button type="button" data-lens="${esc(f)}">${esc(f)} (${D.frames.lean_counts[f] || 0})</button>`).join("");
-$("lens-buttons").querySelectorAll("button").forEach((b) => b.onclick = () => lensMap(b.dataset.lens));
-lensMap(D.frames.names[0]);
+miniMaps("lens-maps", D.frames.names.map((f) => ({
+  title: `${f} (${D.frames.lean_counts[f] || 0} speeches)`,
+  colour: (s) => s.lean === f ? "--c1" : "--none",
+  tip: (s) => `Leans: ${esc(s.lean)}<br>${esc(f)}: ${s.frame_z[f] > 0 ? "+" : ""}${s.frame_z[f]} sd from the average`,
+})));
 
 // ---------- explorer ----------
 const EXPLORE = [
@@ -478,6 +499,7 @@ function openProfile(slug, scroll = true) {
     <h4>Words that set this speech apart</h4><div class="chips">${s.distinctive_words.map((w) => `<span class="tag on">${esc(w)}</span>`).join("")}</div>
     <h4>Issues raised</h4><div class="chips">${chips(D.issues.map((i) => i.name), s.issues)}</div>
     <h4>Phrases used</h4><div class="chips">${chips(D.markers.map((m) => m.name), s.markers)}</div>
+    <h4>Bloc</h4><p>${esc(D.similarity.blocs[D.similarity.blocs.findIndex((b) => b.members.includes(s.slug))].label)}</p>
     <h4>Closest speeches in vocabulary</h4><p>${s.similar.map((x) => `<a href="#country" data-slug="${esc(x.slug)}">${esc(x.delegation)}</a> (${x.similarity.toFixed(2)})`).join(" · ")}</p>`;
   $("profile").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.slug); });
   if (scroll) $("country").scrollIntoView({behavior: "smooth", block: "start"});
@@ -491,6 +513,37 @@ const V = D.vocabulary;
 hbar("word-bars", V.words.map((w) => ({label: w.word, value: w.count, tip: `<b>${esc(w.word)}</b><br>${num(w.count)} times, in ${w.speeches} speeches`})), num, ["Word", "Times used"]);
 hbar("phrase-bars", V.phrases.map((w) => ({label: w.phrase, value: w.count, tip: `<b>${esc(w.phrase)}</b><br>${num(w.count)} times, in ${w.speeches} speeches`})), num, ["Word pair", "Times used"]);
 $("region-words").innerHTML = REGIONS.map((r) => `<div><h4 style="margin:0">${esc(r)}</h4><ol>${V.by_region[r].map((w) => `<li>${esc(w.word)} <span class="small">(${w.count})</span></li>`).join("")}</ol></div>`).join("");
+
+
+// ---------- who sounds like whom ----------
+const SIM = D.similarity, SIM_INDEX = Object.fromEntries(SIM.order.map((slug, i) => [slug, i]));
+const BY_SLUG = Object.fromEntries(D.speeches.map((s) => [s.slug, s]));
+const SIM_STEPS = [[0.05, "--o1"], [0.1, "--o2"], [0.15, "--o3"], [Infinity, "--o4"]];
+function alikeMap(slug) {
+  const row = SIM.matrix[SIM_INDEX[slug]], me = BY_SLUG[slug];
+  const sim = (s) => row[SIM_INDEX[s.slug]] / 1000;
+  worldMap("map-alike", (s) => s.slug === slug ? "--c2" : SIM_STEPS.find(([cut]) => sim(s) < cut)[1],
+    [[me.delegation, "--c2"], ["under 0.05", "--o1"], ["0.05–0.10", "--o2"], ["0.10–0.15", "--o3"], ["0.15 or more", "--o4"], ["No speech", null]],
+    (s) => s.slug === slug ? "The speech you chose" : `Similarity to ${esc(me.delegation)}: <b>${sim(s).toFixed(2)}</b>`,
+    (s) => alikeMap(s.slug), (s) => `Click to compare with ${esc(s.delegation)}`);
+  $("alike-pick").value = slug;
+}
+$("alike-pick").innerHTML = [...D.speeches].sort((a, b) => a.delegation.localeCompare(b.delegation)).map((s) => `<option value="${esc(s.slug)}">${esc(s.delegation)}</option>`).join("");
+$("alike-pick").onchange = () => alikeMap($("alike-pick").value);
+alikeMap(SIM.pairs[0].a);
+
+$("pairs-table").innerHTML = "<thead><tr><th>Speech</th><th>Closest to</th><th class='n'>Similarity</th><th class='n'>Longest shared passage</th></tr></thead><tbody>" +
+  SIM.pairs.map((p) => `<tr><td><a href="#country" data-slug="${esc(p.a)}">${esc(BY_SLUG[p.a].delegation)}</a></td><td><a href="#country" data-slug="${esc(p.b)}">${esc(BY_SLUG[p.b].delegation)}</a></td><td class="n">${p.similarity.toFixed(2)}</td><td class="n">${p.longest_shared_words} ${p.longest_shared_words === 1 ? "word" : "words"}</td></tr>`).join("") + "</tbody>";
+$("pairs-table").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.slug); });
+
+const BLOC_OF = {};
+SIM.blocs.forEach((b, i) => b.members.forEach((slug) => BLOC_OF[slug] = i));
+miniMaps("bloc-maps", SIM.blocs.map((b) => ({
+  title: `${b.label} (${b.members.length})`,
+  caption: `Cohesion ${b.within.toFixed(3)} within, against ${b.outside.toFixed(3)} outside${b.loose ? ": a loose group" : ""}. Words: ${b.words.slice(0, 5).join(", ")}.`,
+  colour: (s) => b.members.includes(s.slug) ? "--c1" : "--none",
+  tip: (s) => `Bloc: ${esc(SIM.blocs[BLOC_OF[s.slug]].label)}`,
+})));
 
 // all speeches
 const cols = [

@@ -394,6 +394,34 @@ def build(session: int) -> Path:
         "Russia and aggression for Europe, the ocean and sea-level rise for the Pacific."
     )
 
+    sim = d["similarity"]
+    closest = sim["pairs"][0]
+    longest_run = max(x["longest_shared_words"] for x in sim["pairs"])
+    blocs = sim["blocs"]
+    regional_blocs = [b for b in blocs if max(b["regions"].values()) / len(b["members"]) > 0.7]
+    tightest = max(blocs, key=lambda b: b["within"])
+    loose = [b for b in blocs if b["loose"]]
+    africa_blocs = [b for b in blocs if next(iter(b["regions"])) == "Africa"]
+
+    def bloc_name(b: dict) -> str:
+        """A bloc's name mid-sentence: the part before the colon, with a leading "The" lowered."""
+        name = b["label"].split(":")[0]
+        return "the " + name[4:] if name.startswith("The ") else name
+
+    alike_html = _p(
+        f"<b>The closest pair is {_e(by_slug[closest['a']]['delegation'])} and {_e(by_slug[closest['b']]['delegation'])}, at {closest['similarity']:.2f}.</b> "
+        f"Among the twenty closest pairs, no two speeches share more than {longest_run} words in a row, so the likeness is in themes and vocabulary, not copied text."
+    ) + _p(
+        f"Clustering the speeches finds {len(blocs)} blocs, and {len(regional_blocs)} of them are mostly one region. "
+        f"The tightest is {_e(bloc_name(tightest))} (cohesion {tightest['within']:.2f})."
+        + (
+            f" African speeches fall into {len(africa_blocs)} blocs: {_e('; '.join(bloc_name(b) for b in africa_blocs))}."
+            if len(africa_blocs) > 1
+            else ""
+        )
+        + (f" One, {_e(bloc_name(loose[0]))}, is loose: its members are no closer to each other than to the rest." if loose else "")
+    )
+
     def highlight(h) -> str:
         r = by_slug[h.slug]
         near = ", ".join(x["delegation"] for x in r["similar"][:2])
@@ -421,6 +449,7 @@ def build(session: int) -> Path:
             "<b>Theory lenses.</b> Word lists matched as prefixes, counted per 1,000 words and standardised across speeches. “Trust” is left out because it is this session's theme.",
             "<b>Maps.</b> Natural Earth boundaries (public domain), simplified to about 15 km and drawn in the browser. States too small to see are drawn as dots. Hatched areas gave no speech, or are not UN members.",
             "<b>Words.</b> Counts leave out common English words, names, salutations and transcript filler. Region words use weighted log-odds with an informative prior; each speech's distinctive words are its highest TF-IDF terms.",
+            "<b>Similarity.</b> Cosine similarity of TF-IDF word profiles, with names, salutations and filler removed; the same measure drives the closest speeches, the pairs and the blocs. Blocs come from Ward clustering into eight groups, and are named by their top words.",
             "<b>Highlights.</b> The eight speeches worth reading are an editorial choice, and their notes are our reading. Their quotes are checked like every other quote on the page.",
             f"<b>Reproduce it.</b> The code and data are at <a href='{REPO}'>{REPO.removeprefix('https://')}</a>, and the <a href='data.json'>figures behind this page</a> are published beside it.",
         ]
@@ -462,6 +491,8 @@ def build(session: int) -> Path:
         "__HIGHLIGHTS__": highlights_html,
         "__VOCAB_TITLE__": f"“{top_two[0].capitalize()}” and “{top_two[1]}” still lead; each region has words of its own",
         "__VOCAB__": vocab_html,
+        "__ALIKE_TITLE__": "Speeches cluster by neighbourhood, and alike in theme rather than wording",
+        "__ALIKE__": alike_html,
         "__METHOD__": method,
         "__FOOTER__": footer,
         "__DATA__": json.dumps(d, ensure_ascii=False).replace("</", "<\\/"),

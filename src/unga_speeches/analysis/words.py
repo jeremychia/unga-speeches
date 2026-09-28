@@ -5,8 +5,6 @@ import re
 from collections import Counter
 
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
 from unga_speeches.analysis.corpus import Speech
 from unga_speeches.analysis.topics import URLS, _stop_words
@@ -77,20 +75,15 @@ def distinctive_by_group(speeches: list[Speech], groups: list[str], key) -> dict
     return out
 
 
-def per_speech(speeches: list[Speech]) -> list[dict]:
+def per_speech(speeches: list[Speech], matrix, terms, similarity) -> list[dict]:
     """Each speech's most distinctive words (highest TF-IDF) and its most similar speeches."""
-    vectoriser = TfidfVectorizer(
-        stop_words=_stop_words(), sublinear_tf=True, min_df=2, max_df=0.5, token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z\-]{2,}\b"
-    )
-    matrix = vectoriser.fit_transform([URLS.sub(" ", s.text) for s in speeches])
-    terms = vectoriser.get_feature_names_out()
-    similarity = cosine_similarity(matrix)
-    np.fill_diagonal(similarity, -1)
+    near_all = similarity.copy()
+    np.fill_diagonal(near_all, -1)
     out = []
     for i in range(len(speeches)):
         row = matrix[i].toarray().ravel()
         top = row.argsort()[::-1][:SPEECH_WORDS]
-        near = similarity[i].argsort()[::-1][:SIMILAR]
+        near = near_all[i].argsort()[::-1][:SIMILAR]
         out.append(
             {
                 "words": [terms[j] for j in top if row[j] > 0],
