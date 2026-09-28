@@ -41,3 +41,21 @@ def test_classify(title, expected):
 def test_holy_see_secretary_of_state_heads_government():
     assert classify("Secretary of State", "holy-see") == "head_of_government"
     assert classify("Secretary of State") == "unclassified"
+
+
+@pytest.mark.parametrize(
+    "title, expected",
+    [
+        ("UN Representative", "diplomat"),
+        ("Chair of the Delegation", "diplomat"),
+        ("Chairman of the Council of Ministers", "head_of_government"),
+        ("Chief Adviser of the interim Government", "head_of_government"),
+        ("Head  of the goverment", "head_of_government"),
+        ("Emperor", "head_of_state"),
+        ("Cairman of the Presidency", "head_of_state"),
+        ("Secretary for Relations with States", "foreign_minister"),
+        ("Ministry of External Relations ", "foreign_minister"),
+    ],
+)
+def test_classify_historical_titles(title, expected):
+    assert classify(title) == expected
