@@ -4,12 +4,12 @@ import hashlib
 import json
 import time
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import requests
 
-from .config import RAW_DIR, REQUEST_INTERVAL_SECONDS, USER_AGENT
+from unga_speeches.config import RAW_DIR, REQUEST_INTERVAL_SECONDS, USER_AGENT
 
 MANIFEST = RAW_DIR / "manifest.jsonl"
 
@@ -78,7 +78,7 @@ class Client:
             url=source_url or url,
             path=dest,
             sha256=hashlib.sha256(response.content).hexdigest(),
-            retrieved_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            retrieved_at=datetime.now(UTC).isoformat(timespec="seconds"),
             content_type=response.headers.get("content-type", ""),
         )
         record = {k: v for k, v in asdict(fetched).items() if k != "path"}

@@ -11,18 +11,24 @@ from pathlib import Path
 
 import pandas as pd
 
-from . import roles
-from .clean import clean
-from .config import OUTPUT_DIR, REFERENCE_DIR, session_year
-from .report import write_sources_report
-from .ungdc import DATASET_URL
+from unga_speeches.build.report import write_sources_report
+from unga_speeches.config import OUTPUT_DIR, REFERENCE_DIR, session_year
+from unga_speeches.enrich import roles
+from unga_speeches.extract.clean import clean
+from unga_speeches.sources.ungdc import DATASET_URL
 
 log = logging.getLogger(__name__)
 
 # how the corpus made its english text changed in its last two sessions (see its README)
 UNGDC_ENGLISH_BASIS = {79: "ungdc_machine_translation", 80: "ungdc_whisper_transcript"}
-UN_OFFICIAL_CODES = {"secretary-general-united-nations": "UN-SG", "president-general-assembly-opening": "UN-PGA", "president-general-assembly-closing": "UN-PGA-CLOSING"}
-HONORIFIC = re.compile(r"^(His|Her|Their)( Royal| Serene| Majesty| Highness| Excellency| Eminence| Beatitude)*\s+|^(Mr|Mrs|Ms|Miss|Dr|Sir|Dame)\.?\s+")
+UN_OFFICIAL_CODES = {
+    "secretary-general-united-nations": "UN-SG",
+    "president-general-assembly-opening": "UN-PGA",
+    "president-general-assembly-closing": "UN-PGA-CLOSING",
+}
+HONORIFIC = re.compile(
+    r"^(His|Her|Their)( Royal| Serene| Majesty| Highness| Excellency| Eminence| Beatitude)*\s+|^(Mr|Mrs|Ms|Miss|Dr|Sir|Dame)\.?\s+"
+)
 
 
 def _delegations() -> tuple[dict[str, str], dict[str, str]]:
@@ -70,7 +76,7 @@ def _gadebate(slug_code: dict[str, str]) -> tuple[pd.DataFrame, dict]:
 
 def _shingles(text: str, n: int = 5) -> set:
     words = re.findall(r"\w+", text.lower())
-    return set(zip(*(words[i:] for i in range(n))))
+    return {tuple(words[i : i + n]) for i in range(len(words) - n + 1)}
 
 
 def agreement(a: str, b: str) -> float | None:
@@ -79,6 +85,10 @@ def agreement(a: str, b: str) -> float | None:
     if not x or not y:
         return None
     return round(len(x & y) / min(len(x), len(y)), 3)
+
+
+def _index(frame: pd.DataFrame) -> dict:
+    return {(int(r["session"]), r["iso3"]): r for r in frame.to_dict("records")} if not frame.empty else {}
 
 
 def _best_original(candidates: list[dict], language: str | None) -> dict | None:
@@ -95,45 +105,87 @@ def build() -> Path:
     keys = set()
     for frame in (corpus, records, site):
         if not frame.empty:
-            keys |= {(int(s), c) for s, c in zip(frame["session"], frame["iso3"]) if isinstance(c, str)}
-    index = lambda frame: {(int(r["session"]), r["iso3"]): r for r in frame.to_dict("records")} if not frame.empty else {}
-    by_corpus, by_record, by_site = index(corpus[corpus.iso3.notna()]), index(records), index(site[site.iso3.notna()] if not site.empty else site)
+            keys |= {(int(s), c) for s, c in zip(frame["session"], frame["iso3"], strict=True) if isinstance(c, str)}
+    by_corpus, by_record, by_site = (
+        _index(corpus[corpus.iso3.notna()]),
+        _index(records),
+        _index(site[site.iso3.notna()] if not site.empty else site),
+    )
 
     rows = []
     for session, code in sorted(keys):
         c, v, g = by_corpus.get((session, code)), by_record.get((session, code)), by_site.get((session, code))
-        row = {"session": session, "year": session_year(session), "iso3": code, "delegation": names.get(code) or (c or {}).get("country") or code}
+        row = {
+            "session": session,
+            "year": session_year(session),
+            "iso3": code,
+            "delegation": names.get(code) or (c or {}).get("country") or code,
+        }
 
         if g:
             row.update(speaker_name=g["speaker_name"], speaker_title=g["speaker_title"], speaker_source="gadebate")
         elif c is not None and isinstance(c.get("speaker_name"), str):
-            row.update(speaker_name=c["speaker_name"], speaker_title=c.get("speaker_title") if isinstance(c.get("speaker_title"), str) else None, speaker_source="ungdc")
+            row.update(
+                speaker_name=c["speaker_name"],
+                speaker_title=c.get("speaker_title") if isinstance(c.get("speaker_title"), str) else None,
+                speaker_source="ungdc",
+            )
         elif v:
-            row.update(speaker_name=HONORIFIC.sub("", v["heading_speaker"] or v["label"]), speaker_title=v["heading_title"], speaker_source="un_verbatim_record")
+            row.update(
+                speaker_name=HONORIFIC.sub("", v["heading_speaker"] or v["label"]),
+                speaker_title=v["heading_title"],
+                speaker_source="un_verbatim_record",
+            )
         row["role"] = roles.classify(row.get("speaker_title"), g["slug"] if g else ("holy-see" if code == "VAT" else None))
         row["role_group"] = roles.ROLE_GROUP[row["role"]]
 
         if v:
-            row.update(spoken_language=v["spoken_language"], spoken_language_source="un_verbatim_record", interpretation_note=v["interpretation_note"])
+            row.update(
+                spoken_language=v["spoken_language"],
+                spoken_language_source="un_verbatim_record",
+                interpretation_note=v["interpretation_note"],
+            )
         elif g and g["original_language"]:
             row.update(spoken_language=g["original_language"], spoken_language_source="gadebate_statement_language")
 
         if v:
             row.update(english_text=v["text"], english_source="un_verbatim_record", english_url=v["meeting_url"], english_kind="verbatim")
         elif c is not None and isinstance(c.get("text_en"), str):
-            row.update(english_text=c["text_en"], english_source=UNGDC_ENGLISH_BASIS.get(session, "ungdc_verbatim_record"), english_url=DATASET_URL, english_kind="verbatim")
+            row.update(
+                english_text=c["text_en"],
+                english_source=UNGDC_ENGLISH_BASIS.get(session, "ungdc_verbatim_record"),
+                english_url=DATASET_URL,
+                english_kind="verbatim",
+            )
         elif g:
             english = [t for t in site_texts.get((session, g["slug"]), []) if t["language"] == "en" and t["text"]]
             english.sort(key=lambda t: t["kind"] == "transcript")
             if english:
-                row.update(english_text=english[0]["text"], english_source=f"gadebate_{english[0]['kind']}", english_url=english[0]["source_url"], english_kind=english[0]["kind"])
+                row.update(
+                    english_text=english[0]["text"],
+                    english_source=f"gadebate_{english[0]['kind']}",
+                    english_url=english[0]["source_url"],
+                    english_kind=english[0]["kind"],
+                )
 
         spoken = row.get("spoken_language")
         original = _best_original(site_texts.get((session, g["slug"]), []), spoken) if g else None
         if original:
-            row.update(original_language=spoken, original_text=original["text"], original_source=f"gadebate_{original['kind']}", original_url=original["source_url"], original_kind=original["kind"])
+            row.update(
+                original_language=spoken,
+                original_text=original["text"],
+                original_source=f"gadebate_{original['kind']}",
+                original_url=original["source_url"],
+                original_kind=original["kind"],
+            )
         elif spoken == "en" and row.get("english_text"):
-            row.update(original_language="en", original_text=row["english_text"], original_source=row["english_source"], original_url=row["english_url"], original_kind=row["english_kind"])
+            row.update(
+                original_language="en",
+                original_text=row["english_text"],
+                original_source=row["english_source"],
+                original_url=row["english_url"],
+                original_kind=row["english_kind"],
+            )
         elif spoken:
             row["original_language"] = spoken
 

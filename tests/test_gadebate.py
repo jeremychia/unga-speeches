@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from unga.gadebate import parse_page, parse_sitemap
-from unga.render import escape_markdown
+from unga_speeches.build.render import escape_markdown
+from unga_speeches.sources.gadebate import parse_page, parse_sitemap
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -32,7 +32,7 @@ def test_escape_markdown_keeps_characters_visible():
 
 
 def test_word_opening_with_a_combining_mark_flags_a_broken_indic_font():
-    from unga.pdftext import _misordered_mark_share
+    from unga_speeches.extract.pdf import _misordered_mark_share
 
     assert _misordered_mark_share("বিসমিল্লাহির রাহমানির রাহিম") == 0
     assert _misordered_mark_share("েসতমল্লাতহর রাহমাতের") == 0.5

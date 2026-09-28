@@ -1,6 +1,6 @@
 import pytest
 
-from unga.roles import classify
+from unga_speeches.enrich.roles import classify
 
 
 @pytest.mark.parametrize(

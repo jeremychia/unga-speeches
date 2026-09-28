@@ -3,13 +3,12 @@
 import csv
 import hashlib
 import re
-from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from .config import RAW_DIR, REFERENCE_DIR
-from .http import Client
-from .model import TextVersion
+from unga_speeches.config import RAW_DIR, REFERENCE_DIR
+from unga_speeches.http import Client
+from unga_speeches.model import TextVersion
 
 BLOCKS = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "li", "blockquote"]
 
@@ -45,5 +44,7 @@ def fetch(client: Client, session: int, slug: str, source: dict) -> TextVersion 
         sha256=fetched.sha256,
         method="html",
         text=text,
-        warnings=["published by the delegation's government; web pages can change after publication, so check the retrieval date and checksum"],
+        warnings=[
+            "published by the delegation's government; web pages can change after publication, so check the retrieval date and checksum"
+        ],
     )

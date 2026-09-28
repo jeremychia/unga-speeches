@@ -3,14 +3,44 @@
 import re
 from pathlib import Path
 
-from .model import Speech, TextVersion
+from unga_speeches.model import Speech, TextVersion
 
 LANGUAGE_NAMES = {
-    "ar": "Arabic", "bn": "Bengali", "cs": "Czech", "de": "German", "en": "English", "es": "Spanish",
-    "fr": "French", "it": "Italian", "ja": "Japanese", "ko": "Korean", "lv": "Latvian", "pt": "Portuguese",
-    "ro": "Romanian", "ru": "Russian", "uk": "Ukrainian", "zh": "Chinese", "fa": "Persian", "fil": "Filipino",
-    "ti": "Tigrinya", "tg": "Tajik", "tk": "Turkmen", "da": "Danish", "bi": "Bislama", "tl": "Tagalog", "hi": "Hindi", "tr": "Turkish", "nl": "Dutch", "el": "Greek",
-    "he": "Hebrew", "hy": "Armenian", "ka": "Georgian", "ky": "Kyrgyz", "kk": "Kazakh", "mn": "Mongolian", "sq": "Albanian",
+    "ar": "Arabic",
+    "bn": "Bengali",
+    "cs": "Czech",
+    "de": "German",
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "it": "Italian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "lv": "Latvian",
+    "pt": "Portuguese",
+    "ro": "Romanian",
+    "ru": "Russian",
+    "uk": "Ukrainian",
+    "zh": "Chinese",
+    "fa": "Persian",
+    "fil": "Filipino",
+    "ti": "Tigrinya",
+    "tg": "Tajik",
+    "tk": "Turkmen",
+    "da": "Danish",
+    "bi": "Bislama",
+    "tl": "Tagalog",
+    "hi": "Hindi",
+    "tr": "Turkish",
+    "nl": "Dutch",
+    "el": "Greek",
+    "he": "Hebrew",
+    "hy": "Armenian",
+    "ka": "Georgian",
+    "ky": "Kyrgyz",
+    "kk": "Kazakh",
+    "mn": "Mongolian",
+    "sq": "Albanian",
 }
 
 KIND_LABEL = {
@@ -100,7 +130,9 @@ def render(speech: Speech, out_dir: Path) -> Path:
     body += ["## Sources\n", "\n".join(sources) + "\n"]
     body.append(f"## Original language: {language_name(speech.original_language)}\n")
     body += [_section(v) for v in original] or [
-        "_The spoken language is not known; see the gap above._\n" if speech.original_language is None else "_No original-language text is held by the UN for this speech._\n"
+        "_The spoken language is not known; see the gap above._\n"
+        if speech.original_language is None
+        else "_No original-language text is held by the UN for this speech._\n"
     ]
     if speech.original_language != "en":
         body.append("## English\n")

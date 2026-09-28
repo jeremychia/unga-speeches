@@ -60,7 +60,10 @@ def refine_cyrillic(language: str | None, text: str) -> str | None:
     """Langdetect has no kyrgyz, kazakh or tajik and calls them russian; their extra letters tell them apart."""
     if language != "ru":
         return language
-    count = lambda letters: sum(text.count(c) for c in letters)
+
+    def count(letters: str) -> int:
+        return sum(text.count(c) for c in letters)
+
     if count("ҳҷӣӯ") > 20:
         return "tg"
     if count("әғқұһі") > 20:

@@ -8,13 +8,14 @@ import json
 import logging
 import re
 from dataclasses import asdict, dataclass
+from itertools import pairwise
 from pathlib import Path
 
 import pymupdf
 
-from . import countries
-from .config import OUTPUT_DIR, RAW_DIR, session_year
-from .http import Client
+from unga_speeches.config import OUTPUT_DIR, RAW_DIR, session_year
+from unga_speeches.enrich import countries
+from unga_speeches.http import Client
 
 log = logging.getLogger(__name__)
 
@@ -40,18 +41,80 @@ ADDRESS_HEADING = re.compile(r"^Address by (?P<speaker>.+?)(?:, (?P<title>.+))?$
 ESCORTED = re.compile(r"^(?P<speaker>.+?)(?:, (?P<title>.+?),)? was escorted into", re.S)
 RIGHT_OF_REPLY = re.compile(r"right of reply", re.I)
 LANGUAGE_CODES = {
-    "english": "en", "french": "fr", "spanish": "es", "russian": "ru", "arabic": "ar", "chinese": "zh",
-    "portuguese": "pt", "german": "de", "japanese": "ja", "italian": "it", "farsi": "fa", "persian": "fa",
-    "korean": "ko", "turkish": "tr", "ukrainian": "uk", "kyrgyz": "ky", "kazakh": "kk", "uzbek": "uz",
-    "tajik": "tg", "turkmen": "tk", "azerbaijani": "az", "armenian": "hy", "georgian": "ka", "mongolian": "mn",
-    "indonesian": "id", "bahasa indonesia": "id", "malay": "ms", "vietnamese": "vi", "thai": "th", "khmer": "km",
-    "lao": "lo", "burmese": "my", "hindi": "hi", "bengali": "bn", "bangla": "bn", "urdu": "ur", "nepali": "ne",
-    "sinhala": "si", "dari": "fa", "pashto": "ps", "hebrew": "he", "greek": "el", "polish": "pl", "czech": "cs",
-    "slovak": "sk", "hungarian": "hu", "romanian": "ro", "bulgarian": "bg", "serbian": "sr", "croatian": "hr",
-    "bosnian": "bs", "slovenian": "sl", "macedonian": "mk", "albanian": "sq", "montenegrin": "sr", "latvian": "lv",
-    "lithuanian": "lt", "estonian": "et", "finnish": "fi", "swedish": "sv", "norwegian": "no", "danish": "da",
-    "icelandic": "is", "dutch": "nl", "maltese": "mt", "catalan": "ca", "luxembourgish": "lb", "swahili": "sw",
-    "amharic": "am", "somali": "so", "tigrinya": "ti", "tetum": "tet", "dhivehi": "dv", "belarusian": "be",
+    "english": "en",
+    "french": "fr",
+    "spanish": "es",
+    "russian": "ru",
+    "arabic": "ar",
+    "chinese": "zh",
+    "portuguese": "pt",
+    "german": "de",
+    "japanese": "ja",
+    "italian": "it",
+    "farsi": "fa",
+    "persian": "fa",
+    "korean": "ko",
+    "turkish": "tr",
+    "ukrainian": "uk",
+    "kyrgyz": "ky",
+    "kazakh": "kk",
+    "uzbek": "uz",
+    "tajik": "tg",
+    "turkmen": "tk",
+    "azerbaijani": "az",
+    "armenian": "hy",
+    "georgian": "ka",
+    "mongolian": "mn",
+    "indonesian": "id",
+    "bahasa indonesia": "id",
+    "malay": "ms",
+    "vietnamese": "vi",
+    "thai": "th",
+    "khmer": "km",
+    "lao": "lo",
+    "burmese": "my",
+    "hindi": "hi",
+    "bengali": "bn",
+    "bangla": "bn",
+    "urdu": "ur",
+    "nepali": "ne",
+    "sinhala": "si",
+    "dari": "fa",
+    "pashto": "ps",
+    "hebrew": "he",
+    "greek": "el",
+    "polish": "pl",
+    "czech": "cs",
+    "slovak": "sk",
+    "hungarian": "hu",
+    "romanian": "ro",
+    "bulgarian": "bg",
+    "serbian": "sr",
+    "croatian": "hr",
+    "bosnian": "bs",
+    "slovenian": "sl",
+    "macedonian": "mk",
+    "albanian": "sq",
+    "montenegrin": "sr",
+    "latvian": "lv",
+    "lithuanian": "lt",
+    "estonian": "et",
+    "finnish": "fi",
+    "swedish": "sv",
+    "norwegian": "no",
+    "danish": "da",
+    "icelandic": "is",
+    "dutch": "nl",
+    "maltese": "mt",
+    "catalan": "ca",
+    "luxembourgish": "lb",
+    "swahili": "sw",
+    "amharic": "am",
+    "somali": "so",
+    "tigrinya": "ti",
+    "tetum": "tet",
+    "dhivehi": "dv",
+    "belarusian": "be",
 }
 
 
@@ -151,12 +214,14 @@ def _make_block(page_no: int, rows: list[list[dict]]) -> _Block:
         if not s["flags"] & 16:
             break
         prefix += s["text"] + " "
-    return _Block(page_no, text, re.sub(r"\s+", " ", prefix).strip(), all(s["flags"] & 16 for s in spans), all(s["flags"] & 2 for s in spans))
+    return _Block(
+        page_no, text, re.sub(r"\s+", " ", prefix).strip(), all(s["flags"] & 16 for s in spans), all(s["flags"] & 2 for s in spans)
+    )
 
 
 def _row_text(row: list[dict]) -> str:
     parts = [row[0]["text"]]
-    for a, b in zip(row, row[1:]):
+    for a, b in pairwise(row):
         parts.append(" " if b["bbox"][0] - a["bbox"][2] > GAP_AS_SPACE * a["size"] else "")
         parts.append(b["text"])
     return "".join(parts)
@@ -166,7 +231,11 @@ def _blocks(path: Path):
     with pymupdf.open(path) as doc:
         for page_no, page in enumerate(doc, start=1):
             for block in page.get_text("rawdict")["blocks"]:
-                rows = [r for r in _rows(block) if r[0]["size"] >= BODY_MIN_SIZE and not PAGE_FURNITURE.fullmatch("".join(s["text"] for s in r).strip())]
+                rows = [
+                    r
+                    for r in _rows(block)
+                    if r[0]["size"] >= BODY_MIN_SIZE and not PAGE_FURNITURE.fullmatch("".join(s["text"] for s in r).strip())
+                ]
                 if rows:
                     yield from _segment(page_no, rows)
 
@@ -178,7 +247,7 @@ def _split_turn(block: _Block) -> tuple[str, str] | None:
     match = re.match(r"^(.{2,200}?(?:\([^)]*\)\s*)*):\s*", block.text)
     if not match or not block.text.startswith(block.bold_prefix[:10]):
         return None
-    return match.group(1).strip(), block.text[match.end():]
+    return match.group(1).strip(), block.text[match.end() :]
 
 
 def _agenda_state(block: _Block) -> bool | None:

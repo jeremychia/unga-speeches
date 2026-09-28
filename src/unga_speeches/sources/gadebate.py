@@ -9,8 +9,8 @@ from xml.etree import ElementTree
 import requests
 from bs4 import BeautifulSoup
 
-from .config import GADEBATE_BASE, RAW_DIR, UN_LANGUAGES
-from .http import Client
+from unga_speeches.config import GADEBATE_BASE, RAW_DIR, UN_LANGUAGES
+from unga_speeches.http import Client
 
 SITEMAP_NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 SPEAKER_URL = re.compile(rf"^{re.escape(GADEBATE_BASE)}/en/(\d+)/([a-z0-9-]+)$")

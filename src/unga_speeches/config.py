@@ -1,12 +1,14 @@
+import os
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = PROJECT_ROOT / "data"
+REFERENCE_DIR = PROJECT_ROOT / "reference"
+REPORTS_DIR = PROJECT_ROOT / "reports"
+# downloads and outputs run to gigabytes, so they can live outside the checkout
+DATA_DIR = Path(os.environ.get("UNGA_DATA_DIR", PROJECT_ROOT / "data"))
 RAW_DIR = DATA_DIR / "raw"
-REFERENCE_DIR = DATA_DIR / "reference"
 SPEECHES_DIR = DATA_DIR / "speeches"
 OUTPUT_DIR = DATA_DIR / "output"
-REPORTS_DIR = PROJECT_ROOT / "reports"
 
 GADEBATE_BASE = "https://gadebate.un.org"
 # the site's firewall challenges clients without a browser user agent

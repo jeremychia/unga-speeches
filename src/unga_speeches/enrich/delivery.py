@@ -25,7 +25,7 @@ def tokens(text: str, language: str | None) -> list[str]:
 
 def transcript_body(text: str) -> str:
     notice = TRANSCRIPT_NOTICE.search(text)
-    return text[notice.end():] if notice else text
+    return text[notice.end() :] if notice else text
 
 
 def compare(statement: str, transcript: str, language: str | None) -> tuple[float, float]:

@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from . import roles
-from .config import OUTPUT_DIR, RAW_DIR
+from unga_speeches.config import OUTPUT_DIR, RAW_DIR
+from unga_speeches.enrich import roles
 
 UNGDC_DIR = RAW_DIR / "ungdc"
 DATASET_URL = "https://doi.org/10.7910/DVN/0TJX8Y"

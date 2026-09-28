@@ -4,18 +4,30 @@ import csv
 import json
 import logging
 from dataclasses import asdict
-from pathlib import Path
 
-from . import delivery, gadebate, national, pdftext, roles
-from .config import OUTPUT_DIR, REFERENCE_DIR, SPEECHES_DIR, UN_LANGUAGES, session_year
-from .http import Client
-from .model import Speech, TextVersion
-from .render import language_name, render
-from .report import write_completeness_report
+from unga_speeches.build.render import language_name, render
+from unga_speeches.build.report import write_completeness_report
+from unga_speeches.config import OUTPUT_DIR, REFERENCE_DIR, SPEECHES_DIR, UN_LANGUAGES, session_year
+from unga_speeches.enrich import delivery, roles
+from unga_speeches.extract import pdf
+from unga_speeches.http import Client
+from unga_speeches.model import Speech, TextVersion
+from unga_speeches.sources import gadebate, national
 
 log = logging.getLogger(__name__)
 
-TESSERACT_LANGUAGE = {"ar": "ara", "bn": "ben", "de": "deu", "en": "eng", "es": "spa", "fr": "fra", "pt": "por", "ru": "rus", "uk": "ukr", "zh": "chi_sim"}
+TESSERACT_LANGUAGE = {
+    "ar": "ara",
+    "bn": "ben",
+    "de": "deu",
+    "en": "eng",
+    "es": "spa",
+    "fr": "fra",
+    "pt": "por",
+    "ru": "rus",
+    "uk": "ukr",
+    "zh": "chi_sim",
+}
 
 
 def load_delegations() -> list[dict]:
@@ -27,12 +39,14 @@ def _statement_version(client: Client, page: gadebate.SpeakerPage, statement: ga
     fetched = gadebate.fetch_statement(client, page, statement)
     if not fetched:
         return None
-    extracted = pdftext.extract(fetched.path, TESSERACT_LANGUAGE.get(statement.language or "", "eng"))
+    extracted = pdf.extract(fetched.path, TESSERACT_LANGUAGE.get(statement.language or "", "eng"))
     language = statement.language
     warnings = list(extracted.warnings)
     if extracted.detected_language and extracted.language_confidence and extracted.language_confidence >= 0.9:
         if language and extracted.detected_language != language:
-            warnings.append(f"the site files this as {language_name(language)} but the text reads as {language_name(extracted.detected_language)}")
+            warnings.append(
+                f"the site files this as {language_name(language)} but the text reads as {language_name(extracted.detected_language)}"
+            )
         language = extracted.detected_language
     elif extracted.text:
         warnings.append("the text mixes languages or its language could not be detected reliably")
@@ -68,7 +82,7 @@ def _transcript_version(client: Client, page: gadebate.SpeakerPage, language: st
 
 
 def build_speech(client: Client, page: gadebate.SpeakerPage, delegation: dict, page_retrieved_at: str | None) -> Speech:
-    official = [l for l in (delegation.get("official_languages") or "").split("|") if l]
+    official = [code for code in (delegation.get("official_languages") or "").split("|") if code]
     speech = Speech(
         session=page.session,
         year=session_year(page.session),
@@ -92,13 +106,15 @@ def build_speech(client: Client, page: gadebate.SpeakerPage, delegation: dict, p
     statements += [v for source in national.load(page.session, page.slug) if (v := national.fetch(client, page.session, page.slug, source))]
     # a statement's language marks the original even when its text layer is unusable
     languages = [v.language for v in statements if v.language]
-    non_english = sorted({l for l in languages if l != "en"})
+    non_english = sorted({code for code in languages if code != "en"})
     floor = [v.language for v in statements if v.floor_version and v.language]
 
     if floor:
         speech.original_language = floor[0]
     elif len(non_english) > 1:
-        speech.gaps.append(f"texts were filed in {len(set(languages))} languages and none is marked as delivered, so the spoken language is not known")
+        speech.gaps.append(
+            f"texts were filed in {len(set(languages))} languages and none is marked as delivered, so the spoken language is not known"
+        )
     elif non_english:
         speech.original_language = non_english[0]
     elif "en" in languages and official and "en" not in official:
@@ -111,10 +127,11 @@ def build_speech(client: Client, page: gadebate.SpeakerPage, delegation: dict, p
         speech.original_language = "en"
     elif official:
         speech.original_language = "en" if "en" in official else official[0]
-        speech.gaps.append(f"no statement was filed, so the spoken language is assumed to be {language_name(speech.original_language)}, an official language of {speech.delegation}")
-    has_text = lambda language: any(v.text and v.language == language for v in statements)
+        speech.gaps.append(
+            f"no statement was filed, so the spoken language is assumed to be {language_name(speech.original_language)}, an official language of {speech.delegation}"
+        )
     for v in statements:
-        if not v.text and not has_text(v.language):
+        if not v.text and not any(w.text and w.language == v.language for w in statements):
             speech.gaps.append(f"the statement pdf <{v.source_url}> has no usable text layer; read the pdf itself")
 
     wanted = ["en"]
@@ -129,12 +146,16 @@ def build_speech(client: Client, page: gadebate.SpeakerPage, delegation: dict, p
     for i, v in enumerate(speech.texts):
         v.index = i
 
-    filed = sorted((v for v in speech.texts if v.role == "original" and v.kind != "transcript" and v.text), key=lambda v: not v.floor_version)
+    filed = sorted(
+        (v for v in speech.texts if v.role == "original" and v.kind != "transcript" and v.text), key=lambda v: not v.floor_version
+    )
     said = [v for v in speech.texts if v.role == "original" and v.kind == "transcript" and v.text]
     if filed and said:
         speech.delivered_share, speech.unscripted_share = delivery.compare(filed[0].text, said[0].text, speech.original_language)
 
-    has = lambda role, *kinds: any(v.role == role and v.kind in kinds and v.text for v in speech.texts)
+    def has(role: str, *kinds: str) -> bool:
+        return any(v.role == role and v.kind in kinds and v.text for v in speech.texts)
+
     if speech.original_language == "en":
         speech.english_source = "original" if has("original", "statement", "national_source", "transcript") else "none"
     elif has("english", "statement", "national_source"):
@@ -179,7 +200,9 @@ def run_session(session: int, refresh: bool = False, only: set[str] | None = Non
             continue
         render(speech, SPEECHES_DIR / str(session) / slug)
         speeches.append(speech)
-        log.info("%s: %s (%s), original %s, english %s", slug, speech.speaker_name, speech.role, speech.original_language, speech.english_source)
+        log.info(
+            "%s: %s (%s), original %s, english %s", slug, speech.speaker_name, speech.role, speech.original_language, speech.english_source
+        )
     if not only:
         write_outputs(session, speeches, pending, delegations)
     if failed:
@@ -188,9 +211,25 @@ def run_session(session: int, refresh: bool = False, only: set[str] | None = Non
 
 
 SPEECH_COLUMNS = [
-    "session", "year", "slug", "delegation", "iso3", "status", "date", "honorific", "speaker_name", "speaker_title",
-    "role", "role_group", "original_language", "english_source", "delivered_share", "unscripted_share",
-    "page_url", "daily_summary_url", "gaps",
+    "session",
+    "year",
+    "slug",
+    "delegation",
+    "iso3",
+    "status",
+    "date",
+    "honorific",
+    "speaker_name",
+    "speaker_title",
+    "role",
+    "role_group",
+    "original_language",
+    "english_source",
+    "delivered_share",
+    "unscripted_share",
+    "page_url",
+    "daily_summary_url",
+    "gaps",
 ]
 
 

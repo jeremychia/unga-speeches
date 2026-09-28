@@ -1,5 +1,7 @@
 .venv/
 __pycache__/
 .pytest_cache/
-data/raw/
-data/output/*.parquet
+.ruff_cache/
+# downloads and generated outputs are published as release assets, not committed
+data/
+dist/

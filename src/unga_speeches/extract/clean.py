@@ -3,7 +3,7 @@
 import re
 from collections import Counter
 
-from .delivery import transcript_body
+from unga_speeches.enrich.delivery import transcript_body
 
 SENTENCE_END = re.compile(r"[.!?:;\"”’»)\]]$|[。！？]$")
 PAGE_MARK = re.compile(r"^(page\s*)?\d{1,3}(\s*(of|/|de|из)\s*\d{1,3})?$|^-\s*\d{1,3}\s*-$", re.I)
@@ -13,8 +13,13 @@ PRESIDING_LINE = re.compile(
     r"i now give the floor|i give the floor|thank you\.?$|merci\.?$|gracias\.?$|l'assemblée va|je prie le protocole|la asamblea escuchará|solicito al protocolo)",
     re.I,
 )
-CLOSING_INLINE = re.compile(r"\s*(on behalf of the (general )?assembly, i (wish to )?thank|i thank the .{0,120} for (his|her|their) ).*$", re.I)
-DELIVERY_NOTE = re.compile(r"^\(?\s*(please\s+)?check\s+against\s+delivery\s*\)?$|^\(?\s*seul le prononcé fait foi\s*\)?$|^\(?\s*cotejar con el discurso pronunciado\s*\)?$", re.I)
+CLOSING_INLINE = re.compile(
+    r"\s*(on behalf of the (general )?assembly, i (wish to )?thank|i thank the .{0,120} for (his|her|their) ).*$", re.I
+)
+DELIVERY_NOTE = re.compile(
+    r"^\(?\s*(please\s+)?check\s+against\s+delivery\s*\)?$|^\(?\s*seul le prononcé fait foi\s*\)?$|^\(?\s*cotejar con el discurso pronunciado\s*\)?$",
+    re.I,
+)
 
 
 def clean(text: str, kind: str) -> str:
@@ -22,11 +27,11 @@ def clean(text: str, kind: str) -> str:
         return ""
     lines = [line.strip() for line in text.replace("\r", "").split("\n")]
     if kind == "transcript":
-        lines = [l.lstrip("\u200f") for l in transcript_body(text).split("\n")]
+        lines = [line.lstrip("\u200f") for line in transcript_body(text).split("\n")]
         lines = _trim_presiding(lines)
     # headers and footers repeat on every page of a pdf
-    repeated = {line for line, n in Counter(l for l in lines if l and len(l) < 80).items() if n >= 3 and kind == "statement"}
-    kept = [l for l in lines if not (l in repeated or PAGE_MARK.match(l) or DELIVERY_NOTE.match(l))]
+    repeated = {line for line, n in Counter(line for line in lines if line and len(line) < 80).items() if n >= 3 and kind == "statement"}
+    kept = [line for line in lines if not (line in repeated or PAGE_MARK.match(line) or DELIVERY_NOTE.match(line))]
 
     paragraphs, current = [], []
     for line in kept:
@@ -59,7 +64,7 @@ def _join(lines: list[str]) -> str:
 
 def _trim_presiding(lines: list[str]) -> list[str]:
     # the chair's introduction sits in the first few lines, sometimes after the tail of the previous speaker's thanks
-    opening = [i for i, l in enumerate(lines[:10]) if PRESIDING_LINE.match(l)]
+    opening = [i for i, line in enumerate(lines[:10]) if PRESIDING_LINE.match(line)]
     start = opening[-1] + 1 if opening else 0
     end = len(lines)
     while end > start and (not lines[end - 1] or PRESIDING_LINE.match(lines[end - 1])):
