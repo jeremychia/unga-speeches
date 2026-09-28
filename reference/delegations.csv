@@ -1,201 +1,201 @@
-slug,name,iso3,status,official_languages
-afghanistan,Afghanistan,AFG,member_state,fa|ps
-albania,Albania,ALB,member_state,sq
-algeria,Algeria,DZA,member_state,ar
-andorra,Andorra,AND,member_state,ca
-angola,Angola,AGO,member_state,pt
-antigua-and-barbuda,Antigua and Barbuda,ATG,member_state,en
-argentina,Argentina,ARG,member_state,es
-armenia,Armenia,ARM,member_state,hy
-australia,Australia,AUS,member_state,en
-austria,Austria,AUT,member_state,de
-azerbaijan,Azerbaijan,AZE,member_state,az
-bahamas,Bahamas,BHS,member_state,en
-bahrain,Bahrain,BHR,member_state,ar
-bangladesh,Bangladesh,BGD,member_state,bn
-barbados,Barbados,BRB,member_state,en
-belarus,Belarus,BLR,member_state,be|ru
-belgium,Belgium,BEL,member_state,nl|fr|de
-belize,Belize,BLZ,member_state,en
-benin,Benin,BEN,member_state,fr
-bhutan,Bhutan,BTN,member_state,dz
-bolivia-plurinational-state,Bolivia (Plurinational State of),BOL,member_state,es
-bosnia-and-herzegovina,Bosnia and Herzegovina,BIH,member_state,bs|hr|sr
-botswana,Botswana,BWA,member_state,en|tn
-brazil,Brazil,BRA,member_state,pt
-brunei-darussalam,Brunei Darussalam,BRN,member_state,ms
-bulgaria,Bulgaria,BGR,member_state,bg
-burkina-faso,Burkina Faso,BFA,member_state,fr
-burundi,Burundi,BDI,member_state,rn|fr|en
-cabo-verde,Cabo Verde,CPV,member_state,pt
-cambodia,Cambodia,KHM,member_state,km
-cameroon,Cameroon,CMR,member_state,fr|en
-canada,Canada,CAN,member_state,en|fr
-central-african-republic,Central African Republic,CAF,member_state,fr|sg
-chad,Chad,TCD,member_state,fr|ar
-chile,Chile,CHL,member_state,es
-china,China,CHN,member_state,zh
-colombia,Colombia,COL,member_state,es
-comoros,Comoros,COM,member_state,ar|fr
-congo,Congo,COG,member_state,fr
-costa-rica,Costa Rica,CRI,member_state,es
-cote-divoire,Côte d'Ivoire,CIV,member_state,fr
-croatia,Croatia,HRV,member_state,hr
-cuba,Cuba,CUB,member_state,es
-cyprus,Cyprus,CYP,member_state,el|tr
-czechia,Czechia,CZE,member_state,cs
-democratic-peoples-republic-korea,Democratic People's Republic of Korea,PRK,member_state,ko
-democratic-republic-congo,Democratic Republic of the Congo,COD,member_state,fr
-denmark,Denmark,DNK,member_state,da
-djibouti,Djibouti,DJI,member_state,fr|ar
-dominica,Dominica,DMA,member_state,en
-dominican-republic,Dominican Republic,DOM,member_state,es
-ecuador,Ecuador,ECU,member_state,es
-egypt,Egypt,EGY,member_state,ar
-el-salvador,El Salvador,SLV,member_state,es
-equatorial-guinea,Equatorial Guinea,GNQ,member_state,es|fr|pt
-eritrea,Eritrea,ERI,member_state,ti|ar|en
-estonia,Estonia,EST,member_state,et
-eswatini,Eswatini,SWZ,member_state,en|ss
-ethiopia,Ethiopia,ETH,member_state,am
-fiji,Fiji,FJI,member_state,en
-finland,Finland,FIN,member_state,fi|sv
-france,France,FRA,member_state,fr
-gabon,Gabon,GAB,member_state,fr
-gambia-republic,Gambia,GMB,member_state,en
-georgia,Georgia,GEO,member_state,ka
-germany,Germany,DEU,member_state,de
-ghana,Ghana,GHA,member_state,en
-greece,Greece,GRC,member_state,el
-grenada,Grenada,GRD,member_state,en
-guatemala,Guatemala,GTM,member_state,es
-guinea,Guinea,GIN,member_state,fr
-guinea-bissau,Guinea-Bissau,GNB,member_state,pt
-guyana,Guyana,GUY,member_state,en
-haiti,Haiti,HTI,member_state,fr|ht
-honduras,Honduras,HND,member_state,es
-hungary,Hungary,HUN,member_state,hu
-iceland,Iceland,ISL,member_state,is
-india,India,IND,member_state,hi|en
-indonesia,Indonesia,IDN,member_state,id
-iran-islamic-republic,Iran (Islamic Republic of),IRN,member_state,fa
-iraq,Iraq,IRQ,member_state,ar|ku
-ireland,Ireland,IRL,member_state,ga|en
-israel,Israel,ISR,member_state,he
-italy,Italy,ITA,member_state,it
-jamaica,Jamaica,JAM,member_state,en
-japan,Japan,JPN,member_state,ja
-jordan,Jordan,JOR,member_state,ar
-kazakhstan,Kazakhstan,KAZ,member_state,kk|ru
-kenya,Kenya,KEN,member_state,en|sw
-kiribati,Kiribati,KIR,member_state,en
-kuwait,Kuwait,KWT,member_state,ar
-kyrgyzstan,Kyrgyzstan,KGZ,member_state,ky|ru
-lao-peoples-democratic-republic,Lao People's Democratic Republic,LAO,member_state,lo
-latvia,Latvia,LVA,member_state,lv
-lebanon,Lebanon,LBN,member_state,ar
-lesotho,Lesotho,LSO,member_state,st|en
-liberia,Liberia,LBR,member_state,en
-libya,Libya,LBY,member_state,ar
-liechtenstein,Liechtenstein,LIE,member_state,de
-lithuania,Lithuania,LTU,member_state,lt
-luxembourg,Luxembourg,LUX,member_state,lb|fr|de
-madagascar,Madagascar,MDG,member_state,mg|fr
-malawi,Malawi,MWI,member_state,en
-malaysia,Malaysia,MYS,member_state,ms
-maldives,Maldives,MDV,member_state,dv
-mali,Mali,MLI,member_state,bm|fr
-malta,Malta,MLT,member_state,mt|en
-marshall-islands,Marshall Islands,MHL,member_state,mh|en
-mauritania,Mauritania,MRT,member_state,ar
-mauritius,Mauritius,MUS,member_state,en|fr
-mexico,Mexico,MEX,member_state,es
-micronesia-federated-states,Micronesia (Federated States of),FSM,member_state,en
-monaco,Monaco,MCO,member_state,fr
-mongolia,Mongolia,MNG,member_state,mn
-montenegro,Montenegro,MNE,member_state,sr
-morocco,Morocco,MAR,member_state,ar|zgh
-mozambique,Mozambique,MOZ,member_state,pt
-myanmar,Myanmar,MMR,member_state,my
-namibia,Namibia,NAM,member_state,en
-naoero,Nauru,NRU,member_state,na|en
-nepal,Nepal,NPL,member_state,ne
-netherlands-kingdom,Netherlands (Kingdom of the),NLD,member_state,nl
-new-zealand,New Zealand,NZL,member_state,en|mi
-nicaragua,Nicaragua,NIC,member_state,es
-niger,Niger,NER,member_state,fr|ha
-nigeria,Nigeria,NGA,member_state,en
-north-macedonia,North Macedonia,MKD,member_state,mk|sq
-norway,Norway,NOR,member_state,no
-oman,Oman,OMN,member_state,ar
-pakistan,Pakistan,PAK,member_state,ur|en
-palau,Palau,PLW,member_state,en|pau
-panama,Panama,PAN,member_state,es
-papua-new-guinea,Papua New Guinea,PNG,member_state,en|tpi|ho
-paraguay,Paraguay,PRY,member_state,es|gn
-peru,Peru,PER,member_state,es
-philippines,Philippines,PHL,member_state,fil|en
-poland,Poland,POL,member_state,pl
-portugal,Portugal,PRT,member_state,pt
-qatar,Qatar,QAT,member_state,ar
-republic-korea,Republic of Korea,KOR,member_state,ko
-republic-moldova,Republic of Moldova,MDA,member_state,ro
-romania,Romania,ROU,member_state,ro
-russian-federation,Russian Federation,RUS,member_state,ru
-rwanda,Rwanda,RWA,member_state,rw|en|fr|sw
-saint-kitts-and-nevis,Saint Kitts and Nevis,KNA,member_state,en
-saint-lucia,Saint Lucia,LCA,member_state,en
-saint-vincent-and-grenadines,Saint Vincent and the Grenadines,VCT,member_state,en
-samoa,Samoa,WSM,member_state,sm|en
-san-marino,San Marino,SMR,member_state,it
-sao-tome-and-principe,Sao Tome and Principe,STP,member_state,pt
-saudi-arabia,Saudi Arabia,SAU,member_state,ar
-senegal,Senegal,SEN,member_state,fr
-serbia,Serbia,SRB,member_state,sr
-seychelles,Seychelles,SYC,member_state,en|fr|crs
-sierra-leone,Sierra Leone,SLE,member_state,en
-singapore,Singapore,SGP,member_state,en|ms|zh|ta
-slovakia,Slovakia,SVK,member_state,sk
-slovenia,Slovenia,SVN,member_state,sl
-solomon-islands,Solomon Islands,SLB,member_state,en
-somalia,Somalia,SOM,member_state,so|ar
-south-africa,South Africa,ZAF,member_state,en|af|zu|xh|nso|tn|st|ts|ss|ve|nr
-south-sudan,South Sudan,SSD,member_state,en
-spain,Spain,ESP,member_state,es
-sri-lanka,Sri Lanka,LKA,member_state,si|ta
-sudan,Sudan,SDN,member_state,ar|en
-suriname,Suriname,SUR,member_state,nl
-sweden,Sweden,SWE,member_state,sv
-switzerland,Switzerland,CHE,member_state,de|fr|it|rm
-syrian-arab-republic,Syrian Arab Republic,SYR,member_state,ar
-tajikistan,Tajikistan,TJK,member_state,tg
-thailand,Thailand,THA,member_state,th
-timor-leste,Timor-Leste,TLS,member_state,pt|tet
-togo,Togo,TGO,member_state,fr
-tonga,Tonga,TON,member_state,to|en
-trinidad-and-tobago,Trinidad and Tobago,TTO,member_state,en
-tunisia,Tunisia,TUN,member_state,ar
-turkiye,Türkiye,TUR,member_state,tr
-turkmenistan,Turkmenistan,TKM,member_state,tk
-tuvalu,Tuvalu,TUV,member_state,tvl|en
-uganda,Uganda,UGA,member_state,en|sw
-ukraine,Ukraine,UKR,member_state,uk
-united-arab-emirates,United Arab Emirates,ARE,member_state,ar
-united-kingdom-great-britain-and-northern-ireland,United Kingdom of Great Britain and Northern Ireland,GBR,member_state,en
-united-republic-tanzania,United Republic of Tanzania,TZA,member_state,sw|en
-united-states-america,United States of America,USA,member_state,en
-uruguay,Uruguay,URY,member_state,es
-uzbekistan,Uzbekistan,UZB,member_state,uz
-vanuatu,Vanuatu,VUT,member_state,bi|en|fr
-venezuela-bolivarian-republic,Venezuela (Bolivarian Republic of),VEN,member_state,es
-viet-nam,Viet Nam,VNM,member_state,vi
-yemen,Yemen,YEM,member_state,ar
-zambia,Zambia,ZMB,member_state,en
-zimbabwe,Zimbabwe,ZWE,member_state,en|sn|nd
-holy-see,Holy See,VAT,observer_state,it|la
-palestine-state,State of Palestine,PSE,observer_state,ar
-european-union,European Union,,observer_organisation,
-president-general-assembly-opening,President of the General Assembly (opening),,un_official,
-president-general-assembly-closing,President of the General Assembly (closing),,un_official,
-secretary-general-united-nations,Secretary-General of the United Nations,,un_official,
-,Taiwan,TWN,not_represented,zh
+slug,name,iso3,status,official_languages,m49_region
+afghanistan,Afghanistan,AFG,member_state,fa|ps,Asia
+albania,Albania,ALB,member_state,sq,Europe
+algeria,Algeria,DZA,member_state,ar,Africa
+andorra,Andorra,AND,member_state,ca,Europe
+angola,Angola,AGO,member_state,pt,Africa
+antigua-and-barbuda,Antigua and Barbuda,ATG,member_state,en,Americas
+argentina,Argentina,ARG,member_state,es,Americas
+armenia,Armenia,ARM,member_state,hy,Asia
+australia,Australia,AUS,member_state,en,Oceania
+austria,Austria,AUT,member_state,de,Europe
+azerbaijan,Azerbaijan,AZE,member_state,az,Asia
+bahamas,Bahamas,BHS,member_state,en,Americas
+bahrain,Bahrain,BHR,member_state,ar,Asia
+bangladesh,Bangladesh,BGD,member_state,bn,Asia
+barbados,Barbados,BRB,member_state,en,Americas
+belarus,Belarus,BLR,member_state,be|ru,Europe
+belgium,Belgium,BEL,member_state,nl|fr|de,Europe
+belize,Belize,BLZ,member_state,en,Americas
+benin,Benin,BEN,member_state,fr,Africa
+bhutan,Bhutan,BTN,member_state,dz,Asia
+bolivia-plurinational-state,Bolivia (Plurinational State of),BOL,member_state,es,Americas
+bosnia-and-herzegovina,Bosnia and Herzegovina,BIH,member_state,bs|hr|sr,Europe
+botswana,Botswana,BWA,member_state,en|tn,Africa
+brazil,Brazil,BRA,member_state,pt,Americas
+brunei-darussalam,Brunei Darussalam,BRN,member_state,ms,Asia
+bulgaria,Bulgaria,BGR,member_state,bg,Europe
+burkina-faso,Burkina Faso,BFA,member_state,fr,Africa
+burundi,Burundi,BDI,member_state,rn|fr|en,Africa
+cabo-verde,Cabo Verde,CPV,member_state,pt,Africa
+cambodia,Cambodia,KHM,member_state,km,Asia
+cameroon,Cameroon,CMR,member_state,fr|en,Africa
+canada,Canada,CAN,member_state,en|fr,Americas
+central-african-republic,Central African Republic,CAF,member_state,fr|sg,Africa
+chad,Chad,TCD,member_state,fr|ar,Africa
+chile,Chile,CHL,member_state,es,Americas
+china,China,CHN,member_state,zh,Asia
+colombia,Colombia,COL,member_state,es,Americas
+comoros,Comoros,COM,member_state,ar|fr,Africa
+congo,Congo,COG,member_state,fr,Africa
+costa-rica,Costa Rica,CRI,member_state,es,Americas
+cote-divoire,Côte d'Ivoire,CIV,member_state,fr,Africa
+croatia,Croatia,HRV,member_state,hr,Europe
+cuba,Cuba,CUB,member_state,es,Americas
+cyprus,Cyprus,CYP,member_state,el|tr,Asia
+czechia,Czechia,CZE,member_state,cs,Europe
+democratic-peoples-republic-korea,Democratic People's Republic of Korea,PRK,member_state,ko,Asia
+democratic-republic-congo,Democratic Republic of the Congo,COD,member_state,fr,Africa
+denmark,Denmark,DNK,member_state,da,Europe
+djibouti,Djibouti,DJI,member_state,fr|ar,Africa
+dominica,Dominica,DMA,member_state,en,Americas
+dominican-republic,Dominican Republic,DOM,member_state,es,Americas
+ecuador,Ecuador,ECU,member_state,es,Americas
+egypt,Egypt,EGY,member_state,ar,Africa
+el-salvador,El Salvador,SLV,member_state,es,Americas
+equatorial-guinea,Equatorial Guinea,GNQ,member_state,es|fr|pt,Africa
+eritrea,Eritrea,ERI,member_state,ti|ar|en,Africa
+estonia,Estonia,EST,member_state,et,Europe
+eswatini,Eswatini,SWZ,member_state,en|ss,Africa
+ethiopia,Ethiopia,ETH,member_state,am,Africa
+fiji,Fiji,FJI,member_state,en,Oceania
+finland,Finland,FIN,member_state,fi|sv,Europe
+france,France,FRA,member_state,fr,Europe
+gabon,Gabon,GAB,member_state,fr,Africa
+gambia-republic,Gambia,GMB,member_state,en,Africa
+georgia,Georgia,GEO,member_state,ka,Asia
+germany,Germany,DEU,member_state,de,Europe
+ghana,Ghana,GHA,member_state,en,Africa
+greece,Greece,GRC,member_state,el,Europe
+grenada,Grenada,GRD,member_state,en,Americas
+guatemala,Guatemala,GTM,member_state,es,Americas
+guinea,Guinea,GIN,member_state,fr,Africa
+guinea-bissau,Guinea-Bissau,GNB,member_state,pt,Africa
+guyana,Guyana,GUY,member_state,en,Americas
+haiti,Haiti,HTI,member_state,fr|ht,Americas
+honduras,Honduras,HND,member_state,es,Americas
+hungary,Hungary,HUN,member_state,hu,Europe
+iceland,Iceland,ISL,member_state,is,Europe
+india,India,IND,member_state,hi|en,Asia
+indonesia,Indonesia,IDN,member_state,id,Asia
+iran-islamic-republic,Iran (Islamic Republic of),IRN,member_state,fa,Asia
+iraq,Iraq,IRQ,member_state,ar|ku,Asia
+ireland,Ireland,IRL,member_state,ga|en,Europe
+israel,Israel,ISR,member_state,he,Asia
+italy,Italy,ITA,member_state,it,Europe
+jamaica,Jamaica,JAM,member_state,en,Americas
+japan,Japan,JPN,member_state,ja,Asia
+jordan,Jordan,JOR,member_state,ar,Asia
+kazakhstan,Kazakhstan,KAZ,member_state,kk|ru,Asia
+kenya,Kenya,KEN,member_state,en|sw,Africa
+kiribati,Kiribati,KIR,member_state,en,Oceania
+kuwait,Kuwait,KWT,member_state,ar,Asia
+kyrgyzstan,Kyrgyzstan,KGZ,member_state,ky|ru,Asia
+lao-peoples-democratic-republic,Lao People's Democratic Republic,LAO,member_state,lo,Asia
+latvia,Latvia,LVA,member_state,lv,Europe
+lebanon,Lebanon,LBN,member_state,ar,Asia
+lesotho,Lesotho,LSO,member_state,st|en,Africa
+liberia,Liberia,LBR,member_state,en,Africa
+libya,Libya,LBY,member_state,ar,Africa
+liechtenstein,Liechtenstein,LIE,member_state,de,Europe
+lithuania,Lithuania,LTU,member_state,lt,Europe
+luxembourg,Luxembourg,LUX,member_state,lb|fr|de,Europe
+madagascar,Madagascar,MDG,member_state,mg|fr,Africa
+malawi,Malawi,MWI,member_state,en,Africa
+malaysia,Malaysia,MYS,member_state,ms,Asia
+maldives,Maldives,MDV,member_state,dv,Asia
+mali,Mali,MLI,member_state,bm|fr,Africa
+malta,Malta,MLT,member_state,mt|en,Europe
+marshall-islands,Marshall Islands,MHL,member_state,mh|en,Oceania
+mauritania,Mauritania,MRT,member_state,ar,Africa
+mauritius,Mauritius,MUS,member_state,en|fr,Africa
+mexico,Mexico,MEX,member_state,es,Americas
+micronesia-federated-states,Micronesia (Federated States of),FSM,member_state,en,Oceania
+monaco,Monaco,MCO,member_state,fr,Europe
+mongolia,Mongolia,MNG,member_state,mn,Asia
+montenegro,Montenegro,MNE,member_state,sr,Europe
+morocco,Morocco,MAR,member_state,ar|zgh,Africa
+mozambique,Mozambique,MOZ,member_state,pt,Africa
+myanmar,Myanmar,MMR,member_state,my,Asia
+namibia,Namibia,NAM,member_state,en,Africa
+naoero,Nauru,NRU,member_state,na|en,Oceania
+nepal,Nepal,NPL,member_state,ne,Asia
+netherlands-kingdom,Netherlands (Kingdom of the),NLD,member_state,nl,Europe
+new-zealand,New Zealand,NZL,member_state,en|mi,Oceania
+nicaragua,Nicaragua,NIC,member_state,es,Americas
+niger,Niger,NER,member_state,fr|ha,Africa
+nigeria,Nigeria,NGA,member_state,en,Africa
+north-macedonia,North Macedonia,MKD,member_state,mk|sq,Europe
+norway,Norway,NOR,member_state,no,Europe
+oman,Oman,OMN,member_state,ar,Asia
+pakistan,Pakistan,PAK,member_state,ur|en,Asia
+palau,Palau,PLW,member_state,en|pau,Oceania
+panama,Panama,PAN,member_state,es,Americas
+papua-new-guinea,Papua New Guinea,PNG,member_state,en|tpi|ho,Oceania
+paraguay,Paraguay,PRY,member_state,es|gn,Americas
+peru,Peru,PER,member_state,es,Americas
+philippines,Philippines,PHL,member_state,fil|en,Asia
+poland,Poland,POL,member_state,pl,Europe
+portugal,Portugal,PRT,member_state,pt,Europe
+qatar,Qatar,QAT,member_state,ar,Asia
+republic-korea,Republic of Korea,KOR,member_state,ko,Asia
+republic-moldova,Republic of Moldova,MDA,member_state,ro,Europe
+romania,Romania,ROU,member_state,ro,Europe
+russian-federation,Russian Federation,RUS,member_state,ru,Europe
+rwanda,Rwanda,RWA,member_state,rw|en|fr|sw,Africa
+saint-kitts-and-nevis,Saint Kitts and Nevis,KNA,member_state,en,Americas
+saint-lucia,Saint Lucia,LCA,member_state,en,Americas
+saint-vincent-and-grenadines,Saint Vincent and the Grenadines,VCT,member_state,en,Americas
+samoa,Samoa,WSM,member_state,sm|en,Oceania
+san-marino,San Marino,SMR,member_state,it,Europe
+sao-tome-and-principe,Sao Tome and Principe,STP,member_state,pt,Africa
+saudi-arabia,Saudi Arabia,SAU,member_state,ar,Asia
+senegal,Senegal,SEN,member_state,fr,Africa
+serbia,Serbia,SRB,member_state,sr,Europe
+seychelles,Seychelles,SYC,member_state,en|fr|crs,Africa
+sierra-leone,Sierra Leone,SLE,member_state,en,Africa
+singapore,Singapore,SGP,member_state,en|ms|zh|ta,Asia
+slovakia,Slovakia,SVK,member_state,sk,Europe
+slovenia,Slovenia,SVN,member_state,sl,Europe
+solomon-islands,Solomon Islands,SLB,member_state,en,Oceania
+somalia,Somalia,SOM,member_state,so|ar,Africa
+south-africa,South Africa,ZAF,member_state,en|af|zu|xh|nso|tn|st|ts|ss|ve|nr,Africa
+south-sudan,South Sudan,SSD,member_state,en,Africa
+spain,Spain,ESP,member_state,es,Europe
+sri-lanka,Sri Lanka,LKA,member_state,si|ta,Asia
+sudan,Sudan,SDN,member_state,ar|en,Africa
+suriname,Suriname,SUR,member_state,nl,Americas
+sweden,Sweden,SWE,member_state,sv,Europe
+switzerland,Switzerland,CHE,member_state,de|fr|it|rm,Europe
+syrian-arab-republic,Syrian Arab Republic,SYR,member_state,ar,Asia
+tajikistan,Tajikistan,TJK,member_state,tg,Asia
+thailand,Thailand,THA,member_state,th,Asia
+timor-leste,Timor-Leste,TLS,member_state,pt|tet,Asia
+togo,Togo,TGO,member_state,fr,Africa
+tonga,Tonga,TON,member_state,to|en,Oceania
+trinidad-and-tobago,Trinidad and Tobago,TTO,member_state,en,Americas
+tunisia,Tunisia,TUN,member_state,ar,Africa
+turkiye,Türkiye,TUR,member_state,tr,Asia
+turkmenistan,Turkmenistan,TKM,member_state,tk,Asia
+tuvalu,Tuvalu,TUV,member_state,tvl|en,Oceania
+uganda,Uganda,UGA,member_state,en|sw,Africa
+ukraine,Ukraine,UKR,member_state,uk,Europe
+united-arab-emirates,United Arab Emirates,ARE,member_state,ar,Asia
+united-kingdom-great-britain-and-northern-ireland,United Kingdom of Great Britain and Northern Ireland,GBR,member_state,en,Europe
+united-republic-tanzania,United Republic of Tanzania,TZA,member_state,sw|en,Africa
+united-states-america,United States of America,USA,member_state,en,Americas
+uruguay,Uruguay,URY,member_state,es,Americas
+uzbekistan,Uzbekistan,UZB,member_state,uz,Asia
+vanuatu,Vanuatu,VUT,member_state,bi|en|fr,Oceania
+venezuela-bolivarian-republic,Venezuela (Bolivarian Republic of),VEN,member_state,es,Americas
+viet-nam,Viet Nam,VNM,member_state,vi,Asia
+yemen,Yemen,YEM,member_state,ar,Asia
+zambia,Zambia,ZMB,member_state,en,Africa
+zimbabwe,Zimbabwe,ZWE,member_state,en|sn|nd,Africa
+holy-see,Holy See,VAT,observer_state,it|la,Europe
+palestine-state,State of Palestine,PSE,observer_state,ar,Asia
+european-union,European Union,,observer_organisation,,
+president-general-assembly-opening,President of the General Assembly (opening),,un_official,,
+president-general-assembly-closing,President of the General Assembly (closing),,un_official,,
+secretary-general-united-nations,Secretary-General of the United Nations,,un_official,,
+,Taiwan,TWN,not_represented,zh,Asia
