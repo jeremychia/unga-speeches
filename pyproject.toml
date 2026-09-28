@@ -16,6 +16,7 @@ dependencies = [
 
 [dependency-groups]
 dev = ["pytest>=8.0", "ruff>=0.6"]
+analysis = ["scikit-learn>=1.5", "textstat>=0.7"]
 
 [project.scripts]
 unga = "unga_speeches.cli:main"
