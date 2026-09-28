@@ -19,6 +19,8 @@ make history                                   # the corpus; needs its files in 
 make dataset                                   # combine into data/output/speeches.parquet
 ```
 
+**Download the corpus by hand first.** Put `Speakers_by_session.xlsx` and `UNGDC_1946-2025.tar.gz` from the [corpus page](https://doi.org/10.7910/DVN/0TJX8Y) into `data/raw/ungdc/`. Harvard Dataverse asks for a name, email, institution and purpose before the download.
+
 Every step is cached, so rerunning is cheap and resumes where a run stopped. Requests are spaced one second apart, and failed requests are retried.
 
 ## Each September
