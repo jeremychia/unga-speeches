@@ -41,7 +41,7 @@ class Client:
             self._wait()
             try:
                 response = self.session.request(method, url, timeout=60, **kwargs)
-            except (requests.ConnectionError, requests.Timeout):
+            except (requests.ConnectionError, requests.Timeout, requests.exceptions.ChunkedEncodingError):
                 if attempt == 3:
                     raise
                 time.sleep(2**attempt * 5)
