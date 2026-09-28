@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UN General Debate 2026</title>
+<meta name="description" content="Topics, distributions, readability and international relations lenses across the 2026 UN General Assembly general debate.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10); --series: #2a78d6; --link: #1c5cab;
+  --r100: #cde2fb; --r200: #9ec5f4; --r300: #6da7ec; --r400: #3987e5; --r500: #256abf; --r600: #184f95; --r700: #0d366b;
+  --cell-lo: #0b0b0b; --cell-hi: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --series: #3987e5; --link: #86b6ef;
+    --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --series: #3987e5; --link: #86b6ef;
+  --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--link); }
+header, main, footer { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 40px; }
+h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 8px; }
+h2 { font-size: 1.45rem; margin: 56px 0 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+h3 { font-size: 1.05rem; margin: 28px 0 6px; }
+p { margin: 8px 0 12px; max-width: 72ch; }
+.lede { color: var(--ink-2); font-size: 1.1rem; }
+.small, figcaption, .note { color: var(--ink-2); font-size: 0.875rem; }
+nav { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--border); }
+nav div { max-width: 1080px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 16px; overflow-x: auto; white-space: nowrap; font-size: 0.9rem; }
+nav a { color: var(--ink-2); text-decoration: none; }
+nav a:hover { color: var(--ink); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.kpi b { display: block; font-size: 1.8rem; line-height: 1.1; }
+.kpi span { color: var(--ink-2); font-size: 0.85rem; }
+figure { margin: 16px 0 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+figure h4 { margin: 0 0 12px; font-size: 0.95rem; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.grid2 figure { margin: 0; }
+.grid2.two { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.hbar { display: grid; grid-template-columns: minmax(120px, 34%) 1fr auto; gap: 6px 10px; align-items: center; font-size: 0.875rem; }
+.hbar .label { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hbar .track { height: 14px; position: relative; }
+.hbar .bar { position: absolute; left: 0; top: 0; bottom: 0; background: var(--series); border-radius: 0 4px 4px 0; min-width: 2px; }
+.hbar .value { font-variant-numeric: tabular-nums; color: var(--ink); text-align: right; min-width: 3.5em; }
+.hbar .row { display: contents; }
+.hbar .row:hover .bar { filter: brightness(1.12); }
+svg text { fill: var(--muted); font-size: 11px; }
+.heat { width: 100%; border-collapse: separate; border-spacing: 2px; font-size: 0.8rem; }
+.heat th { color: var(--ink-2); font-weight: 500; text-align: left; padding: 4px 6px; }
+.heat thead th { text-align: center; }
+.heat td { text-align: center; padding: 6px 4px; border-radius: 3px; font-variant-numeric: tabular-nums; }
+details { margin-top: 10px; font-size: 0.85rem; }
+details summary { cursor: pointer; color: var(--ink-2); }
+table.data { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-top: 8px; }
+table.data th, table.data td { border-bottom: 1px solid var(--grid); padding: 5px 6px; text-align: left; vertical-align: top; }
+table.data th { color: var(--ink-2); font-weight: 600; cursor: pointer; user-select: none; }
+table.data td.n, table.data th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; }
+blockquote { margin: 10px 0 14px; padding: 8px 14px; border-left: 3px solid var(--series); background: var(--surface); border-radius: 0 6px 6px 0; }
+blockquote p { margin: 0 0 4px; }
+blockquote cite { color: var(--ink-2); font-size: 0.82rem; font-style: normal; }
+.callouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.callout { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.callout b { display: block; margin-bottom: 4px; }
+.lens { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 4px 16px 12px; margin: 16px 0; }
+.tag { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: 0 8px; font-size: 0.78rem; color: var(--ink-2); margin: 2px 4px 2px 0; }
+input[type=search] { width: 100%; max-width: 420px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--axis); background: var(--surface); color: var(--ink); font: inherit; }
+#tip { position: fixed; pointer-events: none; z-index: 10; background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 6px; padding: 6px 9px; font-size: 0.8rem; box-shadow: 0 4px 16px rgba(0,0,0,0.15); display: none; max-width: 280px; }
+footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
+@media (max-width: 560px) { h1 { font-size: 1.6rem; } .hbar { grid-template-columns: 42% 1fr auto; } }
+</style>
+</head>
+<body>
+<nav><div>
+  <a href="#overview">Overview</a><a href="#who">Who spoke</a><a href="#topics">Topics</a><a href="#issues">Issues</a>
+  <a href="#distributions">Distributions</a><a href="#notable">What stood out</a><a href="#theory">IR theory</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+</div></nav>
+<header>
+  <h1>The 2026 UN General Debate</h1>
+  <p class="lede">__LEDE__</p>
+</header>
+<main>
+  <section id="overview">
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section id="who">
+    <h2>Who spoke</h2>
+    __WHO__
+    <div class="grid2">
+      <figure><h4>Member states by the rank of their speaker</h4><div id="roles"></div></figure>
+      <figure><h4>Share of each day's speakers who were heads of state or government</h4><div id="days"></div></figure>
+    </div>
+  </section>
+
+  <section id="topics">
+    <h2>Topics</h2>
+    __TOPICS__
+    <figure><h4>Speeches by their main topic</h4><div id="topic-bars"></div></figure>
+    <figure><h4>How much of each region's speeches each topic accounts for</h4><div class="scroll" id="topic-heat"></div>
+      <figcaption>Average share of a speech's content in the topic, by region. A stronger shade is more.</figcaption></figure>
+  </section>
+
+  <section id="issues">
+    <h2>Issues raised</h2>
+    __ISSUES__
+    <figure><h4>Share of speeches that mention each issue at least once</h4><div id="issue-bars"></div></figure>
+    <figure><h4>Share of each region's speeches that mention the issue</h4><div class="scroll" id="issue-heat"></div></figure>
+  </section>
+
+  <section id="distributions">
+    <h2>Distributions and readability</h2>
+    __DISTRIBUTIONS__
+    <div class="grid2">
+      <figure><h4>Speech length, in words</h4><div id="words-hist"></div></figure>
+      <figure><h4>Reading grade of the delegations' written statements</h4><div id="grade-hist"></div></figure>
+    </div>
+    <figure><h4>Share of the filed statement that was actually said</h4><div id="delivered-hist"></div>
+      <figcaption>Only speeches where both the statement and a transcript in the spoken language exist.</figcaption></figure>
+  </section>
+
+  <section id="notable">
+    <h2>What stood out</h2>
+    <div class="callouts">__NOTABLE__</div>
+  </section>
+
+  <section id="theory">
+    <h2>Through international relations theory</h2>
+    __THEORY__
+    <figure><h4>How often each region uses each theory's vocabulary, per 1,000 words</h4><div class="grid2 two" id="frame-bars"></div></figure>
+    <figure><h4>Which theory each region's speeches lean towards</h4><div class="scroll" id="lean-heat"></div>
+      <figcaption>Share of each region's speeches. A speech leans towards a theory when its vocabulary for it is at least half a standard deviation above the debate's average.</figcaption></figure>
+    <figure><h4>Phrases that separate one reading of world order from another</h4><div class="scroll" id="marker-heat"></div>
+      <figcaption>Share of each region's speeches that use the phrase at least once.</figcaption></figure>
+    __LENSES__
+  </section>
+
+  <section id="speeches">
+    <h2>All speeches</h2>
+    <p>Search by delegation, speaker, topic or lean. Click a column to sort. Each delegation links to its UN page, with the video, the filed statement and the transcripts.</p>
+    <input type="search" id="q" placeholder="Search speeches" aria-label="Search speeches">
+    <div class="scroll"><table class="data" id="speech-table"></table></div>
+  </section>
+
+  <section id="method">
+    <h2>Method and caveats</h2>
+    __METHOD__
+  </section>
+</main>
+<footer>__FOOTER__</footer>
+<div id="tip" role="tooltip"></div>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById("data").textContent);
+const $ = (id) => document.getElementById(id);
+const pct = (v) => Math.round(v * 100) + "%";
+const num = (v) => v.toLocaleString("en-GB");
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+const ROLE_NAMES = {head_of_state_or_government: "Head of state/govt", deputy_head: "Deputy head", foreign_minister: "Foreign minister", other_minister: "Other minister", diplomat: "Diplomat", not_a_state: "Not a state", other: "Other", unclassified: "Unclassified"};
+
+const tip = $("tip");
+function showTip(e, html) { tip.innerHTML = html; tip.style.display = "block"; moveTip(e); }
+function moveTip(e) { const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8); tip.style.left = x + "px"; tip.style.top = (e.clientY + 14) + "px"; }
+function hideTip() { tip.style.display = "none"; }
+function hover(el, html) { el.addEventListener("mouseenter", (e) => showTip(e, html)); el.addEventListener("mousemove", moveTip); el.addEventListener("mouseleave", hideTip); }
+
+function tableView(header, rows) {
+  const d = document.createElement("details");
+  d.innerHTML = "<summary>Show as a table</summary><div class='scroll'><table class='data'><thead><tr>" +
+    header.map((h, i) => `<th class="${i ? "n" : ""}">${esc(h)}</th>`).join("") + "</tr></thead><tbody>" +
+    rows.map((r) => "<tr>" + r.map((c, i) => `<td class="${i ? "n" : ""}">${esc(c)}</td>`).join("") + "</tr>").join("") + "</tbody></table></div>";
+  return d;
+}
+
+function hbar(id, items, format, header) {
+  const el = $(id), max = Math.max(...items.map((i) => i.value)) || 1;
+  const wrap = document.createElement("div"); wrap.className = "hbar";
+  for (const it of items) {
+    const row = document.createElement("div"); row.className = "row";
+    row.innerHTML = `<div class="label" title="${esc(it.label)}">${esc(it.label)}</div><div class="track"><div class="bar" style="width:${(100 * it.value / max).toFixed(1)}%"></div></div><div class="value">${esc(format(it.value))}</div>`;
+    for (const c of row.children) hover(c, it.tip || `<b>${esc(it.label)}</b><br>${esc(format(it.value))}`);
+    wrap.appendChild(row);
+  }
+  el.appendChild(wrap);
+  el.appendChild(tableView(header, items.map((i) => [i.label, format(i.value)])));
+}
+
+function histogram(id, bins, xLabel, binLabel, marker) {
+  // draw at the container's own width so text stays at its real size
+  const el = $(id), W = Math.max(300, el.clientWidth || 520), H = 210, L = 34, B = 36, T = 24, R = 8;
+  const max = Math.max(...bins.map((b) => b.count)), bw = (W - L - R) / bins.length;
+  const y = (v) => T + (H - T - B) * (1 - v / max);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="max-width:100%;height:auto" role="img" aria-label="${esc(xLabel)} histogram">`;
+  for (const t of [0, Math.round(max / 2), max]) svg += `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)"/><text x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${t}</text>`;
+  bins.forEach((b, i) => {
+    const x = L + i * bw + 1, h = (H - B) - y(b.count);
+    svg += `<rect data-i="${i}" x="${x}" y="${y(b.count)}" width="${Math.max(1, bw - 2)}" height="${Math.max(0, h)}" rx="2" fill="var(--series)"/>`;
+    if (i % Math.ceil(bins.length / 6) === 0) svg += `<text x="${x}" y="${H - B + 14}">${esc(binLabel(b.from))}</text>`;
+  });
+  if (marker) { const mx = L + (marker.value - bins[0].from) / (bins[bins.length - 1].to - bins[0].from) * (W - L - R); svg += `<line x1="${mx}" x2="${mx}" y1="${T - 6}" y2="${H - B}" stroke="var(--ink-2)" stroke-dasharray="3 3"/><text x="${mx}" y="${T - 10}" text-anchor="middle" style="fill:var(--ink-2)">${esc(marker.label)}</text>`; }
+  svg += `<line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="var(--axis)"/><text x="${(W + L) / 2}" y="${H - 6}" text-anchor="middle">${esc(xLabel)}</text></svg>`;
+  el.innerHTML = svg;
+  el.querySelectorAll("rect").forEach((r) => { const b = bins[+r.dataset.i]; hover(r, `<b>${esc(binLabel(b.from))}–${esc(binLabel(b.to))}</b><br>${b.count} speeches`); });
+  el.appendChild(tableView([xLabel, "Speeches"], bins.map((b) => [`${binLabel(b.from)}–${binLabel(b.to)}`, b.count])));
+}
+
+const RAMP = ["--r100", "--r200", "--r300", "--r400", "--r500", "--r600", "--r700"];
+function heat(id, rows, cols, value, format, rowLabel) {
+  const el = $(id), all = rows.flatMap((r) => cols.map((c) => value(r, c))), max = Math.max(...all) || 1;
+  let html = `<table class="heat"><thead><tr><th></th>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>`;
+  rows.forEach((r, ri) => {
+    html += `<tr><th>${esc(rowLabel(r))}</th>`;
+    cols.forEach((c, ci) => {
+      const v = value(r, c), step = Math.min(6, Math.floor(6 * v / max + 0.0001));
+      html += `<td data-r="${ri}" data-c="${ci}" style="background:var(${RAMP[step]});color:var(${step >= 4 ? "--cell-hi" : "--cell-lo"})">${esc(format(v))}</td>`;
+    });
+    html += "</tr>";
+  });
+  el.innerHTML = html + "</tbody></table>";
+  el.querySelectorAll("td").forEach((td) => { const r = rows[+td.dataset.r], c = cols[+td.dataset.c]; hover(td, `<b>${esc(rowLabel(r))}</b><br>${esc(c)}: ${esc(format(value(r, c)))}`); });
+}
+
+// overview
+const O = D.overview;
+$("kpis").innerHTML = [
+  [num(O.speeches), "speeches with an English text"],
+  [O.member_states + " of 193", "member states in this analysis"],
+  [pct(O.heads_share), "of member states sent a head of state or government"],
+  [num(O.words_median), "words in the median speech"],
+  [num(O.words_total), "words in all"],
+].map(([v, l]) => `<div class="kpi"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("");
+
+hbar("roles", O.roles.map(([g, n]) => ({label: ROLE_NAMES[g], value: n})), (v) => String(v), ["Rank", "Member states"]);
+hbar("days", D.distributions.days.map((d) => ({label: new Date(d.date + "T12:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short"}) + ` (${d.speeches})`, value: d.heads_share,
+  tip: `<b>${d.date}</b><br>${d.speeches} member-state speeches<br>${pct(d.heads_share)} heads of state or government<br>median ${num(d.words_median)} words`})), pct, ["Day (speeches)", "Heads of state or government"]);
+
+// topics
+hbar("topic-bars", D.topics.map((t) => ({label: t.label, value: t.speeches, tip: `<b>${esc(t.label)}</b><br>${t.speeches} speeches<br>Terms: ${esc(t.terms.slice(0, 8).join(", "))}<br>Most typical: ${esc(t.leaders.slice(0, 4).join(", "))}`})), String, ["Topic", "Speeches"]);
+heat("topic-heat", D.topics, REGIONS, (t, r) => t.by_region[r], pct, (t) => t.label);
+$("topic-heat").appendChild(tableView(["Topic", "Top terms", "Most typical speeches"], D.topics.map((t) => [t.label, t.terms.join(", "), t.leaders.join(", ")])));
+
+// issues
+hbar("issue-bars", D.issues.map((i) => ({label: i.name, value: i.share, tip: `<b>${esc(i.name)}</b><br>${i.speeches} speeches (${pct(i.share)})`})), pct, ["Issue", "Share of speeches"]);
+heat("issue-heat", D.issues, REGIONS, (i, r) => i.by_region[r], pct, (i) => i.name);
+
+// distributions
+const Dd = D.distributions;
+histogram("words-hist", Dd.words, "Words", (v) => num(v), {value: O.words_median, label: "median " + num(O.words_median)});
+histogram("grade-hist", Dd.grade, "Flesch–Kincaid grade", (v) => String(v), {value: Dd.grade_median, label: "median " + Dd.grade_median});
+histogram("delivered-hist", Dd.delivered, "Share of the filed text that was said", (v) => pct(v), {value: Dd.delivered_median, label: "median " + pct(Dd.delivered_median)});
+
+// theory
+const F = D.frames;
+F.names.forEach((f, i) => {
+  const box = document.createElement("div"); box.innerHTML = `<h4 style="margin:0 0 8px;font-size:.9rem">${esc(f)}</h4><div id="fb${i}"></div>`;
+  $("frame-bars").appendChild(box);
+  hbar("fb" + i, F.by_group.region.map((g) => ({label: g.group, value: g[f], tip: `<b>${esc(g.group)}</b><br>${esc(f)}: ${g[f]} per 1,000 words<br>${g.count} speeches`})), (v) => v.toFixed(1), ["Region", "Per 1,000 words"]);
+});
+const LEANS = [...F.names, "No clear lean"];
+heat("lean-heat", LEANS, REGIONS, (l, r) => { const c = F.lean_by_region[r] || {}, n = Object.values(c).reduce((a, b) => a + b, 0); return n ? (c[l] || 0) / n : 0; }, pct, (l) => l);
+heat("marker-heat", D.markers, REGIONS, (m, r) => m.by_region[r], pct, (m) => `${m.name} (${m.speeches})`);
+
+// all speeches
+const cols = [
+  ["Delegation", (s) => s.delegation, (s) => `<a href="${esc(s.page_url)}">${esc(s.delegation)}</a>`],
+  ["Speaker", (s) => s.speaker, (s) => `${esc(s.speaker)}<br><span class="small">${esc(s.title)}</span>`],
+  ["Region", (s) => s.region], ["Date", (s) => s.date, (s) => new Date(s.date + "T12:00").toLocaleDateString("en-GB", {day: "numeric", month: "short"})],
+  ["Words", (s) => s.words, (s) => num(s.words), "n"],
+  ["Main topic", (s) => s.topic], ["Lean", (s) => s.lean],
+  ["Grade", (s) => s.readability ? s.readability.grade : -1, (s) => s.readability ? s.readability.grade.toFixed(1) : "–", "n"],
+  ["English from", (s) => s.english_kind],
+];
+let sortBy = 0, asc = true;
+function drawTable() {
+  const q = $("q").value.toLowerCase();
+  const rows = D.speeches.filter((s) => !q || [s.delegation, s.speaker, s.topic, s.lean, s.region].join(" ").toLowerCase().includes(q))
+    .sort((a, b) => { const x = cols[sortBy][1](a), y = cols[sortBy][1](b); return (x > y ? 1 : x < y ? -1 : 0) * (asc ? 1 : -1); });
+  $("speech-table").innerHTML = "<thead><tr>" + cols.map((c, i) => `<th data-i="${i}" class="${c[3] || ""}">${esc(c[0])}${i === sortBy ? (asc ? " ▲" : " ▼") : ""}</th>`).join("") + "</tr></thead><tbody>" +
+    rows.map((s) => "<tr>" + cols.map((c) => `<td class="${c[3] || ""}">${c[2] ? c[2](s) : esc(c[1](s))}</td>`).join("") + "</tr>").join("") + "</tbody>";
+  $("speech-table").querySelectorAll("th").forEach((th) => th.onclick = () => { const i = +th.dataset.i; asc = i === sortBy ? !asc : true; sortBy = i; drawTable(); });
+}
+$("q").addEventListener("input", drawTable);
+drawTable();
+</script>
+</body>
+</html>

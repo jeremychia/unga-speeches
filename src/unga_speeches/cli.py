@@ -21,6 +21,9 @@ def main() -> None:
 
     sub.add_parser("history", help="merge the UN General Debate Corpus (1946 onwards) with its speaker list")
 
+    site = sub.add_parser("site", help="write one session's analysis page to site/ (needs the analysis dependency group)")
+    site.add_argument("session", type=int)
+
     sub.add_parser("release", help="package the tables and speech pages into dist/ for a data release")
     sub.add_parser("dataset", help="combine the corpus, the verbatim records and gadebate into one table")
 
@@ -37,6 +40,10 @@ def main() -> None:
     elif args.command == "verbatim":
         for s in args.sessions:
             logging.info("wrote %s", verbatim.build_session(s))
+    elif args.command == "site":
+        from unga_speeches.analysis import site as analysis_site
+
+        logging.info("wrote %s", analysis_site.build(args.session))
     elif args.command == "release":
         logging.info("wrote %s", release.package())
     elif args.command == "dataset":
