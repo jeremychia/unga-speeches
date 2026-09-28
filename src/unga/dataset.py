@@ -14,6 +14,7 @@ import pandas as pd
 from . import roles
 from .clean import clean
 from .config import OUTPUT_DIR, REFERENCE_DIR, session_year
+from .report import write_sources_report
 from .ungdc import DATASET_URL
 
 log = logging.getLogger(__name__)
@@ -151,5 +152,6 @@ def build() -> Path:
     out.drop(columns=[c for c in out.columns if "text" in c]).to_csv(OUTPUT_DIR / "speeches.csv", index=False)
     if not replies.empty:
         replies.to_parquet(OUTPUT_DIR / "rights_of_reply.parquet", index=False)
+    write_sources_report(out)
     log.info("%d speeches across %d sessions", len(out), out.session.nunique())
     return OUTPUT_DIR / "speeches.parquet"
