@@ -84935,7 +84935,10 @@
     "title": "The Takeaway: UN General Assembly debate Day 1",
     "url": "https://news.un.org/en/story/2026/09/1168468",
     "words": 463,
-    "base_region": "UN"
+    "base_region": "UN",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": ""
    },
    {
     "outlet": "UN News",
@@ -84944,7 +84947,10 @@
     "title": "The Takeaway: UN General Assembly debate Day 2",
     "url": "https://news.un.org/en/story/2026/09/1168421",
     "words": 557,
-    "base_region": "UN"
+    "base_region": "UN",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": ""
    },
    {
     "outlet": "UN News (via GlobalSecurity.org)",
@@ -84953,7 +84959,10 @@
     "title": "The Takeaway: UN General Assembly debate Day 3",
     "url": "https://www.globalsecurity.org/military/library/news/2026/09/mil-260925-unnews05.htm",
     "words": 594,
-    "base_region": "UN"
+    "base_region": "UN",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "UN News (via GlobalSecurity.org)",
@@ -84962,7 +84971,10 @@
     "title": "The Takeaway: UN General Assembly debate Day 4",
     "url": "https://www.globalsecurity.org/military/library/news/2026/09/mil-260926-unnews01.htm",
     "words": 786,
-    "base_region": "UN"
+    "base_region": "UN",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "UN News (via GlobalSecurity.org)",
@@ -84971,7 +84983,10 @@
     "title": "The Takeaway: UN General Assembly debate Day 5",
     "url": "https://www.globalsecurity.org/military/library/news/2026/09/mil-260927-unnews01.htm",
     "words": 586,
-    "base_region": "UN"
+    "base_region": "UN",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "UN News",
@@ -84980,7 +84995,10 @@
     "title": "The Takeaway Day 6: General Debate ends with call to turn words into action",
     "url": "https://news.un.org/en/story/2026/09/1168478",
     "words": 651,
-    "base_region": "UN"
+    "base_region": "UN",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": ""
    },
    {
     "outlet": "CNN",
@@ -84989,7 +85007,10 @@
     "title": "What to expect at the UN General Assembly, the biggest event in world diplomacy | CNN",
     "url": "https://www.cnn.com/2026/09/21/world/unga-2026-what-to-expect-latam-intl",
     "words": 1658,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cnn/"
    },
    {
     "outlet": "CNN",
@@ -84998,7 +85019,10 @@
     "title": "Key moments from the first day of UN General Assembly speeches | CNN",
     "url": "https://www.cnn.com/2026/09/22/world/live-news/un-general-assembly-trump",
     "words": 3738,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cnn/"
    },
    {
     "outlet": "CNN",
@@ -85007,7 +85031,10 @@
     "title": "Key moments from UNGA Day 2: Speeches from Rodríguez, Zelensky, Pezeshkian | CNN",
     "url": "https://www.cnn.com/2026/09/23/world/live-news/united-nations-general-assembly-iran-trump-ukraine",
     "words": 3979,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cnn/"
    },
    {
     "outlet": "CNN",
@@ -85016,7 +85043,10 @@
     "title": "Key speeches and moments from UNGA Day 3: Netanyahu lambasts Iran, defends Gaza war | CNN",
     "url": "https://www.cnn.com/2026/09/24/world/live-news/un-general-assembly-netanyahu",
     "words": 3663,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cnn/"
    },
    {
     "outlet": "Al Jazeera",
@@ -85025,7 +85055,10 @@
     "title": "UN General Assembly 2026: Who is speaking and when?",
     "url": "https://www.aljazeera.com/news/2026/9/22/un-general-assembly-2026-when-is-it-who-is-speaking-and-when",
     "words": 1038,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/al-jazeera/"
    },
    {
     "outlet": "CNBC",
@@ -85034,7 +85067,10 @@
     "title": "In photos: Key takeaways from day one of the UN General Assembly",
     "url": "https://www.cnbc.com/2026/09/23/unga-trump-iran-china-greenland-ukraine-russia-.html",
     "words": 493,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cnbc/"
    },
    {
     "outlet": "ABC News",
@@ -85043,7 +85079,10 @@
     "title": "Trump in United Nations speech says 'big decision' ahead: Make a deal or 'annihilate' Iran",
     "url": "https://abcnews.com/Politics/trump-addresses-global-leaders-united-nations-general-assembly/story?id=136648657",
     "words": 1096,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/abc-news/"
    },
    {
     "outlet": "NBC News",
@@ -85052,7 +85091,10 @@
     "title": "Trump tells U.N. he could ‘annihilate’ Iran but expects a deal after the midterm elections",
     "url": "https://www.nbcnews.com/politics/trump-administration/trump-address-united-nations-general-assembly-iran-war-rcna599085",
     "words": 1142,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/nbc-news/"
    },
    {
     "outlet": "PBS News",
@@ -85061,7 +85103,10 @@
     "title": "Fact-checking Trump's speech to the 2026 United Nations General Assembly",
     "url": "https://www.pbs.org/newshour/politics/fact-checking-trumps-speech-to-the-2026-united-nations-general-assembly",
     "words": 1214,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/pbs/"
    },
    {
     "outlet": "PolitiFact",
@@ -85070,7 +85115,10 @@
     "title": "Live fact-checks from Trump's United Nations speech",
     "url": "https://politifact.com/article/2026/sep/22/trump-un-speech-live-fact-check/",
     "words": 86,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/politifact/"
    },
    {
     "outlet": "MS NOW",
@@ -85079,7 +85127,10 @@
     "title": "Trump U.N. speech: Key takeaways from his General Assembly address",
     "url": "https://www.ms.now/liveblog/trump-united-nations-general-assembly-speech-2026-live-updates",
     "words": 5891,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/msnbc/"
    },
    {
     "outlet": "Wikipedia",
@@ -85088,7 +85139,10 @@
     "title": "2026 United Nations Secretary-General selection - Wikipedia",
     "url": "https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection",
     "words": 2240,
-    "base_region": "Reference"
+    "base_region": "Reference",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": ""
    },
    {
     "outlet": "SCMP",
@@ -85097,7 +85151,10 @@
     "title": "Why Xi Jinping skipped the UN after his Trump summit",
     "url": "https://www.scmp.com/news/china/diplomacy/article/3368923/why-xi-jinping-skipped-un-after-his-trump-summit",
     "words": 1074,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/south-china-morning-post/"
    },
    {
     "outlet": "Dawn",
@@ -85106,7 +85163,10 @@
     "title": "'Terrific man' Shehbaz gets special mention during Trump's UNGA speech",
     "url": "https://www.dawn.com/news/2031875/terrific-man-shehbaz-gets-special-mention-during-trumps-unga-speech",
     "words": 1395,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/dawn/"
    },
    {
     "outlet": "Dawn",
@@ -85115,7 +85175,10 @@
     "title": "Any attempt to divert Pakistan’s water to be treated as act of war, India ‘must make no mistake about it’: PM at UNGA",
     "url": "https://www.dawn.com/news/2032621/pm-shehbaz-addresses-un-general-assembly",
     "words": 1312,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/dawn/"
    },
    {
     "outlet": "Dawn",
@@ -85124,7 +85187,10 @@
     "title": "Pakistan stands out amid flurry of diplomacy at UNGA",
     "url": "https://www.dawn.com/news/2032006/pakistan-stands-out-amid-flurry-of-diplomacy-at-unga",
     "words": 937,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/dawn/"
    },
    {
     "outlet": "Dawn",
@@ -85133,7 +85199,10 @@
     "title": "UN chief calls for AI curbs and end to wars in his last assembly address",
     "url": "https://www.dawn.com/news/2031904/un-chief-calls-for-ai-curbs-and-end-to-wars-in-his-last-assembly-address",
     "words": 614,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/dawn/"
    },
    {
     "outlet": "Japan Times",
@@ -85142,7 +85211,10 @@
     "title": "Takaichi arrives in New York to attend U.N. General Assembly",
     "url": "https://www.japantimes.co.jp/news/2026/09/22/japan/japan-takaichi-new-york-un/",
     "words": 450,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/japan-times/"
    },
    {
     "outlet": "Japan Times",
@@ -85151,7 +85223,10 @@
     "title": "Carney and Lula urge nations to join group to unite middle powers",
     "url": "https://www.japantimes.co.jp/news/2026/09/21/world/carney-lula-unite-middle-powers/",
     "words": 401,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/japan-times/"
    },
    {
     "outlet": "Korea Times",
@@ -85160,7 +85235,10 @@
     "title": "An isolated Netanyahu takes UN stage as he seeks reelection at home - The Korea Times",
     "url": "https://www.koreatimes.co.kr/world/20260925/an-isolated-netanyahu-takes-un-stage-as-he-seeks-reelection-at-home",
     "words": 832,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "CGTN",
@@ -85169,7 +85247,10 @@
     "title": "Chinese VP: China to work with all countries to build a community with a shared future for humanity",
     "url": "https://news.cgtn.com/news/2026-09-27/Chinese-VP-China-to-work-with-all-countries-to-build-shared-future-1QMFxmk073G/p.html",
     "words": 832,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/china-global-television-network-cgtn/"
    },
    {
     "outlet": "Xinhua",
@@ -85178,7 +85259,10 @@
     "title": "China consistently, firmly supports UN: VP",
     "url": "https://english.news.cn/20260926/9640dc1dc44e42328a12adb3c4ef2353/c.html",
     "words": 401,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/xinhua/"
    },
    {
     "outlet": "China Daily",
@@ -85187,7 +85271,10 @@
     "title": "UN General Assembly concludes General Debate",
     "url": "http://global.chinadaily.com.cn/a/202609/29/WS6abb0cf2e4b06d4aa0560acf.html",
     "words": 178,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/china-daily/"
    },
    {
     "outlet": "Global Times",
@@ -85196,7 +85283,10 @@
     "title": "UN General Assembly begins general debate - Global Times",
     "url": "https://www.globaltimes.cn/page/202609/1371169.shtml",
     "words": 446,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/global-times/"
    },
    {
     "outlet": "Jakarta Post",
@@ -85205,7 +85295,10 @@
     "title": "Indonesia puts peace, UN reform, Global South at center of UNGA agenda - Americas - The Jakarta Post",
     "url": "http://www.thejakartapost.com/world/2026/09/23/indonesia-puts-peace-un-reform-global-south-at-center-of-unga-agenda",
     "words": 394,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Jakarta Post",
@@ -85214,7 +85307,10 @@
     "title": "Delegates walk out as Netanyahu defends Israel at UN - Middle East and Africa - The Jakarta Post",
     "url": "https://www.thejakartapost.com/world/2026/09/25/delegates-walk-out-as-netanyahu-defends-israel-at-un-",
     "words": 578,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Jakarta Post",
@@ -85223,7 +85319,10 @@
     "title": "Palestine test for UN ‘resilience’, says Indonesia - Middle East and Africa - The Jakarta Post",
     "url": "http://www.thejakartapost.com/world/2026/09/28/palestine-test-for-un-resilience-says-indonesia",
     "words": 466,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Malay Mail",
@@ -85232,7 +85331,10 @@
     "title": "UN General Debate to bring world leaders together in New York under ‘restoring trust’ theme",
     "url": "https://www.malaymail.com/news/world/2026/09/22/un-general-debate-to-bring-world-leaders-together-in-new-york-under-restoring-trust-theme/236055",
     "words": 260,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/malay-mail-bias/"
    },
    {
     "outlet": "Malay Mail",
@@ -85241,7 +85343,10 @@
     "title": "‘Middle powers’, like Malaysia, can shape global decisions when major powers can’t agree, Mohamad Hasan says at UN general assembly",
     "url": "https://www.malaymail.com/news/malaysia/2026/09/27/middle-powers-like-malaysia-can-shape-global-decisions-when-major-powers-cant-agree-mohamad-hasan-says-at-un-general-assembly/236660",
     "words": 403,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/malay-mail-bias/"
    },
    {
     "outlet": "Malay Mail",
@@ -85250,7 +85355,10 @@
     "title": "‘Malaysia will speak plainly: We are sick of it’: Mohamad Hasan tells UN to act on Gaza",
     "url": "https://www.malaymail.com/news/malaysia/2026/09/27/malaysia-will-speak-plainly-we-are-sick-of-it-mohamad-hasan-tells-un-to-act-on-gaza/236659",
     "words": 352,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/malay-mail-bias/"
    },
    {
     "outlet": "The Star",
@@ -85259,7 +85367,10 @@
     "title": "Brazil’s Lula backs China peace push at UN, tells US his nation is ‘no one’s backyard’",
     "url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/09/25/brazils-lula-backs-china-peace-push-at-un-tells-us-his-nation-is-no-ones-backyard",
     "words": 1238,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-star-malaysia/"
    },
    {
     "outlet": "Tehran Times",
@@ -85268,7 +85379,10 @@
     "title": "‘We will never bow our head’",
     "url": "https://www.tehrantimes.com/news/530355/We-will-never-bow-our-head",
     "words": 1320,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/tehran-times/"
    },
    {
     "outlet": "Tehran Times",
@@ -85277,7 +85391,10 @@
     "title": "Pezeshkian turned the United Nations into a court for American and Israeli crimes",
     "url": "https://www.tehrantimes.com/news/530434/Pezeshkian-turned-the-United-Nations-into-a-court-for-American",
     "words": 748,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/tehran-times/"
    },
    {
     "outlet": "TASS",
@@ -85286,7 +85403,10 @@
     "title": "West jeopardizes billions of lives on planet by acting recklessly — Lavrov",
     "url": "https://tass.com/politics/2193375",
     "words": 77,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Right-centre",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/russian-news-agency-tass/"
    },
    {
     "outlet": "TASS",
@@ -85295,7 +85415,10 @@
     "title": "Russia opposes new ‘Western seats’ on UN Security Council — Lavrov",
     "url": "https://tass.com/politics/2193451",
     "words": 128,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Right-centre",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/russian-news-agency-tass/"
    },
    {
     "outlet": "TASS",
@@ -85304,7 +85427,10 @@
     "title": "Russia expects new UN chief not to serve interests of certain countries only — Lavrov",
     "url": "https://tass.com/politics/2193445",
     "words": 115,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Right-centre",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/russian-news-agency-tass/"
    },
    {
     "outlet": "Kyiv Independent",
@@ -85313,7 +85439,10 @@
     "title": "Zelensky says Putin 'patient zero' of Russia's war as Ukraine calls for peace at UN General Assembly",
     "url": "https://kyivindependent.com/ukrainians-did-not-choose-this-war-we-choose-not-to-die-zelensky-says-to-un-general-assembly/",
     "words": 810,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/kyiv-independent/"
    },
    {
     "outlet": "Ukrinform",
@@ -85322,7 +85451,10 @@
     "title": "Zelensky at UN General Assembly: Russia's revenues must remain a target",
     "url": "https://www.ukrinform.net/rubric-polytics/4167362-zelensky-at-un-general-assembly-russias-revenues-must-remain-a-target.html",
     "words": 320,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Right-centre",
+    "state_media": true,
+    "mbfc_url": "https://mediabiasfactcheck.com/ukrinform/"
    },
    {
     "outlet": "Daily Nation",
@@ -85331,7 +85463,10 @@
     "title": "Ruto’s UN pitch: Africa wants investment, not aid",
     "url": "https://nation.africa/kenya/news/ruto-s-un-pitch-africa-wants-investment-not-aid--5607618",
     "words": 898,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-daily-nation/"
    },
    {
     "outlet": "Premium Times",
@@ -85340,7 +85475,10 @@
     "title": "Tinubu to UN: We can't rule 2026 world with 1945 distribution of power",
     "url": "https://www.premiumtimesng.com/news/top-news/912181-tinubu-to-un-we-cant-rule-2026-world-with-1945-distribution-of-power.html",
     "words": 1062,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/premium-times/"
    },
    {
     "outlet": "Premium Times",
@@ -85349,7 +85487,10 @@
     "title": "Nigeria restates demand for two permanent UNSC seats, veto powers for Africa",
     "url": "https://www.premiumtimesng.com/news/top-news/912229-nigeria-restates-demand-for-two-permanent-unsc-seats-veto-powers-for-africa.html",
     "words": 533,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/premium-times/"
    },
    {
     "outlet": "Premium Times",
@@ -85358,7 +85499,10 @@
     "title": "Africa’s exclusion from UN Security Council undermines fairness – Shettima",
     "url": "https://www.premiumtimesng.com/news/top-news/912718-africas-exclusion-from-un-security-council-undermines-fairness-shettima.html",
     "words": 612,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/premium-times/"
    },
    {
     "outlet": "Buenos Aires Times",
@@ -85367,7 +85511,10 @@
     "title": "Milei presses Malvinas claim, slams 'useless' United Nations in speech",
     "url": "https://batimes.com.ar/news/argentina/milei-presses-malvinas-claim-slams-useless-united-nations-in-speech.phtml",
     "words": 1501,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/buenos-aires-times/"
    },
    {
     "outlet": "Nation News",
@@ -85376,7 +85523,10 @@
     "title": "Mottley: Build our own trade routes",
     "url": "https://nationnews.com/2026/09/23/mottley-build-our-own-trade-routes/",
     "words": 593,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Nation News",
@@ -85385,7 +85535,10 @@
     "title": "Barbados delegation did not join Netanyahu walkout",
     "url": "https://nationnews.com/2026/09/27/barbados-delegation-did-not-join-netanyahu-walkout/",
     "words": 240,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Jamaica Gleaner",
@@ -85394,7 +85547,10 @@
     "title": "‘We’re not giving up’ - Beset by climate change, island nations act as conscience of a warming world",
     "url": "https://jamaica-gleaner.com/article/world-news/20260927/were-not-giving-beset-climate-change-island-nations-act-conscience",
     "words": 851,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "NPR",
@@ -85403,7 +85559,10 @@
     "title": "What to know as world leaders converge at the United Nations this week",
     "url": "https://www.npr.org/2026/09/21/nx-s1-5971262/united-nations-general-assembly",
     "words": 1082,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/npr/"
    },
    {
     "outlet": "NPR",
@@ -85412,7 +85571,10 @@
     "title": "AI and autonomous weapons are high on the agenda at the UN General Assembly",
     "url": "https://www.npr.org/2026/09/21/nx-s1-5974200/ai-and-autonomous-weapons-are-high-on-the-agenda-at-the-un-general-assembly",
     "words": 716,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/npr/"
    },
    {
     "outlet": "Foreign Policy",
@@ -85421,7 +85583,10 @@
     "title": "Your 2026 UNGA Primer",
     "url": "https://foreignpolicy.com/2026/09/21/unga-trump-iran-xi-china-ai-secretary-general/",
     "words": 1610,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/foreign-policy/"
    },
    {
     "outlet": "Foreign Policy",
@@ -85430,7 +85595,10 @@
     "title": "UNGA Convenes With Uncertainty on the Horizon",
     "url": "https://foreignpolicy.com/2026/09/21/unga-conflict-trump-guterres-secretary-general-uncertainty/",
     "words": 2341,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/foreign-policy/"
    },
    {
     "outlet": "Foreign Policy",
@@ -85439,7 +85607,10 @@
     "title": "A Tale of Two UNGA Speeches",
     "url": "https://foreignpolicy.com/2026/09/22/unga-speech-guterres-trump-united-nations-zelensky/",
     "words": 1729,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/foreign-policy/"
    },
    {
     "outlet": "ABC Australia",
@@ -85448,7 +85619,10 @@
     "title": "Albanese laments 'breakdown' of global rules in major UN speech",
     "url": "https://www.abc.net.au/news/2026-09-25/anthony-albanese-gives-speech-at-un-general-assembly/107194592",
     "words": 589,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/abc-news-australia/"
    },
    {
     "outlet": "RNZ",
@@ -85457,7 +85631,10 @@
     "title": "'Stop carbon emissions': Papua New Guinea, Solomon Islands leaders demand climate action",
     "url": "https://www.rnz.co.nz/news/pacific/1573155/stop-carbon-emissions-papua-new-guinea-solomon-islands-leaders-demand-climate-action",
     "words": 381,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rnz/"
    },
    {
     "outlet": "Fiji Village",
@@ -85466,7 +85643,10 @@
     "title": "Ratu Naiqama calls for UN reforms to better reflect small island states",
     "url": "https://www.fijivillage.com/news/ratu-naiqama-calls-for-un-reforms-to-better-reflect-small-island-states-5f057a/",
     "words": 191,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Matangi Tonga",
@@ -85475,7 +85655,10 @@
     "title": "Tonga's PM appeals for support towards renewable energy, climate finance goals at UN",
     "url": "https://matangitonga.to/2026/09/28/tonga-pm-appeals-support-for-renewable-energy-climate-finance-goals-un",
     "words": 349,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Samoa Observer",
@@ -85484,7 +85667,10 @@
     "title": "Pacific leaders take united stance",
     "url": "https://www.samoaobserver.ws/category/samoa/122229",
     "words": 431,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Samoa Observer",
@@ -85493,7 +85679,10 @@
     "title": "Pacific calls for urgent climate finance action at UNGA81",
     "url": "https://www.samoaobserver.ws/category/samoa/122210",
     "words": 388,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Samoa Observer",
@@ -85502,7 +85691,10 @@
     "title": "From New York to Samoa, resilience must start at home",
     "url": "https://www.samoaobserver.ws/category/editorial/122230",
     "words": 113,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Island Times",
@@ -85511,7 +85703,10 @@
     "title": "Forum Leaders to elevate Pacific priorities on the global agenda at UNGA81 - Island Times News",
     "url": "https://islandtimes.org/forum-leaders-to-elevate-pacific-priorities-on-the-global-agenda-at-unga81/",
     "words": 592,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Island Times",
@@ -85520,7 +85715,10 @@
     "title": "Micronesia calls for Climate finance, Ocean protection and fossil fuel transition - Island Times News",
     "url": "https://islandtimes.org/micronesia-calls-for-climate-finance-ocean-protection-and-fossil-fuel-transition/",
     "words": 890,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Island Times",
@@ -85529,7 +85727,10 @@
     "title": "A Critical Response to Mr. Surangel Whipps Address at the 81st UN General Assembly on September 23, 2026 - Island Times News",
     "url": "https://islandtimes.org/a-critical-response-to-mr-surangel-whipps-address-at-the-81st-un-general-assembly-on-september-23-2026/",
     "words": 1367,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "PINA",
@@ -85538,7 +85739,10 @@
     "title": "Forum Leaders to elevate Pacific priorities on the global agenda at UNGA81 | PINA",
     "url": "https://pina.com.fj/2026/09/21/forum-leaders-to-elevate-pacific-priorities-on-the-global-agenda-at-unga8/",
     "words": 535,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "PINA",
@@ -85547,7 +85751,10 @@
     "title": "‘The Pacific is our home, not a theatre for geopolitical competition’: Forum Chair Whipps | PINA",
     "url": "https://pina.com.fj/2026/09/24/the-pacific-is-our-home-not-a-theatre-for-geopolitical-competition-forum-chair-whipps/",
     "words": 858,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Pacific Media Network",
@@ -85556,7 +85763,10 @@
     "title": "Pacific leaders take united voice to UN General Assembly",
     "url": "https://pmn.co.nz/read/pacific-region/pacific-leaders-take-united-voice-to-un-general-assembly",
     "words": 816,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "RNZ",
@@ -85565,7 +85775,10 @@
     "title": "Pacific leaders urge Jakarta to allow UN visit to West Papua",
     "url": "https://www.rnz.co.nz/news/pacific/1630219/pacific-leaders-urge-jakarta-to-allow-un-visit-to-west-papua",
     "words": 480,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rnz/"
    },
    {
     "outlet": "Asia Pacific Report",
@@ -85574,7 +85787,10 @@
     "title": "Pacific leaders urge Jakarta to allow UN rights visit to West Papua | Asia Pacific Report",
     "url": "https://asiapacificreport.nz/2026/09/29/pacific-leaders-urge-jakarta-to-allow-un-rights-visit-to-west-papua/",
     "words": 486,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "SBS News",
@@ -85583,7 +85799,10 @@
     "title": "As Albanese warned the UN about world's 'greatest powers' Trump was elsewhere",
     "url": "https://www.sbs.com.au/news/article/albaneses-warning-to-un-about-greatest-powers-and-peace-under-immense-strain/83lqpq3z0",
     "words": 626,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/special-broadcasting-service-sbs/"
    },
    {
     "outlet": "SBS News",
@@ -85592,7 +85811,10 @@
     "title": "Moments you may have missed from the world's biggest talks",
     "url": "https://www.sbs.com.au/news/article/united-nations-general-assembly/tq2ududb0",
     "words": 939,
-    "base_region": "Oceania"
+    "base_region": "Oceania",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/special-broadcasting-service-sbs/"
    },
    {
     "outlet": "Channels Television",
@@ -85601,7 +85823,10 @@
     "title": "UN Security Council Exclusion Of Africa Undermines Global Governance, Says Shettima",
     "url": "https://www.channelstv.com/2026/09/27/un-security-council-exclusion-of-africa-undermines-global-governance-says-shettima/",
     "words": 678,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Daily Trust",
@@ -85610,7 +85835,10 @@
     "title": "Does Nigeria deserve a permanent seat at the UNSC?",
     "url": "https://dailytrust.com/does-nigeria-deserve-a-permanent-seat-at-the-unsc/",
     "words": 1192,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/daily-trust/"
    },
    {
     "outlet": "Daily Trust",
@@ -85619,7 +85847,10 @@
     "title": "Power distribution: Shettima calls for radical shake-up at...",
     "url": "https://dailytrust.com/power-distribution-shettima-calls-for-radical-shake-up-at-un/",
     "words": 1105,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/daily-trust/"
    },
    {
     "outlet": "Vanguard",
@@ -85628,7 +85859,10 @@
     "title": "UNGA81: Nigeria‘ll be guided by national interest – Shettima",
     "url": "https://www.vanguardngr.com/2026/09/unga81-nigeriall-be-guided-by-national-interest-shettima/",
     "words": 339,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/vanguard-news-nigeria-bias/"
    },
    {
     "outlet": "Vanguard",
@@ -85637,7 +85871,10 @@
     "title": "Shettima returns to Nigeria after UNGA81",
     "url": "https://www.vanguardngr.com/2026/09/shettima-returns-to-nigeria-after-unga81/",
     "words": 299,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/vanguard-news-nigeria-bias/"
    },
    {
     "outlet": "Vanguard",
@@ -85646,7 +85883,10 @@
     "title": "Nigeria to address UNGA on Thursday",
     "url": "https://www.vanguardngr.com/2026/09/nigeria-to-address-unga-on-thursday/",
     "words": 497,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/vanguard-news-nigeria-bias/"
    },
    {
     "outlet": "The Guardian (Nigeria)",
@@ -85655,7 +85895,10 @@
     "title": "Shettima returns, lauds Nigeria’s campaign for UN Security Council seat",
     "url": "https://guardian.ng/news/shettima-returns-lauds-nigerias-campaign-for-un-security-council-seat/",
     "words": 409,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/guardian-nigeria/"
    },
    {
     "outlet": "The Star (Kenya)",
@@ -85664,7 +85907,10 @@
     "title": "Ruto renews push for fair global finance, permanent African seat on UN Security Council",
     "url": "https://www.the-star.co.ke/news/2026-09-24-ruto-renews-push-for-fair-global-finance",
     "words": 848,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Star (Kenya)",
@@ -85673,7 +85919,10 @@
     "title": "[PHOTOS] Ruto makes final preparations ahead of UNGA National Statement delivery",
     "url": "https://www.the-star.co.ke/news/2026-09-23-photos-ruto-puts-finishing-touches-on-kenyas-unga-speech",
     "words": 325,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Star (Kenya)",
@@ -85682,7 +85931,10 @@
     "title": "Ruto calls for African representation in UN security council",
     "url": "https://www.the-star.co.ke/news/2026-09-24-ruto-calls-for-african-representation-on-the-un-security-council",
     "words": 367,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Star (Kenya)",
@@ -85691,7 +85943,10 @@
     "title": "Ruto pushes UN, financial reforms to give developing nations a bigger voice",
     "url": "https://www.the-star.co.ke/news/2026-09-22-ruto-pushes-for-a-global-system-that-works-for-developing-nations",
     "words": 549,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Star (Kenya)",
@@ -85700,7 +85955,10 @@
     "title": "Inside Ruto’s US tour: The deals, diplomacy and Sh1tn Africa capital push",
     "url": "https://www.the-star.co.ke/news/2026-09-25-inside-rutos-us-tour-the-deals-diplomacy-and-africa-power-push",
     "words": 1992,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Citizen Digital",
@@ -85709,7 +85967,10 @@
     "title": "President Ruto to address UN General Assembly today",
     "url": "https://citizen.digital/article/president-ruto-to-address-un-general-assembly-today-n390685",
     "words": 393,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Citizen Digital",
@@ -85718,7 +85979,10 @@
     "title": "Ruto praises Dangote Lamu refinery project at UN General Assembly",
     "url": "https://citizen.digital/article/ruto-praises-dangote-lamu-refinery-project-at-un-general-assembly-n390671",
     "words": 440,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Citizen Digital",
@@ -85727,7 +85991,10 @@
     "title": "Ruto calls for reforms in global finance, international governance",
     "url": "https://citizen.digital/article/ruto-calls-for-reforms-in-global-finance-international-governance-n390677",
     "words": 310,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Standard (Kenya)",
@@ -85736,7 +86003,10 @@
     "title": "What Ruto will address at the UN General Assembly",
     "url": "https://www.standardmedia.co.ke/article/2001558527/what-ruto-will-address-at-unga",
     "words": 319,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-standard-kenya/"
    },
    {
     "outlet": "The Standard (Kenya)",
@@ -85745,7 +86015,10 @@
     "title": "Ruto's UN reform push faces scrutiny",
     "url": "https://www.standardmedia.co.ke/national/article/2001558614/rutos-un-reform-push-faces-scrutiny",
     "words": 162,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-standard-kenya/"
    },
    {
     "outlet": "Daily Maverick",
@@ -85754,7 +86027,10 @@
     "title": "Ramaphosa found his voice abroad, but he lost it at home",
     "url": "https://www.dailymaverick.co.za/article/2026-09-20-ramaphosa-found-his-voice-abroad-but-he-lost-it-at-home/",
     "words": 1960,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/daily-maverick/"
    },
    {
     "outlet": "SABC News",
@@ -85763,7 +86039,10 @@
     "title": "SA rejects external interference, defends democratic strength at UNGA - SABC News - Breaking news, special reports, world, business, sport coverage of all South African current events. Africa's news leader.",
     "url": "https://www.sabcnews.com/sabcnews/sa-rejects-external-interference-defends-democratic-strength-at-unga/",
     "words": 305,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "SABC News",
@@ -85772,7 +86051,10 @@
     "title": "Ramaphosa lauds decision to establish International Panel on Equity - SABC News - Breaking news, special reports, world, business, sport coverage of all South African current events. Africa's news leader.",
     "url": "https://www.sabcnews.com/sabcnews/ramaphosa-lauds-decision-to-establish-international-panel-on-equity/",
     "words": 279,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "IOL",
@@ -85781,7 +86063,10 @@
     "title": "UNGA 81 exposes Global South frustrations with the UN system",
     "url": "https://iol.co.za/pretoria-news/opinion/2026-09-24-unga-81-exposes-global-south-frustrations-with-the-un-system/",
     "words": 1258,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/independent-online-iol-bias/"
    },
    {
     "outlet": "MyJoyOnline",
@@ -85790,7 +86075,10 @@
     "title": "\"No Nation is Inferior\": Mahama champions human dignity and security council reform at the UN - MyJoyOnline",
     "url": "https://www.myjoyonline.com/no-nation-is-inferior-mahama-champions-human-dignity-and-security-council-reform-at-the-un/",
     "words": 995,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "MyJoyOnline",
@@ -85799,7 +86087,10 @@
     "title": "Mahama calls for global equality, says “no race is superior, no nation is inferior” - MyJoyOnline",
     "url": "https://www.myjoyonline.com/mahama-calls-for-global-equality-says-no-race-is-superior-no-nation-is-inferior/",
     "words": 337,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "MyJoyOnline",
@@ -85808,7 +86099,10 @@
     "title": "Mahama’s UN address to mark 25th by a Ghanaian president - MyJoyOnline",
     "url": "https://www.myjoyonline.com/mahamas-un-address-to-mark-25th-by-a-ghanaian-president/",
     "words": 234,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "MyJoyOnline",
@@ -85817,7 +86111,10 @@
     "title": "Mahama leaves for New York to attend 81st UN General Assembly - MyJoyOnline",
     "url": "https://www.myjoyonline.com/mahama-leaves-for-new-york-to-attend-81st-un-general-assembly/",
     "words": 370,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "MyJoyOnline",
@@ -85826,7 +86123,10 @@
     "title": "Freedom of any nation is insecure unless linked to freedom of all humanity – Mahama - MyJoyOnline",
     "url": "https://www.myjoyonline.com/freedom-of-any-nation-is-insecure-unless-linked-to-freedom-of-all-humanity-mahama/",
     "words": 436,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "MyJoyOnline",
@@ -85835,7 +86135,10 @@
     "title": "Mahama backs stronger global action to lift Cuba embargo - MyJoyOnline",
     "url": "https://www.myjoyonline.com/mahama-backs-stronger-global-action-to-lift-cuba-embargo/",
     "words": 219,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "ENA",
@@ -85844,7 +86147,10 @@
     "title": "Ethiopia’s Global Diplomacy, Sea Access and Economic Transformation Take Centre Stage",
     "url": "https://www.ena.et/web/eng/w/eng_9627031",
     "words": 1274,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": true,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Egypt Today",
@@ -85853,7 +86159,10 @@
     "title": "Palestine, Nile rights, regional security and global finance: Egypt’s key messages at UNGA 81",
     "url": "https://www.egypttoday.com/Article/1/149734/Palestine-Nile-rights-regional-security-and-global-finance-Egypt%E2%80%99s-key",
     "words": 1095,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/egypt-today/"
    },
    {
     "outlet": "Egypt Today",
@@ -85862,7 +86171,10 @@
     "title": "Egypt's PM participates in session on global order, development at UNGA in New York",
     "url": "https://www.egypttoday.com/Article/1/149630/Egypt-s-PM-participates-in-session-on-global-order-development",
     "words": 633,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/egypt-today/"
    },
    {
     "outlet": "Egypt Today",
@@ -85871,7 +86183,10 @@
     "title": "Egypt stresses efforts to ensure uninterrupted Gaza aid in talks with Guterres",
     "url": "https://www.egypttoday.com/Article/1/149656/Egypt-stresses-efforts-to-ensure-uninterrupted-Gaza-aid-in-talks",
     "words": 305,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/egypt-today/"
    },
    {
     "outlet": "Egypt Independent",
@@ -85880,7 +86195,10 @@
     "title": "Egypt's water security is 'existential issue', stresses Madbouly to the UN - Egypt Independent",
     "url": "https://www.egyptindependent.com/egypts-water-security-is-existential-issue-stresses-madbouly-to-the-un/",
     "words": 618,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Daily News Egypt",
@@ -85889,7 +86207,10 @@
     "title": "Egypt’s Madbouly calls for reorienting international financial system towards Global South",
     "url": "https://www.dailynewsegypt.com/2026/09/22/egypts-madbouly-calls-for-reorienting-international-financial-system-towards-global-south/",
     "words": 555,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Daily News Egypt",
@@ -85898,7 +86219,10 @@
     "title": "Egypt’s PM champions two-state solution and Security Council reform at UN General Assembly",
     "url": "https://www.dailynewsegypt.com/2026/09/23/egypts-pm-champions-two-state-solution-and-security-council-reform-at-un-general-assembly/",
     "words": 417,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Daily News Egypt",
@@ -85907,7 +86231,10 @@
     "title": "Egyptian Prime Minister heads to New York to lead delegation at UN General Assembly",
     "url": "https://www.dailynewsegypt.com/2026/09/21/egyptian-prime-minister-heads-to-new-york-to-lead-delegation-at-un-general-assembly/",
     "words": 186,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "New Vision",
@@ -85916,7 +86243,10 @@
     "title": "World: Trump to tout deals, defend Iran war in UN speech",
     "url": "https://www.newvision.co.ug/category/world/trump-to-tout-deals-defend-iran-war-in-un-spe-NV_241105_092026",
     "words": 289,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "New Vision",
@@ -85925,7 +86255,10 @@
     "title": "News: Otunnu intensifies campaign to lead UN",
     "url": "https://www.newvision.co.ug/category/news/otunnu-intensifies-campaign-to-lead-un-NV_241420_092026",
     "words": 226,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Daily Monitor",
@@ -85934,7 +86267,10 @@
     "title": "Africa must invest more in health systems, Samia tells UN",
     "url": "https://www.monitor.co.ug/uganda/news/national/africa-must-invest-more-in-health-systems-samia-tells-un-5608310",
     "words": 695,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/daily-monitor/"
    },
    {
     "outlet": "Daily Monitor",
@@ -85943,7 +86279,10 @@
     "title": "Trump threatens to annihilate Iran as diplomats push for deal at UN",
     "url": "https://www.monitor.co.ug/uganda/news/world/trump-threatens-to-annihilate-iran-as-diplomats-push-for-deal-at-un-5605424",
     "words": 905,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/daily-monitor/"
    },
    {
     "outlet": "Daily Monitor",
@@ -85952,7 +86291,10 @@
     "title": "EXPLAINER-Why are world leaders at the UN and what will they talk about?",
     "url": "https://www.monitor.co.ug/uganda/news/world/explainer-why-are-world-leaders-at-the-un-and-what-will-they-talk-about--5604706",
     "words": 1272,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/daily-monitor/"
    },
    {
     "outlet": "Daily News (Tanzania)",
@@ -85961,7 +86303,10 @@
     "title": "VP Ndejembi lands in New York to address the UN General Assembly - Daily News",
     "url": "https://dailynews.co.tz/vp-ndejembi-lands-in-new-york-to-address-the-un-general-assembly/",
     "words": 220,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "KT Press",
@@ -85970,7 +86315,10 @@
     "title": "When Power Overrides Peace: The UN’s Veto Problem and Africa’s Missing Seat - KT PRESS",
     "url": "https://www.ktpress.rw/2026/09/when-power-overrides-peace-the-uns-veto-problem-and-africas-missing-seat/",
     "words": 1129,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The New Times",
@@ -85979,7 +86327,10 @@
     "title": "What to know ahead of UN General Assembly",
     "url": "https://www.newtimes.co.rw/article/39102/news/international/what-to-know-ahead-of-un-general-assembly",
     "words": 485,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Lusaka Times",
@@ -85988,7 +86339,10 @@
     "title": "Zambia : Hichilema Calls For Fairer Global Health Systems At UN General Assembly",
     "url": "https://www.lusakatimes.com/2026/09/25/hichilema-calls-for-fairer-global-health-systems-at-un-general-assembly/",
     "words": 1705,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Lusaka Times",
@@ -85997,7 +86351,10 @@
     "title": "Zambia : Zambia Is Not At War, Haimbe Tells UN General Assembly",
     "url": "https://www.lusakatimes.com/2026/09/28/zambia-is-not-at-war-haimbe-tells-un-general-assembly/",
     "words": 1154,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Lusaka Times",
@@ -86006,7 +86363,10 @@
     "title": "Zambia : Haimbe Calls For Action On Pact For The Future",
     "url": "https://www.lusakatimes.com/2026/09/23/haimbe-calls-for-action-on-pact-for-the-future/",
     "words": 309,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Namibian",
@@ -86015,7 +86375,10 @@
     "title": "Nandi-Ndaitwah puts gender on UN leadership agenda",
     "url": "https://www.namibian.com.na/nandi-ndaitwah-puts-gender-on-un-leadership-agenda/",
     "words": 528,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Namibian",
@@ -86024,7 +86387,10 @@
     "title": "Netanyahu defends Israeli military action as delegates walk out before UN speech",
     "url": "https://www.namibian.com.na/netanyahu-defends-israeli-military-action-as-delegates-walk-out-before-un-speech/",
     "words": 969,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Namibian",
@@ -86033,7 +86399,10 @@
     "title": "Pact must deliver for Africa – Nandi-Ndaitwah",
     "url": "https://www.namibian.com.na/pact-must-deliver-for-africa-nandi-ndaitwah/",
     "words": 242,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Namibian",
@@ -86042,7 +86411,10 @@
     "title": "Iran’s president tells Trump it will never ‘bend the knee’",
     "url": "https://www.namibian.com.na/irans-president-tells-trump-it-will-never-bend-the-knee/",
     "words": 766,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "New Era",
@@ -86051,7 +86423,10 @@
     "title": "World leaders call for stronger AI safeguards",
     "url": "https://neweralive.na/world-leaders-call-for-stronger-ai-safeguards/",
     "words": 460,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Nyasa Times",
@@ -86060,7 +86435,10 @@
     "title": "Chaponda slams UN ‘talk shop’: Malawi demands bold UN reforms on debt, climate and African veto | Nyasa Times",
     "url": "https://www.nyasatimes.com/chaponda-slams-un-talk-shop-malawi-demands-bold-un-reforms-on-debt-climate-and-african-veto/",
     "words": 428,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Club of Mozambique",
@@ -86069,7 +86447,10 @@
     "title": "Mozambique: Chapo and Guterres discuss key topics on international agenda",
     "url": "https://clubofmozambique.com/news/mozambique-chapo-and-guterres-discuss-key-topics-on-international-agenda/",
     "words": 420,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Club of Mozambique",
@@ -86078,7 +86459,10 @@
     "title": "Mozambique: UNGA address, ExxonMobil meeting on Chapo’s agenda for final day of US visit",
     "url": "https://clubofmozambique.com/news/mozambique-unga-address-exxonmobil-meeting-on-chapos-agenda-for-final-day-of-us-visit/",
     "words": 175,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Morocco World News",
@@ -86087,7 +86471,10 @@
     "title": "Beyond Crisis Management: King Mohammed VI’s Vision for Morocco’s Global Role",
     "url": "https://www.moroccoworldnews.com/2026/09/339426/beyond-crisis-management-king-mohammed-vis-vision-for-moroccos-global-role/",
     "words": 973,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/morocco-world-news/"
    },
    {
     "outlet": "Morocco World News",
@@ -86096,7 +86483,10 @@
     "title": "Bourita Presses Climate, Peacebuilding, and Development at 81st UN Assembly",
     "url": "https://www.moroccoworldnews.com/2026/09/339696/bourita-presses-climate-peacebuilding-and-development-at-81st-un-assembly/",
     "words": 821,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/morocco-world-news/"
    },
    {
     "outlet": "Morocco World News",
@@ -86105,7 +86495,10 @@
     "title": "Bourita: Sahel Must Be Seen Not by Its Challenges but Its Potential",
     "url": "https://www.moroccoworldnews.com/2026/09/339824/bourita-sahel-must-be-seen-not-by-its-challenges-but-its-potential/",
     "words": 762,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/morocco-world-news/"
    },
    {
     "outlet": "Morocco World News",
@@ -86114,7 +86507,10 @@
     "title": "Bourita Reiterates Morocco’s Support for Palestinian State at UN",
     "url": "https://www.moroccoworldnews.com/2026/09/339423/bourita-reiterates-moroccos-support-for-palestinian-state-at-un/",
     "words": 502,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/morocco-world-news/"
    },
    {
     "outlet": "Morocco World News",
@@ -86123,7 +86519,10 @@
     "title": "Bourita Calls for Stronger Global Action Against Non-State Armed Groups",
     "url": "https://www.moroccoworldnews.com/2026/09/339163/bourita-calls-for-stronger-global-action-against-non-state-armed-groups/",
     "words": 423,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/morocco-world-news/"
    },
    {
     "outlet": "Hespress English",
@@ -86132,7 +86531,10 @@
     "title": "Trump renames AI 'super intelligence' as leaders jostle over dangers",
     "url": "https://en.hespress.com/145898-trump-renames-ai-super-intelligence-as-leaders-jostle-over-dangers.html",
     "words": 689,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Hiiraan Online",
@@ -86141,7 +86543,10 @@
     "title": "Somali President addresses U.N. on security, elections, regional tensions and reform - Hiiraan Online",
     "url": "https://www.hiiraan.com/news4/2026/Sep/206356/somali_president_addresses_un_on_security_elections_regional_tensions_and_reform.aspx",
     "words": 940,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Libya Observer",
@@ -86150,7 +86555,10 @@
     "title": "Menfi and Guterres discuss Libyan political process",
     "url": "https://libyaobserver.ly/news/menfi-and-guterres-discuss-libyan-political-process",
     "words": 138,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Libya Observer",
@@ -86159,7 +86567,10 @@
     "title": "Menfi, Boulos review unifying institutions and paving way for Libya elections",
     "url": "https://libyaobserver.ly/news/menfi-boulos-review-unifying-institutions-and-paving-way-libya-elections",
     "words": 285,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Libya Herald",
@@ -86168,7 +86579,10 @@
     "title": "Libya's UN Security Council Bid Faces Criticism Amid Political Divisio",
     "url": "https://libyaherald.com/2026/09/op-ed-the-un-security-council-is-no-place-for-a-divided-libya",
     "words": 493,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Radio Tamazuj",
@@ -86177,7 +86591,10 @@
     "title": "Sudan’s Burhan rejects US pressure, says he needs no visa - Radio Tamazuj",
     "url": "https://www.radiotamazuj.org/en/news/article/sudans-burhan-rejects-us-pressure-says-he-needs-no-visa",
     "words": 570,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "FrontPage Africa",
@@ -86186,7 +86603,10 @@
     "title": "Liberian Leader Demands Two Permanent African Seats On Security Council, Fairer Global Finance System - FrontPageAfrica",
     "url": "https://frontpageafricaonline.com/liberian-leader-demands-two-permanent-african-seats-on-security-council-fairer-global-finance-system/",
     "words": 734,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "FrontPage Africa",
@@ -86195,7 +86615,10 @@
     "title": "Liberians Protest at UN Headquarters and Outside President Boakai's Hotel Over Drugs and \"Selective Justice\" - FrontPageAfrica",
     "url": "https://frontpageafricaonline.com/liberians-protest-at-un-headquarters-and-outside-president-boakais-hotel-over-drugs-and-selective-justice/",
     "words": 517,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "FrontPage Africa",
@@ -86204,7 +86627,10 @@
     "title": "Liberia, UNDP to Host UN Side Event Linking Climate Change, Conflict and Natural Resources to the Search for Lasting Peace - FrontPageAfrica",
     "url": "https://frontpageafricaonline.com/liberia-undp-to-host-un-side-event-linking-climate-change-conflict-and-natural-resources-to-the-search-for-lasting-peace/",
     "words": 523,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "CBS News",
@@ -86213,7 +86639,10 @@
     "title": "In U.N. speech, Trump threatens to \"annihilate\" Iran and defends handling of global conflicts",
     "url": "https://www.cbsnews.com/news/trump-address-united-nations-general-assembly-meetings-world-leaders-iran-ukraine/",
     "words": 1241,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cbs-news/"
    },
    {
     "outlet": "CBS News",
@@ -86222,7 +86651,10 @@
     "title": "Israel's Netanyahu tells U.N. \"we will continue to defend our state\" as many leaders walk out",
     "url": "https://www.cbsnews.com/news/netanyahu-un-speech-israel-criticism-mamdani-protests/",
     "words": 1018,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cbs-news/"
    },
    {
     "outlet": "Fox News",
@@ -86231,7 +86663,10 @@
     "title": "Trump to zero-in on Iran nuclear threat, Gaza plan and UN overhaul in world stage speech",
     "url": "https://www.foxnews.com/politics/trump-zero-in-iran-nuclear-threat-gaza-plan-un-overhaul-world-stage-speech",
     "words": 672,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/fox-news/"
    },
    {
     "outlet": "Fox News",
@@ -86240,7 +86675,10 @@
     "title": "Trump says Iran deal nearing after UN talks as Tehran sets conditions to reopen Strait of Hormuz",
     "url": "https://www.foxnews.com/live-news/iran-war-strait-hormuz-trump-talks-un-general-assembly-09-22-26",
     "words": 5155,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/fox-news/"
    },
    {
     "outlet": "Fox News",
@@ -86249,7 +86687,10 @@
     "title": "World leaders descend on New York for UNGA — but who really has America’s ear?",
     "url": "https://www.foxnews.com/world/world-leaders-descend-new-york-unga-who-really-has-americas-ear",
     "words": 1271,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/fox-news/"
    },
    {
     "outlet": "CTV News",
@@ -86258,7 +86699,10 @@
     "title": "Trump defends Iran war in address to UN General Assembly",
     "url": "https://www.ctvnews.ca/politics/article/trump-to-address-un-general-assembly-as-carney-becomes-voice-of-multilateralism/",
     "words": 885,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/ctv-news/"
    },
    {
     "outlet": "CTV News",
@@ -86267,7 +86711,10 @@
     "title": "Carney misses UN event, Lametti steps in to make the case for multilateralism",
     "url": "https://www.ctvnews.ca/politics/article/carney-set-to-make-the-case-for-multilateralism-at-united-nations-event/",
     "words": 824,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/ctv-news/"
    },
    {
     "outlet": "CTV News",
@@ -86276,7 +86723,10 @@
     "title": "PM Carney confirms India’s Modi will visit Canada; Trump says U.S. will keep buying Canadian potash",
     "url": "https://www.ctvnews.ca/politics/article/carney-and-trump-in-new-york-for-un-assembly-follow-for-live-updates/",
     "words": 2896,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/ctv-news/"
    },
    {
     "outlet": "CTV News",
@@ -86285,7 +86735,10 @@
     "title": "Carney eyes UN reform in New York, unclear whether he’ll meet Trump at UNGA",
     "url": "https://www.ctvnews.ca/canada/article/carney-eyes-un-reform-in-new-york-unclear-whether-hell-meet-trump-at-unga/",
     "words": 686,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/ctv-news/"
    },
    {
     "outlet": "CBC News",
@@ -86294,7 +86747,10 @@
     "title": "Canada pledges $100M for Palestine at United Nations General Assembly | CBC News",
     "url": "https://www.cbc.ca/news/politics/carney-gaza-aid-israel-west-bank-9.7354263",
     "words": 197,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/cbc/"
    },
    {
     "outlet": "The Globe and Mail",
@@ -86303,7 +86759,10 @@
     "title": "Anand tells UN Canada is courting more partners as ‘great powers’ retreat from economic co-operation",
     "url": "https://www.theglobeandmail.com/politics/article-anita-anand-un-general-assembly-speech/",
     "words": 1019,
-    "base_region": "Americas"
+    "base_region": "Americas",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-globe-and-mail/"
    },
    {
     "outlet": "The Irish Times",
@@ -86312,7 +86771,10 @@
     "title": "Taoiseach calls on Israel FA to withdraw ‘unacceptable remarks’ about Irish manager Hallgrímsson",
     "url": "https://www.irishtimes.com/world/us/2026/09/22/trump-address-un-general-assembly-new-york/",
     "words": 3574,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-irish-times/"
    },
    {
     "outlet": "The Irish Times",
@@ -86321,7 +86783,10 @@
     "title": "When true horrors of Gaza are fully revealed ‘it will shame the world’, Martin tells UN",
     "url": "https://www.irishtimes.com/politics/2026/09/25/micheal-martin-condemns-gaza-situation-in-un-address-as-netanyahu-attacks-israels-critics/",
     "words": 632,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-irish-times/"
    },
    {
     "outlet": "RTÉ News",
@@ -86330,7 +86795,10 @@
     "title": "Trump warns he could 'annihilate' Iran without deal at UN",
     "url": "https://www.rte.ie/news/us/2026/0922/1592545-trump-un-meetings/",
     "words": 806,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rte/"
    },
    {
     "outlet": "RTÉ News",
@@ -86339,7 +86807,10 @@
     "title": "When true Gaza horror revealed 'it will shame the world'",
     "url": "https://www.rte.ie/news/2026/0925/1592895-taoiseach-gaza-un/",
     "words": 529,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rte/"
    },
    {
     "outlet": "RTÉ News",
@@ -86348,7 +86819,10 @@
     "title": "Iran's president tells Trump it will not 'bend the knee'",
     "url": "https://www.rte.ie/news/world/2026/0923/1592622-un-general-assembly/",
     "words": 1077,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rte/"
    },
    {
     "outlet": "RTÉ News",
@@ -86357,7 +86831,10 @@
     "title": "Gaza puts Israel and its critics centre stage at UN",
     "url": "https://www.rte.ie/news/analysis-and-comment/2026/0925/1592899-gaza-un-israel/",
     "words": 737,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rte/"
    },
    {
     "outlet": "RTÉ News",
@@ -86366,7 +86843,10 @@
     "title": "Taoiseach to highlight global uncertainty in UN address",
     "url": "https://www.rte.ie/news/politics/2026/0924/1592741-taoiseach-un/",
     "words": 517,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rte/"
    },
    {
     "outlet": "TheJournal.ie",
@@ -86375,7 +86855,10 @@
     "title": "Ireland did not take part in mass walkout during Netanyahu's UN General Assembly address",
     "url": "https://www.thejournal.ie/unga-israel-ireland-7172427-Sep2026/",
     "words": 916,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/thejournal/"
    },
    {
     "outlet": "TheJournal.ie",
@@ -86384,7 +86867,10 @@
     "title": "Taoiseach tells UN the world will be shamed when 'true horrors' of Gaza are fully revealed",
     "url": "https://www.thejournal.ie/uniteed-nations-address-taoiseach-7172956-Sep2026/",
     "words": 901,
-    "base_region": "Europe"
+    "base_region": "Europe",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/thejournal/"
    },
    {
     "outlet": "Republic World",
@@ -86393,7 +86879,10 @@
     "title": "EAM Jaishankar To Lead Indian Delegation at UNGA’s 81st Session on Sept 26",
     "url": "https://www.republicworld.com/india/eam-jaishankar-to-lead-indian-delegation-at-ungas-81st-session-on-sept-26-2026-09-20-137364",
     "words": 270,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/republic-world/"
    },
    {
     "outlet": "ThePrint",
@@ -86402,7 +86891,10 @@
     "title": "Just a moment…",
     "url": "https://theprint.in/diplomacy/pakistan-pm-shehbaz-again-brings-up-may-2025-conflict-thanks-trump-intervention-in-unga-speech/3053903/",
     "words": 9,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/theprint/"
    },
    {
     "outlet": "ThePrint",
@@ -86411,7 +86903,10 @@
     "title": "Six big takeaways from a turbulent week of UN diplomacy",
     "url": "https://theprint.in/world/six-big-takeaways-from-a-turbulent-week-of-un-diplomacy/3054029/",
     "words": 1027,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/theprint/"
    },
    {
     "outlet": "Free Malaysia Today",
@@ -86420,7 +86915,10 @@
     "title": "M’sia to make case for UN relevance, stronger multilateralism at general assembly",
     "url": "https://www.freemalaysiatoday.com/category/nation/2026/09/23/m-sia-to-make-case-for-un-relevance-stronger-multilateralism-at-general-assembly",
     "words": 354,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/free-malaysia-today/"
    },
    {
     "outlet": "Philstar",
@@ -86429,7 +86927,10 @@
     "title": "Philippine diplomats joined walkout on Netanyahu at UN, DFA confirms",
     "url": "https://www.philstar.com/headlines/2026/09/27/2559295/philippine-diplomats-joined-walkout-netanyahu-un-dfa-confirms",
     "words": 473,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/philippine-star-bias/"
    },
    {
     "outlet": "Rappler",
@@ -86438,7 +86939,10 @@
     "title": "DFA: Yes, PH delegation joined walkout during Netanyahu’s UN speech",
     "url": "https://www.rappler.com/philippines/filipino-delegation-joins-walkout-benjamin-netanyahu-un-speech/",
     "words": 392,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/rappler/"
    },
    {
     "outlet": "GMA News",
@@ -86447,7 +86951,10 @@
     "title": "PH delegates joined UN walkout during Netanyahu speech, DFA confirms",
     "url": "https://gmanetwork.com/news/pinoyabroad/dispatch/1003899/ph-delegates-joined-un-walkout-during-netanyahu-speech-dfa-confirms/story/",
     "words": 280,
-    "base_region": "Asia"
+    "base_region": "Asia",
+    "leaning": "Left-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/gma-network-bias/"
    },
    {
     "outlet": "Kenyans.co.ke",
@@ -86456,7 +86963,10 @@
     "title": "Ruto Calls for Major Reforms to UN, Global Financial System",
     "url": "https://www.kenyans.co.ke/news/127277-ruto-calls-overhaul-80-year-old-un-and-global-financial-system",
     "words": 689,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Arise News",
@@ -86465,7 +86975,10 @@
     "title": "Shettima: Africa Cannot Bear Global Burdens And Be Denied Equal Say In UN Security Council",
     "url": "https://www.arise.tv/shettima-africa-cannot-bear-global-burdens-and-be-denied-equal-say-in-un-security-council/",
     "words": 734,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Arise News",
@@ -86474,7 +86987,10 @@
     "title": "Shettima At UNGA: We Can Deploy AI To Wage War Or Transform Healthcare, Education, Agriculture",
     "url": "https://www.arise.tv/shettima-at-unga-we-can-deploy-ai-to-wage-war-or-transform-healthcare-education-agriculture/",
     "words": 547,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Arise News",
@@ -86483,7 +86999,10 @@
     "title": "UNGA: Nigeria Demands Two Permanent UN Security Council Seats For Africa",
     "url": "https://www.arise.tv/unga-nigeria-demands-two-permanent-un-security-council-seats-for-africa/",
     "words": 1312,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Arise News",
@@ -86492,7 +87011,10 @@
     "title": "Abiodun Adeniyi: Shettima’s UNGA Demand For Two Permanent African Seats Is Legitimate",
     "url": "https://www.arise.tv/abiodun-adeniyi-shettimas-unga-demand-for-two-permanent-african-seats-is-legitimate/",
     "words": 1183,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Legit.ng",
@@ -86501,7 +87023,10 @@
     "title": "Breaking: Tinubu sends Shettima to lead Nigeria at 81st UNGA",
     "url": "https://www.legit.ng/politics/1731906-tinubu-asks-shettima-lead-nigerias-delegation-81st-general-assembly/",
     "words": 529,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Legit.ng",
@@ -86510,7 +87035,10 @@
     "title": "\"Africa cannot remain absent\": Tinubu calls for major UN Security Council reform",
     "url": "https://www.legit.ng/politics/1732787-tinubu-demands-2-permanent-seats-veto-power-africa-security-council/",
     "words": 724,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "Sahara Reporters",
@@ -86519,7 +87047,10 @@
     "title": "VP Shettima Departs For New York To Represent Tinubu At UN General Assembly | Sahara Reporters",
     "url": "https://saharareporters.com/2026/09/20/vp-shettima-departs-new-york-represent-tinubu-un-general-assembly",
     "words": 355,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Not rated",
+    "state_media": false,
+    "mbfc_url": "-"
    },
    {
     "outlet": "The Citizen (South Africa)",
@@ -86528,7 +87059,10 @@
     "title": "Lamola urges UN to renew fight against racism 25 years after Durban declaration [VIDEO] | The Citizen",
     "url": "https://www.citizen.co.za/news/south-africa/lamola-urges-un-to-renew-fight-against-racism-25-years-after-durban-declaration/",
     "words": 479,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-citizen-south-africa/"
    },
    {
     "outlet": "The Citizen (South Africa)",
@@ -86537,7 +87071,10 @@
     "title": "Lamola calls Trump's Afrikaner resettlement programme 'Apartheid 2.0' | The Citizen",
     "url": "https://www.citizen.co.za/news/lamola-calls-trumps-afrikaner-programme-apartheid-2-0/",
     "words": 818,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-citizen-south-africa/"
    },
    {
     "outlet": "The Citizen (South Africa)",
@@ -86546,7 +87083,10 @@
     "title": "'Silence is not golden': Lamola vows global solidarity, justice for Palestine, and defence of UN Charter | The Citizen",
     "url": "https://www.citizen.co.za/news/south-africa/silence-is-not-golden-lamola-vows-global-solidarity-justice-palestine-defence-un-charter/",
     "words": 515,
-    "base_region": "Africa"
+    "base_region": "Africa",
+    "leaning": "Right-centre",
+    "state_media": false,
+    "mbfc_url": "https://mediabiasfactcheck.com/the-citizen-south-africa/"
    }
   ],
   "attention": {
@@ -95318,7 +95858,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 1501
+       "words": 1501,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/buenos-aires-times/"
       }
      ],
      "outlet": "Buenos Aires Times",
@@ -95340,14 +95883,20 @@
        "weight": 0.75,
        "reach": 27.0,
        "reports": 1,
-       "words": 589
+       "words": 589,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/abc-news-australia/"
       },
       {
        "outlet": "SBS News",
        "weight": 0.25,
        "reach": 9.0,
        "reports": 2,
-       "words": 1565
+       "words": 1565,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/special-broadcasting-service-sbs/"
       }
      ],
      "outlet": "SBS News, ABC Australia",
@@ -95369,7 +95918,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 2,
-       "words": 833
+       "words": 833,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Nation News",
@@ -95391,21 +95943,30 @@
        "weight": 0.433,
        "reach": 26.0,
        "reports": 1,
-       "words": 197
+       "words": 197,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/cbc/"
       },
       {
        "outlet": "CTV News",
        "weight": 0.367,
        "reach": 22.0,
        "reports": 4,
-       "words": 5291
+       "words": 5291,
+       "leaning": "Centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/ctv-news/"
       },
       {
        "outlet": "The Globe and Mail",
        "weight": 0.2,
        "reach": 12.0,
        "reports": 1,
-       "words": 1019
+       "words": 1019,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/the-globe-and-mail/"
       }
      ],
      "outlet": "CTV News, The Globe and Mail, CBC News",
@@ -95427,7 +95988,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 1074
+       "words": 1074,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/south-china-morning-post/"
       }
      ],
      "outlet": "SCMP",
@@ -95454,7 +96018,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 2033
+       "words": 2033,
+       "leaning": "Right",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/egypt-today/"
       }
      ],
      "outlet": "Egypt Today",
@@ -95479,7 +96046,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 1274
+       "words": 1274,
+       "leaning": "Not rated",
+       "state_media": true,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "ENA",
@@ -95501,7 +96071,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 2,
-       "words": 1393
+       "words": 1393,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "PINA",
@@ -95525,7 +96098,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 6,
-       "words": 2591
+       "words": 2591,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "MyJoyOnline",
@@ -95547,14 +96123,20 @@
        "weight": 0.618,
        "reach": 21.0,
        "reports": 1,
-       "words": 270
+       "words": 270,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/republic-world/"
       },
       {
        "outlet": "ThePrint",
        "weight": 0.382,
        "reach": 13.0,
        "reports": 2,
-       "words": 1036
+       "words": 1036,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/theprint/"
       }
      ],
      "outlet": "ThePrint, Republic World",
@@ -95576,7 +96158,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 1438
+       "words": 1438,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Jakarta Post",
@@ -95598,7 +96183,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 2,
-       "words": 2068
+       "words": 2068,
+       "leaning": "Right",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/tehran-times/"
       }
      ],
      "outlet": "Tehran Times",
@@ -95620,21 +96208,30 @@
        "weight": 0.43,
        "reach": 37.0,
        "reports": 5,
-       "words": 3666
+       "words": 3666,
+       "leaning": "Centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/rte/"
       },
       {
        "outlet": "TheJournal.ie",
        "weight": 0.337,
        "reach": 29.0,
        "reports": 2,
-       "words": 1817
+       "words": 1817,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/thejournal/"
       },
       {
        "outlet": "The Irish Times",
        "weight": 0.233,
        "reach": 20.0,
        "reports": 2,
-       "words": 4206
+       "words": 4206,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/the-irish-times/"
       }
      ],
      "outlet": "The Irish Times, RTÉ News, TheJournal.ie",
@@ -95656,7 +96253,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 851
+       "words": 851,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Jamaica Gleaner",
@@ -95678,7 +96278,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 2,
-       "words": 851
+       "words": 851,
+       "leaning": "Centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/japan-times/"
       }
      ],
      "outlet": "Japan Times",
@@ -95700,35 +96303,50 @@
        "weight": 0.291,
        "reach": 57.0,
        "reports": 3,
-       "words": 1143
+       "words": 1143,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       },
       {
        "outlet": "Kenyans.co.ke",
        "weight": 0.214,
        "reach": 42.0,
        "reports": 1,
-       "words": 689
+       "words": 689,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       },
       {
        "outlet": "Daily Nation",
        "weight": 0.209,
        "reach": 41.0,
        "reports": 1,
-       "words": 898
+       "words": 898,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/the-daily-nation/"
       },
       {
        "outlet": "The Standard (Kenya)",
        "weight": 0.173,
        "reach": 34.0,
        "reports": 2,
-       "words": 481
+       "words": 481,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/the-standard-kenya/"
       },
       {
        "outlet": "The Star (Kenya)",
        "weight": 0.112,
        "reach": 22.0,
        "reports": 5,
-       "words": 4081
+       "words": 4081,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "The Star (Kenya), Citizen Digital, Daily Nation, Kenyans.co.ke, The Standard (Kenya)",
@@ -95750,7 +96368,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 1774
+       "words": 1774,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "FrontPage Africa",
@@ -95772,7 +96393,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 493
+       "words": 493,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Libya Herald",
@@ -95796,7 +96420,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 428
+       "words": 428,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Nyasa Times",
@@ -95818,21 +96445,30 @@
        "weight": 0.465,
        "reach": 20.0,
        "reports": 1,
-       "words": 1238
+       "words": 1238,
+       "leaning": "Right",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/the-star-malaysia/"
       },
       {
        "outlet": "Free Malaysia Today",
        "weight": 0.349,
        "reach": 15.0,
        "reports": 1,
-       "words": 354
+       "words": 354,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/free-malaysia-today/"
       },
       {
        "outlet": "Malay Mail",
        "weight": 0.186,
        "reach": 8.0,
        "reports": 3,
-       "words": 1015
+       "words": 1015,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/malay-mail-bias/"
       }
      ],
      "outlet": "The Star, Malay Mail, Free Malaysia Today",
@@ -95854,7 +96490,10 @@
        "weight": 1.0,
        "reach": 52.0,
        "reports": 1,
-       "words": 689
+       "words": 689,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Hespress English",
@@ -95878,7 +96517,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 2,
-       "words": 595
+       "words": 595,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Club of Mozambique",
@@ -95900,7 +96542,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 4,
-       "words": 2505
+       "words": 2505,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "The Namibian",
@@ -95924,7 +96569,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 2,
-       "words": 861
+       "words": 861,
+       "leaning": "Centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/rnz/"
       }
      ],
      "outlet": "RNZ",
@@ -95949,42 +96597,60 @@
        "weight": 0.206,
        "reach": 40.0,
        "reports": 2,
-       "words": 1253
+       "words": 1253,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       },
       {
        "outlet": "Vanguard",
        "weight": 0.18,
        "reach": 35.0,
        "reports": 3,
-       "words": 1135
+       "words": 1135,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/vanguard-news-nigeria-bias/"
       },
       {
        "outlet": "Daily Trust",
        "weight": 0.165,
        "reach": 32.0,
        "reports": 2,
-       "words": 2297
+       "words": 2297,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/daily-trust/"
       },
       {
        "outlet": "Arise News",
        "weight": 0.16,
        "reach": 31.0,
        "reports": 4,
-       "words": 3776
+       "words": 3776,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       },
       {
        "outlet": "Channels Television",
        "weight": 0.144,
        "reach": 28.0,
        "reports": 1,
-       "words": 678
+       "words": 678,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       },
       {
        "outlet": "Sahara Reporters",
        "weight": 0.144,
        "reach": 28.0,
        "reports": 1,
-       "words": 355
+       "words": 355,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Arise News, Daily Trust, Legit.ng, Vanguard, Channels Television, Sahara Reporters",
@@ -96009,7 +96675,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 4,
-       "words": 4258
+       "words": 4258,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/dawn/"
       }
      ],
      "outlet": "Dawn",
@@ -96031,7 +96700,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 2849
+       "words": 2849,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Island Times",
@@ -96053,21 +96725,30 @@
        "weight": 0.527,
        "reach": 49.0,
        "reports": 1,
-       "words": 280
+       "words": 280,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/gma-network-bias/"
       },
       {
        "outlet": "Rappler",
        "weight": 0.258,
        "reach": 24.0,
        "reports": 1,
-       "words": 392
+       "words": 392,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/rappler/"
       },
       {
        "outlet": "Philstar",
        "weight": 0.215,
        "reach": 20.0,
        "reports": 1,
-       "words": 473
+       "words": 473,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/philippine-star-bias/"
       }
      ],
      "outlet": "Philstar, Rappler, GMA News",
@@ -96089,7 +96770,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 1038
+       "words": 1038,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/al-jazeera/"
       }
      ],
      "outlet": "Al Jazeera",
@@ -96111,7 +96795,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 320
+       "words": 320,
+       "leaning": "Right-centre",
+       "state_media": true,
+       "mbfc_url": "https://mediabiasfactcheck.com/russian-news-agency-tass/"
       }
      ],
      "outlet": "TASS",
@@ -96133,7 +96820,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 1129
+       "words": 1129,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "KT Press",
@@ -96157,7 +96847,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 932
+       "words": 932,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Samoa Observer",
@@ -96179,7 +96872,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 940
+       "words": 940,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Hiiraan Online",
@@ -96201,28 +96897,40 @@
        "weight": 0.506,
        "reach": 43.0,
        "reports": 2,
-       "words": 584
+       "words": 584,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       },
       {
        "outlet": "The Citizen (South Africa)",
        "weight": 0.188,
        "reach": 16.0,
        "reports": 3,
-       "words": 1812
+       "words": 1812,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/the-citizen-south-africa/"
       },
       {
        "outlet": "Daily Maverick",
        "weight": 0.176,
        "reach": 15.0,
        "reports": 1,
-       "words": 1960
+       "words": 1960,
+       "leaning": "Centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/daily-maverick/"
       },
       {
        "outlet": "IOL",
        "weight": 0.129,
        "reach": 11.0,
        "reports": 1,
-       "words": 1258
+       "words": 1258,
+       "leaning": "Centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/independent-online-iol-bias/"
       }
      ],
      "outlet": "Daily Maverick, The Citizen (South Africa), IOL, SABC News",
@@ -96244,7 +96952,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 832
+       "words": 832,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Korea Times",
@@ -96266,7 +96977,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 570
+       "words": 570,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Radio Tamazuj",
@@ -96288,7 +97002,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 220
+       "words": 220,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Daily News (Tanzania)",
@@ -96310,7 +97027,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 349
+       "words": 349,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Matangi Tonga",
@@ -96332,7 +97052,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 2872
+       "words": 2872,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/daily-monitor/"
       }
      ],
      "outlet": "Daily Monitor",
@@ -96356,7 +97079,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 1,
-       "words": 810
+       "words": 810,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/kyiv-independent/"
       }
      ],
      "outlet": "Kyiv Independent",
@@ -96380,42 +97106,60 @@
        "weight": 0.266,
        "reach": 17.0,
        "reports": 3,
-       "words": 7098
+       "words": 7098,
+       "leaning": "Right",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/fox-news/"
       },
       {
        "outlet": "CNN",
        "weight": 0.219,
        "reach": 14.0,
        "reports": 4,
-       "words": 13038
+       "words": 13038,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/cnn/"
       },
       {
        "outlet": "ABC News",
        "weight": 0.141,
        "reach": 9.0,
        "reports": 1,
-       "words": 1096
+       "words": 1096,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/abc-news/"
       },
       {
        "outlet": "CBS News",
        "weight": 0.125,
        "reach": 8.0,
        "reports": 2,
-       "words": 2259
+       "words": 2259,
+       "leaning": "Right-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/cbs-news/"
       },
       {
        "outlet": "NPR",
        "weight": 0.125,
        "reach": 8.0,
        "reports": 2,
-       "words": 1798
+       "words": 1798,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/npr/"
       },
       {
        "outlet": "NBC News",
        "weight": 0.125,
        "reach": 8.0,
        "reports": 1,
-       "words": 1142
+       "words": 1142,
+       "leaning": "Left-centre",
+       "state_media": false,
+       "mbfc_url": "https://mediabiasfactcheck.com/nbc-news/"
       }
      ],
      "outlet": "CNN, Fox News, CBS News, NPR, NBC News, ABC News",
@@ -96443,7 +97187,10 @@
        "weight": 1.0,
        "reach": null,
        "reports": 3,
-       "words": 3168
+       "words": 3168,
+       "leaning": "Not rated",
+       "state_media": false,
+       "mbfc_url": "-"
       }
      ],
      "outlet": "Lusaka Times",
@@ -96741,7 +97488,105 @@
    "paragraphs": 3564,
    "named": 121,
    "delegations": 191,
-   "own_share_median": 0.497
+   "own_share_median": 0.497,
+   "by_leaning": {
+    "groups": [
+     {
+      "group": "Left of centre",
+      "outlets": [
+       "ABC Australia",
+       "ABC News",
+       "Al Jazeera",
+       "CBC News",
+       "CNN",
+       "Daily Monitor",
+       "Daily Nation",
+       "Daily Trust",
+       "Dawn",
+       "GMA News",
+       "Kyiv Independent",
+       "NBC News",
+       "NPR",
+       "Philstar",
+       "Rappler",
+       "SBS News",
+       "SCMP",
+       "The Irish Times",
+       "TheJournal.ie",
+       "Vanguard"
+      ],
+      "share": {
+       "united-states-america": 0.152,
+       "israel": 0.142,
+       "iran-islamic-republic": 0.077,
+       "palestine-state": 0.063,
+       "russian-federation": 0.05,
+       "sudan": 0.003
+      }
+     },
+     {
+      "group": "Centre",
+      "outlets": [
+       "CTV News",
+       "Daily Maverick",
+       "IOL",
+       "Japan Times",
+       "RNZ",
+       "RTÉ News"
+      ],
+      "share": {
+       "united-states-america": 0.107,
+       "israel": 0.08,
+       "iran-islamic-republic": 0.048,
+       "palestine-state": 0.039,
+       "russian-federation": 0.051,
+       "sudan": 0.004
+      }
+     },
+     {
+      "group": "Right of centre",
+      "outlets": [
+       "Buenos Aires Times",
+       "CBS News",
+       "Egypt Today",
+       "Fox News",
+       "Free Malaysia Today",
+       "Malay Mail",
+       "Republic World",
+       "Tehran Times",
+       "The Citizen (South Africa)",
+       "The Globe and Mail",
+       "The Standard (Kenya)",
+       "The Star",
+       "ThePrint"
+      ],
+      "share": {
+       "united-states-america": 0.118,
+       "israel": 0.052,
+       "iran-islamic-republic": 0.102,
+       "palestine-state": 0.045,
+       "russian-federation": 0.018,
+       "sudan": 0.018
+      }
+     }
+    ],
+    "delegations": [
+     "united-states-america",
+     "israel",
+     "iran-islamic-republic",
+     "palestine-state",
+     "russian-federation",
+     "sudan"
+    ],
+    "mix": {
+     "Right-centre": 9,
+     "Left-centre": 20,
+     "Not rated": 28,
+     "Centre": 6,
+     "Right": 4,
+     "State media": 2
+    }
+   }
   },
   "issues": [
    {

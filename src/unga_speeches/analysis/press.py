@@ -132,6 +132,9 @@ def panel(
                         "reach": w if big else None,
                         "reports": len(by_outlet[o]),
                         "words": sum(a["words"] for a in by_outlet[o]),
+                        "leaning": info[o].get("leaning") or "Not rated",
+                        "state_media": info[o].get("state_media") == "yes",
+                        "mbfc_url": info[o].get("mbfc_url", ""),
                     }
                     for o, w in sorted(members.items(), key=lambda x: -x[1])
                 ],
@@ -222,9 +225,10 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
         own = next((r for r in rows if r["slug"] == t["own_slug"]), None)
         t["own_share"] = round(own["share_in"].get(t["country"], 0), 3) if own else 0.0
         t["top"] = max(rows, key=lambda r: r["share_in"].get(t["country"], 0))["slug"] if t["mentions"] else None
+    rows.sort(key=lambda r: (-r["foreign_share"], r["slug"]))
+    leanings = _by_leaning(rows, outlet_totals, table)
     for r in rows:
         del r["by_outlet"]
-    rows.sort(key=lambda r: (-r["foreign_share"], r["slug"]))
     shares = [r["foreign_share"] for r in rows]
     return {
         "rows": rows,
@@ -240,7 +244,40 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
         "named": len(rows),
         "delegations": sum(1 for s in speeches if s.iso3),
         "own_share_median": round(statistics.median(t["own_share"] for t in table if t["mentions"]), 3) if table else None,
+        "by_leaning": leanings,
     }
+
+
+# the page's three groups of leaning; state media are left out, since a rating of a state outlet is not a party leaning
+LEANING_GROUPS = {"Left of centre": ("Left", "Left-centre"), "Centre": ("Centre",), "Right of centre": ("Right-centre", "Right")}
+LEANING_TOP = 6
+
+
+def _by_leaning(rows: list[dict], outlet_totals: Counter, table: list[dict]) -> dict:
+    """What outlets of each leaning covered: each outlet's share of its mentions per delegation, averaged over the group's outlets."""
+    info = {r["outlet"]: r for r in _registry()}
+    group_of = {label: g for g, labels in LEANING_GROUPS.items() for label in labels}
+    outlets: dict[str, list[tuple[str, str]]] = {g: [] for g in LEANING_GROUPS}
+    for k, n in outlet_totals.items():
+        r = info.get(k[1], {})
+        if n and r.get("state_media") != "yes" and (g := group_of.get(r.get("leaning", ""))):
+            outlets[g].append(k)
+    top = [r["slug"] for r in rows[:LEANING_TOP]]
+    out = {"groups": [], "delegations": top}
+    for g, keys in outlets.items():
+        share = (
+            {
+                r["slug"]: round(sum(r["by_outlet"].get(k, 0) / outlet_totals[k] for k in keys) / len(keys), 3)
+                for r in rows
+                if r["slug"] in top
+            }
+            if keys
+            else {}
+        )
+        out["groups"].append({"group": g, "outlets": sorted(k[1] for k in keys), "share": share})
+    counted = [info.get(m["outlet"], {}) for t in table for m in t["members"]]
+    out["mix"] = dict(Counter(("State media" if r.get("state_media") == "yes" else r.get("leaning") or "Not rated") for r in counted))
+    return out
 
 
 def _same_country(slug: str, country: str, speeches: list[Speech]) -> bool:

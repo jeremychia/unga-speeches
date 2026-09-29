@@ -89,6 +89,7 @@ def build(session: int) -> dict:
         r["charter_or_law"] = "UN Charter or international law" in r["evidence"] or bool(CHARTER_OR_LAW.search(s.text))
     named = mentions.build(speeches)
     news, coverage = press.load_news(session), press.load_coverage(session)
+    outlet_info = {r["outlet"]: r for r in press._registry()}
     attention = press.attention(speeches, news)
     heads = press.headlines(speeches, coverage)
     press_by_slug = {a["slug"]: a["paragraphs"] for a in attention["rows"]}
@@ -124,7 +125,15 @@ def build(session: int) -> dict:
         "leaders": _leaders(session, rows),
         "mentions": named,
         "press": {
-            "sources": [{k: n[k] for k in ("outlet", "kind", "date", "title", "url", "words", "base_region")} for n in news],
+            "sources": [
+                {
+                    **{k: n[k] for k in ("outlet", "kind", "date", "title", "url", "words", "base_region")},
+                    "leaning": outlet_info.get(n["outlet"], {}).get("leaning") or "Not rated",
+                    "state_media": outlet_info.get(n["outlet"], {}).get("state_media") == "yes",
+                    "mbfc_url": outlet_info.get(n["outlet"], {}).get("mbfc_url", ""),
+                }
+                for n in news
+            ],
             "attention": attention,
             "issues": press.issue_voices(speeches, news, coverage),
             "headlines": {k: v for k, v in heads.items() if k != "rows"},

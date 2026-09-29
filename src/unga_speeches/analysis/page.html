@@ -745,8 +745,8 @@ worldMap("map-tone", (s) => s.headline ? TONES[s.headline.tone] : null,
   [...Object.entries(TONES).map(([t, v]) => [`${t} (${toneCount(t)})`, v]), ["No headline or no speech", null]],
   (s) => s.headline ? `<i>${esc(s.headline.headline)}</i><br>${esc(s.headline.tone)}${s.headline.verb ? ` · “${esc(s.headline.verb)}”` : ""}` : "No UN headline",
   (s) => s.headline ? drill({kind: "tone", tone: s.headline.tone}) : openProfile(s.slug), "Click for every headline with this tone");
-$("press-sources").innerHTML = "<thead><tr><th>Outlet</th><th>Based in</th><th>Date</th><th>Report</th><th class='n'>Words kept</th></tr></thead><tbody>" +
-  P.sources.map((x) => `<tr><td>${esc(x.outlet)}</td><td>${esc(x.base_region || "")}</td><td>${esc(x.date)}</td><td><a href="${esc(x.url)}">${esc(x.title || x.url)}</a></td><td class="n">${num(x.words)}</td></tr>`).join("") + "</tbody>";
+$("press-sources").innerHTML = "<thead><tr><th>Outlet</th><th>Based in</th><th>Leaning</th><th>Date</th><th>Report</th><th class='n'>Words kept</th></tr></thead><tbody>" +
+  P.sources.map((x) => `<tr><td>${esc(x.outlet)}</td><td>${esc(x.base_region || "")}</td><td>${x.mbfc_url && x.mbfc_url.startsWith("http") && x.leaning !== "Not rated" ? `<a href="${esc(x.mbfc_url)}">${esc(x.leaning)}</a>` : esc(x.leaning)}${x.state_media ? " · state media" : ""}</td><td>${esc(x.date)}</td><td><a href="${esc(x.url)}">${esc(x.title || x.url)}</a></td><td class="n">${num(x.words)}</td></tr>`).join("") + "</tbody>";
 
 // ---------- drill-down ----------
 const DEFINITIONS = {
