@@ -167,6 +167,30 @@ mark { background: color-mix(in srgb, var(--series) 28%, transparent); color: in
 .shared p { margin: 4px 0; }
 tr.detail td { background: var(--page); }
 tr.pair { cursor: pointer; }
+.poll { display: flex; gap: 2px; height: 18px; min-width: 180px; font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+.poll span { display: grid; place-items: center; border-radius: 3px; color: #fff; min-width: 0; }
+.poll .encourage { background: var(--c1); } .poll .discourage { background: var(--c2); } .poll .no_opinion { background: var(--none); color: var(--ink-2); }
+table.race td:nth-child(2) { width: 38%; }
+.verdict { display: inline-block; border-radius: 999px; padding: 1px 9px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; border: 1px solid var(--border); }
+.verdict.ok { background: color-mix(in srgb, var(--c3) 22%, transparent); } .verdict.near { background: color-mix(in srgb, var(--c1) 18%, transparent); } .verdict.off { background: color-mix(in srgb, var(--c2) 22%, transparent); }
+.verdict.ok::before { content: "✓ "; } .verdict.near::before { content: "≈ "; } .verdict.off::before { content: "✗ "; }
+ol.timeline { list-style: none; padding: 0; margin: 16px 0; border-left: 2px solid var(--grid); }
+ol.timeline li { display: grid; grid-template-columns: 64px 1fr; gap: 10px; padding: 6px 0 10px 14px; position: relative; }
+ol.timeline li::before { content: ""; position: absolute; left: -6px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--series); border: 2px solid var(--page); }
+ol.timeline time { color: var(--ink-2); font-size: 0.85rem; font-variant-numeric: tabular-nums; padding-top: 1px; }
+.pairbars { display: grid; grid-template-columns: minmax(110px, 30%) 1fr auto; gap: 3px 10px; align-items: center; font-size: 0.85rem; }
+.pairbars .label { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pairbars .tracks { display: grid; gap: 2px; }
+.pairbars .tracks div { height: 7px; border-radius: 0 3px 3px 0; min-width: 2px; }
+.pairbars .value { font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); white-space: nowrap; }
+.ratio { display: grid; grid-template-columns: minmax(130px, 30%) 1fr 56px; gap: 6px 10px; align-items: center; font-size: 0.85rem; }
+.ratio .label { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ratio .track { position: relative; height: 14px; background: linear-gradient(var(--axis), var(--axis)) center / 1px 100% no-repeat; }
+.ratio .fill { position: absolute; top: 0; bottom: 0; }
+.ratio .none { position: absolute; left: 0; top: 2px; bottom: 2px; width: 10px; border-radius: 2px; background: repeating-linear-gradient(45deg, var(--hatch) 0 2px, transparent 2px 5px); }
+.ratio .value { font-variant-numeric: tabular-nums; text-align: right; }
+.ratio .axis { grid-column: 2; display: flex; justify-content: space-between; color: var(--muted); font-size: 0.75rem; }
+.snip { margin: 4px 0 0; color: var(--ink-2); }
 footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 @media (max-width: 560px) { h1 { font-size: 1.6rem; } .hbar { grid-template-columns: 42% 1fr auto; } }
 </style>
@@ -174,7 +198,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 <body>
 <nav><div>
   <a href="#answer">The answer</a><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a>
-  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a><a href="#press">Press</a><a href="#race">Next Secretary-General</a><a href="#checked">Checked</a><a href="#week">The week</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
 </div></nav>
 <header id="answer">
   <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
@@ -184,7 +208,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 </header>
 <main>
   <section>
-    <h2>Four things the debate tells us</h2>
+    <h2>Five things the debate tells us</h2>
     <ol class="messages">__MESSAGES__</ol>
   </section>
 
@@ -268,6 +292,59 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
       <figcaption>The longest shared passage shows whether a pair shares wording or only themes: a handful of words is theme, a long run would be copied text.</figcaption></figure>
     <figure><h4>Eight blocs of speeches that sound alike</h4><div class="minimaps four" id="bloc-maps"></div>
       <figcaption>Groups found by clustering the word profiles (Ward's method). Cohesion is the average similarity within the bloc, against the average to everyone outside it.</figcaption></figure>
+  </section>
+
+  <section id="naming">
+    <p class="eyebrow">8 · Who names whom</p>
+    <h2>__NAMING_TITLE__</h2>
+    __NAMING__
+    <figure><h4>Who named the state you choose, or whom it named</h4>
+      <label class="small" for="named-pick">State</label><br><select id="named-pick" aria-label="Choose a state"></select>
+      <div class="seg" role="group" aria-label="Direction" id="named-mode" style="margin-left:8px"><button type="button" data-mode="by" aria-pressed="true">Who named it</button><button type="button" data-mode="of" aria-pressed="false">Whom it named</button></div>
+      <div class="map" id="map-named"></div><div class="legend" id="legend-named"></div>
+      <p class="small" id="named-summary"></p>
+      <figcaption>Shaded by how many times the speech names the state. Click any country to switch to it; the list below the map opens every sentence.</figcaption></figure>
+    <figure><h4>The twenty states named by the most speeches</h4><div id="named-bars"></div>
+      <figcaption>Click a bar to read the sentence where each speech first names the state.</figcaption></figure>
+  </section>
+
+  <section id="press">
+    <p class="eyebrow">9 · What the world heard</p>
+    <h2>__PRESS_TITLE__</h2>
+    __PRESS__
+    <div class="grid2 two">
+      <figure><h4>Share of outside press paragraphs naming each delegation</h4><div class="map" id="map-press"></div><div class="legend" id="legend-press"></div></figure>
+      <figure><h4>Share of press paragraphs against share of words spoken</h4><div id="press-bars"></div>
+        <div class="legend"><span style="--sw:var(--c1)">Share of press paragraphs</span><span style="--sw:var(--c2)">Share of words spoken</span></div></figure>
+    </div>
+    <figure><h4>How much more, or less, the press covered each issue than the speeches did</h4><div id="issue-ratio"></div>
+      <figcaption>Mentions per 1,000 words in outside press, divided by the same rate in the speeches, on a logarithmic scale. 1× is equal attention. Hatched: no press mention at all.</figcaption></figure>
+    <figure><h4>What the UN press office kept from each speech</h4><div id="kept-bars"></div>
+      <figcaption>Of the speeches that raise an issue, the share whose UN summary also names it. Click a bar for the speeches whose summary left it out.</figcaption></figure>
+    <figure><h4>The tone of the UN's headline for each speech</h4><div class="map" id="map-tone"></div><div class="legend" id="legend-tone"></div>
+      <figcaption>Set by the headline's first reporting verb: alarm (warns, condemns), appeal (urges, calls for) or showcase (hails, highlights). Hover a country to read its headline.</figcaption></figure>
+    <p class="small">__PRESS_NOTE__</p>
+    <details><summary>The news reports used</summary><div class="scroll"><table class="data" id="press-sources"></table></div></details>
+  </section>
+
+  <section id="race">
+    <p class="eyebrow">10 · The next Secretary-General</p>
+    <h2>__RACE_TITLE__</h2>
+    __RACE__
+    __RACE_TABLE__
+  </section>
+
+  <section id="checked">
+    <p class="eyebrow">11 · Checking the record</p>
+    <h2>__CLAIMS_TITLE__</h2>
+    __CLAIMS__
+  </section>
+
+  <section id="week">
+    <p class="eyebrow">12 · The week around the speeches</p>
+    <h2>What was happening outside the hall</h2>
+    <p>The speeches were given against a war in the Gulf, a US visa ban on the Palestinian delegation and a string of deals on the sidelines. Each line quotes a news report downloaded for this page.</p>
+    <ol class="timeline">__TIMELINE__</ol>
   </section>
 
   <section id="reading">
@@ -488,6 +565,10 @@ const EXPLORE = [
   ...D.markers.map((m) => ({group: "Phrase used", label: m.name, test: (s) => s.markers.includes(m.name), on: "Uses it", off: "Does not"})),
   ...D.topics.map((t) => ({group: "Main topic", label: t.label, test: (s) => s.topic === t.label, on: "Main topic", off: "Another topic"})),
   ...[...D.frames.names, "No clear lean"].map((f) => ({group: "Theory lean", label: f, test: (s) => s.lean === f, on: "Leans this way", off: "Does not"})),
+  {group: "Beyond the speech", label: "Named in the outside press", test: (s) => s.press_paragraphs > 0, on: "Named", off: "Not named"},
+  {group: "Beyond the speech", label: "Speaker introduced as “Her Excellency”", test: (s) => s.woman, on: "Her Excellency", off: "Another honorific"},
+  {group: "Beyond the speech", label: "Named by 10 or more speeches", test: (s) => s.named_by >= 10, on: "Named by 10 or more", off: "Fewer"},
+  ...["Alarm", "Appeal", "Showcase"].map((t) => ({group: "UN headline tone", label: t, test: (s) => s.headline && s.headline.tone === t, on: t, off: "Another tone"})),
 ];
 const groups = [...new Set(EXPLORE.map((e) => e.group))];
 $("explore-by").innerHTML = groups.map((g) => `<optgroup label="${esc(g)}">` + EXPLORE.map((e, i) => e.group === g ? `<option value="${i}">${esc(e.label)}</option>` : "").join("") + "</optgroup>").join("");
@@ -535,6 +616,8 @@ function openProfile(slug, scroll = true) {
     <h4>Words that set this speech apart</h4><div class="chips">${s.distinctive_words.map((w) => `<span class="tag on">${esc(w)}</span>`).join("")}</div>
     <h4>Issues raised</h4><div class="chips">${chips(D.issues.map((i) => i.name), s.issues)}</div>
     <h4>Phrases used</h4><div class="chips">${chips(D.markers.map((m) => m.name), s.markers)}</div>
+    ${s.headline ? `<h4>How the UN headlined it</h4><p><i>${esc(s.headline.headline)}</i> <span class="small">· ${esc(s.headline.tone.toLowerCase())}${s.press_release_url ? ` · <a href="${esc(s.press_release_url)}">UN meetings coverage</a>` : ""}</span></p>` : ""}
+    <h4>Naming and the press</h4><p>Named by <button type="button" class="drill" data-drill='${esc(JSON.stringify({kind: "named", slug: s.slug}))}'>${s.named_by} speeches</button> · names <button type="button" class="drill" data-drill='${esc(JSON.stringify({kind: "names", slug: s.slug}))}'>${s.names} states</button> · ${s.press_paragraphs ? `<button type="button" class="drill" data-drill='${esc(JSON.stringify({kind: "press", slug: s.slug}))}'>${s.press_paragraphs} press paragraphs</button>` : "not named in the outside press"}</p>
     <h4>Bloc</h4><p>${esc(D.similarity.blocs[D.similarity.blocs.findIndex((b) => b.members.includes(s.slug))].label)}</p>
     <h4>Closest speeches in vocabulary</h4><p>${s.similar.map((x) => `<a href="#country" data-slug="${esc(x.slug)}">${esc(x.delegation)}</a> (${x.similarity.toFixed(2)})`).join(" · ")}</p>`;
   $("profile").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.slug); });
@@ -583,6 +666,83 @@ miniMaps("bloc-maps", SIM.blocs.map((b) => ({
 })));
 
 
+// ---------- who names whom ----------
+const M = D.mentions, NAMES = D.names;
+const nameOf = (slug) => NAMES[slug] || (BY_SLUG[slug] && BY_SLUG[slug].delegation) || slug;
+const EDGES_TO = {}, EDGES_FROM = {};
+M.edges.forEach((e) => { (EDGES_TO[e.to] = EDGES_TO[e.to] || []).push(e); (EDGES_FROM[e.from] = EDGES_FROM[e.from] || []).push(e); });
+const TIMES_STEPS = [[1, "--o2"], [3, "--o3"], [Infinity, "--o4"]];
+const timesColour = (t) => TIMES_STEPS.find(([cut]) => t <= cut)[1];
+const evidenceHtml = (e) => e && e.evidence ? `“${e.evidence.cut_start ? "…" : ""}${esc(e.evidence.text)}${e.evidence.cut_end ? "…" : ""}”` : "";
+let namedMode = "by";
+function namedMap(slug) {
+  const me = BY_SLUG[slug], edges = namedMode === "by" ? (EDGES_TO[slug] || []) : (EDGES_FROM[slug] || []);
+  const times = Object.fromEntries(edges.map((e) => [namedMode === "by" ? e.from : e.to, e.times]));
+  worldMap("map-named", (s) => s.slug === slug ? "--c2" : times[s.slug] ? timesColour(times[s.slug]) : "--none",
+    [[nameOf(slug), "--c2"], ["Once", "--o2"], ["2–3 times", "--o3"], ["4 or more", "--o4"], [namedMode === "by" ? "Does not name it" : "Not named", "--none"], ["No speech", null]],
+    (s) => s.slug === slug ? "The state you chose" : times[s.slug] ? (namedMode === "by" ? `Names ${esc(nameOf(slug))} ${times[s.slug]}×` : `Named ${times[s.slug]}× by ${esc(nameOf(slug))}`) : (namedMode === "by" ? `Does not name ${esc(nameOf(slug))}` : `Not named by ${esc(nameOf(slug))}`),
+    (s) => namedMap(s.slug), (s) => `Click to switch to ${esc(s.delegation)}`);
+  $("named-pick").value = slug;
+  const spec = namedMode === "by" ? {kind: "named", slug} : {kind: "names", slug};
+  $("named-summary").innerHTML = namedMode === "by"
+    ? `${esc(nameOf(slug))} is named by <button type="button" class="drill" data-drill='${esc(JSON.stringify(spec))}'>${edges.length} speeches</button>, ${edges.reduce((a, e) => a + e.times, 0)} times in all.${me ? ` It names ${(EDGES_FROM[slug] || []).length} states itself.` : ""}`
+    : `${esc(nameOf(slug))} names <button type="button" class="drill" data-drill='${esc(JSON.stringify(spec))}'>${edges.length} states</button>. It is named by ${(EDGES_TO[slug] || []).length} speeches.`;
+}
+const namedOptions = [...new Set([...D.speeches.map((s) => s.slug), ...M.most_named.map((x) => x.slug)])].sort((a, b) => nameOf(a).localeCompare(nameOf(b)));
+$("named-pick").innerHTML = namedOptions.map((slug) => `<option value="${esc(slug)}">${esc(nameOf(slug))}</option>`).join("");
+$("named-pick").onchange = () => namedMap($("named-pick").value);
+$("named-mode").querySelectorAll("button").forEach((b) => b.onclick = () => {
+  namedMode = b.dataset.mode;
+  $("named-mode").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  namedMap($("named-pick").value);
+});
+namedMap(M.most_named[0].slug);
+const topNamed = M.most_named.slice(0, 20);
+hbar("named-bars", topNamed.map((x) => ({label: nameOf(x.slug), value: x.speeches, tip: `<b>${esc(nameOf(x.slug))}</b><br>named by ${x.speeches} speeches, ${x.times} times in all`})), String, ["State", "Speeches naming it"]);
+drillable("named-bars", (i) => ({kind: "named", slug: topNamed[i].slug}));
+
+// ---------- the press ----------
+const P = D.press, ATT = P.attention, PRESS_OF = Object.fromEntries(ATT.rows.map((r) => [r.slug, r]));
+const PRESS_STEPS = [[0.005, "--o1"], [0.02, "--o2"], [0.05, "--o3"], [Infinity, "--o4"]];
+worldMap("map-press", (s) => PRESS_OF[s.slug] ? PRESS_STEPS.find(([cut]) => PRESS_OF[s.slug].share_of_press < cut)[1] : "--none",
+  [["under 0.5%", "--o1"], ["0.5–2%", "--o2"], ["2–5%", "--o3"], ["5% or more", "--o4"], ["Not named", "--none"], ["No speech", null]],
+  (s) => PRESS_OF[s.slug] ? `${pct(PRESS_OF[s.slug].share_of_press)} of press paragraphs (${PRESS_OF[s.slug].paragraphs}), from ${PRESS_OF[s.slug].articles} reports` : "Not named in the outside press",
+  (s) => PRESS_OF[s.slug] ? drill({kind: "press", slug: s.slug}) : openProfile(s.slug), (s) => PRESS_OF[s.slug] ? "Click to read the excerpts" : "Click for the country profile");
+function pairbars(id, items) {
+  const max = Math.max(...items.flatMap((i) => [i.a, i.b])) || 1;
+  $(id).innerHTML = `<div class="pairbars">${items.map((i, k) => `<div class="label" title="${esc(i.label)}">${esc(i.label)}</div><div class="tracks" data-k="${k}"><div style="width:${(100 * i.a / max).toFixed(1)}%;background:var(--c1)"></div><div style="width:${(100 * i.b / max).toFixed(1)}%;background:var(--c2)"></div></div><div class="value">${(100 * i.a).toFixed(1)}% · ${(100 * i.b).toFixed(1)}%</div>`).join("")}</div>`;
+  $(id).querySelectorAll(".tracks").forEach((t) => { const i = items[+t.dataset.k]; hover(t, `<b>${esc(i.label)}</b><br>${(100 * i.a).toFixed(1)}% of press paragraphs<br>${(100 * i.b).toFixed(1)}% of words spoken`); t.style.cursor = "pointer"; t.dataset.drill = JSON.stringify(i.drill); });
+  $(id).appendChild(tableView(["Delegation", "Share of press", "Share of words"], items.map((i) => [i.label, (100 * i.a).toFixed(1) + "%", (100 * i.b).toFixed(1) + "%"])));
+}
+pairbars("press-bars", ATT.rows.slice(0, 15).map((r) => ({label: nameOf(r.slug), a: r.share_of_press, b: r.share_of_words, drill: {kind: "press", slug: r.slug}})));
+(function ratioBars() {
+  const rows = [...P.issues].filter((i) => !["Gaza"].includes(i.issue)).sort((a, b) => (b.press_ratio || 0) - (a.press_ratio || 0));
+  const lo = Math.log10(0.1), hi = Math.log10(20), x = (v) => 100 * (Math.log10(Math.max(0.1, Math.min(20, v))) - lo) / (hi - lo), one = x(1);
+  let html = `<div class="ratio">`;
+  rows.forEach((r, k) => {
+    const v = r.press_ratio;
+    const bar = !v ? `<span class="none"></span>` : v >= 1 ? `<span class="fill" style="left:${one}%;width:${x(v) - one}%;background:var(--c1);border-radius:0 3px 3px 0"></span>` : `<span class="fill" style="left:${x(v)}%;width:${one - x(v)}%;background:var(--c2);border-radius:3px 0 0 3px"></span>`;
+    html += `<div class="label" title="${esc(r.issue)}">${esc(r.issue)}</div><div class="track" data-k="${k}" style="background-position:${one}% 0">${bar}</div><div class="value">${v ? (v >= 10 ? v.toFixed(0) : v.toFixed(1)) + "×" : "none"}</div>`;
+  });
+  html += `<div></div><div class="axis"><span>0.1×</span><span>1×</span><span>20×</span></div><div></div></div>`;
+  $("issue-ratio").innerHTML = html;
+  $("issue-ratio").querySelectorAll(".track").forEach((t) => { const r = rows[+t.dataset.k]; hover(t, `<b>${esc(r.issue)}</b><br>${r.speeches} speeches raise it<br>${r.podium_per_1000} per 1,000 words spoken · ${r.press_per_1000} per 1,000 words of press`); t.style.cursor = "pointer"; t.dataset.drill = JSON.stringify({kind: "mention", name: r.issue}); });
+  $("issue-ratio").appendChild(tableView(["Issue", "Speeches", "Per 1,000 words spoken", "Per 1,000 words of press", "Press ÷ podium"], rows.map((r) => [r.issue, r.speeches, r.podium_per_1000, r.press_per_1000, r.press_ratio == null ? "–" : r.press_ratio + "×"])));
+  // the axis line sits at 1×, not the middle
+  $("issue-ratio").querySelectorAll(".track").forEach((t) => t.style.background = `linear-gradient(var(--axis), var(--axis)) ${one}% 0 / 1px 100% no-repeat`);
+})();
+const kept = P.issues.filter((i) => i.speeches >= 10 && i.issue !== "Gaza").sort((a, b) => b.kept_share - a.kept_share);
+hbar("kept-bars", kept.map((i) => ({label: i.issue, value: i.kept_share, tip: `<b>${esc(i.issue)}</b><br>kept in ${i.summary_kept} of the ${i.speeches} summaries of speeches that raise it`})), pct, ["Issue", "Share of summaries keeping it"]);
+drillable("kept-bars", (k) => ({kind: "dropped", issue: kept[k].issue}));
+const TONES = {"Alarm": "--c2", "Appeal": "--c1", "Showcase": "--c3", "Statement, no verb": "--none"};
+const toneCount = (t) => D.speeches.filter((s) => s.headline && s.headline.tone === t).length;
+worldMap("map-tone", (s) => s.headline ? TONES[s.headline.tone] : null,
+  [...Object.entries(TONES).map(([t, v]) => [`${t} (${toneCount(t)})`, v]), ["No headline or no speech", null]],
+  (s) => s.headline ? `<i>${esc(s.headline.headline)}</i><br>${esc(s.headline.tone)}${s.headline.verb ? ` · “${esc(s.headline.verb)}”` : ""}` : "No UN headline",
+  (s) => s.headline ? drill({kind: "tone", tone: s.headline.tone}) : openProfile(s.slug), "Click for every headline with this tone");
+$("press-sources").innerHTML = "<thead><tr><th>Outlet</th><th>Date</th><th>Report</th><th class='n'>Words kept</th></tr></thead><tbody>" +
+  P.sources.map((x) => `<tr><td>${esc(x.outlet)}</td><td>${esc(x.date)}</td><td><a href="${esc(x.url)}">${esc(x.title || x.url)}</a></td><td class="n">${num(x.words)}</td></tr>`).join("") + "</tbody>";
+
 // ---------- drill-down ----------
 const DEFINITIONS = {
   mention: "A speech counts when it names this at least once. The sentence shown is where it first does, quoted from the speech's English text.",
@@ -593,6 +753,13 @@ const DEFINITIONS = {
   topic: "Speeches whose largest share of content falls in this topic, from the twelve-topic model.",
   lean: "A speech leans towards a lens when its vocabulary for it is at least half a standard deviation above the debate's average.",
   bloc: "Speeches grouped by the similarity of their word profiles (Ward clustering).",
+  named: "A speech names a state when it uses its name or a common adjective for it. The sentence shown is where it first does.",
+  press: "Paragraphs in outside news reports that name the delegation's country, or its speaker in a report that names the country. Each excerpt links to its report.",
+  tone: "The UN press office's headline for each speech, grouped by its first reporting verb.",
+  dropped: "Speeches that raise the issue, but whose UN press office summary does not name it. The sentence is where the speech first raises it.",
+  women: "Speakers the UN's speaker page introduces as “Her Excellency”.",
+  candidate: "Speeches whose English or original text names the candidate. The sentence is quoted from that text.",
+  ask: "Speeches that ask for this in the same sentence as the Secretary-General.",
 };
 const drawer = $("drawer"), scrim = $("scrim");
 function closeDrawer() { drawer.classList.remove("open"); scrim.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); if (drawer._from) drawer._from.focus(); }
@@ -630,6 +797,40 @@ function drillSpec(spec) {
       return {title: `Leans towards ${spec.lens.toLowerCase()}`, def: DEFINITIONS.lean, pool: D.speeches, test: (s) => s.lean === spec.lens,
         value: (s) => spec.lens in s.frame_z ? `${s.frame_z[spec.lens] > 0 ? "+" : ""}${s.frame_z[spec.lens].toFixed(1)} sd` : "",
         show: (s) => s.quote ? `“${esc(s.quote)}”` : ""};
+    case "named":
+      return {title: `Speeches naming ${nameOf(spec.slug)}`, def: DEFINITIONS.named, pool: D.speeches, test: (s) => (EDGES_TO[spec.slug] || []).some((e) => e.from === s.slug),
+        value: (s) => { const e = (EDGES_TO[spec.slug] || []).find((x) => x.from === s.slug); return e ? `${e.times}×` : ""; },
+        show: (s) => evidenceHtml((EDGES_TO[spec.slug] || []).find((x) => x.from === s.slug))};
+    case "names":
+      return {title: `States ${nameOf(spec.slug)} names`, def: DEFINITIONS.named, pool: D.speeches, test: (s) => (EDGES_FROM[spec.slug] || []).some((e) => e.to === s.slug),
+        value: (s) => { const e = (EDGES_FROM[spec.slug] || []).find((x) => x.to === s.slug); return e ? `${e.times}×` : ""; },
+        show: (s) => evidenceHtml((EDGES_FROM[spec.slug] || []).find((x) => x.to === s.slug)),
+        extra: (EDGES_FROM[spec.slug] || []).filter((e) => !BY_SLUG[e.to]).map((e) => `<li><div class="who"><b>${esc(nameOf(e.to))}</b><span class="val">${e.times}×</span></div><div class="ev">${evidenceHtml(e)}</div></li>`).join("")};
+    case "press": {
+      const r = PRESS_OF[spec.slug];
+      return {title: `${nameOf(spec.slug)} in the press`, sub: `${r.paragraphs} paragraphs in ${r.articles} reports · ${pct(r.share_of_press)} of all press mentions`, def: DEFINITIONS.press,
+        html: `<ol class="items">${r.snippets.map((x) => `<li><div class="who"><a href="${esc(x.url)}">${esc(x.outlet)}</a><span class="val">${esc(x.date)}</span></div><div class="small">${esc(x.title)}</div><p class="snip">“${x.cut_start ? "…" : ""}${esc(x.text)}${x.cut_end ? "…" : ""}”</p></li>`).join("")}</ol>${r.paragraphs > r.snippets.length ? `<p class="small">Showing the first ${r.snippets.length} of ${r.paragraphs} paragraphs.</p>` : ""}`};
+    }
+    case "tone":
+      return {title: `UN headlines: ${spec.tone.toLowerCase()}`, def: DEFINITIONS.tone, pool: D.speeches, test: (s) => s.headline && s.headline.tone === spec.tone,
+        value: (s) => s.headline.verb || "", show: (s) => `<i>${esc(s.headline.headline)}</i>${s.press_release_url ? ` · <a href="${esc(s.press_release_url)}">UN summary</a>` : ""}`};
+    case "dropped":
+      return {title: `${spec.issue}: left out of the UN's summary`, def: DEFINITIONS.dropped, pool: D.speeches.filter((s) => s.issues.includes(spec.issue) && s.headline),
+        test: (s) => (P.issues.find((i) => i.issue === spec.issue) || {dropped: []}).dropped.includes(s.slug),
+        show: (s) => `UN headline: <i>${esc(s.headline.headline)}</i><br>${evidenceHtml({evidence: s.evidence[spec.issue]})}`};
+    case "women":
+      return {title: "Speakers introduced as “Her Excellency”", def: DEFINITIONS.women, pool: D.speeches, test: (s) => s.woman,
+        value: (s) => ROLE_NAMES[s.role_group] || s.role_group, show: (s) => `${esc(s.speaker)}, ${esc(s.title)}`};
+    case "candidate": {
+      const c = D.race.candidates[spec.index];
+      return {title: `Speeches naming ${c.name}`, sub: `${c.named_by.length} speeches · nominated by ${c.nominated_by}`, def: DEFINITIONS.candidate,
+        html: `<ol class="items">${c.named_by.map((x) => `<li><div class="who"><b>${esc(nameOf(x.slug))}</b><span class="val">${x.language === "en" ? "" : "original text, " + esc(x.language.toUpperCase())}</span></div><div class="ev">${evidenceHtml(x)}</div></li>`).join("")}</ol>`};
+    }
+    case "ask": {
+      const list = D.race.asks[spec.name];
+      return {title: `Asked for: ${spec.name.toLowerCase()}`, sub: `${list.length} speeches`, def: DEFINITIONS.ask,
+        html: `<ol class="items">${list.map((x) => `<li><div class="who"><b>${esc(nameOf(x.slug))}</b></div><div class="ev">${evidenceHtml(x)}</div></li>`).join("")}</ol>`};
+    }
     case "bloc": {
       const b = D.similarity.blocs[spec.index];
       return {title: b.label, def: `${DEFINITIONS.bloc} Cohesion ${b.within.toFixed(3)} within, against ${b.outside.toFixed(3)} outside.`, pool: D.speeches,
@@ -640,6 +841,15 @@ function drillSpec(spec) {
 
 function drill(spec, from, region = null) {
   const d = drillSpec(spec);
+  if (d.html) {
+    $("drawer-title").textContent = d.title;
+    $("drawer-sub").textContent = d.sub || "";
+    $("drawer-body").innerHTML = `<p class="small">${esc(d.def)}</p>${d.html}`;
+    drawer._from = from || drawer._from;
+    drawer.classList.add("open"); scrim.classList.add("open"); drawer.setAttribute("aria-hidden", "false");
+    drawer.querySelector(".close").focus();
+    return;
+  }
   const inRegion = (s) => !region || s.region === region;
   const matched = d.pool.filter((s) => d.test(s));
   const counts = REGIONS.map((r) => { const all = d.pool.filter((s) => s.region === r), m = all.filter((s) => d.test(s)); return [r, m.length, all.length]; });
@@ -659,7 +869,7 @@ function drill(spec, from, region = null) {
     const detail = d.show ? d.show(s) : "";
     return `<li><div class="who"><a href="#country" data-slug="${esc(s.slug)}">${esc(s.delegation)}</a><span class="val">${esc(val)}</span></div>${bar}${detail ? `<div class="ev">${detail}</div>` : ""}</li>`;
   }).join("");
-  $("drawer-body").innerHTML = `<p class="small">${esc(d.def)}</p>${regionButtons}<ol class="items">${rows || "<li>No speeches.</li>"}</ol>`;
+  $("drawer-body").innerHTML = `<p class="small">${esc(d.def)}</p>${regionButtons}<ol class="items">${rows || (d.extra ? "" : "<li>No speeches.</li>")}${!region && d.extra ? d.extra : ""}</ol>`;
   $("drawer-body").querySelectorAll(".regions button").forEach((b) => b.onclick = () => drill(spec, from, b.dataset.region || null));
   $("drawer-body").querySelectorAll("a[data-slug]").forEach((a) => a.onclick = (e) => { e.preventDefault(); closeDrawer(); openProfile(a.dataset.slug); });
   drawer._from = from || drawer._from;

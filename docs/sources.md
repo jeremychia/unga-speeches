@@ -7,11 +7,23 @@
 | 1946–2025 (sessions 1–80) | [UN General Debate Corpus](https://doi.org/10.7910/DVN/0TJX8Y) | English text of every speech, and each speaker's name and post |
 | Where the UN copy is missing or unreadable | The delegation's government site, listed in [`reference/manual_sources.csv`](../reference/manual_sources.csv) | The published text |
 
+## Press and context, 2026 only
+
+| Source | What it gives |
+| --- | --- |
+| UN press office summaries, on each speaker's debate page | A headline and summary of every speech, the link to the day's meetings coverage, and links to UN News stories in other languages |
+| News reports listed in [`reference/news_81.csv`](../reference/news_81.csv) | UN News daily takeaways, CNN, ABC News, NBC News, CNBC, PBS, PolitiFact, MS NOW and Al Jazeera, cut to their paragraphs |
+| [Wikipedia on the 2026 Secretary-General selection](https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection) | The candidates and the Security Council straw polls, in [`reference/sg_candidates_81.csv`](../reference/sg_candidates_81.csv) |
+| [`reference/context_81.csv`](../reference/context_81.csv) | The week's events, each with a short quote the build finds in a downloaded report |
+
+**Politico and TLDR News are not in the sample.** Politico returned no coverage of the debate, and TLDR News publishes video only. Two UN News takeaways are read from GlobalSecurity.org copies, and Business Standard was dropped because only a caption could be read. The page shows only short excerpts, each linked to its report.
+
 **The debate site has almost no pages for 2019–2020** (sessions 74 and 75). Those years come from the records and the corpus.
 
 ## Terms and citation
 
 - **UN documents and the debate site** are published by the United Nations. Check the [UN's terms of use](https://www.un.org/en/about-us/terms-of-use) before redistributing their content.
 - **The UN General Debate Corpus** is released under CC0. Cite it as: Jankin, S., Baturo, A., & Dasandi, N. (2025). Words to unite nations: The complete United Nations General Debate Corpus, 1946–present. *Journal of Peace Research*, 62(4), 1339–1351. Harvard Dataverse asks for a name and email before the download.
+- **News reports** keep their publishers' terms. Downloads stay in `data/raw/`, which is not committed, and the page shows only short linked excerpts.
 - **Delegations' own sites** keep their own terms. Only the link, checksum and extracted text are stored.
 - **This repository's code** is under the Apache 2.0 [licence](../LICENSE).

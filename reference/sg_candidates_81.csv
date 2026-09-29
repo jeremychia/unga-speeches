@@ -1,0 +1,9 @@
+name,pattern,nationality,nominated_by,nominated,withdrew,regional_group,encourage,discourage,no_opinion,source_url
+Ivonne Baki,\bBaki\b,Ecuador,Tonga,2026-08-17,,Latin American and Caribbean Group,0,10,5,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+María Fernanda Espinosa,\bEspinosa\b,Ecuador,Antigua and Barbuda,2026-05-12,,Latin American and Caribbean Group,3,6,6,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+Rafael Grossi,\bGrossi\b,Argentina,Argentina,2025-12-22,,Latin American and Caribbean Group,5,8,2,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+Rebeca Grynspan,\bGrynspan\b,Costa Rica,Costa Rica,2026-03-03,,Latin American and Caribbean Group,9,5,1,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+Olara Otunnu,\bOtunnu\b,Uganda,Uganda,2026-07-25,,African Group,5,7,3,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+Carolyn Rodrigues-Birkett,\bBirkett\b,Guyana,Guyana,2026-06-15,,Latin American and Caribbean Group,8,6,1,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+Macky Sall,\bMacky Sall\b|\bPresident Sall\b,Senegal,Burundi,2026-03-02,,African Group,5,9,1,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection
+Michelle Bachelet,\bBachelet\b,Chile,Brazil and Mexico,2026-02-02,2026-09-19,Latin American and Caribbean Group,1,11,3,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection

@@ -127,6 +127,14 @@ def issues(text: str) -> dict[str, bool]:
     return {name: bool(p.search(text)) for name, p in _ISSUE_PATTERNS.items()}
 
 
+def issue_counts(text: str) -> dict[str, int]:
+    return {name: len(p.findall(text)) for name, p in _ISSUE_PATTERNS.items()}
+
+
+def issue_pattern(name: str) -> re.Pattern:
+    return _ISSUE_PATTERNS[name]
+
+
 def markers(text: str) -> list[str]:
     return [name for name, p in _MARKER_PATTERNS.items() if p.search(text)]
 

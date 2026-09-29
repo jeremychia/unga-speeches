@@ -1,5 +1,6 @@
 """Every figure the 2026 page shows, computed in one place and written as data.json."""
 
+import csv
 import statistics
 from collections import Counter, defaultdict
 
@@ -7,7 +8,7 @@ import numpy as np
 import pandas as pd
 import textstat
 
-from unga_speeches.analysis import lexicons, similarity, topics, words
+from unga_speeches.analysis import lexicons, mentions, press, race, similarity, topics, words
 from unga_speeches.analysis.corpus import Speech, load
 from unga_speeches.config import OUTPUT_DIR, session_year
 
@@ -86,6 +87,21 @@ def build(session: int) -> dict:
         r["evidence"] = lexicons.evidence(s.verbatim, r["issues"], r["markers"])
         r["g20"] = r["iso3"] in G20
         r["charter_or_law"] = "UN Charter or international law" in r["evidence"] or bool(CHARTER_OR_LAW.search(s.text))
+    named = mentions.build(speeches)
+    news, coverage = press.load_news(session), press.load_coverage(session)
+    attention = press.attention(speeches, news)
+    heads = press.headlines(speeches, coverage)
+    press_by_slug = {a["slug"]: a["paragraphs"] for a in attention["rows"]}
+    named_by = Counter(e["to"] for e in named["edges"])
+    for r in rows:
+        c = coverage.get(r["slug"], {})
+        r["honorific"] = c.get("honorific", "")
+        r["woman"] = r["honorific"].startswith("Her")
+        r["headline"] = heads["rows"].get(r["slug"])
+        r["press_release_url"] = c.get("press_release_url")
+        r["press_paragraphs"] = press_by_slug.get(r["slug"], 0)
+        r["named_by"] = named_by.get(r["slug"], 0)
+        r["names"] = sum(1 for e in named["edges"] if e["from"] == r["slug"])
     states = [r for r in rows if r["status"] == "member_state"]
     overview = _overview(rows, states)
     overview["charter_or_law"] = sum(r["charter_or_law"] for r in rows)
@@ -106,7 +122,34 @@ def build(session: int) -> dict:
         "trends": _trends(session, speeches, rows),
         "vocabulary": {**words.common(speeches), "by_region": words.distinctive_by_group(speeches, REGIONS, lambda s: s.region)},
         "leaders": _leaders(session, rows),
+        "mentions": named,
+        "press": {
+            "sources": [{k: n[k] for k in ("outlet", "kind", "date", "title", "url", "words")} for n in news],
+            "attention": attention,
+            "issues": press.issue_voices(speeches, news, coverage),
+            "headlines": {k: v for k, v in heads.items() if k != "rows"},
+            "translations": press.translations(coverage),
+            "women": press.women(speeches, coverage),
+            "claims": press.claims(session, speeches, news, _role_counts(session)),
+            "context": press.context(session, news),
+        },
+        "race": race.build(session, speeches),
+        # every delegation that spoke, including the few with no English text, so names resolve on the page
+        "names": _names(session),
     }
+
+
+def _speakers(session: int) -> list[dict]:
+    with (OUTPUT_DIR / f"speeches_{session}.csv").open(encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def _role_counts(session: int) -> Counter:
+    return Counter(r["role_group"] for r in _speakers(session) if r["status"] != "un_official")
+
+
+def _names(session: int) -> dict[str, str]:
+    return {r["slug"]: r["delegation"] for r in _speakers(session)} | {"TWN": "Taiwan"}
 
 
 P5 = ["USA", "CHN", "RUS", "GBR", "FRA"]

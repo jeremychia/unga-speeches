@@ -30,6 +30,14 @@ How the speeches are found, read, split and combined, and what each text in the 
 | English text | UN verbatim record | Corpus | The site's statement, then its interpretation transcript |
 | Original text | The site's text in the spoken language | The English text, when the speech was in English | |
 
+## Beyond the speeches (2026)
+
+- **Who names whom.** [`analysis/mentions.py`](../src/unga_speeches/analysis/mentions.py) finds every state a speech names, by its name, a formal or former name, or a common adjective ("Russian", "Israeli"). The longest name wins, so "South Sudan" is not also counted as "Sudan". Places such as the Gulf of Guinea are skipped, and so is a bare "Congo", which speakers use for both Congos.
+- **The press.** [`sources/news.py`](../src/unga_speeches/sources/news.py) downloads each listed report and keeps the paragraphs of the element holding the most story text. [`analysis/press.py`](../src/unga_speeches/analysis/press.py) counts the paragraphs that name each delegation, compares issue rates in press and speeches per 1,000 words, and checks what each UN summary kept from its speech.
+- **UN headlines.** A headline's tone is set by its first reporting verb: alarm, appeal or showcase. Headlines with no reporting verb are counted apart.
+- **The Secretary-General race.** [`analysis/race.py`](../src/unga_speeches/analysis/race.py) searches the English and original texts for each candidate's surname, so a speech with no English text is still covered.
+- **Claims.** The Assembly President's closing numbers are counted again from the texts, with the same word lists.
+
 ## What each text is
 
 - **UN verbatim record.** The official record of the meeting. A non-English speech appears in the UN's English translation, and the record notes the spoken language, e.g. "(spoke in Japanese; English interpretation provided by the delegation)".

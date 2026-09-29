@@ -59,5 +59,7 @@ One row per turn in the debate meetings: `meeting`, `meeting_url`, `order_in_mee
 | --- | --- |
 | `speeches_<session>.csv` | One row per speaker page: speaker, title, role, date, languages, `delivered_share`, `unscripted_share`, gaps |
 | `texts_<session>.jsonl` | One row per text version: kind, language, source url, retrieval time, checksum, extraction method, warnings, verbatim text |
+| `coverage_<session>.jsonl` | One row per speaker page: honorific, UN press office headline and summary, meetings coverage link, UN News links by language |
+| `news_<session>.jsonl` | One row per news report: outlet, kind, date, url, title, paragraphs, word count, retrieval time, checksum |
 | `speeches/<session>/<delegation>/README.md` | A readable page per speech with its sources table |
 | `speeches/<session>/<delegation>/*.txt` | The exact texts, one file per source |
