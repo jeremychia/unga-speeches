@@ -62,10 +62,29 @@ def test_panel_keeps_the_outlet_with_most_words_per_country_and_folds_territorie
         return {"outlet": outlet, "words": words, "paragraphs": [], "base_region": "Asia", "url": outlet + str(words)}
 
     news = [report("Big", 500), report("Big", 500), report("Small", 900), report("Hong Kong paper", 2000), report("UN News", 5000)]
-    articles, table = press.panel(news, {"Big": "Japan", "Small": "Japan", "Hong Kong paper": "Hong Kong", "UN News": "United Nations"})
+    registry = [
+        {"outlet": o, "country": c, "dnr_brand": ""}
+        for o, c in [("Big", "Japan"), ("Small", "Japan"), ("Hong Kong paper", "Hong Kong"), ("UN News", "United Nations")]
+    ]
+    articles, table = press.panel(news, registry, reach={})
     chosen = {t["country"]: t["outlet"] for t in table}
     assert chosen == {
         "Japan": "Big",
         "China": "Hong Kong paper",
     }  # 1,000 words beat 900; Hong Kong counts as China; UN News is not national press
     assert {a["outlet"] for a in articles} == {"Big", "Hong Kong paper"}
+
+
+def test_panel_carries_every_big_brand_weighted_by_reach():
+    pytest.importorskip("sklearn")
+    from unga_speeches.analysis import press
+
+    news = [
+        {"outlet": o, "words": w, "paragraphs": [], "base_region": "Africa", "url": o} for o, w in [("A", 100), ("B", 5000), ("C", 300)]
+    ]
+    registry = [{"outlet": "A", "country": "Kenya", "dnr_brand": "A online"}, {"outlet": "B", "country": "Kenya", "dnr_brand": ""},
+                {"outlet": "C", "country": "Kenya", "dnr_brand": "C online"}]  # fmt: skip
+    _, table = press.panel(news, registry, reach={("Kenya", "A online"): 30.0, ("Kenya", "C online"): 10.0})
+    (kenya,) = table
+    assert [(m["outlet"], m["weight"]) for m in kenya["members"]] == [("A", 0.75), ("C", 0.25)]
+    assert kenya["not_used"] == ["B"]  # the most words, but not a big brand

@@ -43,3 +43,10 @@ def test_sample_regions_match_the_registry():
     registry = {r["outlet"]: r["region"] for r in _read("outlets.csv")}
     for r in _read("news_81.csv"):
         assert r["base_region"] == registry[r["outlet"]], r["url"]
+
+
+def test_every_big_brand_named_in_the_registry_is_in_the_report_list():
+    brands = {(r["country"], r["brand"]) for r in _read("dnr_brands_2026.csv")}
+    for r in _read("outlets.csv"):
+        if r["dnr_brand"]:
+            assert (r["country"], r["dnr_brand"]) in brands, r["outlet"]

@@ -181,3 +181,40 @@ Countries were unevenly represented: the United States by 9 outlets, Nigeria by 
 | Next four | Iran, Israel, China, Palau | Israel, Palestine, Sudan, Iran |
 | Five most-named delegations' share | 39% | 44% |
 | Median outlet's share on its own country | | 55% |
+
+## Big outlets, from the Digital News Report, 29 September
+
+One outlet per country dropped big outlets whenever a smaller one had written more. The panel now carries every big outlet the sample has, using a published list of what "big" means.
+
+- **The list.** The [Reuters Institute Digital News Report 2026](https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2026) surveys news use in 48 markets and ranks the online news brands most used in the last week. `make brands` downloads each market's online top-brands chart (a Datawrapper table on each market page) into [`reference/dnr_brands_2026.csv`](../reference/dnr_brands_2026.csv): 784 brands with their weekly reach. A chart counts as the online one when at least half its brands say "online" or give a web address; Belgium, Canada and Switzerland have one per language community, merged.
+- **The rule.** In a country the report covers, every sampled outlet whose brand is on its list stands for the country, weighted by weekly reach. Elsewhere, or where no sampled outlet is on the list, the outlet with the most debate-week words stands alone. Each country's press still counts once.
+- **Matching.** Each outlet's brand in the report is recorded in the `dnr_brand` column of `reference/outlets.csv`. Most match by name; the rest were matched by hand, such as ABC Australia to "ABC News online" and Citizen Digital to "Citizen TV online". A test checks every recorded brand exists in the list.
+- **Only English.** The counting works on English text, so big brands could be added only in markets with English-language press: the United States, Canada, Ireland, Australia, India, Malaysia, the Philippines, Kenya, Nigeria and South Africa. The UK's and Singapore's big brands all refused the search or the download.
+
+**Searched in this round:** Fox News, CBS News, the Washington Post, USA Today; CTV, CBC, the Globe and Mail, Global News; Sky News, MailOnline, the Telegraph, ITV, GB News; RTÉ, the Irish Times, TheJournal.ie, the Irish Independent; news.com.au, Nine, 7News, Sky News Australia, the Sydney Morning Herald, the Australian; NDTV, Hindustan Times, India Today, Firstpost, Republic World, ThePrint; Mothership, RTHK, the Standard (Hong Kong); Malaysiakini, Free Malaysia Today, Astro Awani; GMA, ABS-CBN, Rappler, Philstar; Tuko, Kenyans.co.ke; Legit.ng, Pulse, Arise, Sahara Reporters, Daily Post, TVC; News24, the Citizen, the South African, TimesLive. Each outlet's result is in `reference/outlets.csv`.
+
+**Countries now counted through their big brands:**
+
+| Country | Outlets counted, by weight | Sampled but not on the list |
+| --- | --- | --- |
+| Australia | ABC Australia 75%; SBS News 25% | – |
+| Canada | CBC News 43%; CTV News 37%; The Globe and Mail 20% | – |
+| India | Republic World 62%; ThePrint 38% | – |
+| Ireland | RTÉ News 43%; TheJournal.ie 34%; The Irish Times 23% | – |
+| Kenya | Citizen Digital 29%; Kenyans.co.ke 21%; Daily Nation 21%; The Standard (Kenya) 17%; The Star (Kenya) 11% | – |
+| Malaysia | The Star 46%; Free Malaysia Today 35%; Malay Mail 19% | – |
+| Morocco | Hespress English 100% | Morocco World News |
+| Nigeria | Legit.ng 21%; Vanguard 18%; Daily Trust 16%; Arise News 16%; Channels Television 14%; Sahara Reporters 14% | Premium Times, The Guardian (Nigeria) |
+| Philippines | GMA News 53%; Rappler 26%; Philstar 22% | – |
+| South Africa | SABC News 51%; The Citizen (South Africa) 19%; Daily Maverick 18%; IOL 13% | – |
+| United States | Fox News 27%; CNN 22%; ABC News 14%; CBS News 12%; NPR 12%; NBC News 12% | MS NOW, Foreign Policy, PBS News, CNBC, PolitiFact |
+
+**Known quirk.** In Morocco the only listed brand in the sample is Hespress's English edition, which is weighted as Hespress. It displaces Morocco World News, which is not on the list, and Morocco's own-country share falls to 0.
+
+| Figure | One outlet per country | Big brands, by reach |
+| --- | --- | --- |
+| Countries, and outlets counted | 38 and 38 | 42 and 69 |
+| United States, attention from other countries | 13%, named by 20 countries' press | 17%, named by 24 |
+| Next four | Israel, Palestine, Sudan, Iran | Israel, Iran, Palestine, Russia |
+| Five most-named delegations' share | 44% | 50% |
+| Median country's share on itself | 55% | 50% |

@@ -1,4 +1,4 @@
-.PHONY: help install test lint format session verbatim history dataset news site release publish
+.PHONY: help install test lint format session verbatim history dataset news brands site release publish
 
 SESSION ?= 81
 SESSIONS ?= 79
@@ -13,6 +13,7 @@ help:
 	@echo "make history                    - load the UN General Debate Corpus; needs its files in data/raw/ungdc/"
 	@echo "make dataset                    - combine everything into data/output/speeches.parquet"
 	@echo "make news SESSION=81            - download the session's news reports and the UN coverage of each speaker"
+	@echo "make brands                     - download the Digital News Report's biggest online news brands per market"
 	@echo "make site SESSION=81            - write the session's analysis page to site/"
 	@echo "make release                    - package the data into dist/"
 	@echo "make publish                    - upload dist/ as a GitHub release"
@@ -45,6 +46,9 @@ dataset:
 
 news:
 	uv run unga news $(SESSION)
+
+brands:
+	uv run unga brands
 
 site:
 	uv run --group analysis unga site $(SESSION)
