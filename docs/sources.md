@@ -14,6 +14,7 @@
 | UN press office summaries, on each speaker's debate page | A headline and summary of every speech, the link to the day's meetings coverage, and links to UN News stories in other languages |
 | News reports listed in [`reference/news_81.csv`](../reference/news_81.csv) | UN News daily takeaways, CNN, ABC News, NBC News, CNBC, PBS, PolitiFact, MS NOW and Al Jazeera, cut to their paragraphs |
 | [Wikipedia on the 2026 Secretary-General selection](https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection) | The candidates and the Security Council straw polls, in [`reference/sg_candidates_81.csv`](../reference/sg_candidates_81.csv) |
+| [Reuters Institute Digital News Report 2026](https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2026) | The biggest online news brands in each of 48 markets, with weekly reach, in [`reference/dnr_brands_2026.csv`](../reference/dnr_brands_2026.csv); used to decide which outlets stand for a country |
 | [`reference/context_81.csv`](../reference/context_81.csv) | The week's events, each with a short quote the build finds in a downloaded report |
 
 **Politico and TLDR News are not in the sample.** Politico returned no coverage of the debate, and TLDR News publishes video only. Two UN News takeaways are read from GlobalSecurity.org copies, and Business Standard was dropped because only a caption could be read. The page shows only short excerpts, each linked to its report.
