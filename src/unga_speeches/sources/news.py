@@ -75,6 +75,31 @@ def _is_menu(text: str) -> bool:
     return not re.search(r"[.!?,:;”\"]", text) and capitalised >= MENU_CAPITALS * len(words)
 
 
+# the days each session's coverage is drawn from: the debate week, with its previews and its wrap-ups
+WINDOWS = {81: ("2026-09-18", "2026-09-30")}
+_DATE = re.compile(r"(20\d\d)-(\d\d)-(\d\d)")
+
+
+def published(html: str) -> str | None:
+    """The date the page says it was published, from its metadata, as yyyy-mm-dd."""
+    soup = BeautifulSoup(html, "lxml")
+    for attrs in (
+        {"property": "article:published_time"},
+        {"property": "og:published_time"},
+        {"name": "pubdate"},
+        {"itemprop": "datePublished"},
+    ):
+        tag = soup.find("meta", attrs=attrs)
+        if tag and (m := _DATE.search(tag.get("content", ""))):
+            return "-".join(m.groups())
+    if m := re.search(r'"datePublished"\s*:\s*"(20\d\d-\d\d-\d\d)', html):
+        return m.group(1)
+    tag = soup.find("time", attrs={"datetime": True})
+    if tag and (m := _DATE.search(tag["datetime"])):
+        return "-".join(m.groups())
+    return None
+
+
 def _chunks(text: str) -> list[str]:
     sentences = re.split(r"(?:(?<=[.!?])|(?<=[.!?][\"”’]))\s+(?=[A-Z\"“‘])", text)
     return [" ".join(sentences[i : i + SENTENCES_PER_CHUNK]) for i in range(0, len(sentences), SENTENCES_PER_CHUNK)]
@@ -141,12 +166,19 @@ def build(session: int, client: Client | None = None) -> Path:
             if not fetched:
                 log.warning("%s: not found", source["url"])
                 continue
-            title, paragraphs = extract(fetched.path.read_text(encoding="utf-8", errors="replace"))
+            html = fetched.path.read_text(encoding="utf-8", errors="replace")
+            title, paragraphs = extract(html)
+            date = published(html)
+            window = WINDOWS.get(session)
+            if date and window and source["kind"] != "context" and not window[0] <= date <= window[1]:
+                log.warning("%s %s: published %s, outside the debate week, so left out", source["outlet"], source["url"], date)
+                continue
             words = sum(len(p.split()) for p in paragraphs)
             log.info("%s %s: %d paragraphs, %d words", source["outlet"], source["date"], len(paragraphs), words)
             record = {
                 **source,
                 "title": title,
+                "published": date,
                 "paragraphs": paragraphs,
                 "words": words,
                 "retrieved_at": fetched.retrieved_at,

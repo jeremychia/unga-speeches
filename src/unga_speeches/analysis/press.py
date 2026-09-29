@@ -157,6 +157,9 @@ def _home_bias(speeches: list[Speech], articles: list[dict], rows: list[dict]) -
                 "home_share": round(home / total, 3) if total else None,
                 "home_speaker_share": round(speakers[base] / sum(speakers.values()), 3),
                 "top": [{"slug": slug, "mentions": n} for slug, n in Counter(counts).most_common(5)],
+                "outsider": next(
+                    ({"slug": slug, "mentions": n} for slug, n in Counter(counts).most_common() if region.get(slug) != base), None
+                ),
             }
         )
     return out
