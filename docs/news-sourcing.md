@@ -2,6 +2,30 @@
 
 The page's press figures come from the reports listed in [`reference/news_81.csv`](../reference/news_81.csv). This log records how that list was found, so the sample can be checked and extended.
 
+## The maintained list
+
+[`reference/outlets.csv`](../reference/outlets.csv) lists every outlet considered, whether or not it is in the sample. Each row gives the outlet's domain, home country and region, what happened when it was checked, how many reports it has in the sample, and the date it was checked.
+
+| Status | Meaning |
+| --- | --- |
+| `in_sample` | Reports from it are in `news_81.csv` |
+| `no_coverage_found` | Searched; no report from the debate week turned up |
+| `search_blocked` | The search tool is refused by the domain |
+| `download_refused` | A report was found but the site refused the download |
+| `no_text` | The page draws its text by script and publishes none in its data |
+| `outside_window` | The report found was published outside the debate week |
+| `not_english` | Only reports in other languages were found |
+| `video_only` | The outlet publishes video only |
+| `excluded` | Left out by rule, such as a digest bundling unrelated stories |
+
+**To add an outlet:**
+
+- [ ] Search its domain for the debate week and add each report to `reference/news_81.csv` with its home region.
+- [ ] Add or update its row in `reference/outlets.csv`, with the report count and the date checked.
+- [ ] Run `make news SESSION=81`. The run skips refused downloads and reports published outside the debate week, and says so.
+- [ ] Move any report it skipped out of `news_81.csv`, and set the outlet's status to match.
+- [ ] Run `make test`. It fails if a sampled outlet is missing from the registry or its count is wrong.
+
 ## Method
 
 - **Find.** Search each outlet's own domain for its coverage of the general debate, 21–29 September 2026. Search runs region by region: Asia, Europe, the Middle East, Africa, the Americas and the Pacific.
@@ -20,6 +44,7 @@ The search tool is refused by these domains, so no report from them could be fou
 | Europe | bbc.com, bbc.co.uk, theguardian.com, reuters.com, lemonde.fr, rfi.fr, dw.com, politico.eu |
 | Americas | apnews.com, nytimes.com, latimes.com, elpais.com, clarin.com |
 | Africa | punchng.com |
+| Oceania | postcourier.com.pg |
 
 Politico (US) returned no coverage of the debate. TLDR News publishes video only.
 
@@ -85,3 +110,27 @@ The United States stays first. Outside the Americas' press it takes 13% of menti
 
 - **Page menus.** Premium Times and the Jakarta Post carry section menus in list items, and one Premium Times menu entry, "Panama Papers", counted as a mention of Panama. Blocks with no sentence punctuation and mostly capitalised words, and list items that are nothing but a link, are now skipped.
 - **Structured data.** SCMP and MS NOW draw their stories by script. Their text is read from the page's schema.org data when the page paragraphs come to under 250 words. A first version used it whenever it was longer, which replaced CNN's live blogs with the full blog (18,553 words) and was narrowed.
+
+## Pacific round, 29 September
+
+The Pacific was the thinnest region, with 2 reports. A second round searched 28 Pacific outlets, from Fiji, Samoa, Tonga, Palau, Papua New Guinea, the Solomon Islands, Vanuatu, the Cook Islands, Micronesia, the Marshall Islands, Guam, the Northern Mariana Islands, New Zealand and Australia.
+
+| Result | Reports |
+| --- | --- |
+| **Kept** | Fiji Village; Matangi Tonga; Samoa Observer ×3; Island Times ×3; PINA ×2; Pacific Media Network; RNZ; Asia Pacific Report; SBS News ×2 |
+| **Published outside the debate week** (found by the new date check) | Island Times on Palau and Taiwan (2018); Pacific Island Times (October 2025); Lowy Interpreter (March 2026) |
+| **Refused the download** | Solomon Star; The National (PNG) ×2; Marianas Variety (rate limited, worth retrying) |
+| **Excluded** | Islands Business PACNEWS digests, which bundle unrelated stories; an Asia Pacific Report piece that republishes an RNZ story already in the sample |
+
+**Date check.** The run now reads each page's publication date from its metadata and skips reports published outside 18–30 September. Samoa Observer and Pacific Media Network give no machine-readable date, and their visible dates were read by hand: all fall in the debate week. The dates in `news_81.csv` are now the pages' own, which differ from the first listing by a day for most reports because of time zones.
+
+The Pacific now has 17 reports from 10 outlets.
+
+| Figure | 52 reports | 67 reports, with the Pacific round |
+| --- | --- | --- |
+| Pacific reports and words | 2 and 970 | 17 and 10,031 |
+| Delegations named at all | 98 of 191 | 103 of 191 |
+| United States' share of press mentions | 26% | 24% |
+| Five most-named delegations' share | 56% | 52% |
+| Climate change, press share against podium share | 0.7× | 1.4× |
+| Pacific press's most-named delegation outside the Pacific | Iran | Indonesia, over West Papua |
