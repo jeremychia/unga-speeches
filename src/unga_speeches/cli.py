@@ -32,6 +32,9 @@ def main() -> None:
     leanings = sub.add_parser("leanings", help="refresh each sampled outlet's political leaning and record changes in its history")
     leanings.add_argument("session", type=int)
 
+    scans = sub.add_parser("scanned", help="split the UN's scanned verbatim records of sessions 1 to 47 (1946-1992) into speeches")
+    scans.add_argument("sessions", type=int, nargs="+")
+
     sub.add_parser("release", help="package the tables and speech pages into dist/ for a data release")
     sub.add_parser("dataset", help="combine the corpus, the verbatim records and gadebate into one table")
 
@@ -65,6 +68,14 @@ def main() -> None:
         from unga_speeches.sources import leaning
 
         logging.info("wrote %s", leaning.build(args.session))
+    elif args.command == "scanned":
+        from unga_speeches.sources import scanned
+
+        after = 1
+        for number in sorted(args.sessions):
+            out, last = scanned.build_session(number, after=after)
+            after = last + 1 if number < scanned.FIRST_SESSION_NUMBERED else 1
+            logging.info("wrote %s", out)
     elif args.command == "release":
         logging.info("wrote %s", release.package())
     elif args.command == "dataset":

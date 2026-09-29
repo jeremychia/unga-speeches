@@ -1,4 +1,4 @@
-.PHONY: help install test lint format session verbatim history dataset news brands leanings site release publish
+.PHONY: help install test lint format session verbatim scanned history dataset news brands leanings site release publish
 
 SESSION ?= 81
 SESSIONS ?= 79
@@ -10,6 +10,7 @@ help:
 	@echo "make lint                       - check style and formatting with ruff"
 	@echo "make session SESSION=81         - build one session from gadebate.un.org (64 onwards)"
 	@echo "make verbatim SESSIONS='78 79'  - split the UN verbatim records of these sessions (48 onwards)"
+	@echo "make scanned SESSIONS='1 2'     - split the UN's scanned records of these sessions (1 to 47, 1946-1992) into speeches"
 	@echo "make history                    - load the UN General Debate Corpus; needs its files in data/raw/ungdc/"
 	@echo "make dataset                    - combine everything into data/output/speeches.parquet"
 	@echo "make news SESSION=81            - download the session's news reports and the UN coverage of each speaker"
@@ -38,6 +39,9 @@ session:
 
 verbatim:
 	uv run unga verbatim $(SESSIONS)
+
+scanned:
+	uv run unga scanned $(SESSIONS)
 
 history:
 	uv run unga history
