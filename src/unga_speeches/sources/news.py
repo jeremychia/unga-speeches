@@ -7,6 +7,7 @@ import logging
 import re
 from pathlib import Path
 
+import requests
 from bs4 import BeautifulSoup
 
 from unga_speeches.config import GADEBATE_BASE, OUTPUT_DIR, RAW_DIR, REFERENCE_DIR
@@ -17,6 +18,8 @@ log = logging.getLogger(__name__)
 
 MIN_PARAGRAPH_CHARS = 60  # shorter blocks are captions, bylines and buttons
 FURNITURE_CHARS = 1000  # a nav, header, footer or aside with less paragraph text than this is page furniture
+FALLBACK_WORDS = 250  # below this the page's paragraphs failed, so its structured data is read instead
+SENTENCES_PER_CHUNK = 3  # a structured body with no paragraph breaks is cut into chunks this long
 # boilerplate that sits in paragraph tags on news sites
 NOISE = re.compile(
     r"^(sign up|subscribe|advertisement|related:|read more|watch:|copyright|©|this story has been|follow us|share this|get full access|join |copy url"
@@ -36,6 +39,7 @@ def sources(session: int) -> list[dict]:
 def extract(html: str) -> tuple[str, list[str]]:
     """The article's title and its body paragraphs, in order, without repeats."""
     soup = BeautifulSoup(html, "lxml")
+    structured = _structured_body(soup)
     for tag in soup(["script", "style", "figcaption", "form"]):
         tag.decompose()
     # some sites wrap the whole page in a nav or header, so only furniture without story text goes
@@ -48,11 +52,62 @@ def extract(html: str) -> tuple[str, list[str]]:
     seen, paragraphs = set(), []
     for p in root.find_all(["p", "li"]):
         text = " ".join(p.get_text(" ", strip=True).split())
-        if len(text) < MIN_PARAGRAPH_CHARS or NOISE.search(text) or text in seen:
+        # a list item that is nothing but a link is a menu entry or a related story, not the story
+        if p.name == "li" and text == " ".join(" ".join(a.get_text(" ", strip=True) for a in p.find_all("a")).split()):
+            continue
+        if len(text) < MIN_PARAGRAPH_CHARS or NOISE.search(text) or _is_menu(text) or text in seen:
             continue
         seen.add(text)
         paragraphs.append(text)
+    # sites that draw the story by script still publish it as structured data in the page
+    found = sum(len(p.split()) for p in paragraphs)
+    if found < FALLBACK_WORDS and sum(len(p.split()) for p in structured) > found:
+        paragraphs = structured
     return " ".join(title.split()), paragraphs
+
+
+MENU_CAPITALS = 0.6  # a block with no sentence punctuation and this share of capitalised words is a list of section links
+
+
+def _is_menu(text: str) -> bool:
+    words = text.split()
+    capitalised = sum(1 for w in words if not w[0].isalpha() or w[0].isupper())
+    return not re.search(r"[.!?,:;”\"]", text) and capitalised >= MENU_CAPITALS * len(words)
+
+
+def _chunks(text: str) -> list[str]:
+    sentences = re.split(r"(?:(?<=[.!?])|(?<=[.!?][\"”’]))\s+(?=[A-Z\"“‘])", text)
+    return [" ".join(sentences[i : i + SENTENCES_PER_CHUNK]) for i in range(0, len(sentences), SENTENCES_PER_CHUNK)]
+
+
+def _structured_body(soup: BeautifulSoup) -> list[str]:
+    """The articleBody of the page's schema.org data, including live-blog updates, split into paragraphs."""
+    bodies = []
+
+    def walk(node) -> None:
+        if isinstance(node, list):
+            for x in node:
+                walk(x)
+        elif isinstance(node, dict):
+            if isinstance(node.get("articleBody"), str):
+                bodies.append(node["articleBody"])
+            for key in ("@graph", "liveBlogUpdate", "mainEntity"):
+                walk(node.get(key))
+
+    for tag in soup.find_all("script", type="application/ld+json"):
+        try:
+            walk(json.loads(tag.string or ""))
+        except json.JSONDecodeError:
+            continue
+    seen, out = set(), []
+    for body in bodies:
+        parts = [" ".join(x.split()) for x in body.split("\n")]
+        for part in [c for x in parts for c in _chunks(x)]:
+            text = part
+            if len(text) >= MIN_PARAGRAPH_CHARS and not NOISE.search(text) and text not in seen:
+                seen.add(text)
+                out.append(text)
+    return out
 
 
 def _paragraph_chars(node) -> int:
@@ -77,7 +132,12 @@ def build(session: int, client: Client | None = None) -> Path:
     with out.open("w", encoding="utf-8") as f:
         for source in sources(session):
             name = hashlib.sha1(source["url"].encode()).hexdigest()[:12]
-            fetched = client.fetch(source["url"], RAW_DIR / "news" / str(session) / f"{name}.html")
+            try:
+                fetched = client.fetch(source["url"], RAW_DIR / "news" / str(session) / f"{name}.html")
+            except requests.HTTPError as e:
+                # a site that refuses the download is left out rather than stopping the others
+                log.warning("%s %s: refused (%s)", source["outlet"], source["url"], e.response.status_code)
+                continue
             if not fetched:
                 log.warning("%s: not found", source["url"])
                 continue

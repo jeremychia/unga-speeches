@@ -163,6 +163,10 @@ def build(session: int) -> Path:
     climate_floor = min(t["Climate change"] for t in d["trends"])
     terrorism_lowest = now["Terrorism"] < min(t["Terrorism"] for t in d["trends"] if t["year"] != d["year"])
 
+    quiet_issues = sorted(
+        (i for i in d["press"]["issues"] if i["speeches"] >= 30 and (i["press_ratio"] or 0) <= QUIET_RATIO),
+        key=lambda i: i["press_ratio"] or 0,
+    )
     title = "The world's attention has moved"
     kicker = (
         "In 2026 artificial intelligence became the one worry almost every country shares. "
@@ -215,8 +219,8 @@ def build(session: int) -> Path:
             (
                 "press",
                 "The world heard a narrower debate than the one given",
-                f"{_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} of press mentions went to five delegations, "
-                "and issues raised by dozens of speeches, from Sudan to debt, got no press at all.",
+                f"{_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} of press mentions went to five delegations. "
+                f"Issues raised by dozens of speeches, such as {'; '.join(_issue_phrase(i['issue']) for i in quiet_issues[:3])}, got a third or less of their share of the speeches.",
             ),
         ]
     )
@@ -643,6 +647,14 @@ def _synthesis(d: dict) -> str:
 TONE_ORDER = ["Alarm", "Appeal", "Showcase", "Statement, no verb"]
 ARGENTINA_QUOTE = "it's become a useless organization"
 TURN = "Latin America's turn"
+QUIET_RATIO = 0.34
+# how prose names a region's outlets and its delegations
+REGION_PRESS = {
+    "Africa": ("African outlets", "African delegations"),
+    "Americas": ("outlets in the Americas", "delegations from the Americas"),
+    "Asia": ("Asian outlets", "Asian delegations"),
+    "Oceania": ("Pacific outlets", "Pacific delegations"),
+}
 # the names prose uses where the formal name would read awkwardly mid-sentence
 SHORT_NAMES = {
     "united-states-america": "the United States",
@@ -673,6 +685,17 @@ def _check_beyond(d: dict) -> None:
         for snip in row["snippets"]:
             if not any(_normalise(snip["text"]) in p for p in paragraphs.get(snip["url"], [])):
                 raise ValueError(f"press excerpt is not in its article: {snip['text'][:80]}")
+
+
+def _issue_phrase(issue: str) -> str:
+    """An issue's name mid-sentence: lowered, except for place names."""
+    return (
+        issue if issue.split()[0] in ("Sudan", "Haiti", "Gaza", "Ukraine", "Iran", "Taiwan", "Palestinian", "Security") else issue.lower()
+    )
+
+
+def _upper_first(text: str) -> str:
+    return text[:1].upper() + text[1:]
 
 
 def _beyond(d: dict) -> dict[str, str]:
@@ -731,7 +754,10 @@ def _beyond(d: dict) -> dict[str, str]:
     att = pr["attention"]
     top = att["rows"][:5]
     iss = {i["issue"]: i for i in pr["issues"]}
-    silent = [i for i in pr["issues"] if i["press_per_1000"] == 0 and i["speeches"] >= 30]
+    # issues many speeches raised that the press gave a third or less of their podium share
+    quiet = sorted(
+        (i for i in pr["issues"] if i["speeches"] >= 30 and (i["press_ratio"] or 0) <= QUIET_RATIO), key=lambda i: i["press_ratio"] or 0
+    )
     loud = max(pr["issues"], key=lambda i: i["press_ratio"] or 0)
     heads = pr["headlines"]
     tones = dict(heads["tones"])
@@ -739,6 +765,10 @@ def _beyond(d: dict) -> dict[str, str]:
     outlets = sorted({s["outlet"].replace(" (via GlobalSecurity.org)", "") for s in pr["sources"] if s["outlet"] != "Wikipedia"})
     outside = [s for s in pr["sources"] if not s["outlet"].startswith("UN News") and s["outlet"] != "Wikipedia"]
     us = att["rows"][0]
+    home = att["by_base"]
+    europe = next((b for b in home if b["region"] == "Europe"), None)
+    elsewhere = [b for b in home if b["region"] != "Americas"]
+    us_elsewhere = sum(us["by_base"].get(b["region"], 0) for b in elsewhere) / max(1, sum(b["mentions"] for b in elsewhere))
     press_html = (
         _p(
             f"<b>{_drill(_pct(us['share_of_press']), kind='press', slug=us['slug'])} of the paragraphs in {att['articles']} outside news reports were about {n(us['slug'])}, "
@@ -750,16 +780,35 @@ def _beyond(d: dict) -> dict[str, str]:
         + _p(
             f"The press also heard different issues. {_e(loud['issue'])} got {loud['press_ratio']:.0f} times as much press text per word as podium text. "
             + (
-                "Issues raised by many speeches got no press at all: "
-                + ", ".join(
-                    f"{_e(i['issue'].lower() if i['issue'] not in ('Sudan', 'Haiti') else i['issue'])} ({_drill(i['speeches'], kind='mention', name=i['issue'])} speeches)"
-                    for i in silent
+                "Issues raised by many speeches got a third or less of their podium share: "
+                + "; ".join(
+                    f"{_e(_issue_phrase(i['issue']))} ({_drill(i['speeches'], kind='mention', name=i['issue'])} speeches, "
+                    f"{'no press' if not i['press_ratio'] else format(i['press_ratio'], '.1f') + '×'})"
+                    for i in quiet
                 )
                 + ". "
-                if silent
+                if quiet
                 else ""
             )
             + f"Climate change, raised by {_drill(iss['Climate change']['speeches'], kind='mention', name='Climate change')} speeches, got {iss['Climate change']['press_ratio']:.1f} times its podium share."
+        )
+        + _p(
+            "<b>Each region's press looks mostly at its own region.</b> "
+            + _upper_first(
+                "; ".join(
+                    f"{REGION_PRESS[b['region']][0]} gave {_pct(b['home_share'])} of their mentions to {REGION_PRESS[b['region']][1]}, "
+                    f"which are {_pct(b['home_speaker_share'])} of speakers"
+                    for b in home
+                    if b["region"] in REGION_PRESS and b["home_share"] is not None
+                )
+            )
+            + ". "
+            + (
+                f"Europe's {europe['articles']} reports come from {_e(', '.join(europe['outlets']))}, so its {_pct(europe['home_share'])} is mostly the war seen from each side. "
+                if europe
+                else ""
+            )
+            + f"Outside the Americas' press, the United States takes {_pct(us_elsewhere)} of mentions, against {_pct(us['share_of_press'])} overall."
         )
         + _p(
             f"<b>The UN's own summaries filter too.</b> Of the {iss['Ukraine']['speeches']} speeches that raised Ukraine, the UN press office's summary kept it for "
@@ -780,10 +829,12 @@ def _beyond(d: dict) -> dict[str, str]:
             "and most governments reach a wider audience, if at all, through the UN's own summaries."
         )
     )
+    words_by = {b["region"]: b["words"] for b in home}
     press_note = (
-        f"Outside press: {len(outside)} reports from {_e(', '.join(o for o in outlets if not o.startswith('UN News')))}, downloaded and cut to their paragraphs. "
-        "Politico returned no coverage of the debate and TLDR News publishes video only, so neither is in the sample. The sample leans to US outlets, "
-        "which is one reason the United States leads."
+        f"Outside press: {len(outside)} reports from {len(outlets) - 1} outlets across {len(home)} regions, downloaded and cut to their paragraphs. "
+        f"The Americas still supply {_pct(words_by.get('Americas', 0) / max(1, sum(words_by.values())))} of the words, mostly US live blogs. "
+        "BBC, Reuters, AP, the Guardian, the New York Times, CNA, the Straits Times and several Indian and French outlets could not be searched or refused the download. "
+        "Politico had no coverage and TLDR News is video only. <a href='https://github.com/jeremychia/unga-speeches/blob/main/docs/news-sourcing.md'>How the sample was built</a>."
     )
 
     cands = rc["candidates"]
