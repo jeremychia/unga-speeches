@@ -52,3 +52,20 @@ def test_extract_reads_structured_data_when_the_page_has_no_story():
     _, paragraphs = news.extract(html)
     assert sum(len(p.split()) for p in paragraphs) > 100
     assert all(len(p.split()) <= 3 * 8 for p in paragraphs)  # cut into three-sentence chunks
+
+
+def test_panel_keeps_the_outlet_with_most_words_per_country_and_folds_territories():
+    pytest.importorskip("sklearn")
+    from unga_speeches.analysis import press
+
+    def report(outlet, words):
+        return {"outlet": outlet, "words": words, "paragraphs": [], "base_region": "Asia", "url": outlet + str(words)}
+
+    news = [report("Big", 500), report("Big", 500), report("Small", 900), report("Hong Kong paper", 2000), report("UN News", 5000)]
+    articles, table = press.panel(news, {"Big": "Japan", "Small": "Japan", "Hong Kong paper": "Hong Kong", "UN News": "United Nations"})
+    chosen = {t["country"]: t["outlet"] for t in table}
+    assert chosen == {
+        "Japan": "Big",
+        "China": "Hong Kong paper",
+    }  # 1,000 words beat 900; Hong Kong counts as China; UN News is not national press
+    assert {a["outlet"] for a in articles} == {"Big", "Hong Kong paper"}

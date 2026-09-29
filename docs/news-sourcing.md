@@ -165,3 +165,19 @@ Africa now supplies the most words in the sample (45,552, against 33,623 from th
 | Delegations named at all | 103 of 191 | 124 of 191 | 124 of 191 |
 | African press's share to African delegations | 93% (4 reports) | 67% (72 reports) | |
 | Debt, press share against podium share | 0.3× | 1.7× | |
+
+## One outlet per country, 29 September
+
+Countries were unevenly represented: the United States by 9 outlets, Nigeria by 5, Kenya and China by 4 or 5. The press figures now use a panel with exactly one outlet per country, so each country's press counts once.
+
+- **Rule.** For each country, the outlet with the most debate-week words in the sample stands for it; ties go to more reports, then name. Territories count under their state, so the SCMP stands for China. UN News and Wikipedia are not national press and are left out.
+- **Kept, not counted.** The other outlets stay downloaded and listed in `reference/news_81.csv`, so the panel can change as the sample grows. The page's panel table names every outlet not counted.
+- **Headline measure.** Most of a country's press is about itself, so a plain average rewards self-coverage: Malawi's only paper writes about Malawi. The headline share therefore drops each outlet's mentions of its own country, then averages the rest over the countries whose outlet has at least 10 such mentions (26 of 38). The number of countries whose press named a delegation is shown beside it.
+- **Known quirk.** Equal weights let a small outlet move a figure. Jamaica's outlet is a wire story about island states, so Palau is the most-named outsider in the Americas' press.
+
+| Figure | 135 reports, regions balanced | One outlet per country (38 countries) |
+| --- | --- | --- |
+| United States' share of press attention | 15% | 13% of attention from other countries; named by 20 of 38 countries' press |
+| Next four | Iran, Israel, China, Palau | Israel, Palestine, Sudan, Iran |
+| Five most-named delegations' share | 39% | 44% |
+| Median outlet's share on its own country | | 55% |

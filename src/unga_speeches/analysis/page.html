@@ -313,13 +313,14 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <h2>__PRESS_TITLE__</h2>
     __PRESS__
     <div class="grid2 two">
-      <figure><h4>Share of press attention to each delegation, each region's press weighted equally</h4><div class="map" id="map-press"></div><div class="legend" id="legend-press"></div></figure>
-      <figure><h4>Share of press attention against share of words spoken</h4><div id="press-bars"></div>
-        <div class="legend"><span style="--sw:var(--c1)">Share of press attention, regions weighted equally</span><span style="--sw:var(--c2)">Share of words spoken</span></div></figure>
+      <figure><h4>Attention from other countries' press, one outlet per country</h4><div class="map" id="map-press"></div><div class="legend" id="legend-press"></div></figure>
+      <figure><h4>Attention from other countries' press against share of words spoken</h4><div id="press-bars"></div>
+        <div class="legend"><span style="--sw:var(--c1)">Share of attention from other countries' press</span><span style="--sw:var(--c2)">Share of words spoken</span></div></figure>
     </div>
     <figure><h4>Each region's press: share of mentions going to its own region, against its share of speakers</h4><div id="home-bars"></div>
       <div class="legend"><span style="--sw:var(--c1)">Share of the region's press mentions</span><span style="--sw:var(--c2)">Region's share of speakers</span></div>
-      <figcaption>A mention is a paragraph naming a delegation. Europe's reports are Russian and Ukrainian outlets only. Click a region for the delegations its press named most.</figcaption></figure>
+      <figcaption>A mention is a paragraph naming a delegation. Each country's outlet counts once, and a region's figure is the average over its countries. Europe's are Russia and Ukraine only. Click a region for the delegations its press named most.</figcaption></figure>
+    __PANEL__
     <figure><h4>How much more, or less, the press covered each issue than the speeches did</h4><div id="issue-ratio"></div>
       <figcaption>Mentions per 1,000 words in outside press, divided by the same rate in the speeches, on a logarithmic scale. 1× is equal attention. Hatched: no press mention at all.</figcaption></figure>
     <figure><h4>What the UN press office kept from each speech</h4><div id="kept-bars"></div>
@@ -707,9 +708,9 @@ drillable("named-bars", (i) => ({kind: "named", slug: topNamed[i].slug}));
 // ---------- the press ----------
 const P = D.press, ATT = P.attention, PRESS_OF = Object.fromEntries(ATT.rows.map((r) => [r.slug, r]));
 const PRESS_STEPS = [[0.005, "--o1"], [0.02, "--o2"], [0.05, "--o3"], [Infinity, "--o4"]];
-worldMap("map-press", (s) => PRESS_OF[s.slug] ? PRESS_STEPS.find(([cut]) => PRESS_OF[s.slug].balanced_share < cut)[1] : "--none",
+worldMap("map-press", (s) => PRESS_OF[s.slug] ? PRESS_STEPS.find(([cut]) => PRESS_OF[s.slug].foreign_share < cut)[1] : "--none",
   [["under 0.5%", "--o1"], ["0.5–2%", "--o2"], ["2–5%", "--o3"], ["5% or more", "--o4"], ["Not named", "--none"], ["No speech", null]],
-  (s) => PRESS_OF[s.slug] ? `${(100 * PRESS_OF[s.slug].balanced_share).toFixed(1)}% of press attention, regions weighted equally<br>${PRESS_OF[s.slug].paragraphs} paragraphs in ${PRESS_OF[s.slug].articles} reports from ${PRESS_OF[s.slug].outlets} outlets` : "Not named in the outside press",
+  (s) => PRESS_OF[s.slug] ? `${(100 * PRESS_OF[s.slug].foreign_share).toFixed(1)}% of attention from other countries' press<br>named by ${PRESS_OF[s.slug].foreign_countries} other countries' outlets · ${PRESS_OF[s.slug].paragraphs} paragraphs` : "Not named in the outside press",
   (s) => PRESS_OF[s.slug] ? drill({kind: "press", slug: s.slug}) : openProfile(s.slug), (s) => PRESS_OF[s.slug] ? "Click to read the excerpts" : "Click for the country profile");
 function pairbars(id, items, header = ["Delegation", "Share of press", "Share of words"]) {
   const max = Math.max(...items.flatMap((i) => [i.a, i.b])) || 1;
@@ -717,8 +718,8 @@ function pairbars(id, items, header = ["Delegation", "Share of press", "Share of
   $(id).querySelectorAll(".tracks").forEach((t) => { const i = items[+t.dataset.k]; hover(t, `<b>${esc(i.label)}</b><br>${esc(header[1])}: ${(100 * i.a).toFixed(1)}%<br>${esc(header[2])}: ${(100 * i.b).toFixed(1)}%`); t.style.cursor = "pointer"; t.dataset.drill = JSON.stringify(i.drill); });
   $(id).appendChild(tableView(header, items.map((i) => [i.label, (100 * i.a).toFixed(1) + "%", (100 * i.b).toFixed(1) + "%"])));
 }
-pairbars("press-bars", ATT.rows.slice(0, 15).map((r) => ({label: nameOf(r.slug), a: r.balanced_share, b: r.share_of_words, drill: {kind: "press", slug: r.slug}})), ["Delegation", "Share of press attention", "Share of words spoken"]);
-pairbars("home-bars", ATT.by_base.map((b) => ({label: `${b.region} (${b.articles} reports)`, a: b.home_share, b: b.home_speaker_share, drill: {kind: "home", region: b.region}})), ["Region's press", "Share to own region", "Region's share of speakers"]);
+pairbars("press-bars", ATT.rows.slice(0, 15).map((r) => ({label: nameOf(r.slug), a: r.foreign_share, b: r.share_of_words, drill: {kind: "press", slug: r.slug}})), ["Delegation", "Share of attention from other countries", "Share of words spoken"]);
+pairbars("home-bars", ATT.by_base.map((b) => ({label: `${b.region} (${b.countries.length} countries)`, a: b.home_share, b: b.home_speaker_share, drill: {kind: "home", region: b.region}})), ["Region's press", "Share to own region", "Region's share of speakers"]);
 (function ratioBars() {
   const rows = [...P.issues].filter((i) => !["Gaza"].includes(i.issue)).sort((a, b) => (b.press_ratio || 0) - (a.press_ratio || 0));
   const lo = Math.log10(0.1), hi = Math.log10(20), x = (v) => 100 * (Math.log10(Math.max(0.1, Math.min(20, v))) - lo) / (hi - lo), one = x(1);
@@ -759,7 +760,7 @@ const DEFINITIONS = {
   bloc: "Speeches grouped by the similarity of their word profiles (Ward clustering).",
   named: "A speech names a state when it uses its name or a common adjective for it. The sentence shown is where it first does.",
   press: "Paragraphs in outside news reports that name the delegation's country, or its speaker in a report that names the country. Each excerpt links to its report.",
-  home: "The delegations this region's outlets named in the most paragraphs. Click one to read the excerpts from every outlet.",
+  home: "The delegations this region's outlets gave the largest share of their mentions to, each country's outlet weighted equally. Click one to read the excerpts from every outlet.",
   tone: "The UN press office's headline for each speech, grouped by its first reporting verb.",
   dropped: "Speeches that raise the issue, but whose UN press office summary does not name it. The sentence is where the speech first raises it.",
   women: "Speakers the UN's speaker page introduces as “Her Excellency”.",
@@ -813,13 +814,13 @@ function drillSpec(spec) {
         extra: (EDGES_FROM[spec.slug] || []).filter((e) => !BY_SLUG[e.to]).map((e) => `<li><div class="who"><b>${esc(nameOf(e.to))}</b><span class="val">${e.times}×</span></div><div class="ev">${evidenceHtml(e)}</div></li>`).join("")};
     case "press": {
       const r = PRESS_OF[spec.slug];
-      return {title: `${nameOf(spec.slug)} in the press`, sub: `${r.paragraphs} paragraphs in ${r.articles} reports from ${r.outlets} outlets · ${(100 * r.balanced_share).toFixed(1)}% of press attention, regions weighted equally`, def: DEFINITIONS.press,
+      return {title: `${nameOf(spec.slug)} in the press`, sub: `${r.paragraphs} paragraphs in ${r.articles} reports from ${r.outlets} outlets · ${(100 * r.foreign_share).toFixed(1)}% of attention from other countries' press, named by ${r.foreign_countries} of them`, def: DEFINITIONS.press,
         html: `<ol class="items">${r.snippets.map((x) => `<li><div class="who"><a href="${esc(x.url)}">${esc(x.outlet)}</a><span class="val">${esc(x.date)}</span></div><div class="small">${esc(x.title)}</div><p class="snip">“${x.cut_start ? "…" : ""}${esc(x.text)}${x.cut_end ? "…" : ""}”</p></li>`).join("")}</ol>${r.paragraphs > r.snippets.length ? `<p class="small">Showing the first ${r.snippets.length} of ${r.paragraphs} paragraphs.</p>` : ""}`};
     }
     case "home": {
       const b = ATT.by_base.find((x) => x.region === spec.region);
       return {title: `What ${spec.region}'s press covered`, sub: `${b.articles} reports from ${b.outlets.join(", ")} · ${num(b.words)} words`, def: DEFINITIONS.home,
-        html: `<ol class="items">${b.top.map((t) => `<li><div class="who"><button type="button" class="drill" data-drill='${esc(JSON.stringify({kind: "press", slug: t.slug}))}'>${esc(nameOf(t.slug))}</button><span class="val">${t.mentions} paragraphs</span></div></li>`).join("")}</ol>`};
+        html: `<ol class="items">${b.top.map((t) => `<li><div class="who"><button type="button" class="drill" data-drill='${esc(JSON.stringify({kind: "press", slug: t.slug}))}'>${esc(nameOf(t.slug))}</button><span class="val">${pct(t.share)}</span></div></li>`).join("")}</ol>`};
     }
     case "tone":
       return {title: `UN headlines: ${spec.tone.toLowerCase()}`, def: DEFINITIONS.tone, pool: D.speeches, test: (s) => s.headline && s.headline.tone === spec.tone,

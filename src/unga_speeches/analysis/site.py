@@ -219,7 +219,8 @@ def build(session: int) -> Path:
             (
                 "press",
                 "The world heard a narrower debate than the one given",
-                f"{_drill(_pct(d['press']['attention']['balanced_top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} of press attention went to five delegations. "
+                f"With one outlet per country, {_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} "
+                "of the attention countries' press paid to foreign delegations went to five of them. "
                 f"Issues raised by dozens of speeches, such as {_listing([_issue_phrase(i['issue']) for i in quiet_issues[:3]])}, got a third or less of their share of the speeches.",
             ),
         ]
@@ -648,6 +649,7 @@ TONE_ORDER = ["Alarm", "Appeal", "Showcase", "Statement, no verb"]
 ARGENTINA_QUOTE = "it's become a useless organization"
 TURN = "Latin America's turn"
 QUIET_RATIO = 0.34
+SELF_HEAVY = 2 / 3  # an outlet giving at least this share of its mentions to its own country
 # how prose names a region's outlets and its delegations
 REGION_PRESS = {
     "Africa": ("African outlets", "African delegations"),
@@ -689,9 +691,9 @@ def _check_beyond(d: dict) -> None:
 
 def _issue_phrase(issue: str) -> str:
     """An issue's name mid-sentence: lowered, except for place names."""
-    return (
-        issue if issue.split()[0] in ("Sudan", "Haiti", "Gaza", "Ukraine", "Iran", "Taiwan", "Palestinian", "Security") else issue.lower()
-    )
+    if issue.split()[0] in ("Sudan", "Haiti", "Gaza", "Ukraine", "Iran", "Taiwan", "Palestinian", "Security"):
+        return issue
+    return issue[0].lower() + issue[1:]
 
 
 def _listing(items: list[str]) -> str:
@@ -771,20 +773,17 @@ def _beyond(d: dict) -> dict[str, str]:
     tones = dict(heads["tones"])
     tr = pr["translations"]
     outlets = sorted({s["outlet"].replace(" (via GlobalSecurity.org)", "") for s in pr["sources"] if s["outlet"] != "Wikipedia"})
-    outside = [s for s in pr["sources"] if not s["outlet"].startswith("UN News") and s["outlet"] != "Wikipedia"]
     us = att["rows"][0]
     home = att["by_base"]
     europe = next((b for b in home if b["region"] == "Europe"), None)
-    elsewhere = [b for b in home if b["region"] != "Americas"]
-    us_elsewhere = sum(us["by_base"].get(b["region"], 0) for b in elsewhere) / max(1, sum(b["mentions"] for b in elsewhere))
+    table = att["panel"]
+    self_heavy = sorted((t for t in table if t["mentions"] and t["own_share"] >= SELF_HEAVY), key=lambda t: -t["own_share"])
     press_html = (
         _p(
-            f"<b>{_drill(_pct(us['balanced_share']), kind='press', slug=us['slug'])} of press attention went to {n(us['slug'])}, "
-            f"whose speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words.</b> "
-            f"That counts the press of {len(att['balanced_regions'])} regions equally, so the figure does not depend on which region's outlets were sampled most; "
-            f"across all {att['articles']} reports pooled, it is {_pct(us['share_of_press'])}. "
-            f"Five delegations took {_pct(att['balanced_top5_share'])} of press attention: "
-            + ", ".join(f"{n(r['slug'])} ({_drill(_pct(r['balanced_share']), kind='press', slug=r['slug'])})" for r in top)
+            f"<b>With one outlet per country, {n(us['slug'])} got {_drill(_pct(us['foreign_share']), kind='press', slug=us['slug'])} of the attention "
+            f"other countries' press paid to foreign delegations, and was named by {us['foreign_countries']} of {att['countries']} countries' outlets.</b> "
+            f"Its speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words. Next come "
+            + _listing([f"{n(r['slug'])} ({_drill(_pct(r['foreign_share']), kind='press', slug=r['slug'])})" for r in top[1:]])
             + f". {att['named']} of {att['delegations']} delegations were named at all."
         )
         + _p(
@@ -803,22 +802,23 @@ def _beyond(d: dict) -> dict[str, str]:
             + f"Climate change, raised by {_drill(iss['Climate change']['speeches'], kind='mention', name='Climate change')} speeches, got {iss['Climate change']['press_ratio']:.1f} times its podium share."
         )
         + _p(
-            "<b>Each region's press looks mostly at its own region.</b> "
-            + _upper_first(
-                "; ".join(
-                    f"{REGION_PRESS[b['region']][0]} gave {_pct(b['home_share'])} of their mentions to {REGION_PRESS[b['region']][1]}, "
-                    f"which are {_pct(b['home_speaker_share'])} of speakers"
-                    for b in home
-                    if b["region"] in REGION_PRESS and b["home_share"] is not None
-                )
+            f"<b>Most of each country's press is about itself.</b> The median outlet gives {_pct(att['own_share_median'])} of its mentions to its own country's delegation, "
+            f"and {len(self_heavy)} of {att['countries']} give two-thirds or more, among them "
+            + _listing([f"{_e(t['country'])} ({_pct(t['own_share'])})" for t in self_heavy[:4]])
+            + ". "
+            + "Counted by region, with each country's outlet weighted equally: "
+            + "; ".join(
+                f"{REGION_PRESS[b['region']][0]} gave {_pct(b['home_share'])} of their mentions to {REGION_PRESS[b['region']][1]}, "
+                f"which are {_pct(b['home_speaker_share'])} of speakers"
+                for b in home
+                if b["region"] in REGION_PRESS
             )
             + ". "
             + (
-                f"Europe's {europe['articles']} reports come from {_e(', '.join(europe['outlets']))}, so its {_pct(europe['home_share'])} is mostly the war seen from each side. "
+                f"Europe's panel is {_listing([_e(c) for c in europe['countries']])} only, so its figure is mostly the war seen from each side. "
                 if europe
                 else ""
             )
-            + f"Outside the Americas' press, the United States takes {_pct(us_elsewhere)} of mentions, against {_pct(us['share_of_press'])} overall. "
             + "The delegation from outside their own region that each names most: "
             + "; ".join(
                 f"{REGION_PRESS[b['region']][0]}, {n(b['outsider']['slug'])}" for b in home if b["region"] in REGION_PRESS and b["outsider"]
@@ -844,15 +844,27 @@ def _beyond(d: dict) -> dict[str, str]:
             "and most governments reach a wider audience, if at all, through the UN's own summaries."
         )
     )
-    words_by = {b["region"]: b["words"] for b in home}
-    biggest = max(words_by, key=words_by.get)
+    unused = sum(len(t["not_used"]) for t in table)
     press_note = (
-        f"Outside press: {len(outside)} reports from {len(outlets) - 1} outlets across {len(home)} regions, downloaded and cut to their paragraphs. "
-        f"{biggest} supplies the most words ({_pct(words_by[biggest] / sum(words_by.values()))}), which is why the headline share weights each region equally. "
-        f"Regions with fewer than 10 reports, such as Europe, are left out of that weighting. "
+        f"Outside press: {att['sample_articles']} reports from {len(outlets) - 1} outlets, downloaded and cut to their paragraphs. "
+        f"For a fair comparison, one outlet stands for each of {att['countries']} countries: the one with the most debate-week words in the sample. "
+        f"The other {unused} outlets are downloaded but not counted. "
+        f"Attention from other countries leaves out each outlet's mentions of its own country, and counts only the {att['foreign_countries']} outlets "
+        f"with at least 10 such mentions. "
         "BBC, Reuters, AP, the Guardian, the New York Times, CNA, the Straits Times and several Indian and French outlets could not be searched or refused the download. "
         "Politico had no coverage and TLDR News is video only. <a href='https://github.com/jeremychia/unga-speeches/blob/main/docs/news-sourcing.md'>How the sample was built</a> · "
         "<a href='https://github.com/jeremychia/unga-speeches/blob/main/reference/outlets.csv'>every outlet considered</a>."
+    )
+    panel_rows = "".join(
+        f"<tr><td>{_e(t['country'])}</td><td>{_e(t['region'])}</td><td>{_e(t['outlet'])}</td><td class='n'>{t['reports']}</td><td class='n'>{t['words']:,}</td>"
+        f"<td class='n'>{_pct(t['own_share']) if t['mentions'] else '–'}</td><td>{n(t['top']) if t['top'] else '–'}</td>"
+        f"<td class='small'>{_e(', '.join(t['not_used']))}</td></tr>"
+        for t in sorted(table, key=lambda t: (t["region"], t["country"]))
+    )
+    panel_html = (
+        f"<details><summary>The {att['countries']} outlets that stand for their countries</summary><div class='scroll'><table class='data'>"
+        "<thead><tr><th>Country</th><th>Region</th><th>Outlet</th><th class='n'>Reports</th><th class='n'>Words</th><th class='n'>Own country</th>"
+        f"<th>Named most</th><th>Also sampled, not counted</th></tr></thead><tbody>{panel_rows}</tbody></table></div></details>"
     )
 
     cands = rc["candidates"]
@@ -967,6 +979,7 @@ def _beyond(d: dict) -> dict[str, str]:
         "__PRESS_TITLE__": "The world heard a narrower debate than the one given",
         "__PRESS__": press_html,
         "__PRESS_NOTE__": press_note,
+        "__PANEL__": panel_html,
         "__RACE_TITLE__": "One region campaigned for the next Secretary-General from the podium",
         "__RACE__": race_html,
         "__RACE_TABLE__": race_table,
