@@ -12,6 +12,7 @@ The page's press figures come from the reports listed in [`reference/news_81.csv
 | `no_coverage_found` | Searched; no report from the debate week turned up |
 | `search_blocked` | The search tool is refused by the domain |
 | `download_refused` | A report was found but the site refused the download |
+| `download_failed` | The download could not complete, such as a certificate that fails verification |
 | `no_text` | The page draws its text by script and publishes none in its data |
 | `outside_window` | The report found was published outside the debate week |
 | `not_english` | Only reports in other languages were found |
@@ -134,3 +135,33 @@ The Pacific now has 17 reports from 10 outlets.
 | Five most-named delegations' share | 56% | 52% |
 | Climate change, press share against podium share | 0.7× | 1.4× |
 | Pacific press's most-named delegation outside the Pacific | Iran | Indonesia, over West Papua |
+
+## African round, 29 September
+
+Africa had 4 reports, from 2 outlets. A third round searched 63 African outlets in 28 countries, from Nigeria, Kenya, South Africa, Ghana, Ethiopia and Egypt to Libya, Somalia, Sudan, Liberia and Namibia.
+
+| Result | Reports |
+| --- | --- |
+| **Kept** | 68 new reports from 31 outlets, for 72 African reports from 34 outlets in all. The largest sets: Morocco World News ×5, MyJoyOnline ×6, The Star (Kenya) ×5, The Namibian ×4, Daily News Egypt ×3, Vanguard ×3 |
+| **Published outside the debate week** | Daily Trust (2024); eNCA ×2 (2024, 2025); The Citizen, Tanzania (2024); Garowe Online (2020); Libya Observer ×2 (2021, 2025); The Namibian and Morocco World News previews (17 September) |
+| **Dates read by hand** | ENA ×2 give no machine-readable date; their pages say September 2025, so both are left out |
+| **Refused the download** | Sudan Tribune ×3; The Reporter (Ethiopia) ×2; Ahram Online |
+| **No text in the page** | GhanaWeb ×2; APS (Algeria), which yields 14 words |
+| **Download failed** | TAP (Tunisia), whose certificate fails verification; the check was not switched off |
+| **Excluded** | Full speech texts from Channels TV, Graphic Online and MyJoyOnline; allAfrica, whose items republish UN News and outlets already sampled; Egypt's State Information Service, a government press office |
+
+French-language outlets, which cover much of West and Central Africa, are out by the English-only rule. That leaves Senegal, Côte d'Ivoire, Cameroon and the Democratic Republic of the Congo without home press in the sample.
+
+**New context.** The US withheld a visa from Sudan's General al-Burhan, and Sudan's foreign minister spoke instead. It is the second visa refusal of the week, after Mahmoud Abbas, and is now on the page's timeline.
+
+### A change of method: region-balanced shares
+
+Africa now supplies the most words in the sample (45,552, against 33,623 from the Americas). A share pooled across all reports would therefore rank African delegations high because African outlets were sampled most. The page's headline press share now averages each delegation's share across the regions with at least 10 reports (Africa, the Americas, Asia and the Pacific), so each region's press counts equally. The pooled share is still shown beside it.
+
+| Figure | 67 reports, pooled | 135 reports, pooled | 135 reports, regions balanced |
+| --- | --- | --- | --- |
+| United States' share of press attention | 24% | 18% | 15% |
+| Five most-named delegations' share | 52% | 42% | 39% |
+| Delegations named at all | 103 of 191 | 124 of 191 | 124 of 191 |
+| African press's share to African delegations | 93% (4 reports) | 67% (72 reports) | |
+| Debt, press share against podium share | 0.3× | 1.7× | |

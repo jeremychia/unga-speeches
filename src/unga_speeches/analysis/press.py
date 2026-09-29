@@ -24,6 +24,7 @@ TONES = [
 _TONES = [(name, re.compile(rf"\b(?:{p})\b", re.I)) for name, p in TONES]
 NO_VERB = "Statement, no verb"
 SNIPPET_WORDS = 40
+BALANCED_MIN_REPORTS = 10  # a region's press enters the balanced share only with at least this many reports
 SNIPPETS = 6
 # a surname shorter than this is too often a first name or a word to count on its own
 SURNAME_CHARS = 4
@@ -112,10 +113,24 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
     total = sum(r["paragraphs"] for r in rows)
     for r in rows:
         r["share_of_press"] = round(r["paragraphs"] / total, 4)
-    rows.sort(key=lambda r: -r["paragraphs"])
-    shares = [r["share_of_press"] for r in rows]
+    # each region's press counts equally, so the figure does not depend on which region was sampled most
+    base_totals = Counter()
+    for r in rows:
+        base_totals.update(r["by_base"])
+    balanced_regions = sorted(
+        b for b, n in Counter(a.get("base_region") for a in articles).items() if n >= BALANCED_MIN_REPORTS and b in base_totals
+    )
+    for r in rows:
+        r["balanced_share"] = round(
+            sum(r["by_base"].get(b, 0) / base_totals[b] for b in balanced_regions) / max(1, len(balanced_regions)), 4
+        )
+    rows.sort(key=lambda r: -r["balanced_share"])
+    shares = [r["share_of_press"] for r in sorted(rows, key=lambda r: -r["share_of_press"])]
+    balanced = [r["balanced_share"] for r in rows]
     return {
         "rows": rows,
+        "balanced_regions": balanced_regions,
+        "balanced_top5_share": round(sum(balanced[:5]), 3),
         "by_base": _home_bias(speeches, articles, rows),
         "articles": len(articles),
         "paragraphs": sum(len(a["paragraphs"]) for a in articles),

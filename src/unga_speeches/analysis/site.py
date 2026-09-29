@@ -219,8 +219,8 @@ def build(session: int) -> Path:
             (
                 "press",
                 "The world heard a narrower debate than the one given",
-                f"{_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} of press mentions went to five delegations. "
-                f"Issues raised by dozens of speeches, such as {'; '.join(_issue_phrase(i['issue']) for i in quiet_issues[:3])}, got a third or less of their share of the speeches.",
+                f"{_drill(_pct(d['press']['attention']['balanced_top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} of press attention went to five delegations. "
+                f"Issues raised by dozens of speeches, such as {_listing([_issue_phrase(i['issue']) for i in quiet_issues[:3]])}, got a third or less of their share of the speeches.",
             ),
         ]
     )
@@ -694,6 +694,14 @@ def _issue_phrase(issue: str) -> str:
     )
 
 
+def _listing(items: list[str]) -> str:
+    """Items as prose: "a and b", or "a, b and c"; semicolons when an item has its own "and"."""
+    sep = "; " if any(" and " in i for i in items) else ", "
+    if len(items) < 3:
+        return (", and " if sep == "; " else " and ").join(items)
+    return sep.join(items[:-1]) + (" and " if sep == ", " else "; and ") + items[-1]
+
+
 def _upper_first(text: str) -> str:
     return text[:1].upper() + text[1:]
 
@@ -771,11 +779,13 @@ def _beyond(d: dict) -> dict[str, str]:
     us_elsewhere = sum(us["by_base"].get(b["region"], 0) for b in elsewhere) / max(1, sum(b["mentions"] for b in elsewhere))
     press_html = (
         _p(
-            f"<b>{_drill(_pct(us['share_of_press']), kind='press', slug=us['slug'])} of the paragraphs in {att['articles']} outside news reports were about {n(us['slug'])}, "
+            f"<b>{_drill(_pct(us['balanced_share']), kind='press', slug=us['slug'])} of press attention went to {n(us['slug'])}, "
             f"whose speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words.</b> "
-            f"Five delegations took {_pct(att['top5_share'])} of all press mentions: "
-            + ", ".join(f"{n(r['slug'])} ({_drill(_pct(r['share_of_press']), kind='press', slug=r['slug'])})" for r in top)
-            + f". Only {att['named']} of {att['delegations']} delegations were named at all."
+            f"That counts the press of {len(att['balanced_regions'])} regions equally, so the figure does not depend on which region's outlets were sampled most; "
+            f"across all {att['articles']} reports pooled, it is {_pct(us['share_of_press'])}. "
+            f"Five delegations took {_pct(att['balanced_top5_share'])} of press attention: "
+            + ", ".join(f"{n(r['slug'])} ({_drill(_pct(r['balanced_share']), kind='press', slug=r['slug'])})" for r in top)
+            + f". {att['named']} of {att['delegations']} delegations were named at all."
         )
         + _p(
             f"The press also heard different issues. {_e(loud['issue'])} got {loud['press_ratio']:.0f} times as much press text per word as podium text. "
@@ -835,9 +845,11 @@ def _beyond(d: dict) -> dict[str, str]:
         )
     )
     words_by = {b["region"]: b["words"] for b in home}
+    biggest = max(words_by, key=words_by.get)
     press_note = (
         f"Outside press: {len(outside)} reports from {len(outlets) - 1} outlets across {len(home)} regions, downloaded and cut to their paragraphs. "
-        f"The Americas still supply {_pct(words_by.get('Americas', 0) / max(1, sum(words_by.values())))} of the words, mostly US live blogs. "
+        f"{biggest} supplies the most words ({_pct(words_by[biggest] / sum(words_by.values()))}), which is why the headline share weights each region equally. "
+        f"Regions with fewer than 10 reports, such as Europe, are left out of that weighting. "
         "BBC, Reuters, AP, the Guardian, the New York Times, CNA, the Straits Times and several Indian and French outlets could not be searched or refused the download. "
         "Politico had no coverage and TLDR News is video only. <a href='https://github.com/jeremychia/unga-speeches/blob/main/docs/news-sourcing.md'>How the sample was built</a> · "
         "<a href='https://github.com/jeremychia/unga-speeches/blob/main/reference/outlets.csv'>every outlet considered</a>."
