@@ -1,4 +1,6 @@
-from unga_speeches.analysis import mentions, press
+import pytest
+
+from unga_speeches.analysis import mentions
 from unga_speeches.sources import news
 
 
@@ -27,6 +29,9 @@ def test_named_takes_the_longest_name_and_skips_places():
 
 
 def test_tone_takes_the_first_reporting_verb():
+    pytest.importorskip("sklearn")  # press imports the topic model, which ships in the analysis group
+    from unga_speeches.analysis import press
+
     assert press.tone("Kuwait calls out Iranian aggression, urges talks") == ("Alarm", "calls out")
     assert press.tone("Eswatini urges fair African representation now") == ("Appeal", "urges")
     assert press.tone("Bhutan: come build with us") == (press.NO_VERB, None)
