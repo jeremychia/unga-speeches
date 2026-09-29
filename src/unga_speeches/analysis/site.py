@@ -120,6 +120,8 @@ def build(session: int) -> Path:
     d = analyse.build(session)
     chosen = HIGHLIGHTS.get(session, [])
     _check_quotes(d, chosen)
+    _check_beyond(d)
+    beyond = _beyond(d)
     d["geo"] = geo.paths()
     unlabelled = [t["label"] for t in d["topics"] if t["label"].startswith(topics.UNLABELLED)]
     if unlabelled:
@@ -209,6 +211,12 @@ def build(session: int) -> Path:
                 "order",
                 "States argued over the rules, not for a new order",
                 f"{_drill(_pct(law), kind='mention', name='UN Charter or international law')} invoked the UN Charter or international law. Only {_drill(markers['Multipolar']['speeches'], kind='mention', name='Multipolar')} speeches said “multipolar”.",
+            ),
+            (
+                "press",
+                "The world heard a narrower debate than the one given",
+                f"{_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} of press mentions went to five delegations, "
+                "and issues raised by dozens of speeches, from Sudan to debt, got no press at all.",
             ),
         ]
     )
@@ -417,6 +425,7 @@ def build(session: int) -> Path:
             f"{_drill(issues['The next Secretary-General']['speeches'], kind='mention', name='The next Secretary-General')} speeches mention choosing the next Secretary-General, "
             "whose term begins in 2027.",
         ),
+        ("Women at the podium", beyond.pop("_women")),
         (
             "Taiwan",
             f"{_drill(len(taiwan), kind='mention', name='Taiwan')} speeches mention Taiwan, which has no seat and gives no speech: {_e(', '.join(taiwan))}.",
@@ -492,6 +501,12 @@ def build(session: int) -> Path:
             "<b>Maps.</b> Natural Earth boundaries (public domain), simplified to about 15 km and drawn in the browser. States too small to see are drawn as dots. Hatched areas gave no speech, or are not UN members.",
             "<b>Words.</b> Counts leave out common English words, names, salutations and transcript filler. Region words use weighted log-odds with an informative prior; each speech's distinctive words are its highest TF-IDF terms.",
             "<b>Similarity.</b> Cosine similarity of TF-IDF word profiles, with names, salutations and filler removed; the same measure drives the closest speeches, the pairs and the blocs. Blocs come from Ward clustering into eight groups, and are named by their top words.",
+            "<b>Naming.</b> A speech names a state when it uses the state's name, a formal or former name, or, for about fifty states, a common adjective such as “Russian” or “Israeli”. "
+            "Places named after a state, such as the Gulf of Guinea, are not counted, and neither is a bare “Congo”, which speakers use for both Congos.",
+            "<b>Press.</b> News reports are listed by hand in reference/news_81.csv, downloaded, and cut to their paragraphs by fixed rules. Only short excerpts are shown, each linked to its report and "
+            "checked word for word against the downloaded page. A report names a delegation when a paragraph names the country or, in a report that names the country, its speaker's surname.",
+            "<b>The UN's summaries.</b> Each speaker's UN page carries the UN press office's headline and summary. A summary keeps an issue when it names it with the same word list used for the speeches. "
+            "A headline's tone is set by its first reporting verb.",
             "<b>Highlights.</b> The eight speeches worth reading are an editorial choice, and their notes are our reading. Their quotes are checked like every other quote on the page.",
             f"<b>Reproduce it.</b> The code and data are at <a href='{REPO}'>{REPO.removeprefix('https://')}</a>, and the <a href='data.json'>figures behind this page</a> are published beside it.",
         ]
@@ -536,6 +551,7 @@ def build(session: int) -> Path:
         "__ALIKE_TITLE__": "Speeches cluster by neighbourhood, and alike in theme rather than wording",
         "__ALIKE__": alike_html,
         "__METHOD__": method,
+        **beyond,
         "__FOOTER__": footer,
         "__DATA__": json.dumps(d, ensure_ascii=False).replace("</", "<\\/"),
     }.items():
@@ -622,3 +638,285 @@ def _synthesis(d: dict) -> str:
             "Speakers argue about the order through its existing institutions rather than naming a replacement.",
         ]
     )
+
+
+TONE_ORDER = ["Alarm", "Appeal", "Showcase", "Statement, no verb"]
+ARGENTINA_QUOTE = "it's become a useless organization"
+TURN = "Latin America's turn"
+# the names prose uses where the formal name would read awkwardly mid-sentence
+SHORT_NAMES = {
+    "united-states-america": "the United States",
+    "iran-islamic-republic": "Iran",
+    "venezuela-bolivarian-republic": "Venezuela",
+    "russian-federation": "Russia",
+    "palestine-state": "Palestine",
+    "united-kingdom-great-britain-and-northern-ireland": "the United Kingdom",
+    "syrian-arab-republic": "Syria",
+    "bolivia-plurinational-state": "Bolivia",
+}
+
+
+def _check_beyond(d: dict) -> None:
+    """The naming evidence, candidate evidence and press excerpts must each appear in the text they are cut from."""
+    sources = _verbatim_texts(d["session"])
+    quotes = [(e["from"], e["evidence"]["text"]) for e in d["mentions"]["edges"] if e["evidence"]]
+    quotes += [(n["slug"], n["evidence"]["text"]) for c in d["race"]["candidates"] for n in c["named_by"] if n["evidence"]]
+    quotes += [(n["slug"], n["evidence"]["text"]) for v in d["race"]["asks"].values() for n in v if n["evidence"]]
+    quotes += [("argentina", ARGENTINA_QUOTE)]
+    for slug, quote in quotes:
+        if not any(_normalise(quote) in t for t in sources.get(slug, [])):
+            raise ValueError(f"quote for {slug} is not in its source text: {quote[:80]}")
+    from unga_speeches.analysis import press
+
+    paragraphs = {n["url"]: [_normalise(p) for p in n["paragraphs"]] for n in press.load_news(d["session"])}
+    for row in d["press"]["attention"]["rows"]:
+        for snip in row["snippets"]:
+            if not any(_normalise(snip["text"]) in p for p in paragraphs.get(snip["url"], [])):
+                raise ValueError(f"press excerpt is not in its article: {snip['text'][:80]}")
+
+
+def _beyond(d: dict) -> dict[str, str]:
+    """Copy for the sections that look past the speeches themselves: naming, the press, the Secretary-General race and the UN's own summary."""
+    names, rows = d["names"], d["speeches"]
+    by_slug = {r["slug"]: r for r in rows}
+    m, pr, rc = d["mentions"], d["press"], d["race"]
+    most = m["most_named"]
+
+    def n(slug: str) -> str:
+        return _e(SHORT_NAMES.get(slug, names.get(slug, slug)))
+
+    def named_drill(i: int) -> str:
+        x = most[i]
+        return f"{n(x['slug'])} ({_drill(x['speeches'], kind='named', slug=x['slug'])} speeches)"
+
+    pairs_total = len(m["edges"])
+    usa = next((x for x in most if x["slug"] == "united-states-america"), None)
+    rus = next((x for x in most if x["slug"] == "russian-federation"), None)
+    top_namer = m["names_most"][0]
+    taiwan = next((x for x in most if x["slug"] == "TWN"), None)
+    mutual_examples = [
+        p for p in m["mutual"] if p in (["armenia", "azerbaijan"], ["iran-islamic-republic", "israel"], ["cuba", "united-states-america"])
+    ]
+    naming = (
+        _p(
+            f"<b>{named_drill(0)}, {named_drill(1)} and {named_drill(2)} are the states other speeches name most.</b> "
+            f"Next come {named_drill(3)} and {named_drill(4)}. Across the debate, a speech named another state in {pairs_total:,} speech-to-state pairs."
+        )
+        + _p(
+            (
+                f"Russia is named by fewer speeches than the United States ({rus['speeches']} against {usa['speeches']}), but more insistently: "
+                f"{rus['times']} times against {usa['times']}. "
+                if rus and usa and rus["speeches"] < usa["speeches"] and rus["times"] > usa["times"]
+                else ""
+            )
+            + f"{n(top_namer['slug'])} names more states than anyone ({_drill(top_namer['states'], kind='names', slug=top_namer['slug'])}). "
+            f"{_pct(m['same_region_share'])} of all naming stays within the speaker's own region."
+        )
+        + _p(
+            f"{len(m['mutual'])} pairs of states name each other"
+            + (", among them " + "; ".join(f"{n(a)} and {n(b)}" for a, b in mutual_examples) + "." if mutual_examples else ".")
+            + f" {len(m['named_nobody'])} speeches name no other state at all: {', '.join(n(s) for s in m['named_nobody'])}."
+            + (
+                f" Taiwan, which has no seat, is named in {_drill(taiwan['speeches'], kind='named', slug='TWN')} speeches."
+                if taiwan
+                else ""
+            )
+        )
+        + _p(
+            "<span class='so-what'>So what:</span> naming a state is how a speech assigns blame or offers solidarity. The most-named are the places at war, not the great powers, "
+            "and naming mostly stays close to home."
+        )
+    )
+
+    att = pr["attention"]
+    top = att["rows"][:5]
+    iss = {i["issue"]: i for i in pr["issues"]}
+    silent = [i for i in pr["issues"] if i["press_per_1000"] == 0 and i["speeches"] >= 30]
+    loud = max(pr["issues"], key=lambda i: i["press_ratio"] or 0)
+    heads = pr["headlines"]
+    tones = dict(heads["tones"])
+    tr = pr["translations"]
+    outlets = sorted({s["outlet"].replace(" (via GlobalSecurity.org)", "") for s in pr["sources"] if s["outlet"] != "Wikipedia"})
+    outside = [s for s in pr["sources"] if not s["outlet"].startswith("UN News") and s["outlet"] != "Wikipedia"]
+    us = att["rows"][0]
+    press_html = (
+        _p(
+            f"<b>{_drill(_pct(us['share_of_press']), kind='press', slug=us['slug'])} of the paragraphs in {att['articles']} outside news reports were about {n(us['slug'])}, "
+            f"whose speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words.</b> "
+            f"Five delegations took {_pct(att['top5_share'])} of all press mentions: "
+            + ", ".join(f"{n(r['slug'])} ({_drill(_pct(r['share_of_press']), kind='press', slug=r['slug'])})" for r in top)
+            + f". Only {att['named']} of {att['delegations']} delegations were named at all."
+        )
+        + _p(
+            f"The press also heard different issues. {_e(loud['issue'])} got {loud['press_ratio']:.0f} times as much press text per word as podium text. "
+            + (
+                "Issues raised by many speeches got no press at all: "
+                + ", ".join(
+                    f"{_e(i['issue'].lower() if i['issue'] not in ('Sudan', 'Haiti') else i['issue'])} ({_drill(i['speeches'], kind='mention', name=i['issue'])} speeches)"
+                    for i in silent
+                )
+                + ". "
+                if silent
+                else ""
+            )
+            + f"Climate change, raised by {_drill(iss['Climate change']['speeches'], kind='mention', name='Climate change')} speeches, got {iss['Climate change']['press_ratio']:.1f} times its podium share."
+        )
+        + _p(
+            f"<b>The UN's own summaries filter too.</b> Of the {iss['Ukraine']['speeches']} speeches that raised Ukraine, the UN press office's summary kept it for "
+            f"{_drill(_pct(iss['Ukraine']['kept_share']), kind='dropped', issue='Ukraine')}. For Palestinian statehood it kept "
+            f"{_drill(_pct(iss['Palestinian statehood']['kept_share']), kind='dropped', issue='Palestinian statehood')}, and for AI "
+            f"{_drill(_pct(iss['Artificial intelligence']['kept_share']), kind='dropped', issue='Artificial intelligence')}. "
+            f"Its headlines are mostly statements or quotes with no reporting verb ({_drill(tones.get('Statement, no verb', 0), kind='tone', tone='Statement, no verb')}); "
+            f"of the rest, {_drill(tones.get('Showcase', 0), kind='tone', tone='Showcase')} showcase, {_drill(tones.get('Appeal', 0), kind='tone', tone='Appeal')} appeal "
+            f"and {_drill(tones.get('Alarm', 0), kind='tone', tone='Alarm')} sound the alarm."
+        )
+        + _p(
+            f"UN News also rewrote {tr['speeches']} speeches for readers in other languages, "
+            + ", ".join(f"{lang} ({k})" for lang, k in tr["languages"][:3])
+            + " most often."
+        )
+        + _p(
+            "<span class='so-what'>So what:</span> the debate the world reads about is narrower than the one given. A handful of outlets follow a handful of speakers, "
+            "and most governments reach a wider audience, if at all, through the UN's own summaries."
+        )
+    )
+    press_note = (
+        f"Outside press: {len(outside)} reports from {_e(', '.join(o for o in outlets if not o.startswith('UN News')))}, downloaded and cut to their paragraphs. "
+        "Politico returned no coverage of the debate and TLDR News publishes video only, so neither is in the sample. The sample leans to US outlets, "
+        "which is one reason the United States leads."
+    )
+
+    cands = rc["candidates"]
+    leader = max((c for c in cands if not c["withdrew"]), key=lambda c: c["poll"]["encourage"])
+    most_named_c = max(cands, key=lambda c: len(c["named_by"]))
+    unnamed = [c for c in cands if not c["named_by"] and not c["withdrew"]]
+    withdrawn = [c for c in cands if c["withdrew"]]
+    asks = rc["asks"]
+    race_html = (
+        _p(
+            f"<b>{_drill(len(most_named_c['named_by']), kind='candidate', index=cands.index(most_named_c))} speeches named {_e(most_named_c['name'])}, "
+            f"{'all from the Caribbean' if all(by_slug.get(x['slug'], {}).get('region') == 'Americas' for x in most_named_c['named_by']) else 'more than any other candidate'}.</b> "
+            f"{_e(leader['name'])}, who led the Security Council's {rc['poll_date'][8:].lstrip('0')} September straw poll with {leader['poll']['encourage']} of "
+            f"{leader['poll']['of']} members encouraging, was named by "
+            + (
+                f"{_drill(len(leader['named_by']), kind='candidate', index=cands.index(leader))} speech{'es' if len(leader['named_by']) != 1 else ''}: "
+                + _e(", ".join(names[x["slug"]] for x in leader["named_by"]))
+                + (", in Spanish" if leader["named_by"] and all(x["language"] == "es" for x in leader["named_by"]) else "")
+                + "."
+                if leader["named_by"]
+                else "no speech."
+            )
+        )
+        + _p(
+            (
+                "Not every nominee was named even by the state that nominated them. "
+                + "; ".join(f"{_e(c['name'])}, nominated by {_e(c['nominated_by'])}, by none" for c in unnamed)
+                + ". "
+                if unnamed
+                else ""
+            )
+            + (
+                f"Argentina's president used the podium to call the UN “{_e(ARGENTINA_QUOTE.split('become ', 1)[1])}”."
+                if any(c["nominated_by"] == "Argentina" for c in unnamed)
+                else ""
+            )
+            + (
+                " " + "; ".join(f"{_e(c['name'])} withdrew on {int(c['withdrew'][8:])} September" for c in withdrawn) + "."
+                if withdrawn
+                else ""
+            )
+        )
+        + _p(
+            f"Beyond names, {_drill(len(asks['A woman']), kind='ask', name='A woman')} speeches asked for the first woman Secretary-General and "
+            f"{_drill(len(asks[TURN]), kind='ask', name=TURN)} said it was Latin America's turn. "
+            f"{_drill(len(rc['mention_selection']), kind='mention', name='The next Secretary-General')} speeches mentioned the selection at all."
+        )
+        + _p(
+            "<span class='so-what'>So what:</span> the selection is decided in the Security Council, not the Assembly Hall, and most governments kept quiet about it. "
+            "Only one region used the podium to campaign as a bloc."
+        )
+    )
+    race_rows = "".join(
+        f"<tr><td><b>{_e(c['name'])}</b><br><span class='small'>{_e(c['nationality'])} · nominated by {_e(c['nominated_by'])}"
+        f"{' · withdrew ' + _e(c['withdrew']) if c['withdrew'] else ''}</span></td>"
+        f"<td><div class='poll' role='img' aria-label='{c['poll']['encourage']} encourage, {c['poll']['discourage']} discourage, {c['poll']['no_opinion']} no opinion'>"
+        + "".join(
+            f"<span class='{k}' style='flex:{c['poll'][k]}' title='{c['poll'][k]} {label}'>{c['poll'][k] or ''}</span>"
+            for k, label in (("encourage", "encourage"), ("no_opinion", "no opinion"), ("discourage", "discourage"))
+        )
+        + "</div></td>"
+        f"<td>{_drill(str(len(c['named_by'])), kind='candidate', index=cands.index(c)) if c['named_by'] else '0'}"
+        f"{'<br><span class=small>' + _e(', '.join(names[x['slug']] for x in c['named_by'])) + '</span>' if c['named_by'] else ''}</td></tr>"
+        for c in sorted(cands, key=lambda c: (bool(c["withdrew"]), -c["poll"]["encourage"]))
+    )
+    race_table = (
+        "<figure><h4>The candidates: the Security Council's straw poll against the podium</h4><div class='scroll'><table class='data race'>"
+        "<thead><tr><th>Candidate</th><th>Straw poll, 18 September</th><th>Speeches naming them</th></tr></thead>"
+        f"<tbody>{race_rows}</tbody></table></div>"
+        "<div class='legend'><span style='--sw:var(--c1)'>Encourage</span><span style='--sw:var(--none)'>No opinion</span><span style='--sw:var(--c2)'>Discourage</span></div>"
+        f"<figcaption>Straw poll of the 15 Security Council members, as reported on the <a href='{_e(cands[0]['source_url'])}'>Wikipedia page on the selection</a>, "
+        "which cites 1 for 8 Billion and Reuters. A speech names a candidate when their surname appears in its English or original text.</figcaption></figure>"
+    )
+
+    verdict_class = {
+        "Matches": "ok",
+        "Holds": "ok",
+        "As expected": "ok",
+        "Close": "near",
+        "Close second": "near",
+        "Depends on wording": "near",
+    }
+    claims = "".join(
+        f"<tr><td><b>{_e(c['topic'])}</b></td><td>“{_e(c['quote'])}”<br><span class='small'><a href='{_e(c['url'])}'>{_e(c['source'])}</a></span></td>"
+        f"<td>{_e(c['ours'])}<br><span class='small'>{_e(c['detail'])}</span></td><td><span class='verdict {verdict_class.get(c['verdict'], 'off')}'>{_e(c['verdict'])}</span></td></tr>"
+        for c in pr["claims"]
+    )
+    claims_html = _p(
+        "<b>The Assembly President closed the debate with a set of numbers. Counting the same things in the texts mostly bears him out.</b> "
+        "The speaker totals and the rise of AI match almost exactly. Two claims depend on how you count: AI beats the phrase “climate change” but not climate language as a whole, "
+        "and “peace” is the second word of the debate, just behind “security”."
+    ) + (
+        "<figure><h4>What was said about the debate, checked against the speeches</h4><div class='scroll'><table class='data claims'>"
+        "<thead><tr><th>Claim</th><th>As reported</th><th>From the texts</th><th>Verdict</th></tr></thead>"
+        f"<tbody>{claims}</tbody></table></div></figure>"
+    )
+
+    timeline = "".join(
+        f"<li><time>{int(c['date'][8:])} Sep</time><div><b>{_e(c['event'])}</b><br><span class='small'>“{_e(c['quote'])}” · <a href='{_e(c['url'])}'>{_e(c['outlet'])}</a></span></div></li>"
+        for c in pr["context"]
+    )
+    women = pr["women"]
+    women_rate = women["women_and_girls_per_1000"]
+    women_callout = (
+        f"{_drill(women['count'], kind='women')} of {women['of']} speakers were introduced as “Her Excellency”: "
+        + ", ".join(f"{k} {analyse_role(r)}" for r, k in women["by_role"])
+        + f". Their speeches mention women, girls or gender {women_rate['women']:.2f} times per 1,000 words, against {women_rate['men']:.2f} in speeches by men."
+    )
+    return {
+        "__NAMING_TITLE__": f"{n(most[0]['slug'])} and {n(most[1]['slug'])} are named most; naming stays close to home",
+        "__NAMING__": naming,
+        "__PRESS_TITLE__": "The world heard a narrower debate than the one given",
+        "__PRESS__": press_html,
+        "__PRESS_NOTE__": press_note,
+        "__RACE_TITLE__": "One region campaigned for the next Secretary-General from the podium",
+        "__RACE__": race_html,
+        "__RACE_TABLE__": race_table,
+        "__CLAIMS_TITLE__": "The UN's own summary mostly holds up",
+        "__CLAIMS__": claims_html,
+        "__TIMELINE__": timeline,
+        "_women": women_callout,
+    }
+
+
+ROLE_WORDS = {
+    "head_of_state_or_government": "heads of state or government",
+    "foreign_minister": "foreign ministers",
+    "deputy_head": "deputy heads",
+    "diplomat": "ambassadors",
+    "other_minister": "other ministers",
+    "other": "other",
+}
+
+
+def analyse_role(role_group: str) -> str:
+    return ROLE_WORDS.get(role_group, role_group)
