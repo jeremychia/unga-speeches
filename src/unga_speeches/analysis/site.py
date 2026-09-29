@@ -689,11 +689,39 @@ def _check_beyond(d: dict) -> None:
                 raise ValueError(f"press excerpt is not in its article: {snip['text'][:80]}")
 
 
+def _leaning_sentence(lean: dict, name) -> str:
+    """The two delegations whose coverage differs most between outlets left and right of centre."""
+    groups = {g["group"]: g for g in lean["groups"]}
+    left, right = groups.get("Left of centre"), groups.get("Right of centre")
+    if not left or not right or not left["outlets"] or not right["outlets"]:
+        return ""
+    gaps = sorted(lean["delegations"], key=lambda s: -abs(left["share"].get(s, 0) - right["share"].get(s, 0)))[:2]
+    parts = [
+        f"{name(s)} got {_pct(left['share'].get(s, 0))} of left-of-centre outlets' mentions against {_pct(right['share'].get(s, 0))} of right-of-centre ones'"
+        for s in gaps
+    ]
+    return _p(
+        f"<b>Outlets left and right of centre differ most on {name(gaps[0])}.</b> Across the {len(left['outlets'])} rated outlets left of centre and "
+        f"{len(right['outlets'])} right of it, {_listing(parts)}. The groups are small, and the ratings are drawn on a US scale."
+    )
+
+
+def _weight(m: dict, show: bool) -> str:
+    return f" ({_pct(m['weight'])})" if show else ""
+
+
+def _leaning_tag(m: dict) -> str:
+    """An outlet's leaning as a small label, linked to the rating it comes from, with state media marked."""
+    label = _e(m["leaning"])
+    if m.get("mbfc_url", "").startswith("http") and m["leaning"] != "Not rated":
+        label = f"<a href='{_e(m['mbfc_url'])}'>{label}</a>"
+    return f"<span class='small'>{label}{' · state media' if m.get('state_media') else ''}</span>"
+
+
 def _members(t: dict) -> str:
-    """The outlets that stand for a country, one per line, with their weight when there is more than one."""
-    if len(t["members"]) == 1:
-        return _e(t["members"][0]["outlet"])
-    return "<br>".join(f"{_e(m['outlet'])} <span class='small'>({_pct(m['weight'])})</span>" for m in t["members"])
+    """The outlets that stand for a country, one per line, with their weight when there is more than one, and their leaning."""
+    weight = len(t["members"]) > 1
+    return "<br>".join(f"{_e(m['outlet'])}{_weight(m, weight)} {_leaning_tag(m)}" for m in t["members"])
 
 
 def _issue_phrase(issue: str) -> str:
@@ -832,6 +860,7 @@ def _beyond(d: dict) -> dict[str, str]:
             )
             + "."
         )
+        + _leaning_sentence(att["by_leaning"], n)
         + _p(
             f"<b>The UN's own summaries filter too.</b> Of the {iss['Ukraine']['speeches']} speeches that raised Ukraine, the UN press office's summary kept it for "
             f"{_drill(_pct(iss['Ukraine']['kept_share']), kind='dropped', issue='Ukraine')}. For Palestinian statehood it kept "
@@ -873,6 +902,24 @@ def _beyond(d: dict) -> dict[str, str]:
         f"<td class='n'>{_pct(t['own_share']) if t['mentions'] else '–'}</td><td>{n(t['top']) if t['top'] else '–'}</td>"
         f"<td class='small'>{_e(', '.join(t['not_used']))}</td></tr>"
         for t in sorted(table, key=lambda t: (t["region"], t["country"]))
+    )
+    lean = att["by_leaning"]
+    lean_rows = "".join(
+        f"<tr><td>{n(slug)}</td>"
+        + "".join(f"<td class='n'>{_pct(g['share'].get(slug, 0)) if g['outlets'] else '–'}</td>" for g in lean["groups"])
+        + "</tr>"
+        for slug in lean["delegations"]
+    )
+    mix = lean["mix"]
+    leaning_html = (
+        "<figure><h4>What outlets of each leaning covered</h4><div class='scroll'><table class='data'><thead><tr><th>Delegation</th>"
+        + "".join(f"<th class='n'>{_e(g['group'])} ({len(g['outlets'])} outlets)</th>" for g in lean["groups"])
+        + f"</tr></thead><tbody>{lean_rows}</tbody></table></div>"
+        "<figcaption>Average share of an outlet's delegation mentions, each outlet counting once. Leanings are "
+        "<a href='https://mediabiasfactcheck.com'>Media Bias/Fact Check</a> ratings, which are drawn on a US left–right scale; state media are left out. "
+        "Of the outlets in the comparison, "
+        + _listing([f"{v} {'are' if v != 1 else 'is'} {k.lower()}" for k, v in sorted(mix.items(), key=lambda x: (-x[1], x[0]))])
+        + ".</figcaption></figure>"
     )
     panel_html = (
         f"<details><summary>The {att['outlets_counted']} outlets that stand for {att['countries']} countries</summary><div class='scroll'><table class='data'>"
@@ -992,7 +1039,7 @@ def _beyond(d: dict) -> dict[str, str]:
         "__PRESS_TITLE__": "The world heard a narrower debate than the one given",
         "__PRESS__": press_html,
         "__PRESS_NOTE__": press_note,
-        "__PANEL__": panel_html,
+        "__PANEL__": panel_html + leaning_html,
         "__RACE_TITLE__": "One region campaigned for the next Secretary-General from the podium",
         "__RACE__": race_html,
         "__RACE_TABLE__": race_table,
