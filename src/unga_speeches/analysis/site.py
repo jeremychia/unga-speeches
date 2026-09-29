@@ -808,7 +808,12 @@ def _beyond(d: dict) -> dict[str, str]:
                 if europe
                 else ""
             )
-            + f"Outside the Americas' press, the United States takes {_pct(us_elsewhere)} of mentions, against {_pct(us['share_of_press'])} overall."
+            + f"Outside the Americas' press, the United States takes {_pct(us_elsewhere)} of mentions, against {_pct(us['share_of_press'])} overall. "
+            + "The delegation from outside their own region that each names most: "
+            + "; ".join(
+                f"{REGION_PRESS[b['region']][0]}, {n(b['outsider']['slug'])}" for b in home if b["region"] in REGION_PRESS and b["outsider"]
+            )
+            + "."
         )
         + _p(
             f"<b>The UN's own summaries filter too.</b> Of the {iss['Ukraine']['speeches']} speeches that raised Ukraine, the UN press office's summary kept it for "
@@ -834,7 +839,8 @@ def _beyond(d: dict) -> dict[str, str]:
         f"Outside press: {len(outside)} reports from {len(outlets) - 1} outlets across {len(home)} regions, downloaded and cut to their paragraphs. "
         f"The Americas still supply {_pct(words_by.get('Americas', 0) / max(1, sum(words_by.values())))} of the words, mostly US live blogs. "
         "BBC, Reuters, AP, the Guardian, the New York Times, CNA, the Straits Times and several Indian and French outlets could not be searched or refused the download. "
-        "Politico had no coverage and TLDR News is video only. <a href='https://github.com/jeremychia/unga-speeches/blob/main/docs/news-sourcing.md'>How the sample was built</a>."
+        "Politico had no coverage and TLDR News is video only. <a href='https://github.com/jeremychia/unga-speeches/blob/main/docs/news-sourcing.md'>How the sample was built</a> · "
+        "<a href='https://github.com/jeremychia/unga-speeches/blob/main/reference/outlets.csv'>every outlet considered</a>."
     )
 
     cands = rc["candidates"]
