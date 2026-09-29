@@ -218,3 +218,13 @@ One outlet per country dropped big outlets whenever a smaller one had written mo
 | Next four | Israel, Palestine, Sudan, Iran | Israel, Iran, Palestine, Russia |
 | Five most-named delegations' share | 44% | 50% |
 | Median country's share on itself | 55% | 50% |
+
+## Political leaning, 29 September
+
+Each sampled outlet's leaning is in `reference/outlets.csv`, kept by [`sources/leaning.py`](../src/unga_speeches/sources/leaning.py) (`python -m unga_speeches.sources.leaning`).
+
+- **Source.** [Media Bias/Fact Check](https://mediabiasfactcheck.com) (MBFC), the only rating that covers many outlets outside the United States. Its scale is drawn on US politics, and its ratings are contested, so every label links to the rating page it comes from.
+- **Labels.** Left, Left-centre, Centre, Right-centre, Right, or Not rated. MBFC's "Least Biased" is Centre; "Extreme" ratings fold into Left and Right. The `mbfc_bias` and `factual_reporting` columns keep MBFC's own words.
+- **State media** are flagged in their own column (`state_media`), from the report kind and the registry notes. MBFC rates Xinhua, China Daily and Global Times Left and TASS Right-centre; those are its judgements, and the page leaves state media out of comparisons by leaning.
+- **Finding the page.** The code tries rating pages named after the outlet and its site, and accepts one only if it rates the outlet's own site: by its "Source:" link, or on older pages by the outside site it links to most. Pages found by searching MBFC are recorded by hand in the `mbfc_url` column (MS NOW under MSNBC, SCMP, CGTN, ABC Australia, SBS, the Daily Nation, Vanguard, The Star Malaysia, Malay Mail, Philstar, GMA, TASS, IOL). A `-` means the outlet was looked for and has no rating page.
+- **Coverage.** 53 of 92 sampled national outlets are rated. MBFC has reviewed few Pacific and African outlets, so most of those are Not rated.

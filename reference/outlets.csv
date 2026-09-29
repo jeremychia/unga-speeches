@@ -1,224 +1,224 @@
-outlet,domain,country,region,status,reports,checked,dnr_brand,note
-UN News,news.un.org,United Nations,UN,in_sample,3,2026-09-29,,daily takeaways; three read from GlobalSecurity.org copies
-UN News (via GlobalSecurity.org),globalsecurity.org,United States,UN,in_sample,3,2026-09-29,,republished UN News takeaways
-Wikipedia,en.wikipedia.org,—,Reference,in_sample,1,2026-09-29,,"Secretary-General selection only, not counted as press"
-CNN,cnn.com,United States,Americas,in_sample,4,2026-09-29,CNN online,
-ABC News,abcnews.com,United States,Americas,in_sample,1,2026-09-29,ABC News online,
-NBC News,nbcnews.com,United States,Americas,in_sample,1,2026-09-29,NBC News online,
-CNBC,cnbc.com,United States,Americas,in_sample,1,2026-09-29,,
-PBS News,pbs.org,United States,Americas,in_sample,1,2026-09-29,,
-PolitiFact,politifact.com,United States,Americas,in_sample,1,2026-09-29,,live page keeps 86 words
-MS NOW,ms.now,United States,Americas,in_sample,1,2026-09-29,,read from structured data
-NPR,npr.org,United States,Americas,in_sample,2,2026-09-29,NPR News online,
-Foreign Policy,foreignpolicy.com,United States,Americas,in_sample,3,2026-09-29,,
-Buenos Aires Times,batimes.com.ar,Argentina,Americas,in_sample,1,2026-09-29,,
-Nation News,nationnews.com,Barbados,Americas,in_sample,2,2026-09-29,,
-Jamaica Gleaner,jamaica-gleaner.com,Jamaica,Americas,in_sample,1,2026-09-29,,
-Al Jazeera,aljazeera.com,Qatar,Asia,in_sample,1,2026-09-29,,
-SCMP,scmp.com,Hong Kong,Asia,in_sample,1,2026-09-29,South China Morning Post online,read from structured data
-Dawn,dawn.com,Pakistan,Asia,in_sample,4,2026-09-29,,
-Japan Times,japantimes.co.jp,Japan,Asia,in_sample,2,2026-09-29,,
-Korea Times,koreatimes.co.kr,South Korea,Asia,in_sample,1,2026-09-29,,
-CGTN,news.cgtn.com,China,Asia,in_sample,1,2026-09-29,,state media
-Xinhua,english.news.cn,China,Asia,in_sample,1,2026-09-29,,state media; full speech texts excluded
-China Daily,chinadaily.com.cn,China,Asia,in_sample,1,2026-09-29,,state media
-Global Times,globaltimes.cn,China,Asia,in_sample,1,2026-09-29,,state media
-Jakarta Post,thejakartapost.com,Indonesia,Asia,in_sample,3,2026-09-29,,
-Malay Mail,malaymail.com,Malaysia,Asia,in_sample,3,2026-09-29,Malay Mail online,
-The Star,thestar.com.my,Malaysia,Asia,in_sample,1,2026-09-29,The Star online,
-Tehran Times,tehrantimes.com,Iran,Asia,in_sample,2,2026-09-29,,
-TASS,tass.com,Russia,Europe,in_sample,3,2026-09-29,,state media; short briefs
-Kyiv Independent,kyivindependent.com,Ukraine,Europe,in_sample,1,2026-09-29,,full speech texts excluded
-Ukrinform,ukrinform.net,Ukraine,Europe,in_sample,1,2026-09-29,,state news agency
-Daily Nation,nation.africa,Kenya,Africa,in_sample,1,2026-09-29,Daily Nation online,one analysis piece refused the download
-Premium Times,premiumtimesng.com,Nigeria,Africa,in_sample,3,2026-09-29,,full speech texts excluded
-ABC Australia,abc.net.au,Australia,Oceania,in_sample,1,2026-09-29,ABC News online,
-SBS News,sbs.com.au,Australia,Oceania,in_sample,2,2026-09-29,SBS News online,
-RNZ,rnz.co.nz,New Zealand,Oceania,in_sample,2,2026-09-29,,older 57xxxx-numbered pages are from 2025
-Pacific Media Network,pmn.co.nz,New Zealand,Oceania,in_sample,1,2026-09-29,,
-Asia Pacific Report,asiapacificreport.nz,New Zealand,Oceania,in_sample,1,2026-09-29,,one piece left out as a republished RNZ story
-Fiji Village,fijivillage.com,Fiji,Oceania,in_sample,1,2026-09-29,,
-PINA,pina.com.fj,Fiji,Oceania,in_sample,2,2026-09-29,,Pacific Islands News Association
-Matangi Tonga,matangitonga.to,Tonga,Oceania,in_sample,1,2026-09-29,,
-Samoa Observer,samoaobserver.ws,Samoa,Oceania,in_sample,3,2026-09-29,,no machine-readable date; dates read from the page
-Island Times,islandtimes.org,Palau,Oceania,in_sample,3,2026-09-29,,a Taiwan piece turned out to be from 2018
-Islands Business,islandsbusiness.com,Fiji,Oceania,excluded,0,2026-09-29,,PACNEWS daily digests bundle unrelated stories
-Fiji Times,fijitimes.com.fj,Fiji,Oceania,no_coverage_found,0,2026-09-29,,
-FBC News,fbcnews.com.fj,Fiji,Oceania,no_coverage_found,0,2026-09-29,,
-Vanuatu Daily Post,dailypost.vu,Vanuatu,Oceania,no_coverage_found,0,2026-09-29,,
-Cook Islands News,cookislandsnews.com,Cook Islands,Oceania,no_coverage_found,0,2026-09-29,,
-Island Sun,theislandsun.com.sb,Solomon Islands,Oceania,no_coverage_found,0,2026-09-29,,only domestic politics found
-Loop PNG,looppng.com,Papua New Guinea,Oceania,no_coverage_found,0,2026-09-29,,tag page only
-Marshall Islands Journal,marshallislandsjournal.com,Marshall Islands,Oceania,no_coverage_found,0,2026-09-29,,
-Kaselehlie Press,kpress.info,Micronesia,Oceania,no_coverage_found,0,2026-09-29,,
-PNC Guam,pncguam.com,Guam,Oceania,no_coverage_found,0,2026-09-29,,
-NZ Herald,nzherald.co.nz,New Zealand,Oceania,no_coverage_found,0,2026-09-29,,only 2018 pieces found
-Stuff,stuff.co.nz,New Zealand,Oceania,no_coverage_found,0,2026-09-29,,
-Pacnews,pacnews.org,Fiji,Oceania,no_coverage_found,0,2026-09-29,,carried by Islands Business
-BenarNews,benarnews.org,United States,Oceania,no_coverage_found,0,2026-09-29,,
-Devpolicy Blog,devpolicy.org,Australia,Oceania,no_coverage_found,0,2026-09-29,,2025 debate only
-Lowy Interpreter,lowyinstitute.org,Australia,Oceania,outside_window,0,2026-09-29,,middle-powers piece published 12 March 2026
-Pacific Island Times,pacificislandtimes.com,Guam,Oceania,outside_window,0,2026-09-29,,piece published 10 October 2025
-Solomon Star,solomonstarnews.com,Solomon Islands,Oceania,download_refused,0,2026-09-29,,403
-The National (PNG),thenational.com.pg,Papua New Guinea,Oceania,download_refused,0,2026-09-29,,403
-Marianas Variety,mvariety.com,Northern Mariana Islands,Oceania,download_refused,0,2026-09-29,,429 rate limit; worth retrying
-Post-Courier,postcourier.com.pg,Papua New Guinea,Oceania,search_blocked,0,2026-09-29,,
-Inquirer,inquirer.net,Philippines,Asia,download_refused,0,2026-09-29,,403
-Arab News,arabnews.com,Saudi Arabia,Asia,download_refused,0,2026-09-29,,403
-Times of Israel,timesofisrael.com,Israel,Asia,download_refused,0,2026-09-29,,403
-The National (UAE),thenationalnews.com,United Arab Emirates,Asia,no_text,0,2026-09-29,,live pages drawn by script
-Anadolu Agency,aa.com.tr,Türkiye,Asia,no_text,0,2026-09-29,,live blog drawn by script
-Daily Sabah,dailysabah.com,Türkiye,Asia,no_coverage_found,0,2026-09-29,,
-Kyodo News,english.kyodonews.net,Japan,Asia,no_coverage_found,0,2026-09-29,,
-Korea Herald,koreaherald.com,South Korea,Asia,no_coverage_found,0,2026-09-29,,
-Yonhap,en.yna.co.kr,South Korea,Asia,no_coverage_found,0,2026-09-29,Yonhap News online,
-Bangkok Post,bangkokpost.com,Thailand,Asia,no_coverage_found,0,2026-09-29,Bangkok Post online,
-VnExpress,vnexpress.net,Viet Nam,Asia,no_coverage_found,0,2026-09-29,,
-CNA,channelnewsasia.com,Singapore,Asia,search_blocked,0,2026-09-29,,
-Straits Times,straitstimes.com,Singapore,Asia,search_blocked,0,2026-09-29,Straits Times online,
-The Hindu,thehindu.com,India,Asia,search_blocked,0,2026-09-29,The Hindu online,
-Indian Express,indianexpress.com,India,Asia,search_blocked,0,2026-09-29,The Indian Express online,
-Times of India,timesofindia.indiatimes.com,India,Asia,search_blocked,0,2026-09-29,The Times of India online,
-NHK,nhk.or.jp,Japan,Asia,search_blocked,0,2026-09-29,NHK News online,
-France 24,france24.com,France,Europe,download_refused,0,2026-09-29,,403
-Euronews,euronews.com,France,Europe,download_refused,0,2026-09-29,,406
-Moscow Times,themoscowtimes.com,Russia,Europe,no_coverage_found,0,2026-09-29,,
-Euromaidan Press,euromaidanpress.com,Ukraine,Europe,no_coverage_found,0,2026-09-29,,
-BBC,bbc.com,United Kingdom,Europe,search_blocked,0,2026-09-29,BBC News online,
-The Guardian,theguardian.com,United Kingdom,Europe,search_blocked,0,2026-09-29,Guardian online,
-Reuters,reuters.com,United Kingdom,Europe,search_blocked,0,2026-09-29,,
-Le Monde,lemonde.fr,France,Europe,search_blocked,0,2026-09-29,Le Monde online,
-RFI,rfi.fr,France,Europe,search_blocked,0,2026-09-29,,
-DW,dw.com,Germany,Europe,search_blocked,0,2026-09-29,,
-Politico Europe,politico.eu,Belgium,Europe,search_blocked,0,2026-09-29,,
-Africanews,africanews.com,Republic of the Congo,Africa,download_refused,0,2026-09-29,,406
-The EastAfrican,theeastafrican.co.ke,Kenya,Africa,download_refused,0,2026-09-29,,403
-News24,news24.com,South Africa,Africa,no_coverage_found,0,2026-09-29,News24,"only pieces from 2018, 2023 and 2025 found"
-Daily Maverick,dailymaverick.co.za,South Africa,Africa,in_sample,1,2026-09-29,Daily Maverick,first round: no_coverage_found
-The Africa Report,theafricareport.com,France,Africa,no_coverage_found,0,2026-09-29,,
-Punch,punchng.com,Nigeria,Africa,search_blocked,0,2026-09-29,Punch online,
-Politico,politico.com,United States,Americas,no_coverage_found,0,2026-09-29,Politico,
-TLDR News,tldrnews.co.uk,United Kingdom,Europe,video_only,0,2026-09-29,,
-AP,apnews.com,United States,Americas,search_blocked,0,2026-09-29,,
-New York Times,nytimes.com,United States,Americas,search_blocked,0,2026-09-29,New York Times,
-LA Times,latimes.com,United States,Americas,search_blocked,0,2026-09-29,,
-Washington Post,washingtonpost.com,United States,Americas,no_coverage_found,0,2026-09-29,Washington Post online,
-Axios,axios.com,United States,Americas,no_coverage_found,0,2026-09-29,,
-PassBlue,passblue.com,United States,Americas,outside_window,0,2026-09-29,,pieces from 12 and 17 September
-Infobae,infobae.com,Argentina,Americas,not_english,0,2026-09-29,Infobae,
-MercoPress,mercopress.com,Uruguay,Americas,not_english,0,2026-09-29,,Spanish edition found
-El Universal,eluniversal.com.mx,Mexico,Americas,not_english,0,2026-09-29,El Universal online,
-El País,elpais.com,Spain,Europe,search_blocked,0,2026-09-29,El País online,
-Clarín,clarin.com,Argentina,Americas,search_blocked,0,2026-09-29,Clarín online,
-Folha,folha.uol.com.br,Brazil,Americas,no_coverage_found,0,2026-09-29,,
-Jamaica Observer,jamaica-observer.com,Jamaica,Americas,no_coverage_found,0,2026-09-29,,
-Stabroek News,stabroeknews.com,Guyana,Americas,no_coverage_found,0,2026-09-29,,
-Channels Television,channelstv.com,Nigeria,Africa,in_sample,1,2026-09-29,Channels Television online,full speech text excluded
-Daily Trust,dailytrust.com,Nigeria,Africa,in_sample,2,2026-09-29,Daily Trust online,one opinion piece was from 2024
-Vanguard,vanguardngr.com,Nigeria,Africa,in_sample,3,2026-09-29,Vanguard online,
-The Guardian (Nigeria),guardian.ng,Nigeria,Africa,in_sample,1,2026-09-29,,
-ThisDay,thisdaylive.com,Nigeria,Africa,no_coverage_found,0,2026-09-29,,only an ECOWAS story found
-The Cable,thecable.ng,Nigeria,Africa,no_coverage_found,0,2026-09-29,,
-The Star (Kenya),the-star.co.ke,Kenya,Africa,in_sample,5,2026-09-29,The Star online,dates read from the url
-Citizen Digital,citizen.digital,Kenya,Africa,in_sample,3,2026-09-29,Citizen TV online,
-The Standard (Kenya),standardmedia.co.ke,Kenya,Africa,in_sample,2,2026-09-29,The Standard online,
-Capital FM (Kenya),capitalfm.co.ke,Kenya,Africa,no_coverage_found,0,2026-09-29,,
-SABC News,sabcnews.com,South Africa,Africa,in_sample,2,2026-09-29,SABC News online,
-IOL,iol.co.za,South Africa,Africa,in_sample,1,2026-09-29,IOL,
-eNCA,enca.com,South Africa,Africa,outside_window,0,2026-09-29,eNCA online,both pieces found were from 2024 and 2025
-Mail & Guardian,mg.co.za,South Africa,Africa,outside_window,0,2026-09-29,Mail & Guardian online,Gaza and BRICS piece from 12 September
-TimesLIVE,timeslive.co.za,South Africa,Africa,no_coverage_found,0,2026-09-29,TimesLive,
-MyJoyOnline,myjoyonline.com,Ghana,Africa,in_sample,6,2026-09-29,,full speech text excluded
-GhanaWeb,ghanaweb.com,Ghana,Africa,no_text,0,2026-09-29,,pages drawn by script
-Graphic Online,graphic.com.gh,Ghana,Africa,excluded,0,2026-09-29,,only the full speech text found
-Citi Newsroom,citinewsroom.com,Ghana,Africa,no_coverage_found,0,2026-09-29,,
-Ghana News Agency,gna.org.gh,Ghana,Africa,no_coverage_found,0,2026-09-29,,
-The Reporter (Ethiopia),thereporterethiopia.com,Ethiopia,Africa,download_refused,0,2026-09-29,,403
-ENA,ena.et,Ethiopia,Africa,in_sample,1,2026-09-29,,"state news agency; two pieces with older ids were from 2025, dates read by hand"
-Addis Standard,addisstandard.com,Ethiopia,Africa,no_coverage_found,0,2026-09-29,,
-Fana,fanabc.com,Ethiopia,Africa,no_coverage_found,0,2026-09-29,,
-Egypt Today,egypttoday.com,Egypt,Africa,in_sample,3,2026-09-29,,
-Egypt Independent,egyptindependent.com,Egypt,Africa,in_sample,1,2026-09-29,,
-Daily News Egypt,dailynewsegypt.com,Egypt,Africa,in_sample,3,2026-09-29,,
-Ahram Online,english.ahram.org.eg,Egypt,Africa,download_refused,0,2026-09-29,,403
-State Information Service (Egypt),sis.gov.eg,Egypt,Africa,excluded,0,2026-09-29,,government press office
-New Vision,newvision.co.ug,Uganda,Africa,in_sample,2,2026-09-29,,
-Daily Monitor,monitor.co.ug,Uganda,Africa,in_sample,3,2026-09-29,,
-Daily News (Tanzania),dailynews.co.tz,Tanzania,Africa,in_sample,1,2026-09-29,,
-The Citizen (Tanzania),thecitizen.co.tz,Tanzania,Africa,outside_window,0,2026-09-29,,walkout piece from 2024
-KT Press,ktpress.rw,Rwanda,Africa,in_sample,1,2026-09-29,,
-The New Times,newtimes.co.rw,Rwanda,Africa,in_sample,1,2026-09-29,,
-The Herald (Zimbabwe),herald.co.zw,Zimbabwe,Africa,no_coverage_found,0,2026-09-29,,
-NewsDay (Zimbabwe),newsday.co.zw,Zimbabwe,Africa,no_coverage_found,0,2026-09-29,,
-Lusaka Times,lusakatimes.com,Zambia,Africa,in_sample,3,2026-09-29,,
-ZNBC,znbc.co.zm,Zambia,Africa,no_coverage_found,0,2026-09-29,,
-The Namibian,namibian.com.na,Namibia,Africa,in_sample,4,2026-09-29,,a preview from 17 September left out
-New Era,neweralive.na,Namibia,Africa,in_sample,1,2026-09-29,,
-Mmegi,mmegi.bw,Botswana,Africa,no_coverage_found,0,2026-09-29,,
-Nyasa Times,nyasatimes.com,Malawi,Africa,in_sample,1,2026-09-29,,
-Club of Mozambique,clubofmozambique.com,Mozambique,Africa,in_sample,2,2026-09-29,,
-Morocco World News,moroccoworldnews.com,Morocco,Africa,in_sample,5,2026-09-29,,a piece from 17 September left out
-Hespress English,en.hespress.com,Morocco,Africa,in_sample,1,2026-09-29,Hespress,
-APS,aps.dz,Algeria,Africa,no_text,0,2026-09-29,,state news agency; page yields 14 words
-TAP,tap.info.tn,Tunisia,Africa,download_failed,0,2026-09-29,,state news agency; its certificate fails verification
-Hiiraan Online,hiiraan.com,Somalia,Africa,in_sample,1,2026-09-29,,
-Garowe Online,garoweonline.com,Somalia,Africa,outside_window,0,2026-09-29,,piece found was from 2020
-Libya Observer,libyaobserver.ly,Libya,Africa,in_sample,2,2026-09-29,,two pieces from 2021 and 2025 left out
-Libya Herald,libyaherald.com,Libya,Africa,in_sample,1,2026-09-29,,
-Sudan Tribune,sudantribune.com,Sudan,Africa,download_refused,0,2026-09-29,,403
-Dabanga,dabangasudan.org,Sudan,Africa,outside_window,0,2026-09-29,,piece found was from the 2025 session
-Radio Tamazuj,radiotamazuj.org,South Sudan,Africa,in_sample,1,2026-09-29,,
-FrontPage Africa,frontpageafricaonline.com,Liberia,Africa,in_sample,3,2026-09-29,,
-The Point,thepoint.gm,Gambia,Africa,no_coverage_found,0,2026-09-29,,
-APAnews,apanews.net,Senegal,Africa,no_coverage_found,0,2026-09-29,,
-Cameroon Tribune,cameroon-tribune.cm,Cameroon,Africa,not_english,0,2026-09-29,,French
-allAfrica,allafrica.com,Mauritius,Africa,excluded,0,2026-09-29,,aggregator; items found republish UN News and outlets already sampled
-CBS News,cbsnews.com,United States,Americas,in_sample,2,2026-09-29,CBS News online,a live page was from 2025
-Fox News,foxnews.com,United States,Americas,in_sample,3,2026-09-29,Fox News online,
-USA Today,usatoday.com,United States,Americas,search_blocked,0,2026-09-29,USA Today online,
-CTV News,ctvnews.ca,Canada,Americas,in_sample,4,2026-09-29,CTV News online,
-CBC News,cbc.ca,Canada,Americas,in_sample,1,2026-09-29,CBC News online,video pages excluded
-The Globe and Mail,theglobeandmail.com,Canada,Americas,in_sample,1,2026-09-29,Globe and Mail online,
-Global News,globalnews.ca,Canada,Americas,no_coverage_found,0,2026-09-29,Global News online,
-ITV News,itv.com,United Kingdom,Europe,download_failed,0,2026-09-29,ITV News online,connection refused on every try
-Sky News,news.sky.com,United Kingdom,Europe,search_blocked,0,2026-09-29,Sky News online,
-MailOnline,dailymail.co.uk,United Kingdom,Europe,search_blocked,0,2026-09-29,MailOnline,
-The Telegraph,telegraph.co.uk,United Kingdom,Europe,search_blocked,0,2026-09-29,Telegraph online,
-GB News,gbnews.com,United Kingdom,Europe,no_coverage_found,0,2026-09-29,GB News online,
-RTÉ News,rte.ie,Ireland,Europe,in_sample,5,2026-09-29,RTÉ News online,
-The Irish Times,irishtimes.com,Ireland,Europe,in_sample,2,2026-09-29,The Irish Times online,
-TheJournal.ie,thejournal.ie,Ireland,Europe,in_sample,2,2026-09-29,TheJournal.ie,
-Irish Independent,independent.ie,Ireland,Europe,search_blocked,0,2026-09-29,Irish Independent online,
-BreakingNews.ie,breakingnews.ie,Ireland,Europe,no_coverage_found,0,2026-09-29,BreakingNews.ie,
-News.com.au,news.com.au,Australia,Oceania,search_blocked,0,2026-09-29,News.com.au,
-Nine News,9news.com.au,Australia,Oceania,search_blocked,0,2026-09-29,Nine News online,
-7News,7news.com.au,Australia,Oceania,search_blocked,0,2026-09-29,,
-Sky News Australia,skynews.com.au,Australia,Oceania,search_blocked,0,2026-09-29,,
-Sydney Morning Herald,smh.com.au,Australia,Oceania,search_blocked,0,2026-09-29,Sydney Morning Herald online,
-The Australian,theaustralian.com.au,Australia,Oceania,search_blocked,0,2026-09-29,The Australian online,
-NDTV,ndtv.com,India,Asia,search_blocked,0,2026-09-29,NDTV online,
-Hindustan Times,hindustantimes.com,India,Asia,search_blocked,0,2026-09-29,Hindustan Times online,
-India Today,indiatoday.in,India,Asia,search_blocked,0,2026-09-29,India Today online,
-Firstpost,firstpost.com,India,Asia,search_blocked,0,2026-09-29,Firstpost,
-Republic World,republicworld.com,India,Asia,in_sample,1,2026-09-29,Republic TV online,a full-speech piece was from 2024
-ThePrint,theprint.in,India,Asia,in_sample,1,2026-09-29,The Print,Hindi edition excluded; one page yields no text
-Mothership,mothership.sg,Singapore,Asia,no_coverage_found,0,2026-09-29,,
-RTHK,rthk.hk,Hong Kong,Asia,no_coverage_found,0,2026-09-29,RTHK News online,
-The Standard (Hong Kong),thestandard.com.hk,Hong Kong,Asia,no_coverage_found,0,2026-09-29,,
-Malaysiakini,malaysiakini.com,Malaysia,Asia,no_coverage_found,0,2026-09-29,Malaysiakini,
-Free Malaysia Today,freemalaysiatoday.com,Malaysia,Asia,in_sample,1,2026-09-29,Free Malaysia Today,
-Astro Awani,astroawani.com,Malaysia,Asia,search_blocked,0,2026-09-29,Astro Awani online,
-Philstar,philstar.com,Philippines,Asia,in_sample,1,2026-09-29,The Philippine Star online,
-Rappler,rappler.com,Philippines,Asia,in_sample,1,2026-09-29,Rappler,
-GMA News,gmanetwork.com,Philippines,Asia,in_sample,1,2026-09-29,GMA News online,
-ABS-CBN News,news.abs-cbn.com,Philippines,Asia,no_coverage_found,0,2026-09-29,ABS-CBN News online,
-Kenyans.co.ke,kenyans.co.ke,Kenya,Africa,in_sample,1,2026-09-29,Kenyans.co.ke,
-Tuko,tuko.co.ke,Kenya,Africa,search_blocked,0,2026-09-29,,
-Arise News,arise.tv,Nigeria,Africa,in_sample,4,2026-09-29,Arise TV online,no machine-readable date; dates read from the page
-Legit.ng,legit.ng,Nigeria,Africa,in_sample,2,2026-09-29,Legit.ng,
-Pulse Nigeria,pulse.ng,Nigeria,Africa,outside_window,0,2026-09-29,,piece found was from 2025
-Sahara Reporters,saharareporters.com,Nigeria,Africa,in_sample,1,2026-09-29,Sahara Reporters,
-Daily Post (Nigeria),dailypost.ng,Nigeria,Africa,search_blocked,0,2026-09-29,Daily Post online,
-TVC News,tvcnews.tv,Nigeria,Africa,no_coverage_found,0,2026-09-29,TVC News online,
-The Citizen (South Africa),citizen.co.za,South Africa,Africa,in_sample,3,2026-09-29,The Citizen online,an August piece left out
-The South African,thesouthafrican.com,South Africa,Africa,search_blocked,0,2026-09-29,The South African,
+outlet,domain,country,region,status,reports,checked,dnr_brand,mbfc_url,mbfc_bias,factual_reporting,leaning,state_media,note
+UN News,news.un.org,United Nations,UN,in_sample,3,2026-09-29,,,,,,no,daily takeaways; three read from GlobalSecurity.org copies
+UN News (via GlobalSecurity.org),globalsecurity.org,United States,UN,in_sample,3,2026-09-29,,-,,,Not rated,no,republished UN News takeaways
+Wikipedia,en.wikipedia.org,—,Reference,in_sample,1,2026-09-29,,,,,,no,"Secretary-General selection only, not counted as press"
+CNN,cnn.com,United States,Americas,in_sample,4,2026-09-29,CNN online,https://mediabiasfactcheck.com/cnn/,Left-Center,Mostly Factual,Left-centre,no,
+ABC News,abcnews.com,United States,Americas,in_sample,1,2026-09-29,ABC News online,https://mediabiasfactcheck.com/abc-news/,Left-Center,High,Left-centre,no,
+NBC News,nbcnews.com,United States,Americas,in_sample,1,2026-09-29,NBC News online,https://mediabiasfactcheck.com/nbc-news/,Left-Center,High,Left-centre,no,
+CNBC,cnbc.com,United States,Americas,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/cnbc/,Left-Center,Mostly Factual,Left-centre,no,
+PBS News,pbs.org,United States,Americas,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/pbs/,Left-Center,High,Left-centre,no,
+PolitiFact,politifact.com,United States,Americas,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/politifact/,Left-Center,High,Left-centre,no,live page keeps 86 words
+MS NOW,ms.now,United States,Americas,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/msnbc/,Left,Mixed,Left,no,read from structured data
+NPR,npr.org,United States,Americas,in_sample,2,2026-09-29,NPR News online,https://mediabiasfactcheck.com/npr/,Left-Center,High,Left-centre,no,
+Foreign Policy,foreignpolicy.com,United States,Americas,in_sample,3,2026-09-29,,https://mediabiasfactcheck.com/foreign-policy/,Least biased,High,Centre,no,
+Buenos Aires Times,batimes.com.ar,Argentina,Americas,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/buenos-aires-times/,Right-Center,High,Right-centre,no,
+Nation News,nationnews.com,Barbados,Americas,in_sample,2,2026-09-29,,-,,,Not rated,no,
+Jamaica Gleaner,jamaica-gleaner.com,Jamaica,Americas,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Al Jazeera,aljazeera.com,Qatar,Asia,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/al-jazeera/,Left-Center,Mixed,Left-centre,no,
+SCMP,scmp.com,Hong Kong,Asia,in_sample,1,2026-09-29,South China Morning Post online,https://mediabiasfactcheck.com/south-china-morning-post/,Left-Center,Mixed,Left-centre,no,read from structured data
+Dawn,dawn.com,Pakistan,Asia,in_sample,4,2026-09-29,,https://mediabiasfactcheck.com/dawn/,Left-Center,Mostly Factual,Left-centre,no,
+Japan Times,japantimes.co.jp,Japan,Asia,in_sample,2,2026-09-29,,https://mediabiasfactcheck.com/japan-times/,Least biased,High,Centre,no,
+Korea Times,koreatimes.co.kr,South Korea,Asia,in_sample,1,2026-09-29,,-,,,Not rated,no,
+CGTN,news.cgtn.com,China,Asia,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/china-global-television-network-cgtn/,Left-Center,Mixed,Left-centre,yes,state media
+Xinhua,english.news.cn,China,Asia,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/xinhua/,Left,Mixed,Left,yes,state media; full speech texts excluded
+China Daily,chinadaily.com.cn,China,Asia,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/china-daily/,Left,Mixed,Left,yes,state media
+Global Times,globaltimes.cn,China,Asia,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/global-times/,Left,Mixed,Left,yes,state media
+Jakarta Post,thejakartapost.com,Indonesia,Asia,in_sample,3,2026-09-29,,-,,,Not rated,no,
+Malay Mail,malaymail.com,Malaysia,Asia,in_sample,3,2026-09-29,Malay Mail online,https://mediabiasfactcheck.com/malay-mail-bias/,Right-Center,Mostly Factual,Right-centre,no,
+The Star,thestar.com.my,Malaysia,Asia,in_sample,1,2026-09-29,The Star online,https://mediabiasfactcheck.com/the-star-malaysia/,Right,Mixed,Right,no,
+Tehran Times,tehrantimes.com,Iran,Asia,in_sample,2,2026-09-29,,https://mediabiasfactcheck.com/tehran-times/,Right,Mixed,Right,no,
+TASS,tass.com,Russia,Europe,in_sample,3,2026-09-29,,https://mediabiasfactcheck.com/russian-news-agency-tass/,Right-Center,Mixed,Right-centre,yes,state media; short briefs
+Kyiv Independent,kyivindependent.com,Ukraine,Europe,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/kyiv-independent/,Left-Center,High,Left-centre,no,full speech texts excluded
+Ukrinform,ukrinform.net,Ukraine,Europe,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/ukrinform/,Right-Center,Mixed,Right-centre,yes,state news agency
+Daily Nation,nation.africa,Kenya,Africa,in_sample,1,2026-09-29,Daily Nation online,https://mediabiasfactcheck.com/the-daily-nation/,Left-Center,Mixed,Left-centre,no,one analysis piece refused the download
+Premium Times,premiumtimesng.com,Nigeria,Africa,in_sample,3,2026-09-29,,https://mediabiasfactcheck.com/premium-times/,Left-Center,Mostly Factual,Left-centre,no,full speech texts excluded
+ABC Australia,abc.net.au,Australia,Oceania,in_sample,1,2026-09-29,ABC News online,https://mediabiasfactcheck.com/abc-news-australia/,Left-Center,High,Left-centre,no,
+SBS News,sbs.com.au,Australia,Oceania,in_sample,2,2026-09-29,SBS News online,https://mediabiasfactcheck.com/special-broadcasting-service-sbs/,Left-Center,High,Left-centre,no,
+RNZ,rnz.co.nz,New Zealand,Oceania,in_sample,2,2026-09-29,,https://mediabiasfactcheck.com/rnz/,Least biased,High,Centre,no,older 57xxxx-numbered pages are from 2025
+Pacific Media Network,pmn.co.nz,New Zealand,Oceania,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Asia Pacific Report,asiapacificreport.nz,New Zealand,Oceania,in_sample,1,2026-09-29,,-,,,Not rated,no,one piece left out as a republished RNZ story
+Fiji Village,fijivillage.com,Fiji,Oceania,in_sample,1,2026-09-29,,-,,,Not rated,no,
+PINA,pina.com.fj,Fiji,Oceania,in_sample,2,2026-09-29,,-,,,Not rated,no,Pacific Islands News Association
+Matangi Tonga,matangitonga.to,Tonga,Oceania,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Samoa Observer,samoaobserver.ws,Samoa,Oceania,in_sample,3,2026-09-29,,-,,,Not rated,no,no machine-readable date; dates read from the page
+Island Times,islandtimes.org,Palau,Oceania,in_sample,3,2026-09-29,,-,,,Not rated,no,a Taiwan piece turned out to be from 2018
+Islands Business,islandsbusiness.com,Fiji,Oceania,excluded,0,2026-09-29,,,,,,no,PACNEWS daily digests bundle unrelated stories
+Fiji Times,fijitimes.com.fj,Fiji,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+FBC News,fbcnews.com.fj,Fiji,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+Vanuatu Daily Post,dailypost.vu,Vanuatu,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+Cook Islands News,cookislandsnews.com,Cook Islands,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+Island Sun,theislandsun.com.sb,Solomon Islands,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,only domestic politics found
+Loop PNG,looppng.com,Papua New Guinea,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,tag page only
+Marshall Islands Journal,marshallislandsjournal.com,Marshall Islands,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+Kaselehlie Press,kpress.info,Micronesia,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+PNC Guam,pncguam.com,Guam,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+NZ Herald,nzherald.co.nz,New Zealand,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,only 2018 pieces found
+Stuff,stuff.co.nz,New Zealand,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+Pacnews,pacnews.org,Fiji,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,carried by Islands Business
+BenarNews,benarnews.org,United States,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,
+Devpolicy Blog,devpolicy.org,Australia,Oceania,no_coverage_found,0,2026-09-29,,,,,,no,2025 debate only
+Lowy Interpreter,lowyinstitute.org,Australia,Oceania,outside_window,0,2026-09-29,,,,,,no,middle-powers piece published 12 March 2026
+Pacific Island Times,pacificislandtimes.com,Guam,Oceania,outside_window,0,2026-09-29,,,,,,no,piece published 10 October 2025
+Solomon Star,solomonstarnews.com,Solomon Islands,Oceania,download_refused,0,2026-09-29,,,,,,no,403
+The National (PNG),thenational.com.pg,Papua New Guinea,Oceania,download_refused,0,2026-09-29,,,,,,no,403
+Marianas Variety,mvariety.com,Northern Mariana Islands,Oceania,download_refused,0,2026-09-29,,,,,,no,429 rate limit; worth retrying
+Post-Courier,postcourier.com.pg,Papua New Guinea,Oceania,search_blocked,0,2026-09-29,,,,,,no,
+Inquirer,inquirer.net,Philippines,Asia,download_refused,0,2026-09-29,,,,,,no,403
+Arab News,arabnews.com,Saudi Arabia,Asia,download_refused,0,2026-09-29,,,,,,no,403
+Times of Israel,timesofisrael.com,Israel,Asia,download_refused,0,2026-09-29,,,,,,no,403
+The National (UAE),thenationalnews.com,United Arab Emirates,Asia,no_text,0,2026-09-29,,,,,,no,live pages drawn by script
+Anadolu Agency,aa.com.tr,Türkiye,Asia,no_text,0,2026-09-29,,,,,,no,live blog drawn by script
+Daily Sabah,dailysabah.com,Türkiye,Asia,no_coverage_found,0,2026-09-29,,,,,,no,
+Kyodo News,english.kyodonews.net,Japan,Asia,no_coverage_found,0,2026-09-29,,,,,,no,
+Korea Herald,koreaherald.com,South Korea,Asia,no_coverage_found,0,2026-09-29,,,,,,no,
+Yonhap,en.yna.co.kr,South Korea,Asia,no_coverage_found,0,2026-09-29,Yonhap News online,,,,,no,
+Bangkok Post,bangkokpost.com,Thailand,Asia,no_coverage_found,0,2026-09-29,Bangkok Post online,,,,,no,
+VnExpress,vnexpress.net,Viet Nam,Asia,no_coverage_found,0,2026-09-29,,,,,,no,
+CNA,channelnewsasia.com,Singapore,Asia,search_blocked,0,2026-09-29,,,,,,no,
+Straits Times,straitstimes.com,Singapore,Asia,search_blocked,0,2026-09-29,Straits Times online,,,,,no,
+The Hindu,thehindu.com,India,Asia,search_blocked,0,2026-09-29,The Hindu online,,,,,no,
+Indian Express,indianexpress.com,India,Asia,search_blocked,0,2026-09-29,The Indian Express online,,,,,no,
+Times of India,timesofindia.indiatimes.com,India,Asia,search_blocked,0,2026-09-29,The Times of India online,,,,,no,
+NHK,nhk.or.jp,Japan,Asia,search_blocked,0,2026-09-29,NHK News online,,,,,no,
+France 24,france24.com,France,Europe,download_refused,0,2026-09-29,,,,,,no,403
+Euronews,euronews.com,France,Europe,download_refused,0,2026-09-29,,,,,,no,406
+Moscow Times,themoscowtimes.com,Russia,Europe,no_coverage_found,0,2026-09-29,,,,,,no,
+Euromaidan Press,euromaidanpress.com,Ukraine,Europe,no_coverage_found,0,2026-09-29,,,,,,no,
+BBC,bbc.com,United Kingdom,Europe,search_blocked,0,2026-09-29,BBC News online,,,,,no,
+The Guardian,theguardian.com,United Kingdom,Europe,search_blocked,0,2026-09-29,Guardian online,,,,,no,
+Reuters,reuters.com,United Kingdom,Europe,search_blocked,0,2026-09-29,,,,,,no,
+Le Monde,lemonde.fr,France,Europe,search_blocked,0,2026-09-29,Le Monde online,,,,,no,
+RFI,rfi.fr,France,Europe,search_blocked,0,2026-09-29,,,,,,no,
+DW,dw.com,Germany,Europe,search_blocked,0,2026-09-29,,,,,,no,
+Politico Europe,politico.eu,Belgium,Europe,search_blocked,0,2026-09-29,,,,,,no,
+Africanews,africanews.com,Republic of the Congo,Africa,download_refused,0,2026-09-29,,,,,,no,406
+The EastAfrican,theeastafrican.co.ke,Kenya,Africa,download_refused,0,2026-09-29,,,,,,no,403
+News24,news24.com,South Africa,Africa,no_coverage_found,0,2026-09-29,News24,,,,,no,"only pieces from 2018, 2023 and 2025 found"
+Daily Maverick,dailymaverick.co.za,South Africa,Africa,in_sample,1,2026-09-29,Daily Maverick,https://mediabiasfactcheck.com/daily-maverick/,Least biased,Mostly Factual,Centre,no,first round: no_coverage_found
+The Africa Report,theafricareport.com,France,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Punch,punchng.com,Nigeria,Africa,search_blocked,0,2026-09-29,Punch online,,,,,no,
+Politico,politico.com,United States,Americas,no_coverage_found,0,2026-09-29,Politico,,,,,no,
+TLDR News,tldrnews.co.uk,United Kingdom,Europe,video_only,0,2026-09-29,,,,,,no,
+AP,apnews.com,United States,Americas,search_blocked,0,2026-09-29,,,,,,no,
+New York Times,nytimes.com,United States,Americas,search_blocked,0,2026-09-29,New York Times,,,,,no,
+LA Times,latimes.com,United States,Americas,search_blocked,0,2026-09-29,,,,,,no,
+Washington Post,washingtonpost.com,United States,Americas,no_coverage_found,0,2026-09-29,Washington Post online,,,,,no,
+Axios,axios.com,United States,Americas,no_coverage_found,0,2026-09-29,,,,,,no,
+PassBlue,passblue.com,United States,Americas,outside_window,0,2026-09-29,,,,,,no,pieces from 12 and 17 September
+Infobae,infobae.com,Argentina,Americas,not_english,0,2026-09-29,Infobae,,,,,no,
+MercoPress,mercopress.com,Uruguay,Americas,not_english,0,2026-09-29,,,,,,no,Spanish edition found
+El Universal,eluniversal.com.mx,Mexico,Americas,not_english,0,2026-09-29,El Universal online,,,,,no,
+El País,elpais.com,Spain,Europe,search_blocked,0,2026-09-29,El País online,,,,,no,
+Clarín,clarin.com,Argentina,Americas,search_blocked,0,2026-09-29,Clarín online,,,,,no,
+Folha,folha.uol.com.br,Brazil,Americas,no_coverage_found,0,2026-09-29,,,,,,no,
+Jamaica Observer,jamaica-observer.com,Jamaica,Americas,no_coverage_found,0,2026-09-29,,,,,,no,
+Stabroek News,stabroeknews.com,Guyana,Americas,no_coverage_found,0,2026-09-29,,,,,,no,
+Channels Television,channelstv.com,Nigeria,Africa,in_sample,1,2026-09-29,Channels Television online,-,,,Not rated,no,full speech text excluded
+Daily Trust,dailytrust.com,Nigeria,Africa,in_sample,2,2026-09-29,Daily Trust online,https://mediabiasfactcheck.com/daily-trust/,Left-Center,Mostly Factual,Left-centre,no,one opinion piece was from 2024
+Vanguard,vanguardngr.com,Nigeria,Africa,in_sample,3,2026-09-29,Vanguard online,https://mediabiasfactcheck.com/vanguard-news-nigeria-bias/,Left-Center,Mixed,Left-centre,no,
+The Guardian (Nigeria),guardian.ng,Nigeria,Africa,in_sample,1,2026-09-29,,https://mediabiasfactcheck.com/guardian-nigeria/,Least biased,Mixed,Centre,no,
+ThisDay,thisdaylive.com,Nigeria,Africa,no_coverage_found,0,2026-09-29,,,,,,no,only an ECOWAS story found
+The Cable,thecable.ng,Nigeria,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+The Star (Kenya),the-star.co.ke,Kenya,Africa,in_sample,5,2026-09-29,The Star online,-,,,Not rated,no,dates read from the url
+Citizen Digital,citizen.digital,Kenya,Africa,in_sample,3,2026-09-29,Citizen TV online,-,,,Not rated,no,
+The Standard (Kenya),standardmedia.co.ke,Kenya,Africa,in_sample,2,2026-09-29,The Standard online,https://mediabiasfactcheck.com/the-standard-kenya/,Right-Center,Mixed,Right-centre,no,
+Capital FM (Kenya),capitalfm.co.ke,Kenya,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+SABC News,sabcnews.com,South Africa,Africa,in_sample,2,2026-09-29,SABC News online,-,,,Not rated,no,
+IOL,iol.co.za,South Africa,Africa,in_sample,1,2026-09-29,IOL,https://mediabiasfactcheck.com/independent-online-iol-bias/,Least biased,Mixed,Centre,no,
+eNCA,enca.com,South Africa,Africa,outside_window,0,2026-09-29,eNCA online,,,,,no,both pieces found were from 2024 and 2025
+Mail & Guardian,mg.co.za,South Africa,Africa,outside_window,0,2026-09-29,Mail & Guardian online,,,,,no,Gaza and BRICS piece from 12 September
+TimesLIVE,timeslive.co.za,South Africa,Africa,no_coverage_found,0,2026-09-29,TimesLive,,,,,no,
+MyJoyOnline,myjoyonline.com,Ghana,Africa,in_sample,6,2026-09-29,,-,,,Not rated,no,full speech text excluded
+GhanaWeb,ghanaweb.com,Ghana,Africa,no_text,0,2026-09-29,,,,,,no,pages drawn by script
+Graphic Online,graphic.com.gh,Ghana,Africa,excluded,0,2026-09-29,,,,,,no,only the full speech text found
+Citi Newsroom,citinewsroom.com,Ghana,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Ghana News Agency,gna.org.gh,Ghana,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+The Reporter (Ethiopia),thereporterethiopia.com,Ethiopia,Africa,download_refused,0,2026-09-29,,,,,,no,403
+ENA,ena.et,Ethiopia,Africa,in_sample,1,2026-09-29,,-,,,Not rated,yes,"state news agency; two pieces with older ids were from 2025, dates read by hand"
+Addis Standard,addisstandard.com,Ethiopia,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Fana,fanabc.com,Ethiopia,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Egypt Today,egypttoday.com,Egypt,Africa,in_sample,3,2026-09-29,,https://mediabiasfactcheck.com/egypt-today/,Right,Mixed,Right,no,
+Egypt Independent,egyptindependent.com,Egypt,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Daily News Egypt,dailynewsegypt.com,Egypt,Africa,in_sample,3,2026-09-29,,-,,,Not rated,no,
+Ahram Online,english.ahram.org.eg,Egypt,Africa,download_refused,0,2026-09-29,,,,,,no,403
+State Information Service (Egypt),sis.gov.eg,Egypt,Africa,excluded,0,2026-09-29,,,,,,no,government press office
+New Vision,newvision.co.ug,Uganda,Africa,in_sample,2,2026-09-29,,-,,,Not rated,no,
+Daily Monitor,monitor.co.ug,Uganda,Africa,in_sample,3,2026-09-29,,https://mediabiasfactcheck.com/daily-monitor/,Left-Center,Mostly Factual,Left-centre,no,
+Daily News (Tanzania),dailynews.co.tz,Tanzania,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+The Citizen (Tanzania),thecitizen.co.tz,Tanzania,Africa,outside_window,0,2026-09-29,,,,,,no,walkout piece from 2024
+KT Press,ktpress.rw,Rwanda,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+The New Times,newtimes.co.rw,Rwanda,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+The Herald (Zimbabwe),herald.co.zw,Zimbabwe,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+NewsDay (Zimbabwe),newsday.co.zw,Zimbabwe,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Lusaka Times,lusakatimes.com,Zambia,Africa,in_sample,3,2026-09-29,,-,,,Not rated,no,
+ZNBC,znbc.co.zm,Zambia,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+The Namibian,namibian.com.na,Namibia,Africa,in_sample,4,2026-09-29,,-,,,Not rated,no,a preview from 17 September left out
+New Era,neweralive.na,Namibia,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Mmegi,mmegi.bw,Botswana,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Nyasa Times,nyasatimes.com,Malawi,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Club of Mozambique,clubofmozambique.com,Mozambique,Africa,in_sample,2,2026-09-29,,-,,,Not rated,no,
+Morocco World News,moroccoworldnews.com,Morocco,Africa,in_sample,5,2026-09-29,,https://mediabiasfactcheck.com/morocco-world-news/,Right-Center,Mixed,Right-centre,no,a piece from 17 September left out
+Hespress English,en.hespress.com,Morocco,Africa,in_sample,1,2026-09-29,Hespress,-,,,Not rated,no,
+APS,aps.dz,Algeria,Africa,no_text,0,2026-09-29,,,,,,yes,state news agency; page yields 14 words
+TAP,tap.info.tn,Tunisia,Africa,download_failed,0,2026-09-29,,,,,,yes,state news agency; its certificate fails verification
+Hiiraan Online,hiiraan.com,Somalia,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Garowe Online,garoweonline.com,Somalia,Africa,outside_window,0,2026-09-29,,,,,,no,piece found was from 2020
+Libya Observer,libyaobserver.ly,Libya,Africa,in_sample,2,2026-09-29,,-,,,Not rated,no,two pieces from 2021 and 2025 left out
+Libya Herald,libyaherald.com,Libya,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+Sudan Tribune,sudantribune.com,Sudan,Africa,download_refused,0,2026-09-29,,,,,,no,403
+Dabanga,dabangasudan.org,Sudan,Africa,outside_window,0,2026-09-29,,,,,,no,piece found was from the 2025 session
+Radio Tamazuj,radiotamazuj.org,South Sudan,Africa,in_sample,1,2026-09-29,,-,,,Not rated,no,
+FrontPage Africa,frontpageafricaonline.com,Liberia,Africa,in_sample,3,2026-09-29,,-,,,Not rated,no,
+The Point,thepoint.gm,Gambia,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+APAnews,apanews.net,Senegal,Africa,no_coverage_found,0,2026-09-29,,,,,,no,
+Cameroon Tribune,cameroon-tribune.cm,Cameroon,Africa,not_english,0,2026-09-29,,,,,,no,French
+allAfrica,allafrica.com,Mauritius,Africa,excluded,0,2026-09-29,,,,,,no,aggregator; items found republish UN News and outlets already sampled
+CBS News,cbsnews.com,United States,Americas,in_sample,2,2026-09-29,CBS News online,https://mediabiasfactcheck.com/cbs-news/,Right-Center,Mostly Factual,Right-centre,no,a live page was from 2025
+Fox News,foxnews.com,United States,Americas,in_sample,3,2026-09-29,Fox News online,https://mediabiasfactcheck.com/fox-news/,Right,Low,Right,no,
+USA Today,usatoday.com,United States,Americas,search_blocked,0,2026-09-29,USA Today online,,,,,no,
+CTV News,ctvnews.ca,Canada,Americas,in_sample,4,2026-09-29,CTV News online,https://mediabiasfactcheck.com/ctv-news/,Least biased,High,Centre,no,
+CBC News,cbc.ca,Canada,Americas,in_sample,1,2026-09-29,CBC News online,https://mediabiasfactcheck.com/cbc/,Left-Center,High,Left-centre,no,video pages excluded
+The Globe and Mail,theglobeandmail.com,Canada,Americas,in_sample,1,2026-09-29,Globe and Mail online,https://mediabiasfactcheck.com/the-globe-and-mail/,Right-Center,High,Right-centre,no,
+Global News,globalnews.ca,Canada,Americas,no_coverage_found,0,2026-09-29,Global News online,,,,,no,
+ITV News,itv.com,United Kingdom,Europe,download_failed,0,2026-09-29,ITV News online,,,,,no,connection refused on every try
+Sky News,news.sky.com,United Kingdom,Europe,search_blocked,0,2026-09-29,Sky News online,,,,,no,
+MailOnline,dailymail.co.uk,United Kingdom,Europe,search_blocked,0,2026-09-29,MailOnline,,,,,no,
+The Telegraph,telegraph.co.uk,United Kingdom,Europe,search_blocked,0,2026-09-29,Telegraph online,,,,,no,
+GB News,gbnews.com,United Kingdom,Europe,no_coverage_found,0,2026-09-29,GB News online,,,,,no,
+RTÉ News,rte.ie,Ireland,Europe,in_sample,5,2026-09-29,RTÉ News online,https://mediabiasfactcheck.com/rte/,Least biased,High,Centre,no,
+The Irish Times,irishtimes.com,Ireland,Europe,in_sample,2,2026-09-29,The Irish Times online,https://mediabiasfactcheck.com/the-irish-times/,Left-Center,High,Left-centre,no,
+TheJournal.ie,thejournal.ie,Ireland,Europe,in_sample,2,2026-09-29,TheJournal.ie,https://mediabiasfactcheck.com/thejournal/,Left-Center,High,Left-centre,no,
+Irish Independent,independent.ie,Ireland,Europe,search_blocked,0,2026-09-29,Irish Independent online,,,,,no,
+BreakingNews.ie,breakingnews.ie,Ireland,Europe,no_coverage_found,0,2026-09-29,BreakingNews.ie,,,,,no,
+News.com.au,news.com.au,Australia,Oceania,search_blocked,0,2026-09-29,News.com.au,,,,,no,
+Nine News,9news.com.au,Australia,Oceania,search_blocked,0,2026-09-29,Nine News online,,,,,no,
+7News,7news.com.au,Australia,Oceania,search_blocked,0,2026-09-29,,,,,,no,
+Sky News Australia,skynews.com.au,Australia,Oceania,search_blocked,0,2026-09-29,,,,,,no,
+Sydney Morning Herald,smh.com.au,Australia,Oceania,search_blocked,0,2026-09-29,Sydney Morning Herald online,,,,,no,
+The Australian,theaustralian.com.au,Australia,Oceania,search_blocked,0,2026-09-29,The Australian online,,,,,no,
+NDTV,ndtv.com,India,Asia,search_blocked,0,2026-09-29,NDTV online,,,,,no,
+Hindustan Times,hindustantimes.com,India,Asia,search_blocked,0,2026-09-29,Hindustan Times online,,,,,no,
+India Today,indiatoday.in,India,Asia,search_blocked,0,2026-09-29,India Today online,,,,,no,
+Firstpost,firstpost.com,India,Asia,search_blocked,0,2026-09-29,Firstpost,,,,,no,
+Republic World,republicworld.com,India,Asia,in_sample,1,2026-09-29,Republic TV online,https://mediabiasfactcheck.com/republic-world/,Right-Center,Mixed,Right-centre,no,a full-speech piece was from 2024
+ThePrint,theprint.in,India,Asia,in_sample,1,2026-09-29,The Print,https://mediabiasfactcheck.com/theprint/,Right-Center,Mostly Factual,Right-centre,no,Hindi edition excluded; one page yields no text
+Mothership,mothership.sg,Singapore,Asia,no_coverage_found,0,2026-09-29,,,,,,no,
+RTHK,rthk.hk,Hong Kong,Asia,no_coverage_found,0,2026-09-29,RTHK News online,,,,,no,
+The Standard (Hong Kong),thestandard.com.hk,Hong Kong,Asia,no_coverage_found,0,2026-09-29,,,,,,no,
+Malaysiakini,malaysiakini.com,Malaysia,Asia,no_coverage_found,0,2026-09-29,Malaysiakini,,,,,no,
+Free Malaysia Today,freemalaysiatoday.com,Malaysia,Asia,in_sample,1,2026-09-29,Free Malaysia Today,https://mediabiasfactcheck.com/free-malaysia-today/,Right-Center,Mixed,Right-centre,no,
+Astro Awani,astroawani.com,Malaysia,Asia,search_blocked,0,2026-09-29,Astro Awani online,,,,,no,
+Philstar,philstar.com,Philippines,Asia,in_sample,1,2026-09-29,The Philippine Star online,https://mediabiasfactcheck.com/philippine-star-bias/,Left-Center,Mostly Factual,Left-centre,no,
+Rappler,rappler.com,Philippines,Asia,in_sample,1,2026-09-29,Rappler,https://mediabiasfactcheck.com/rappler/,Left-Center,High,Left-centre,no,
+GMA News,gmanetwork.com,Philippines,Asia,in_sample,1,2026-09-29,GMA News online,https://mediabiasfactcheck.com/gma-network-bias/,Left-Center,Mixed,Left-centre,no,
+ABS-CBN News,news.abs-cbn.com,Philippines,Asia,no_coverage_found,0,2026-09-29,ABS-CBN News online,,,,,no,
+Kenyans.co.ke,kenyans.co.ke,Kenya,Africa,in_sample,1,2026-09-29,Kenyans.co.ke,-,,,Not rated,no,
+Tuko,tuko.co.ke,Kenya,Africa,search_blocked,0,2026-09-29,,,,,,no,
+Arise News,arise.tv,Nigeria,Africa,in_sample,4,2026-09-29,Arise TV online,-,,,Not rated,no,no machine-readable date; dates read from the page
+Legit.ng,legit.ng,Nigeria,Africa,in_sample,2,2026-09-29,Legit.ng,-,,,Not rated,no,
+Pulse Nigeria,pulse.ng,Nigeria,Africa,outside_window,0,2026-09-29,,,,,,no,piece found was from 2025
+Sahara Reporters,saharareporters.com,Nigeria,Africa,in_sample,1,2026-09-29,Sahara Reporters,-,,,Not rated,no,
+Daily Post (Nigeria),dailypost.ng,Nigeria,Africa,search_blocked,0,2026-09-29,Daily Post online,,,,,no,
+TVC News,tvcnews.tv,Nigeria,Africa,no_coverage_found,0,2026-09-29,TVC News online,,,,,no,
+The Citizen (South Africa),citizen.co.za,South Africa,Africa,in_sample,3,2026-09-29,The Citizen online,https://mediabiasfactcheck.com/the-citizen-south-africa/,Right-Center,High,Right-centre,no,an August piece left out
+The South African,thesouthafrican.com,South Africa,Africa,search_blocked,0,2026-09-29,The South African,,,,,no,
