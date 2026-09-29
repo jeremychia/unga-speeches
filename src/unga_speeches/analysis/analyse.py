@@ -124,7 +124,7 @@ def build(session: int) -> dict:
         "leaders": _leaders(session, rows),
         "mentions": named,
         "press": {
-            "sources": [{k: n[k] for k in ("outlet", "kind", "date", "title", "url", "words")} for n in news],
+            "sources": [{k: n[k] for k in ("outlet", "kind", "date", "title", "url", "words", "base_region")} for n in news],
             "attention": attention,
             "issues": press.issue_voices(speeches, news, coverage),
             "headlines": {k: v for k, v in heads.items() if k != "rows"},

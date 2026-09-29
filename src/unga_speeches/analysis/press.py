@@ -88,7 +88,14 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
                 m = country.search(p) or (person.search(p) if person and names_country else None)
                 if m:
                     hits.append(
-                        {"outlet": a["outlet"], "date": a["date"], "title": a["title"], "url": a["url"], **_cut(p, m.start(), m.end())}
+                        {
+                            "outlet": a["outlet"],
+                            "base_region": a.get("base_region", ""),
+                            "date": a["date"],
+                            "title": a["title"],
+                            "url": a["url"],
+                            **_cut(p, m.start(), m.end()),
+                        }
                     )
         if hits:
             rows.append(
@@ -97,7 +104,9 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
                     "paragraphs": len(hits),
                     "articles": len({h["url"] for h in hits}),
                     "share_of_words": round(s.words / total_words, 4),
-                    "snippets": hits[:SNIPPETS],
+                    "outlets": len({h["outlet"] for h in hits}),
+                    "by_base": dict(Counter(h["base_region"] for h in hits)),
+                    "snippets": _spread(hits),
                 }
             )
     total = sum(r["paragraphs"] for r in rows)
@@ -107,6 +116,7 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
     shares = [r["share_of_press"] for r in rows]
     return {
         "rows": rows,
+        "by_base": _home_bias(speeches, articles, rows),
         "articles": len(articles),
         "paragraphs": sum(len(a["paragraphs"]) for a in articles),
         "named": len(rows),
@@ -114,6 +124,42 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
         "top1_share": shares[0] if shares else 0,
         "top5_share": round(sum(shares[:5]), 3),
     }
+
+
+def _spread(hits: list[dict]) -> list[dict]:
+    """Up to SNIPPETS excerpts, one per outlet before any outlet gets a second, so one live blog cannot fill the list."""
+    by_outlet: dict[str, list[dict]] = {}
+    for h in hits:
+        by_outlet.setdefault(h["outlet"], []).append(h)
+    out, depth = [], 0
+    while len(out) < SNIPPETS and any(len(v) > depth for v in by_outlet.values()):
+        out += [v[depth] for v in by_outlet.values() if len(v) > depth][: SNIPPETS - len(out)]
+        depth += 1
+    return out
+
+
+def _home_bias(speeches: list[Speech], articles: list[dict], rows: list[dict]) -> list[dict]:
+    """For each region's outlets, the share of their delegation mentions that go to their own region, against that region's share of speakers."""
+    region = {s.slug: s.region for s in speeches}
+    speakers = Counter(s.region for s in speeches if s.iso3)
+    out = []
+    for base in sorted({a.get("base_region") for a in articles if a.get("base_region") in speakers}):
+        counts = {r["slug"]: r["by_base"].get(base, 0) for r in rows if r["by_base"].get(base)}
+        total = sum(counts.values())
+        home = sum(n for slug, n in counts.items() if region.get(slug) == base)
+        out.append(
+            {
+                "region": base,
+                "outlets": sorted({a["outlet"] for a in articles if a.get("base_region") == base}),
+                "articles": sum(1 for a in articles if a.get("base_region") == base),
+                "words": sum(a["words"] for a in articles if a.get("base_region") == base),
+                "mentions": total,
+                "home_share": round(home / total, 3) if total else None,
+                "home_speaker_share": round(speakers[base] / sum(speakers.values()), 3),
+                "top": [{"slug": slug, "mentions": n} for slug, n in Counter(counts).most_common(5)],
+            }
+        )
+    return out
 
 
 def issue_voices(speeches: list[Speech], news: list[dict], coverage: dict[str, dict]) -> list[dict]:
