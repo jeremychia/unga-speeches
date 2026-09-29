@@ -163,6 +163,9 @@ def build(session: int, client: Client | None = None) -> Path:
                 # a site that refuses the download is left out rather than stopping the others
                 log.warning("%s %s: refused (%s)", source["outlet"], source["url"], e.response.status_code)
                 continue
+            except requests.RequestException as e:
+                log.warning("%s %s: failed (%s)", source["outlet"], source["url"], type(e).__name__)
+                continue
             if not fetched:
                 log.warning("%s: not found", source["url"])
                 continue
