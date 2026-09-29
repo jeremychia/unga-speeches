@@ -6,6 +6,7 @@ import json
 import logging
 import re
 from collections import Counter
+from datetime import date
 from pathlib import Path
 
 from unga_speeches.config import RAW_DIR, REFERENCE_DIR
@@ -30,6 +31,7 @@ LABELS = {
 LEANINGS = ["Left", "Left-centre", "Centre", "Right-centre", "Right", NOT_RATED]
 BIAS = re.compile(r'"name":"Bias Rating","value":"([^"]+)"')
 FACTUAL = re.compile(r'"name":"Factual Reporting","value":"([^"]+)"')
+MODIFIED = re.compile(r'"dateModified":"(\d{4}-\d{2}-\d{2})')
 SOURCE = re.compile(r'Source:\s*<a[^>]+href="https?://([^"/]+)', re.I)
 LINK = re.compile(r'<a[^>]+href="https?://([^"/:]+)')
 # sites every rating page links to, which are never the site rated
@@ -39,6 +41,47 @@ NOT_RATED_SITES = {"mediabiasfactcheck.com", "facebook.com", "twitter.com", "x.c
 # second-level labels under which sites register, so "abc.net.au" and "news.com.au" are told apart
 SHARED_SUFFIXES = {"co", "com", "net", "org", "gov", "ac", "go"}
 REGISTRY_FIELDS = ["mbfc_url", "mbfc_bias", "factual_reporting", "leaning", "state_media"]
+HISTORY = REFERENCE_DIR / "leanings_history.json"
+# a change in any of these opens a new version of an outlet's rating; the dates below it are overwritten in place
+TRACKED = ["mbfc_url", "mbfc_bias", "factual_reporting", "leaning", "state_media"]
+
+
+def load_history() -> list[dict]:
+    return json.loads(HISTORY.read_text(encoding="utf-8")) if HISTORY.exists() else []
+
+
+def update_history(rows: list[dict], updated: dict[str, str], observed: str) -> list[dict]:
+    """Slowly changing history of each outlet's rating: a changed rating closes the current version and opens a new one.
+
+    A version runs from valid_from up to, not including, valid_to; the current one has valid_to null and is_current true."""
+    history = load_history()
+    current = {h["outlet"]: h for h in history if h["is_current"]}
+    for r in rows:
+        if not r.get("leaning"):
+            continue
+        values = {k: r[k] for k in TRACKED}
+        now = current.get(r["outlet"])
+        if now and all(now[k] == v for k, v in values.items()):
+            now["last_checked"] = observed
+            now["mbfc_updated"] = updated.get(r["outlet"]) or now["mbfc_updated"]
+            continue
+        if now:
+            now.update(valid_to=observed, is_current=False)
+        history.append(
+            {
+                "outlet": r["outlet"],
+                "domain": r["domain"],
+                **values,
+                "mbfc_updated": updated.get(r["outlet"], ""),
+                "valid_from": observed,
+                "valid_to": None,
+                "is_current": True,
+                "last_checked": observed,
+            }
+        )
+    history.sort(key=lambda h: (h["outlet"], h["valid_from"]))
+    HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return history
 
 
 def _site(domain: str) -> str:
@@ -71,6 +114,7 @@ def rating(client: Client, url: str) -> dict | None:
         "url": url,
         "bias": html.unescape(bias.group(1)) if bias else "",
         "factual": html.unescape(factual.group(1)) if factual else "",
+        "updated": m.group(1) if (m := MODIFIED.search(text)) else "",
         "site": _site(source.group(1)) if source else _most_linked(text),
     }
 
@@ -92,9 +136,13 @@ def find(client: Client, outlet: str, domain: str) -> dict | None:
     return None
 
 
-def build(session: int, client: Client | None = None) -> Path:
-    """Fill each sampled outlet's leaning in reference/outlets.csv; a url already recorded there is used as it stands."""
+def build(session: int, client: Client | None = None, observed: str | None = None) -> Path:
+    """Fill each sampled outlet's leaning in reference/outlets.csv, and record any change in reference/leanings_history.json.
+
+    A url already recorded in the registry is used as it stands."""
     client = client or Client()
+    observed = observed or date.today().isoformat()
+    updated: dict[str, str] = {}
     path = REFERENCE_DIR / "outlets.csv"
     with path.open(encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -118,6 +166,8 @@ def build(session: int, client: Client | None = None) -> Path:
         r["mbfc_bias"] = found["bias"] if found else ""
         r["factual_reporting"] = found["factual"] if found else ""
         r["leaning"] = LABELS.get(r["mbfc_bias"].lower(), NOT_RATED)
+        if found:
+            updated[r["outlet"]] = found["updated"]
         log.info("%s: %s", r["outlet"], r["leaning"] if found else "no rating page")
     fields = list(rows[0].keys())
     fields = [f for f in fields if f not in REGISTRY_FIELDS and f != "note"] + REGISTRY_FIELDS + ["note"]
@@ -125,6 +175,7 @@ def build(session: int, client: Client | None = None) -> Path:
         w = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
+    update_history([r for r in rows if r["status"] == "in_sample" and r["country"] not in ("United Nations", "—")], updated, observed)
     return path
 
 

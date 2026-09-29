@@ -34,3 +34,36 @@ def test_every_sampled_outlet_has_a_known_leaning_and_rated_ones_link_their_page
         assert r["state_media"] in ("yes", "no"), r["outlet"]
         if r["leaning"] != leaning.NOT_RATED:
             assert r["mbfc_url"].startswith(leaning.MBFC), r["outlet"]
+
+
+def _row(leaning_label="Left-centre", bias="Left-Center"):
+    return {"outlet": "Paper", "domain": "paper.com", "mbfc_url": "https://mediabiasfactcheck.com/paper/", "mbfc_bias": bias,
+            "factual_reporting": "High", "leaning": leaning_label, "state_media": "no"}  # fmt: skip
+
+
+def test_history_opens_a_version_on_change_and_only_refreshes_dates_otherwise(tmp_path, monkeypatch):
+    monkeypatch.setattr(leaning, "HISTORY", tmp_path / "history.json")
+    leaning.update_history([_row()], {"Paper": "2026-01-01"}, "2026-09-29")
+    leaning.update_history([_row()], {"Paper": "2026-02-01"}, "2026-10-06")
+    history = leaning.update_history([_row("Centre", "Least Biased")], {"Paper": "2026-10-10"}, "2026-10-13")
+    assert [(h["leaning"], h["valid_from"], h["valid_to"], h["is_current"]) for h in history] == [
+        ("Left-centre", "2026-09-29", "2026-10-13", False),
+        ("Centre", "2026-10-13", None, True),
+    ]
+    assert history[0]["last_checked"] == "2026-10-06" and history[0]["mbfc_updated"] == "2026-02-01"
+
+
+def test_committed_history_has_one_current_version_per_outlet_matching_the_registry():
+    history = leaning.load_history()
+    by_outlet = {}
+    for h in history:
+        by_outlet.setdefault(h["outlet"], []).append(h)
+    with (REFERENCE_DIR / "outlets.csv").open(encoding="utf-8") as f:
+        registry = {r["outlet"]: r for r in csv.DictReader(f)}
+    for outlet, versions in by_outlet.items():
+        current = [v for v in versions if v["is_current"]]
+        assert len(current) == 1 and current[0]["valid_to"] is None, outlet
+        for earlier, later in zip(versions, versions[1:], strict=False):
+            assert earlier["valid_to"] == later["valid_from"], outlet  # no gaps, no overlaps
+        if registry[outlet]["status"] == "in_sample":
+            assert all(current[0][k] == registry[outlet][k] for k in leaning.TRACKED), outlet

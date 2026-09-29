@@ -29,6 +29,9 @@ def main() -> None:
 
     sub.add_parser("brands", help="download the Digital News Report's biggest online news brands in each market")
 
+    leanings = sub.add_parser("leanings", help="refresh each sampled outlet's political leaning and record changes in its history")
+    leanings.add_argument("session", type=int)
+
     sub.add_parser("release", help="package the tables and speech pages into dist/ for a data release")
     sub.add_parser("dataset", help="combine the corpus, the verbatim records and gadebate into one table")
 
@@ -58,6 +61,10 @@ def main() -> None:
         from unga_speeches.sources import dnr
 
         logging.info("wrote %s", dnr.build())
+    elif args.command == "leanings":
+        from unga_speeches.sources import leaning
+
+        logging.info("wrote %s", leaning.build(args.session))
     elif args.command == "release":
         logging.info("wrote %s", release.package())
     elif args.command == "dataset":

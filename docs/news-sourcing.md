@@ -228,3 +228,17 @@ Each sampled outlet's leaning is in `reference/outlets.csv`, kept by [`sources/l
 - **State media** are flagged in their own column (`state_media`), from the report kind and the registry notes. MBFC rates Xinhua, China Daily and Global Times Left and TASS Right-centre; those are its judgements, and the page leaves state media out of comparisons by leaning.
 - **Finding the page.** The code tries rating pages named after the outlet and its site, and accepts one only if it rates the outlet's own site: by its "Source:" link, or on older pages by the outside site it links to most. Pages found by searching MBFC are recorded by hand in the `mbfc_url` column (MS NOW under MSNBC, SCMP, CGTN, ABC Australia, SBS, the Daily Nation, Vanguard, The Star Malaysia, Malay Mail, Philstar, GMA, TASS, IOL). A `-` means the outlet was looked for and has no rating page.
 - **Coverage.** 53 of 92 sampled national outlets are rated. MBFC has reviewed few Pacific and African outlets, so most of those are Not rated.
+
+### History of the ratings
+
+[`reference/leanings_history.json`](../reference/leanings_history.json) keeps every version of each outlet's rating, as a slowly changing dimension (type 2). `make leanings SESSION=81` refreshes the ratings and updates it.
+
+| Field | Meaning |
+| --- | --- |
+| `mbfc_url`, `mbfc_bias`, `factual_reporting`, `leaning`, `state_media` | The rating. A change in any of these closes the current version and opens a new one |
+| `valid_from`, `valid_to` | The dates this version was first and last in force, as seen by the refresh; `valid_to` is null on the current version and is the next version's `valid_from` |
+| `is_current` | True on exactly one version per outlet |
+| `mbfc_updated` | The date MBFC last revised its page, from the page's own data; overwritten on each refresh |
+| `last_checked` | The last refresh that confirmed this version; overwritten on each refresh |
+
+The dates record when a refresh saw a rating, so a change is dated to the first refresh after MBFC made it; `mbfc_updated` shows when MBFC itself revised the page. An outlet that leaves the sample keeps its last version open. `outlets.csv` holds the current values, and a test checks they match the history.
