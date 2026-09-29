@@ -3,6 +3,7 @@
 | Years | Source | What it gives |
 | --- | --- | --- |
 | 1993–2024 (sessions 48–79) | UN verbatim records, e.g. [A/78/PV.5](https://documents.un.org/api/symbol/access?s=A/78/PV.5&l=en&t=pdf) | The official English text of every speech, and the language it was spoken in |
+| 1946–1992 (sessions 1–47) | UN verbatim records, scanned, e.g. [A/PV.35](https://documents.un.org/api/symbol/access?s=A/PV.35&l=en&t=pdf) and [A/40/PV.5](https://documents.un.org/api/symbol/access?s=A/40/PV.5&l=en&t=pdf) | The record of each debate meeting, read from the OCR text layer the UN published with the scan: a link to the official record, the spoken language, and an independent check on the corpus's text |
 | 2009–2026 (sessions 64–81), except 2019–2020 | [gadebate.un.org](https://gadebate.un.org), the UN's general debate site | Speaker and title, the statement pdf the delegation filed, and AI transcripts of the audio in the six UN languages |
 | 1946–2025 (sessions 1–80) | [UN General Debate Corpus](https://doi.org/10.7910/DVN/0TJX8Y) | English text of every speech, and each speaker's name and post |
 | Where the UN copy is missing or unreadable | The delegation's government site, listed in [`reference/manual_sources.csv`](../reference/manual_sources.csv) | The published text |
@@ -19,6 +20,10 @@
 | [`reference/context_81.csv`](../reference/context_81.csv) | The week's events, each with a short quote the build finds in a downloaded report |
 
 **Politico and TLDR News are not in the sample.** Politico returned no coverage of the debate, and TLDR News publishes video only. Two UN News takeaways are read from GlobalSecurity.org copies, and Business Standard was dropped because only a caption could be read. The page shows only short excerpts, each linked to its report.
+
+**The 2025 records (A/80/PV.*) are not yet issued**; the server returns no document for them, so session 80 keeps the corpus's transcript and the debate site's texts until they appear.
+
+**The UN Digital Library** asks visitors to pass a bot check, so the meeting lists come from the records themselves.
 
 **The debate site has almost no pages for 2019–2020** (sessions 74 and 75). Those years come from the records and the corpus.
 

@@ -21,6 +21,7 @@ log = logging.getLogger(__name__)
 
 # how the corpus made its english text changed in its last two sessions (see its README)
 UNGDC_ENGLISH_BASIS = {79: "ungdc_machine_translation", 80: "ungdc_whisper_transcript"}
+SCAN_MATCH = 0.5  # share of five-word runs a scanned speech must share with the corpus's text to count as the same speech
 UN_OFFICIAL_CODES = {
     "secretary-general-united-nations": "UN-SG",
     "president-general-assembly-opening": "UN-PGA",
@@ -57,6 +58,13 @@ def _verbatim() -> tuple[pd.DataFrame, pd.DataFrame]:
     frame.loc[frame.iso3.isna() & frame.label.str.contains("Secretary-General", na=False), "iso3"] = "UN-SG"
     debate = frame[(frame.kind == "general_debate") & frame.iso3.notna()].drop_duplicates(["session", "iso3"])
     return debate, frame[frame.kind == "right_of_reply"]
+
+
+def _scanned() -> pd.DataFrame:
+    """The general debate speeches read from the UN's scanned records, 1946 to 1992."""
+    rows = [json.loads(line) for p in sorted(OUTPUT_DIR.glob("scanned_*.jsonl")) for line in p.open(encoding="utf-8")]
+    frame = pd.DataFrame(rows)
+    return frame[frame.iso3.notna()].drop_duplicates(["session", "iso3"]) if not frame.empty else frame
 
 
 def _gadebate(slug_code: dict[str, str]) -> tuple[pd.DataFrame, dict]:
@@ -101,9 +109,10 @@ def _best_original(candidates: list[dict], language: str | None) -> dict | None:
 def build() -> Path:
     slug_code, names = _delegations()
     corpus, (records, replies), (site, site_texts) = _corpus(), _verbatim(), _gadebate(slug_code)
+    scans = _scanned()
 
     keys = set()
-    for frame in (corpus, records, site):
+    for frame in (corpus, records, site, scans):
         if not frame.empty:
             keys |= {(int(s), c) for s, c in zip(frame["session"], frame["iso3"], strict=True) if isinstance(c, str)}
     by_corpus, by_record, by_site = (
@@ -111,10 +120,16 @@ def build() -> Path:
         _index(records),
         _index(site[site.iso3.notna()] if not site.empty else site),
     )
+    by_scan = _index(scans)
 
     rows = []
     for session, code in sorted(keys):
         c, v, g = by_corpus.get((session, code)), by_record.get((session, code)), by_site.get((session, code))
+        # a scanned record plays the part of the born-digital record before 1993, except where the corpus's cleaned text exists;
+        # it is kept only when it is the same speech as the corpus's, or the corpus has none
+        s = by_scan.get((session, code))
+        if s and c is not None and isinstance(c.get("text_en"), str) and (agreement(s["text"], c["text_en"]) or 0) < SCAN_MATCH:
+            s = None
         row = {
             "session": session,
             "year": session_year(session),
@@ -136,6 +151,12 @@ def build() -> Path:
                 speaker_title=v["heading_title"],
                 speaker_source="un_verbatim_record",
             )
+        elif s:
+            row.update(
+                speaker_name=HONORIFIC.sub("", s["heading_speaker"] or s["label"].split("(")[0]).strip(" :"),
+                speaker_title=s["heading_title"],
+                speaker_source="un_scanned_record",
+            )
         row["role"] = roles.classify(row.get("speaker_title"), g["slug"] if g else ("holy-see" if code == "VAT" else None))
         row["role_group"] = roles.ROLE_GROUP[row["role"]]
 
@@ -147,6 +168,12 @@ def build() -> Path:
             )
         elif g and g["original_language"]:
             row.update(spoken_language=g["original_language"], spoken_language_source="gadebate_statement_language")
+        elif s and s["spoken_language"]:
+            row.update(
+                spoken_language=s["spoken_language"],
+                spoken_language_source="un_scanned_record",
+                interpretation_note=s["spoken_language_note"],
+            )
 
         if v:
             row.update(english_text=v["text"], english_source="un_verbatim_record", english_url=v["meeting_url"], english_kind="verbatim")
@@ -157,6 +184,8 @@ def build() -> Path:
                 english_url=DATASET_URL,
                 english_kind="verbatim",
             )
+        elif s:
+            row.update(english_text=s["text"], english_source="un_scanned_record", english_url=s["meeting_url"], english_kind="verbatim")
         elif g:
             english = [t for t in site_texts.get((session, g["slug"]), []) if t["language"] == "en" and t["text"]]
             english.sort(key=lambda t: t["kind"] == "transcript")
@@ -192,9 +221,12 @@ def build() -> Path:
         row["english_text_clean"] = clean(row.get("english_text") or "", row.get("english_kind") or "")
         row["original_text_clean"] = clean(row.get("original_text") or "", row.get("original_kind") or "")
         row["gadebate_page"] = g["page_url"] if g else None
-        row["verbatim_meeting"] = v["meeting"] if v else None
+        row["verbatim_meeting"] = v["meeting"] if v else (s["meeting"] if s else None)
+        row["record_url"] = v["meeting_url"] if v else (s["meeting_url"] if s else None)
+        row["record_ocr_quality"] = s["ocr_quality"] if s and not v else None
         row["in_ungdc"] = c is not None and isinstance(c.get("text_en"), str)
-        row["records_vs_ungdc"] = agreement(v["text"], c["text_en"]) if v and row["in_ungdc"] else None
+        record_text = v["text"] if v else (s["text"] if s else None)
+        row["records_vs_ungdc"] = agreement(record_text, c["text_en"]) if record_text and row["in_ungdc"] else None
         row["delivered_share"] = float(g["delivered_share"]) if g and g.get("delivered_share") else None
         rows.append(row)
 

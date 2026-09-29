@@ -39,6 +39,19 @@ How the speeches are found, read, split and combined, and what each text in the 
 - **Leaning.** [`sources/leaning.py`](../src/unga_speeches/sources/leaning.py) reads each outlet's Media Bias/Fact Check rating from the structured data on its rating page, and accepts a page only if it rates the outlet's own site. The ratings map to Left, Left-centre, Centre, Right-centre and Right; state media are flagged separately and left out of comparisons by leaning, since a rating of a state outlet is not a party leaning.
 - **Claims.** The Assembly President's closing numbers are counted again from the texts, with the same word lists.
 
+## The scanned records, 1946–1992
+
+[`sources/scanned.py`](../src/unga_speeches/sources/scanned.py) reads the UN's scanned records of sessions 1 to 47. The text is the OCR layer the UN published with each scan, read as it stands; nothing is re-recognised.
+
+- **Finding the meetings.** Until 1976 meetings are numbered across sessions (A/PV.<n>), so each session's opening is found by binary search on the date each record gives, and its debate meetings by walking forward: every meeting from the first to the last that lists "General debate" as an agenda item. From 1976 (A/31/PV.<n>) the walk starts at meeting 1.
+- **Reading order.** Pages are read top to bottom when their text runs full width (typescript, 1980s), and left column then right when they are set in two columns. French columns of the bilingual records of the 1940s and 1950s are dropped. Each meeting is read both by OCR line and by OCR block, and the reading that finds more speech is kept.
+- **Speakers.** A turn starts at a label such as "Mr. ARCE (Argentina) (translated from Spanish):". Surnames are printed in capitals, which lets a label survive a mangled title ("Hr.", "Nr."). Heads of state labelled by office alone take their country from the address heading just before the turn. Former states resolve to the corpus's codes: Czechoslovakia CSK, the German Democratic Republic DDR, Democratic Yemen YMD, the USSR RUS.
+- **Which turns count.** Only turns under the general debate's agenda item, whose number is learnt once per session, or under a head of state's address. Tributes and commemorations are left out, and a delegation's speech is its longest such turn of at least 600 words.
+- **Summary records.** The plenary records of the third and fourth sessions (1948 and 1949) are summaries in the third person ("Mr. BLANCO (Venezuela) asked to be excused"), not verbatim, so they yield no speech text; those years keep the corpus's text alone.
+- **Special sessions** that meet inside a regular session, such as the emergency sessions of 1956, 1958 and 1967, are recognised by their capitalised heading and stepped over.
+- **OCR quality.** Each speech's `ocr_quality` is the share of its words found in the vocabulary of the born-digital records from 1993 on.
+- **Checked against the corpus.** A scanned speech joins the dataset only if at least half its five-word runs match the corpus's text for the same delegation, or the corpus has no speech for it. The corpus's cleaned text stays the English text; the scan adds the official record's link, the spoken language, and `records_vs_ungdc`.
+
 ## What each text is
 
 - **UN verbatim record.** The official record of the meeting. A non-English speech appears in the UN's English translation, and the record notes the spoken language, e.g. "(spoke in Japanese; English interpretation provided by the delegation)".
