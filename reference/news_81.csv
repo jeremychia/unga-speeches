@@ -1,19 +1,60 @@
-outlet,kind,date,url,note
-UN News,un_daily_takeaway,2026-09-22,https://news.un.org/en/story/2026/09/1168468,Day 1
-UN News,un_daily_takeaway,2026-09-23,https://news.un.org/en/story/2026/09/1168421,Day 2
-UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-24,https://www.globalsecurity.org/military/library/news/2026/09/mil-260925-unnews05.htm,Day 3; republished UN News story
-UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-25,https://www.globalsecurity.org/military/library/news/2026/09/mil-260926-unnews01.htm,Day 4; republished UN News story
-UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-26,https://www.globalsecurity.org/military/library/news/2026/09/mil-260927-unnews01.htm,Day 5; republished UN News story
-UN News,un_daily_takeaway,2026-09-28,https://news.un.org/en/story/2026/09/1168478,Day 6
-CNN,live_coverage,2026-09-21,https://www.cnn.com/2026/09/21/world/unga-2026-what-to-expect-latam-intl,preview
-CNN,live_coverage,2026-09-22,https://www.cnn.com/2026/09/22/world/live-news/un-general-assembly-trump,Day 1 live page
-CNN,live_coverage,2026-09-23,https://www.cnn.com/2026/09/23/world/live-news/united-nations-general-assembly-iran-trump-ukraine,Day 2 live page
-CNN,live_coverage,2026-09-24,https://www.cnn.com/2026/09/24/world/live-news/un-general-assembly-netanyahu,Day 3 live page
-Al Jazeera,explainer,2026-09-22,https://www.aljazeera.com/news/2026/9/22/un-general-assembly-2026-when-is-it-who-is-speaking-and-when,schedule explainer
-CNBC,article,2026-09-23,https://www.cnbc.com/2026/09/23/unga-trump-iran-china-greenland-ukraine-russia-.html,day one takeaways
-ABC News,article,2026-09-22,https://abcnews.com/Politics/trump-addresses-global-leaders-united-nations-general-assembly/story?id=136648657,US speech
-NBC News,article,2026-09-22,https://www.nbcnews.com/politics/trump-administration/trump-address-united-nations-general-assembly-iran-war-rcna599085,US speech
-PBS News,fact_check,2026-09-22,https://www.pbs.org/newshour/politics/fact-checking-trumps-speech-to-the-2026-united-nations-general-assembly,US speech fact-check
-PolitiFact,fact_check,2026-09-22,https://politifact.com/article/2026/sep/22/trump-un-speech-live-fact-check/,US speech live fact-check
-MS NOW,live_coverage,2026-09-22,https://www.ms.now/liveblog/trump-united-nations-general-assembly-speech-2026-live-updates,US speech live blog
-Wikipedia,context,2026-09-29,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection,Secretary-General selection
+outlet,kind,date,url,note,base_region,language
+UN News,un_daily_takeaway,2026-09-22,https://news.un.org/en/story/2026/09/1168468,Day 1,UN,en
+UN News,un_daily_takeaway,2026-09-23,https://news.un.org/en/story/2026/09/1168421,Day 2,UN,en
+UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-24,https://www.globalsecurity.org/military/library/news/2026/09/mil-260925-unnews05.htm,Day 3; republished UN News story,UN,en
+UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-25,https://www.globalsecurity.org/military/library/news/2026/09/mil-260926-unnews01.htm,Day 4; republished UN News story,UN,en
+UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-26,https://www.globalsecurity.org/military/library/news/2026/09/mil-260927-unnews01.htm,Day 5; republished UN News story,UN,en
+UN News,un_daily_takeaway,2026-09-28,https://news.un.org/en/story/2026/09/1168478,Day 6,UN,en
+CNN,live_coverage,2026-09-21,https://www.cnn.com/2026/09/21/world/unga-2026-what-to-expect-latam-intl,preview,Americas,en
+CNN,live_coverage,2026-09-22,https://www.cnn.com/2026/09/22/world/live-news/un-general-assembly-trump,Day 1 live page,Americas,en
+CNN,live_coverage,2026-09-23,https://www.cnn.com/2026/09/23/world/live-news/united-nations-general-assembly-iran-trump-ukraine,Day 2 live page,Americas,en
+CNN,live_coverage,2026-09-24,https://www.cnn.com/2026/09/24/world/live-news/un-general-assembly-netanyahu,Day 3 live page,Americas,en
+Al Jazeera,explainer,2026-09-22,https://www.aljazeera.com/news/2026/9/22/un-general-assembly-2026-when-is-it-who-is-speaking-and-when,schedule explainer,Asia,en
+CNBC,article,2026-09-23,https://www.cnbc.com/2026/09/23/unga-trump-iran-china-greenland-ukraine-russia-.html,day one takeaways,Americas,en
+ABC News,article,2026-09-22,https://abcnews.com/Politics/trump-addresses-global-leaders-united-nations-general-assembly/story?id=136648657,US speech,Americas,en
+NBC News,article,2026-09-22,https://www.nbcnews.com/politics/trump-administration/trump-address-united-nations-general-assembly-iran-war-rcna599085,US speech,Americas,en
+PBS News,fact_check,2026-09-22,https://www.pbs.org/newshour/politics/fact-checking-trumps-speech-to-the-2026-united-nations-general-assembly,US speech fact-check,Americas,en
+PolitiFact,fact_check,2026-09-22,https://politifact.com/article/2026/sep/22/trump-un-speech-live-fact-check/,US speech live fact-check,Americas,en
+MS NOW,live_coverage,2026-09-22,https://www.ms.now/liveblog/trump-united-nations-general-assembly-speech-2026-live-updates,US speech live blog,Americas,en
+Wikipedia,context,2026-09-29,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection,Secretary-General selection,Reference,en
+SCMP,article,2026-09-24,https://www.scmp.com/news/china/diplomacy/article/3368923/why-xi-jinping-skipped-un-after-his-trump-summit,why Xi skipped the debate,Asia,en
+Dawn,article,2026-09-22,https://www.dawn.com/news/2031875/terrific-man-shehbaz-gets-special-mention-during-trumps-unga-speech,Trump names Shehbaz,Asia,en
+Dawn,article,2026-09-26,https://www.dawn.com/news/2032621/pm-shehbaz-addresses-un-general-assembly,Pakistan speech,Asia,en
+Dawn,article,2026-09-24,https://www.dawn.com/news/2032006/pakistan-stands-out-amid-flurry-of-diplomacy-at-unga,Pakistan diplomacy,Asia,en
+Dawn,article,2026-09-22,https://www.dawn.com/news/2031904/un-chief-calls-for-ai-curbs-and-end-to-wars-in-his-last-assembly-address,Guterres address,Asia,en
+Japan Times,article,2026-09-22,https://www.japantimes.co.jp/news/2026/09/22/japan/japan-takaichi-new-york-un/,Takaichi arrives,Asia,en
+Japan Times,article,2026-09-21,https://www.japantimes.co.jp/news/2026/09/21/world/carney-lula-unite-middle-powers/,middle powers group,Asia,en
+Korea Times,article,2026-09-25,https://www.koreatimes.co.kr/world/20260925/an-isolated-netanyahu-takes-un-stage-as-he-seeks-reelection-at-home,Netanyahu speech,Asia,en
+CGTN,state_media,2026-09-27,https://news.cgtn.com/news/2026-09-27/Chinese-VP-China-to-work-with-all-countries-to-build-shared-future-1QMFxmk073G/p.html,China speech,Asia,en
+Xinhua,state_media,2026-09-26,https://english.news.cn/20260926/9640dc1dc44e42328a12adb3c4ef2353/c.html,China supports UN,Asia,en
+China Daily,state_media,2026-09-29,http://global.chinadaily.com.cn/a/202609/29/WS6abb0cf2e4b06d4aa0560acf.html,debate closes,Asia,en
+Global Times,state_media,2026-09-22,https://www.globaltimes.cn/page/202609/1371169.shtml,debate opens,Asia,en
+Jakarta Post,article,2026-09-23,http://www.thejakartapost.com/world/2026/09/23/indonesia-puts-peace-un-reform-global-south-at-center-of-unga-agenda,Indonesia agenda,Asia,en
+Jakarta Post,article,2026-09-25,https://www.thejakartapost.com/world/2026/09/25/delegates-walk-out-as-netanyahu-defends-israel-at-un-,Netanyahu walkout,Asia,en
+Jakarta Post,article,2026-09-28,http://www.thejakartapost.com/world/2026/09/28/palestine-test-for-un-resilience-says-indonesia,Indonesia speech,Asia,en
+Malay Mail,article,2026-09-22,https://www.malaymail.com/news/world/2026/09/22/un-general-debate-to-bring-world-leaders-together-in-new-york-under-restoring-trust-theme/236055,debate preview,Asia,en
+Malay Mail,article,2026-09-27,https://www.malaymail.com/news/malaysia/2026/09/27/middle-powers-like-malaysia-can-shape-global-decisions-when-major-powers-cant-agree-mohamad-hasan-says-at-un-general-assembly/236660,Malaysia speech,Asia,en
+Malay Mail,article,2026-09-27,https://www.malaymail.com/news/malaysia/2026/09/27/malaysia-will-speak-plainly-we-are-sick-of-it-mohamad-hasan-tells-un-to-act-on-gaza/236659,Malaysia on Gaza,Asia,en
+The Star,article,2026-09-25,https://www.thestar.com.my/aseanplus/aseanplus-news/2026/09/25/brazils-lula-backs-china-peace-push-at-un-tells-us-his-nation-is-no-ones-backyard,Brazil speech,Asia,en
+Tehran Times,article,2026-09-23,https://www.tehrantimes.com/news/530355/We-will-never-bow-our-head,Iran speech,Asia,en
+Tehran Times,article,2026-09-25,https://www.tehrantimes.com/news/530434/Pezeshkian-turned-the-United-Nations-into-a-court-for-American,Iran speech commentary,Asia,en
+TASS,state_media,2026-09-26,https://tass.com/politics/2193375,Russia speech,Europe,en
+TASS,state_media,2026-09-26,https://tass.com/politics/2193451,Russia on the Security Council,Europe,en
+TASS,state_media,2026-09-26,https://tass.com/politics/2193445,Russia on the next Secretary-General,Europe,en
+Kyiv Independent,article,2026-09-23,https://kyivindependent.com/ukrainians-did-not-choose-this-war-we-choose-not-to-die-zelensky-says-to-un-general-assembly/,Ukraine speech,Europe,en
+Ukrinform,article,2026-09-23,https://www.ukrinform.net/rubric-polytics/4167362-zelensky-at-un-general-assembly-russias-revenues-must-remain-a-target.html,Ukraine speech,Europe,en
+Daily Nation,article,2026-09-23,https://nation.africa/kenya/news/ruto-s-un-pitch-africa-wants-investment-not-aid--5607618,Kenya speech,Africa,en
+Premium Times,article,2026-09-24,https://www.premiumtimesng.com/news/top-news/912181-tinubu-to-un-we-cant-rule-2026-world-with-1945-distribution-of-power.html,Nigeria speech,Africa,en
+Premium Times,article,2026-09-24,https://www.premiumtimesng.com/news/top-news/912229-nigeria-restates-demand-for-two-permanent-unsc-seats-veto-powers-for-africa.html,Nigeria on the Security Council,Africa,en
+Premium Times,article,2026-09-26,https://www.premiumtimesng.com/news/top-news/912718-africas-exclusion-from-un-security-council-undermines-fairness-shettima.html,Nigeria side event,Africa,en
+Buenos Aires Times,article,2026-09-23,https://batimes.com.ar/news/argentina/milei-presses-malvinas-claim-slams-useless-united-nations-in-speech.phtml,Argentina speech,Americas,en
+Nation News,article,2026-09-23,https://nationnews.com/2026/09/23/mottley-build-our-own-trade-routes/,Barbados,Americas,en
+Nation News,article,2026-09-27,https://nationnews.com/2026/09/27/barbados-delegation-did-not-join-netanyahu-walkout/,Barbados and the walkout,Americas,en
+Jamaica Gleaner,article,2026-09-27,https://jamaica-gleaner.com/article/world-news/20260927/were-not-giving-beset-climate-change-island-nations-act-conscience,island states,Americas,en
+NPR,article,2026-09-21,https://www.npr.org/2026/09/21/nx-s1-5971262/united-nations-general-assembly,preview,Americas,en
+NPR,article,2026-09-21,https://www.npr.org/2026/09/21/nx-s1-5974200/ai-and-autonomous-weapons-are-high-on-the-agenda-at-the-un-general-assembly,AI preview,Americas,en
+Foreign Policy,analysis,2026-09-21,https://foreignpolicy.com/2026/09/21/unga-trump-iran-xi-china-ai-secretary-general/,preview,Americas,en
+Foreign Policy,analysis,2026-09-21,https://foreignpolicy.com/2026/09/21/unga-conflict-trump-guterres-secretary-general-uncertainty/,preview,Americas,en
+Foreign Policy,analysis,2026-09-22,https://foreignpolicy.com/2026/09/22/unga-speech-guterres-trump-united-nations-zelensky/,Day 1,Americas,en
+ABC Australia,article,2026-09-25,https://www.abc.net.au/news/2026-09-25/anthony-albanese-gives-speech-at-un-general-assembly/107194592,Australia speech,Oceania,en
+RNZ,article,2026-09-25,https://www.rnz.co.nz/news/pacific/1573155/stop-carbon-emissions-papua-new-guinea-solomon-islands-leaders-demand-climate-action,Pacific speeches,Oceania,en
