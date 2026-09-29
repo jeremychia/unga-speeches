@@ -1,0 +1,19 @@
+outlet,kind,date,url,note
+UN News,un_daily_takeaway,2026-09-22,https://news.un.org/en/story/2026/09/1168468,Day 1
+UN News,un_daily_takeaway,2026-09-23,https://news.un.org/en/story/2026/09/1168421,Day 2
+UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-24,https://www.globalsecurity.org/military/library/news/2026/09/mil-260925-unnews05.htm,Day 3; republished UN News story
+UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-25,https://www.globalsecurity.org/military/library/news/2026/09/mil-260926-unnews01.htm,Day 4; republished UN News story
+UN News (via GlobalSecurity.org),un_daily_takeaway,2026-09-26,https://www.globalsecurity.org/military/library/news/2026/09/mil-260927-unnews01.htm,Day 5; republished UN News story
+UN News,un_daily_takeaway,2026-09-28,https://news.un.org/en/story/2026/09/1168478,Day 6
+CNN,live_coverage,2026-09-21,https://www.cnn.com/2026/09/21/world/unga-2026-what-to-expect-latam-intl,preview
+CNN,live_coverage,2026-09-22,https://www.cnn.com/2026/09/22/world/live-news/un-general-assembly-trump,Day 1 live page
+CNN,live_coverage,2026-09-23,https://www.cnn.com/2026/09/23/world/live-news/united-nations-general-assembly-iran-trump-ukraine,Day 2 live page
+CNN,live_coverage,2026-09-24,https://www.cnn.com/2026/09/24/world/live-news/un-general-assembly-netanyahu,Day 3 live page
+Al Jazeera,explainer,2026-09-22,https://www.aljazeera.com/news/2026/9/22/un-general-assembly-2026-when-is-it-who-is-speaking-and-when,schedule explainer
+CNBC,article,2026-09-23,https://www.cnbc.com/2026/09/23/unga-trump-iran-china-greenland-ukraine-russia-.html,day one takeaways
+ABC News,article,2026-09-22,https://abcnews.com/Politics/trump-addresses-global-leaders-united-nations-general-assembly/story?id=136648657,US speech
+NBC News,article,2026-09-22,https://www.nbcnews.com/politics/trump-administration/trump-address-united-nations-general-assembly-iran-war-rcna599085,US speech
+PBS News,fact_check,2026-09-22,https://www.pbs.org/newshour/politics/fact-checking-trumps-speech-to-the-2026-united-nations-general-assembly,US speech fact-check
+PolitiFact,fact_check,2026-09-22,https://politifact.com/article/2026/sep/22/trump-un-speech-live-fact-check/,US speech live fact-check
+MS NOW,live_coverage,2026-09-22,https://www.ms.now/liveblog/trump-united-nations-general-assembly-speech-2026-live-updates,US speech live blog
+Wikipedia,context,2026-09-29,https://en.wikipedia.org/wiki/2026_United_Nations_Secretary-General_selection,Secretary-General selection

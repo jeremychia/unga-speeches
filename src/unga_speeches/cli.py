@@ -24,6 +24,9 @@ def main() -> None:
     site = sub.add_parser("site", help="write one session's analysis page to site/ (needs the analysis dependency group)")
     site.add_argument("session", type=int)
 
+    news = sub.add_parser("news", help="download the news reports listed for a session and extract the UN coverage on each speaker page")
+    news.add_argument("session", type=int)
+
     sub.add_parser("release", help="package the tables and speech pages into dist/ for a data release")
     sub.add_parser("dataset", help="combine the corpus, the verbatim records and gadebate into one table")
 
@@ -44,6 +47,11 @@ def main() -> None:
         from unga_speeches.analysis import site as analysis_site
 
         logging.info("wrote %s", analysis_site.build(args.session))
+    elif args.command == "news":
+        from unga_speeches.sources import news as news_source
+
+        logging.info("wrote %s", news_source.build(args.session))
+        logging.info("wrote %s", news_source.coverage(args.session))
     elif args.command == "release":
         logging.info("wrote %s", release.package())
     elif args.command == "dataset":
