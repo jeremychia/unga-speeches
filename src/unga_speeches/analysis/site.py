@@ -219,7 +219,7 @@ def build(session: int) -> Path:
             (
                 "press",
                 "The world heard a narrower debate than the one given",
-                f"With one outlet per country, {_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} "
+                f"Counting each country's press once, {_drill(_pct(d['press']['attention']['top5_share']), kind='press', slug=d['press']['attention']['rows'][0]['slug'])} "
                 "of the attention countries' press paid to foreign delegations went to five of them. "
                 f"Issues raised by dozens of speeches, such as {_listing([_issue_phrase(i['issue']) for i in quiet_issues[:3]])}, got a third or less of their share of the speeches.",
             ),
@@ -689,6 +689,13 @@ def _check_beyond(d: dict) -> None:
                 raise ValueError(f"press excerpt is not in its article: {snip['text'][:80]}")
 
 
+def _members(t: dict) -> str:
+    """The outlets that stand for a country, one per line, with their weight when there is more than one."""
+    if len(t["members"]) == 1:
+        return _e(t["members"][0]["outlet"])
+    return "<br>".join(f"{_e(m['outlet'])} <span class='small'>({_pct(m['weight'])})</span>" for m in t["members"])
+
+
 def _issue_phrase(issue: str) -> str:
     """An issue's name mid-sentence: lowered, except for place names."""
     if issue.split()[0] in ("Sudan", "Haiti", "Gaza", "Ukraine", "Iran", "Taiwan", "Palestinian", "Security"):
@@ -780,7 +787,7 @@ def _beyond(d: dict) -> dict[str, str]:
     self_heavy = sorted((t for t in table if t["mentions"] and t["own_share"] >= SELF_HEAVY), key=lambda t: -t["own_share"])
     press_html = (
         _p(
-            f"<b>With one outlet per country, {n(us['slug'])} got {_drill(_pct(us['foreign_share']), kind='press', slug=us['slug'])} of the attention "
+            f"<b>Counting each country's press once, {n(us['slug'])} got {_drill(_pct(us['foreign_share']), kind='press', slug=us['slug'])} of the attention "
             f"other countries' press paid to foreign delegations, and was named by {us['foreign_countries']} of {att['countries']} countries' outlets.</b> "
             f"Its speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words. Next come "
             + _listing([f"{n(r['slug'])} ({_drill(_pct(r['foreign_share']), kind='press', slug=r['slug'])})" for r in top[1:]])
@@ -845,26 +852,32 @@ def _beyond(d: dict) -> dict[str, str]:
         )
     )
     unused = sum(len(t["not_used"]) for t in table)
+    big = [t for t in table if t["rule"] == "big brands"]
     press_note = (
         f"Outside press: {att['sample_articles']} reports from {len(outlets) - 1} outlets, downloaded and cut to their paragraphs. "
-        f"For a fair comparison, one outlet stands for each of {att['countries']} countries: the one with the most debate-week words in the sample. "
-        f"The other {unused} outlets are downloaded but not counted. "
-        f"Attention from other countries leaves out each outlet's mentions of its own country, and counts only the {att['foreign_countries']} outlets "
+        f"Each country's press counts once. In the {len(big)} countries where the "
+        "<a href='https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2026'>Reuters Institute Digital News Report 2026</a> lists the biggest online news brands, "
+        "every sampled outlet on that list stands for the country, weighted by its weekly reach. Elsewhere the outlet with the most debate-week words stands alone. "
+        f"That puts {att['outlets_counted']} outlets in the comparison, across {att['countries']} countries; the other {unused} are downloaded but not counted. "
+        f"Attention from other countries leaves out each country's mentions of itself, and counts only the {att['foreign_countries']} countries "
         f"with at least 10 such mentions. "
-        "BBC, Reuters, AP, the Guardian, the New York Times, CNA, the Straits Times and several Indian and French outlets could not be searched or refused the download. "
+        "BBC, Reuters, AP, the Guardian, the New York Times, CNA, the Straits Times, NDTV and most Australian commercial outlets could not be searched or refused the download. "
         "Politico had no coverage and TLDR News is video only. <a href='https://github.com/jeremychia/unga-speeches/blob/main/docs/news-sourcing.md'>How the sample was built</a> · "
-        "<a href='https://github.com/jeremychia/unga-speeches/blob/main/reference/outlets.csv'>every outlet considered</a>."
+        "<a href='https://github.com/jeremychia/unga-speeches/blob/main/reference/outlets.csv'>every outlet considered</a> · "
+        "<a href='https://github.com/jeremychia/unga-speeches/blob/main/reference/dnr_brands_2026.csv'>the big-brands list</a>."
     )
     panel_rows = "".join(
-        f"<tr><td>{_e(t['country'])}</td><td>{_e(t['region'])}</td><td>{_e(t['outlet'])}</td><td class='n'>{t['reports']}</td><td class='n'>{t['words']:,}</td>"
+        f"<tr><td>{_e(t['country'])}</td><td>{_e(t['region'])}</td>"
+        f"<td>{_members(t)}</td>"
+        f"<td>{'big brands, by reach' if t['rule'] == 'big brands' else 'most words'}</td><td class='n'>{t['reports']}</td><td class='n'>{t['words']:,}</td>"
         f"<td class='n'>{_pct(t['own_share']) if t['mentions'] else '–'}</td><td>{n(t['top']) if t['top'] else '–'}</td>"
         f"<td class='small'>{_e(', '.join(t['not_used']))}</td></tr>"
         for t in sorted(table, key=lambda t: (t["region"], t["country"]))
     )
     panel_html = (
-        f"<details><summary>The {att['countries']} outlets that stand for their countries</summary><div class='scroll'><table class='data'>"
-        "<thead><tr><th>Country</th><th>Region</th><th>Outlet</th><th class='n'>Reports</th><th class='n'>Words</th><th class='n'>Own country</th>"
-        f"<th>Named most</th><th>Also sampled, not counted</th></tr></thead><tbody>{panel_rows}</tbody></table></div></details>"
+        f"<details><summary>The {att['outlets_counted']} outlets that stand for {att['countries']} countries</summary><div class='scroll'><table class='data'>"
+        "<thead><tr><th>Country</th><th>Region</th><th>Outlets counted (weight)</th><th>Rule</th><th class='n'>Reports</th><th class='n'>Words</th>"
+        f"<th class='n'>Own country</th><th>Named most</th><th>Also sampled, not counted</th></tr></thead><tbody>{panel_rows}</tbody></table></div></details>"
     )
 
     cands = rc["candidates"]
