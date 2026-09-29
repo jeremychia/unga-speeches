@@ -8,6 +8,7 @@ STATUSES = {
     "no_coverage_found",
     "search_blocked",
     "download_refused",
+    "download_failed",
     "no_text",
     "outside_window",
     "not_english",

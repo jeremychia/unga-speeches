@@ -94,7 +94,7 @@ Politico Europe,politico.eu,Belgium,Europe,search_blocked,0,2026-09-29,
 Africanews,africanews.com,Republic of the Congo,Africa,download_refused,0,2026-09-29,406
 The EastAfrican,theeastafrican.co.ke,Kenya,Africa,download_refused,0,2026-09-29,403
 News24,news24.com,South Africa,Africa,no_coverage_found,0,2026-09-29,
-Daily Maverick,dailymaverick.co.za,South Africa,Africa,no_coverage_found,0,2026-09-29,
+Daily Maverick,dailymaverick.co.za,South Africa,Africa,in_sample,1,2026-09-29,first round: no_coverage_found
 The Africa Report,theafricareport.com,France,Africa,no_coverage_found,0,2026-09-29,
 Punch,punchng.com,Nigeria,Africa,search_blocked,0,2026-09-29,
 Politico,politico.com,United States,Americas,no_coverage_found,0,2026-09-29,
@@ -113,3 +113,63 @@ Clarín,clarin.com,Argentina,Americas,search_blocked,0,2026-09-29,
 Folha,folha.uol.com.br,Brazil,Americas,no_coverage_found,0,2026-09-29,
 Jamaica Observer,jamaica-observer.com,Jamaica,Americas,no_coverage_found,0,2026-09-29,
 Stabroek News,stabroeknews.com,Guyana,Americas,no_coverage_found,0,2026-09-29,
+Channels Television,channelstv.com,Nigeria,Africa,in_sample,1,2026-09-29,full speech text excluded
+Daily Trust,dailytrust.com,Nigeria,Africa,in_sample,2,2026-09-29,one opinion piece was from 2024
+Vanguard,vanguardngr.com,Nigeria,Africa,in_sample,3,2026-09-29,
+The Guardian (Nigeria),guardian.ng,Nigeria,Africa,in_sample,1,2026-09-29,
+ThisDay,thisdaylive.com,Nigeria,Africa,no_coverage_found,0,2026-09-29,only an ECOWAS story found
+The Cable,thecable.ng,Nigeria,Africa,no_coverage_found,0,2026-09-29,
+The Star (Kenya),the-star.co.ke,Kenya,Africa,in_sample,5,2026-09-29,dates read from the url
+Citizen Digital,citizen.digital,Kenya,Africa,in_sample,3,2026-09-29,
+The Standard (Kenya),standardmedia.co.ke,Kenya,Africa,in_sample,2,2026-09-29,
+Capital FM (Kenya),capitalfm.co.ke,Kenya,Africa,no_coverage_found,0,2026-09-29,
+SABC News,sabcnews.com,South Africa,Africa,in_sample,2,2026-09-29,
+IOL,iol.co.za,South Africa,Africa,in_sample,1,2026-09-29,
+eNCA,enca.com,South Africa,Africa,outside_window,0,2026-09-29,both pieces found were from 2024 and 2025
+Mail & Guardian,mg.co.za,South Africa,Africa,outside_window,0,2026-09-29,Gaza and BRICS piece from 12 September
+TimesLIVE,timeslive.co.za,South Africa,Africa,no_coverage_found,0,2026-09-29,
+MyJoyOnline,myjoyonline.com,Ghana,Africa,in_sample,6,2026-09-29,full speech text excluded
+GhanaWeb,ghanaweb.com,Ghana,Africa,no_text,0,2026-09-29,pages drawn by script
+Graphic Online,graphic.com.gh,Ghana,Africa,excluded,0,2026-09-29,only the full speech text found
+Citi Newsroom,citinewsroom.com,Ghana,Africa,no_coverage_found,0,2026-09-29,
+Ghana News Agency,gna.org.gh,Ghana,Africa,no_coverage_found,0,2026-09-29,
+The Reporter (Ethiopia),thereporterethiopia.com,Ethiopia,Africa,download_refused,0,2026-09-29,403
+ENA,ena.et,Ethiopia,Africa,in_sample,1,2026-09-29,"state news agency; two pieces with older ids were from 2025, dates read by hand"
+Addis Standard,addisstandard.com,Ethiopia,Africa,no_coverage_found,0,2026-09-29,
+Fana,fanabc.com,Ethiopia,Africa,no_coverage_found,0,2026-09-29,
+Egypt Today,egypttoday.com,Egypt,Africa,in_sample,3,2026-09-29,
+Egypt Independent,egyptindependent.com,Egypt,Africa,in_sample,1,2026-09-29,
+Daily News Egypt,dailynewsegypt.com,Egypt,Africa,in_sample,3,2026-09-29,
+Ahram Online,english.ahram.org.eg,Egypt,Africa,download_refused,0,2026-09-29,403
+State Information Service (Egypt),sis.gov.eg,Egypt,Africa,excluded,0,2026-09-29,government press office
+New Vision,newvision.co.ug,Uganda,Africa,in_sample,2,2026-09-29,
+Daily Monitor,monitor.co.ug,Uganda,Africa,in_sample,3,2026-09-29,
+Daily News (Tanzania),dailynews.co.tz,Tanzania,Africa,in_sample,1,2026-09-29,
+The Citizen (Tanzania),thecitizen.co.tz,Tanzania,Africa,outside_window,0,2026-09-29,walkout piece from 2024
+KT Press,ktpress.rw,Rwanda,Africa,in_sample,1,2026-09-29,
+The New Times,newtimes.co.rw,Rwanda,Africa,in_sample,1,2026-09-29,
+The Herald (Zimbabwe),herald.co.zw,Zimbabwe,Africa,no_coverage_found,0,2026-09-29,
+NewsDay (Zimbabwe),newsday.co.zw,Zimbabwe,Africa,no_coverage_found,0,2026-09-29,
+Lusaka Times,lusakatimes.com,Zambia,Africa,in_sample,3,2026-09-29,
+ZNBC,znbc.co.zm,Zambia,Africa,no_coverage_found,0,2026-09-29,
+The Namibian,namibian.com.na,Namibia,Africa,in_sample,4,2026-09-29,a preview from 17 September left out
+New Era,neweralive.na,Namibia,Africa,in_sample,1,2026-09-29,
+Mmegi,mmegi.bw,Botswana,Africa,no_coverage_found,0,2026-09-29,
+Nyasa Times,nyasatimes.com,Malawi,Africa,in_sample,1,2026-09-29,
+Club of Mozambique,clubofmozambique.com,Mozambique,Africa,in_sample,2,2026-09-29,
+Morocco World News,moroccoworldnews.com,Morocco,Africa,in_sample,5,2026-09-29,a piece from 17 September left out
+Hespress English,en.hespress.com,Morocco,Africa,in_sample,1,2026-09-29,
+APS,aps.dz,Algeria,Africa,no_text,0,2026-09-29,state news agency; page yields 14 words
+TAP,tap.info.tn,Tunisia,Africa,download_failed,0,2026-09-29,state news agency; its certificate fails verification
+Hiiraan Online,hiiraan.com,Somalia,Africa,in_sample,1,2026-09-29,
+Garowe Online,garoweonline.com,Somalia,Africa,outside_window,0,2026-09-29,piece found was from 2020
+Libya Observer,libyaobserver.ly,Libya,Africa,in_sample,2,2026-09-29,two pieces from 2021 and 2025 left out
+Libya Herald,libyaherald.com,Libya,Africa,in_sample,1,2026-09-29,
+Sudan Tribune,sudantribune.com,Sudan,Africa,download_refused,0,2026-09-29,403
+Dabanga,dabangasudan.org,Sudan,Africa,outside_window,0,2026-09-29,piece found was from the 2025 session
+Radio Tamazuj,radiotamazuj.org,South Sudan,Africa,in_sample,1,2026-09-29,
+FrontPage Africa,frontpageafricaonline.com,Liberia,Africa,in_sample,3,2026-09-29,
+The Point,thepoint.gm,Gambia,Africa,no_coverage_found,0,2026-09-29,
+APAnews,apanews.net,Senegal,Africa,no_coverage_found,0,2026-09-29,
+Cameroon Tribune,cameroon-tribune.cm,Cameroon,Africa,not_english,0,2026-09-29,French
+allAfrica,allafrica.com,Mauritius,Africa,excluded,0,2026-09-29,aggregator; items found republish UN News and outlets already sampled
