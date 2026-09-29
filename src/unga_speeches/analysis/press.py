@@ -3,6 +3,7 @@
 import csv
 import json
 import re
+import statistics
 from collections import Counter
 
 import pandas as pd
@@ -24,7 +25,10 @@ TONES = [
 _TONES = [(name, re.compile(rf"\b(?:{p})\b", re.I)) for name, p in TONES]
 NO_VERB = "Statement, no verb"
 SNIPPET_WORDS = 40
-BALANCED_MIN_REPORTS = 10  # a region's press enters the balanced share only with at least this many reports
+# a country's outlet votes on attention from others only with at least this many mentions of other countries' delegations
+FOREIGN_MIN_MENTIONS = 10
+# territories whose press counts under the state they belong to
+SOVEREIGN = {"Hong Kong": "China", "Guam": "United States", "Northern Mariana Islands": "United States"}
 SNIPPETS = 6
 # a surname shorter than this is too often a first name or a word to count on its own
 SURNAME_CHARS = 4
@@ -71,10 +75,45 @@ def _outside(news: list[dict]) -> list[dict]:
     return [n for n in news if not n["outlet"].startswith(UN_OUTLETS) and n["outlet"] not in REFERENCE_OUTLETS]
 
 
+def panel(news: list[dict], country_of: dict[str, str] | None = None) -> tuple[list[dict], list[dict]]:
+    """One outlet per country, so each country's press counts once: the outlet with the most debate-week words in the sample.
+
+    Returns the panel outlets' reports, and one row per country saying which outlet stands for it and what it was chosen over."""
+    if country_of is None:
+        with (REFERENCE_DIR / "outlets.csv").open(encoding="utf-8") as f:
+            country_of = {r["outlet"]: r["country"] for r in csv.DictReader(f)}
+    country_of = {o: SOVEREIGN.get(c, c) for o, c in country_of.items()}
+    by_outlet: dict[str, list[dict]] = {}
+    for a in _outside(news):
+        by_outlet.setdefault(a["outlet"], []).append(a)
+    by_country: dict[str, list[str]] = {}
+    for outlet in by_outlet:
+        by_country.setdefault(country_of[outlet], []).append(outlet)
+    articles, table = [], []
+    for country, outlets in sorted(by_country.items()):
+        ranked = sorted(outlets, key=lambda o: (-sum(a["words"] for a in by_outlet[o]), -len(by_outlet[o]), o))
+        chosen = ranked[0]
+        articles += [{**a, "country": country} for a in by_outlet[chosen]]
+        table.append(
+            {
+                "country": country,
+                "region": by_outlet[chosen][0].get("base_region", ""),
+                "outlet": chosen,
+                "reports": len(by_outlet[chosen]),
+                "words": sum(a["words"] for a in by_outlet[chosen]),
+                "not_used": ranked[1:],
+            }
+        )
+    return articles, table
+
+
 def attention(speeches: list[Speech], news: list[dict]) -> dict:
-    """Paragraphs of outside press that name each delegation, by country or, within an article that names the country, its speaker."""
-    articles = _outside(news)
+    """Paragraphs of the panel's outlets that name each delegation, by country or, within an article that names the country, its speaker.
+
+    A delegation's share of press attention is its share of each panel outlet's mentions, averaged over the countries, one vote each."""
+    articles, table = panel(news)
     total_words = sum(s.words for s in speeches)
+    iso3_of = {s.delegation: s.iso3 for s in speeches}
     rows = []
     for s in speeches:
         if not s.iso3:
@@ -91,6 +130,7 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
                     hits.append(
                         {
                             "outlet": a["outlet"],
+                            "country": a["country"],
                             "base_region": a.get("base_region", ""),
                             "date": a["date"],
                             "title": a["title"],
@@ -102,43 +142,69 @@ def attention(speeches: list[Speech], news: list[dict]) -> dict:
             rows.append(
                 {
                     "slug": s.slug,
+                    "region": s.region,
                     "paragraphs": len(hits),
                     "articles": len({h["url"] for h in hits}),
                     "share_of_words": round(s.words / total_words, 4),
                     "outlets": len({h["outlet"] for h in hits}),
+                    "by_country": dict(Counter(h["country"] for h in hits)),
                     "by_base": dict(Counter(h["base_region"] for h in hits)),
                     "snippets": _spread(hits),
                 }
             )
-    total = sum(r["paragraphs"] for r in rows)
+    country_totals = Counter()
     for r in rows:
-        r["share_of_press"] = round(r["paragraphs"] / total, 4)
-    # each region's press counts equally, so the figure does not depend on which region was sampled most
-    base_totals = Counter()
+        country_totals.update(r["by_country"])
+    voting = sorted(c for c, n in country_totals.items() if n)
     for r in rows:
-        base_totals.update(r["by_base"])
-    balanced_regions = sorted(
-        b for b, n in Counter(a.get("base_region") for a in articles).items() if n >= BALANCED_MIN_REPORTS and b in base_totals
-    )
-    for r in rows:
-        r["balanced_share"] = round(
-            sum(r["by_base"].get(b, 0) / base_totals[b] for b in balanced_regions) / max(1, len(balanced_regions)), 4
+        r["country_share"] = round(sum(r["by_country"].get(c, 0) / country_totals[c] for c in voting) / max(1, len(voting)), 4)
+        r["countries"] = len(r["by_country"])
+    # how much of each country's outlet goes to its own country's delegation
+    by_slug_iso = {s.slug: s.iso3 for s in speeches}
+    for t in table:
+        own = next(
+            (r for r in rows if by_slug_iso[r["slug"]] == iso3_of.get(t["country"]) or _same_country(r["slug"], t["country"], speeches)),
+            None,
         )
-    rows.sort(key=lambda r: -r["balanced_share"])
-    shares = [r["share_of_press"] for r in sorted(rows, key=lambda r: -r["share_of_press"])]
-    balanced = [r["balanced_share"] for r in rows]
+        t["mentions"] = country_totals.get(t["country"], 0)
+        t["own_share"] = round(own["by_country"].get(t["country"], 0) / t["mentions"], 3) if own and t["mentions"] else 0.0
+        t["top"] = max(rows, key=lambda r: r["by_country"].get(t["country"], 0))["slug"] if t["mentions"] else None
+        t["own_slug"] = own["slug"] if own else None
+    # attention from other countries: each country's own delegation is dropped before its outlet's shares are taken
+    own_of = {t["country"]: t["own_slug"] for t in table}
+    foreign_totals = {
+        c: country_totals[c] - next((r["by_country"].get(c, 0) for r in rows if r["slug"] == own_of.get(c)), 0) for c in voting
+    }
+    foreign_voting = [c for c in voting if foreign_totals[c] >= FOREIGN_MIN_MENTIONS]
+    for r in rows:
+        r["foreign_share"] = round(
+            sum(r["by_country"].get(c, 0) / foreign_totals[c] for c in foreign_voting if own_of.get(c) != r["slug"])
+            / max(1, len(foreign_voting)),
+            4,
+        )
+        r["foreign_countries"] = sum(1 for c in r["by_country"] if own_of.get(c) != r["slug"])
+    rows.sort(key=lambda r: (-r["foreign_share"], r["slug"]))
+    shares = [r["foreign_share"] for r in rows]
     return {
         "rows": rows,
-        "balanced_regions": balanced_regions,
-        "balanced_top5_share": round(sum(balanced[:5]), 3),
-        "by_base": _home_bias(speeches, articles, rows),
+        "panel": table,
+        "countries": len(voting),
+        "foreign_countries": len(foreign_voting),
+        "top5_share": round(sum(shares[:5]), 3),
+        "by_base": _home_bias(speeches, table, rows),
         "articles": len(articles),
+        "sample_articles": len(_outside(news)),
         "paragraphs": sum(len(a["paragraphs"]) for a in articles),
         "named": len(rows),
         "delegations": sum(1 for s in speeches if s.iso3),
-        "top1_share": shares[0] if shares else 0,
-        "top5_share": round(sum(shares[:5]), 3),
+        "own_share_median": round(statistics.median(t["own_share"] for t in table), 3) if table else None,
     }
+
+
+def _same_country(slug: str, country: str, speeches: list[Speech]) -> bool:
+    """Whether a delegation is the country an outlet is based in, matching the registry's plain country name to the delegation's."""
+    s = next(x for x in speeches if x.slug == slug)
+    return mentions.named(country).get(s.iso3, 0) > 0
 
 
 def _spread(hits: list[dict]) -> list[dict]:
@@ -153,27 +219,36 @@ def _spread(hits: list[dict]) -> list[dict]:
     return out
 
 
-def _home_bias(speeches: list[Speech], articles: list[dict], rows: list[dict]) -> list[dict]:
-    """For each region's outlets, the share of their delegation mentions that go to their own region, against that region's share of speakers."""
+def _home_bias(speeches: list[Speech], table: list[dict], rows: list[dict]) -> list[dict]:
+    """For each region's panel outlets, the share of their mentions that go to their own region, against that region's share of speakers.
+
+    Each country's outlet counts once, so a region's figure is the average over its countries."""
     region = {s.slug: s.region for s in speeches}
     speakers = Counter(s.region for s in speeches if s.iso3)
     out = []
-    for base in sorted({a.get("base_region") for a in articles if a.get("base_region") in speakers}):
-        counts = {r["slug"]: r["by_base"].get(base, 0) for r in rows if r["by_base"].get(base)}
-        total = sum(counts.values())
-        home = sum(n for slug, n in counts.items() if region.get(slug) == base)
+    for base in sorted({t["region"] for t in table if t["region"] in speakers}):
+        countries = [t for t in table if t["region"] == base and t["mentions"]]
+        if not countries:
+            continue
+        home = [sum(r["by_country"].get(t["country"], 0) for r in rows if region.get(r["slug"]) == base) / t["mentions"] for t in countries]
+        weight = Counter()
+        for t in countries:
+            for r in rows:
+                if r["by_country"].get(t["country"]):
+                    weight[r["slug"]] += r["by_country"][t["country"]] / t["mentions"] / len(countries)
         out.append(
             {
                 "region": base,
-                "outlets": sorted({a["outlet"] for a in articles if a.get("base_region") == base}),
-                "articles": sum(1 for a in articles if a.get("base_region") == base),
-                "words": sum(a["words"] for a in articles if a.get("base_region") == base),
-                "mentions": total,
-                "home_share": round(home / total, 3) if total else None,
+                "countries": [t["country"] for t in countries],
+                "outlets": [t["outlet"] for t in countries],
+                "articles": sum(t["reports"] for t in countries),
+                "words": sum(t["words"] for t in countries),
+                "mentions": sum(t["mentions"] for t in countries),
+                "home_share": round(sum(home) / len(home), 3),
                 "home_speaker_share": round(speakers[base] / sum(speakers.values()), 3),
-                "top": [{"slug": slug, "mentions": n} for slug, n in Counter(counts).most_common(5)],
+                "top": [{"slug": slug, "share": round(w, 3)} for slug, w in weight.most_common(5)],
                 "outsider": next(
-                    ({"slug": slug, "mentions": n} for slug, n in Counter(counts).most_common() if region.get(slug) != base), None
+                    ({"slug": slug, "share": round(w, 3)} for slug, w in weight.most_common() if region.get(slug) != base), None
                 ),
             }
         )
@@ -182,7 +257,7 @@ def _home_bias(speeches: list[Speech], articles: list[dict], rows: list[dict]) -
 
 def issue_voices(speeches: list[Speech], news: list[dict], coverage: dict[str, dict]) -> list[dict]:
     """Each issue in three voices: how often speeches raise it, how often the UN's summary of the speech keeps it, and how much press text it gets."""
-    press_text = " ".join(p for a in _outside(news) for p in a["paragraphs"])
+    press_text = " ".join(p for a in panel(news)[0] for p in a["paragraphs"])
     podium_text = " ".join(s.text for s in speeches)
     summarised = [s for s in speeches if coverage.get(s.slug, {}).get("summary")]
     press_counts, podium_counts = lexicons.issue_counts(press_text), lexicons.issue_counts(podium_text)
