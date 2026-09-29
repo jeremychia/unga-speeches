@@ -313,9 +313,9 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <h2>__PRESS_TITLE__</h2>
     __PRESS__
     <div class="grid2 two">
-      <figure><h4>Share of outside press paragraphs naming each delegation</h4><div class="map" id="map-press"></div><div class="legend" id="legend-press"></div></figure>
-      <figure><h4>Share of press paragraphs against share of words spoken</h4><div id="press-bars"></div>
-        <div class="legend"><span style="--sw:var(--c1)">Share of press paragraphs</span><span style="--sw:var(--c2)">Share of words spoken</span></div></figure>
+      <figure><h4>Share of press attention to each delegation, each region's press weighted equally</h4><div class="map" id="map-press"></div><div class="legend" id="legend-press"></div></figure>
+      <figure><h4>Share of press attention against share of words spoken</h4><div id="press-bars"></div>
+        <div class="legend"><span style="--sw:var(--c1)">Share of press attention, regions weighted equally</span><span style="--sw:var(--c2)">Share of words spoken</span></div></figure>
     </div>
     <figure><h4>Each region's press: share of mentions going to its own region, against its share of speakers</h4><div id="home-bars"></div>
       <div class="legend"><span style="--sw:var(--c1)">Share of the region's press mentions</span><span style="--sw:var(--c2)">Region's share of speakers</span></div>
@@ -707,9 +707,9 @@ drillable("named-bars", (i) => ({kind: "named", slug: topNamed[i].slug}));
 // ---------- the press ----------
 const P = D.press, ATT = P.attention, PRESS_OF = Object.fromEntries(ATT.rows.map((r) => [r.slug, r]));
 const PRESS_STEPS = [[0.005, "--o1"], [0.02, "--o2"], [0.05, "--o3"], [Infinity, "--o4"]];
-worldMap("map-press", (s) => PRESS_OF[s.slug] ? PRESS_STEPS.find(([cut]) => PRESS_OF[s.slug].share_of_press < cut)[1] : "--none",
+worldMap("map-press", (s) => PRESS_OF[s.slug] ? PRESS_STEPS.find(([cut]) => PRESS_OF[s.slug].balanced_share < cut)[1] : "--none",
   [["under 0.5%", "--o1"], ["0.5–2%", "--o2"], ["2–5%", "--o3"], ["5% or more", "--o4"], ["Not named", "--none"], ["No speech", null]],
-  (s) => PRESS_OF[s.slug] ? `${pct(PRESS_OF[s.slug].share_of_press)} of press paragraphs (${PRESS_OF[s.slug].paragraphs}), from ${PRESS_OF[s.slug].articles} reports` : "Not named in the outside press",
+  (s) => PRESS_OF[s.slug] ? `${(100 * PRESS_OF[s.slug].balanced_share).toFixed(1)}% of press attention, regions weighted equally<br>${PRESS_OF[s.slug].paragraphs} paragraphs in ${PRESS_OF[s.slug].articles} reports from ${PRESS_OF[s.slug].outlets} outlets` : "Not named in the outside press",
   (s) => PRESS_OF[s.slug] ? drill({kind: "press", slug: s.slug}) : openProfile(s.slug), (s) => PRESS_OF[s.slug] ? "Click to read the excerpts" : "Click for the country profile");
 function pairbars(id, items, header = ["Delegation", "Share of press", "Share of words"]) {
   const max = Math.max(...items.flatMap((i) => [i.a, i.b])) || 1;
@@ -717,7 +717,7 @@ function pairbars(id, items, header = ["Delegation", "Share of press", "Share of
   $(id).querySelectorAll(".tracks").forEach((t) => { const i = items[+t.dataset.k]; hover(t, `<b>${esc(i.label)}</b><br>${esc(header[1])}: ${(100 * i.a).toFixed(1)}%<br>${esc(header[2])}: ${(100 * i.b).toFixed(1)}%`); t.style.cursor = "pointer"; t.dataset.drill = JSON.stringify(i.drill); });
   $(id).appendChild(tableView(header, items.map((i) => [i.label, (100 * i.a).toFixed(1) + "%", (100 * i.b).toFixed(1) + "%"])));
 }
-pairbars("press-bars", ATT.rows.slice(0, 15).map((r) => ({label: nameOf(r.slug), a: r.share_of_press, b: r.share_of_words, drill: {kind: "press", slug: r.slug}})));
+pairbars("press-bars", ATT.rows.slice(0, 15).map((r) => ({label: nameOf(r.slug), a: r.balanced_share, b: r.share_of_words, drill: {kind: "press", slug: r.slug}})), ["Delegation", "Share of press attention", "Share of words spoken"]);
 pairbars("home-bars", ATT.by_base.map((b) => ({label: `${b.region} (${b.articles} reports)`, a: b.home_share, b: b.home_speaker_share, drill: {kind: "home", region: b.region}})), ["Region's press", "Share to own region", "Region's share of speakers"]);
 (function ratioBars() {
   const rows = [...P.issues].filter((i) => !["Gaza"].includes(i.issue)).sort((a, b) => (b.press_ratio || 0) - (a.press_ratio || 0));
@@ -813,7 +813,7 @@ function drillSpec(spec) {
         extra: (EDGES_FROM[spec.slug] || []).filter((e) => !BY_SLUG[e.to]).map((e) => `<li><div class="who"><b>${esc(nameOf(e.to))}</b><span class="val">${e.times}×</span></div><div class="ev">${evidenceHtml(e)}</div></li>`).join("")};
     case "press": {
       const r = PRESS_OF[spec.slug];
-      return {title: `${nameOf(spec.slug)} in the press`, sub: `${r.paragraphs} paragraphs in ${r.articles} reports · ${pct(r.share_of_press)} of all press mentions`, def: DEFINITIONS.press,
+      return {title: `${nameOf(spec.slug)} in the press`, sub: `${r.paragraphs} paragraphs in ${r.articles} reports from ${r.outlets} outlets · ${(100 * r.balanced_share).toFixed(1)}% of press attention, regions weighted equally`, def: DEFINITIONS.press,
         html: `<ol class="items">${r.snippets.map((x) => `<li><div class="who"><a href="${esc(x.url)}">${esc(x.outlet)}</a><span class="val">${esc(x.date)}</span></div><div class="small">${esc(x.title)}</div><p class="snip">“${x.cut_start ? "…" : ""}${esc(x.text)}${x.cut_end ? "…" : ""}”</p></li>`).join("")}</ol>${r.paragraphs > r.snippets.length ? `<p class="small">Showing the first ${r.snippets.length} of ${r.paragraphs} paragraphs.</p>` : ""}`};
     }
     case "home": {
