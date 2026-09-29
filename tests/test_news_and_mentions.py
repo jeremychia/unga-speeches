@@ -35,3 +35,20 @@ def test_tone_takes_the_first_reporting_verb():
     assert press.tone("Kuwait calls out Iranian aggression, urges talks") == ("Alarm", "calls out")
     assert press.tone("Eswatini urges fair African representation now") == ("Appeal", "urges")
     assert press.tone("Bhutan: come build with us") == (press.NO_VERB, None)
+
+
+def test_extract_skips_menus_and_link_only_items():
+    story = "".join(f"<p>Paragraph {i} of the story, long enough to pass the length filter easily.</p>" for i in range(5))
+    menu = "<li>Business News Reports Financial Inclusion Analysis and Data Trade Insights</li>"
+    related = "<li><a href='/x'>Kicillof admits he is working to beat Milei in the 2027 election</a></li>"
+    _, paragraphs = news.extract(f"<html><body><article>{story}<ul>{menu}{related}</ul></article></body></html>")
+    assert len(paragraphs) == 5
+
+
+def test_extract_reads_structured_data_when_the_page_has_no_story():
+    body = " ".join(f"Speaker {i} took the floor. The speech lasted {i} minutes. Delegates listened closely." for i in range(10))
+    ld = '{"@graph": [{"@type": "NewsArticle", "articleBody": "' + body + '"}]}'
+    html = f"<html><head><script type='application/ld+json'>{ld}</script></head><body><p>Short.</p></body></html>"
+    _, paragraphs = news.extract(html)
+    assert sum(len(p.split()) for p in paragraphs) > 100
+    assert all(len(p.split()) <= 3 * 8 for p in paragraphs)  # cut into three-sentence chunks
