@@ -53,7 +53,7 @@ ROLE_GROUP = {
 
 
 def classify(title: str | None, slug: str | None = None) -> str:
-    if not title:
+    if not isinstance(title, str) or not title:
         return "unclassified"
     normalised = re.sub(r"\s+", " ", title.lower()).strip()
     if (slug, normalised) in DELEGATION_OVERRIDES:

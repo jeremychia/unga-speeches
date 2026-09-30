@@ -39,6 +39,73 @@ How the speeches are found, read, split and combined, and what each text in the 
 - **Leaning.** [`sources/leaning.py`](../src/unga_speeches/sources/leaning.py) reads each outlet's Media Bias/Fact Check rating from the structured data on its rating page, and accepts a page only if it rates the outlet's own site. The ratings map to Left, Left-centre, Centre, Right-centre and Right; state media are flagged separately and left out of comparisons by leaning, since a rating of a state outlet is not a party leaning.
 - **Claims.** The Assembly President's closing numbers are counted again from the texts, with the same word lists.
 
+## The scanned records, 1946–1992
+
+[`sources/scanned.py`](../src/unga_speeches/sources/scanned.py) reads the UN's scanned records of sessions 1 to 47. The text is the OCR layer the UN published with each scan, read as it stands; nothing is re-recognised.
+
+- **Finding the meetings.** Until 1976 meetings are numbered across sessions (A/PV.<n>), so each session's opening is found by binary search on the date each record gives, and its debate meetings by walking forward: every meeting from the first to the last that lists "General debate" as an agenda item. From 1976 (A/31/PV.<n>) the walk starts at meeting 1.
+- **Reading order.** Pages are read top to bottom when their text runs full width (typescript, 1980s), and left column then right when they are set in two columns. French columns of the bilingual records of the 1940s and 1950s are dropped. Each meeting is read both by OCR line and by OCR block, and the reading that finds more speech is kept.
+- **Speakers.** A turn starts at a label such as "Mr. ARCE (Argentina) (translated from Spanish):". Surnames are printed in capitals, which lets a label survive a mangled title ("Hr.", "Nr."). Heads of state labelled by office alone take their country from the address heading just before the turn. Former states resolve to the corpus's codes: Czechoslovakia CSK, the German Democratic Republic DDR, Democratic Yemen YMD, the USSR RUS.
+- **Which turns count.** Only turns under the general debate's agenda item, whose number is learnt once per session, or under a head of state's address. Tributes and commemorations are left out, and a delegation's speech is its longest such turn of at least 600 words.
+- **Summary records.** The plenary records of the third and fourth sessions (1948 and 1949) are summaries in the third person ("Mr. BLANCO (Venezuela) asked to be excused"), not verbatim, so they yield no speech text; those years keep the corpus's text alone.
+- **Special sessions** that meet inside a regular session, such as the emergency sessions of 1956, 1958 and 1967, are recognised by their capitalised heading and stepped over.
+- **OCR quality.** Each speech's `ocr_quality` is the share of its words found in the vocabulary of the born-digital records from 1993 on.
+- **Checked against the corpus.** A scanned speech joins the dataset only if at least half its five-word runs match the corpus's text for the same delegation, or the corpus has no speech for it. The corpus's cleaned text stays the English text; the scan adds the official record's link, the spoken language, and `records_vs_ungdc`.
+
+### Coverage of the scanned records
+
+A speech counts as linked when its scanned record was found and matches the corpus's text for the same delegation. Agreement is the median share of five-word runs the two texts share. The records of 1948 and 1949 are summaries, 1975's debate was not separated from the special session that preceded it, and the records of 1988 to 1991 set their OCR text one word to a line, which breaks many speaker labels.
+
+| Year | Session | Speeches | Linked to the record | Share | Agreement | Only in the records |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1946 | 1 | 39.0 | 28.0 | 72% | 0.91 |  |
+| 1947 | 2 | 39.0 | 17.0 | 44% | 0.87 |  |
+| 1948 | 3 | 39.0 | 0.0 | 0% |  |  |
+| 1949 | 4 | 35.0 | 0.0 | 0% |  |  |
+| 1950 | 5 | 47.0 | 34.0 | 72% | 0.87 | 3.0 |
+| 1951 | 6 | 51.0 | 29.0 | 57% | 0.68 |  |
+| 1952 | 7 | 43.0 | 7.0 | 16% | 0.64 |  |
+| 1953 | 8 | 44.0 | 27.0 | 61% | 0.83 |  |
+| 1954 | 9 | 42.0 | 23.0 | 55% | 0.89 |  |
+| 1955 | 10 | 45.0 | 12.0 | 27% | 0.65 |  |
+| 1956 | 11 | 67.0 | 19.0 | 28% | 0.85 | 1.0 |
+| 1957 | 12 | 71.0 | 41.0 | 58% | 0.77 |  |
+| 1958 | 13 | 72.0 | 35.0 | 49% | 0.66 |  |
+| 1959 | 14 | 79.0 | 24.0 | 30% | 0.65 |  |
+| 1960 | 15 | 80.0 | 27.0 | 34% | 0.68 | 1.0 |
+| 1961 | 16 | 83.0 | 36.0 | 43% | 0.68 | 2.0 |
+| 1962 | 17 | 95.0 | 32.0 | 34% | 0.90 | 2.0 |
+| 1963 | 18 | 98.0 | 79.0 | 81% | 0.90 | 1.0 |
+| 1964 | 19 | 99.0 | 65.0 | 66% | 0.79 | 4.0 |
+| 1965 | 20 | 101.0 | 81.0 | 80% | 0.77 |  |
+| 1966 | 21 | 110.0 | 80.0 | 73% | 0.88 | 2.0 |
+| 1967 | 22 | 112.0 | 89.0 | 79% | 0.88 | 2.0 |
+| 1968 | 23 | 113.0 | 97.0 | 86% | 0.89 | 1.0 |
+| 1969 | 24 | 117.0 | 95.0 | 81% | 0.79 | 1.0 |
+| 1970 | 25 | 74.0 | 60.0 | 81% | 0.86 | 4.0 |
+| 1971 | 26 | 117.0 | 69.0 | 59% | 0.75 | 1.0 |
+| 1972 | 27 | 125.0 | 93.0 | 74% | 0.89 |  |
+| 1973 | 28 | 122.0 | 68.0 | 56% | 0.85 | 2.0 |
+| 1974 | 29 | 130.0 | 81.0 | 62% | 0.85 | 1.0 |
+| 1975 | 30 | 126.0 | 0.0 | 0% |  |  |
+| 1976 | 31 | 134.0 | 87.0 | 65% | 0.81 |  |
+| 1977 | 32 | 142.0 | 93.0 | 65% | 0.84 |  |
+| 1978 | 33 | 141.0 | 90.0 | 64% | 0.84 |  |
+| 1979 | 34 | 145.0 | 117.0 | 81% | 0.80 | 1.0 |
+| 1980 | 35 | 149.0 | 94.0 | 63% | 0.84 |  |
+| 1981 | 36 | 147.0 | 92.0 | 63% | 0.82 |  |
+| 1982 | 37 | 147.0 | 74.0 | 50% | 0.72 |  |
+| 1983 | 38 | 150.0 | 102.0 | 68% | 0.82 |  |
+| 1984 | 39 | 150.0 | 94.0 | 63% | 0.76 | 1.0 |
+| 1985 | 40 | 138.0 | 107.0 | 78% | 0.87 | 1.0 |
+| 1986 | 41 | 149.0 | 103.0 | 69% | 0.79 |  |
+| 1987 | 42 | 153.0 | 109.0 | 71% | 0.87 |  |
+| 1988 | 43 | 154.0 | 62.0 | 40% | 0.81 |  |
+| 1989 | 44 | 155.0 | 43.0 | 28% | 0.67 |  |
+| 1990 | 45 | 157.0 | 23.0 | 15% | 0.71 | 1.0 |
+| 1991 | 46 | 162.0 | 26.0 | 16% | 0.77 |  |
+| 1992 | 47 | 167.0 | 166.0 | 99% | 0.98 |  |
+
 ## What each text is
 
 - **UN verbatim record.** The official record of the meeting. A non-English speech appears in the UN's English translation, and the record notes the spoken language, e.g. "(spoke in Japanese; English interpretation provided by the delegation)".
