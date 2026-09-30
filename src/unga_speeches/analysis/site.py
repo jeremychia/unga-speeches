@@ -689,6 +689,10 @@ def _check_beyond(d: dict) -> None:
                 raise ValueError(f"press excerpt is not in its article: {snip['text'][:80]}")
 
 
+def _year_top(year: dict, name) -> list[str]:
+    return [f"{name(t['slug'])} ({_pct(t['share'])})" for t in year["top"][:4]]
+
+
 def _leaning_sentence(lean: dict, name) -> str:
     """The two delegations whose coverage differs most between outlets left and right of centre."""
     groups = {g["group"]: g for g in lean["groups"]}
@@ -903,6 +907,21 @@ def _beyond(d: dict) -> dict[str, str]:
         f"<td class='small'>{_e(', '.join(t['not_used']))}</td></tr>"
         for t in sorted(table, key=lambda t: (t["region"], t["country"]))
     )
+    years = d["press_years"]
+    years_rows = "".join(
+        f"<tr><td>{y['year']}</td><td class='n'>{y['reports']}</td><td class='n'>{y['countries']}</td>"
+        f"<td>{_upper_first(_listing(_year_top(y, n)))}</td></tr>"
+        for y in years
+    )
+    years_html = (
+        "<figure><h4>What each debate's press paid most attention to</h4><div class='scroll'><table class='data'>"
+        "<thead><tr><th>Debate</th><th class='n'>Reports</th><th class='n'>Countries' press</th><th>Most covered, share of attention from other countries</th></tr></thead>"
+        f"<tbody>{years_rows}</tbody></table></div>"
+        "<figcaption>Measured the same way each year, with each country's press counted once. The earlier samples are smaller, so their shares move more "
+        "with any one outlet.</figcaption></figure>"
+        if len(years) > 1
+        else ""
+    )
     lean = att["by_leaning"]
     lean_rows = "".join(
         f"<tr><td>{n(slug)}</td>"
@@ -1039,7 +1058,7 @@ def _beyond(d: dict) -> dict[str, str]:
         "__PRESS_TITLE__": "The world heard a narrower debate than the one given",
         "__PRESS__": press_html,
         "__PRESS_NOTE__": press_note,
-        "__PANEL__": panel_html + leaning_html,
+        "__PANEL__": panel_html + leaning_html + years_html,
         "__RACE_TITLE__": "One region campaigned for the next Secretary-General from the podium",
         "__RACE__": race_html,
         "__RACE_TABLE__": race_table,
