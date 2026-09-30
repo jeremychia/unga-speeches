@@ -26,6 +26,7 @@ def main() -> None:
 
     news = sub.add_parser("news", help="download the news reports listed for a session and extract the UN coverage on each speaker page")
     news.add_argument("session", type=int)
+    news.add_argument("--refresh", action="store_true", help="download every report again, so edits since the last run open new versions")
 
     sub.add_parser("brands", help="download the Digital News Report's biggest online news brands in each market")
 
@@ -56,9 +57,10 @@ def main() -> None:
 
         logging.info("wrote %s", analysis_site.build(args.session))
     elif args.command == "news":
+        from unga_speeches.http import Client
         from unga_speeches.sources import news as news_source
 
-        logging.info("wrote %s", news_source.build(args.session))
+        logging.info("wrote %s", news_source.build(args.session, Client(refresh=args.refresh)))
         logging.info("wrote %s", news_source.coverage(args.session))
     elif args.command == "brands":
         from unga_speeches.sources import dnr

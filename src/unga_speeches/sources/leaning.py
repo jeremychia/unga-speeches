@@ -9,6 +9,7 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 
+from unga_speeches import history
 from unga_speeches.config import RAW_DIR, REFERENCE_DIR
 from unga_speeches.http import Client
 
@@ -47,41 +48,17 @@ TRACKED = ["mbfc_url", "mbfc_bias", "factual_reporting", "leaning", "state_media
 
 
 def load_history() -> list[dict]:
-    return json.loads(HISTORY.read_text(encoding="utf-8")) if HISTORY.exists() else []
+    return history.load(HISTORY)
 
 
 def update_history(rows: list[dict], updated: dict[str, str], observed: str) -> list[dict]:
-    """Slowly changing history of each outlet's rating: a changed rating closes the current version and opens a new one.
-
-    A version runs from valid_from up to, not including, valid_to; the current one has valid_to null and is_current true."""
-    history = load_history()
-    current = {h["outlet"]: h for h in history if h["is_current"]}
-    for r in rows:
-        if not r.get("leaning"):
-            continue
-        values = {k: r[k] for k in TRACKED}
-        now = current.get(r["outlet"])
-        if now and all(now[k] == v for k, v in values.items()):
-            now["last_checked"] = observed
-            now["mbfc_updated"] = updated.get(r["outlet"]) or now["mbfc_updated"]
-            continue
-        if now:
-            now.update(valid_to=observed, is_current=False)
-        history.append(
-            {
-                "outlet": r["outlet"],
-                "domain": r["domain"],
-                **values,
-                "mbfc_updated": updated.get(r["outlet"], ""),
-                "valid_from": observed,
-                "valid_to": None,
-                "is_current": True,
-                "last_checked": observed,
-            }
-        )
-    history.sort(key=lambda h: (h["outlet"], h["valid_from"]))
-    HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    return history
+    """Record each outlet's rating in its slowly changing history; MBFC's own revision date is overwritten in place."""
+    rated = [
+        {"outlet": r["outlet"], "domain": r["domain"], **{k: r[k] for k in TRACKED}, "mbfc_updated": updated.get(r["outlet"], "")}
+        for r in rows
+        if r.get("leaning")
+    ]
+    return history.record(HISTORY, rated, "outlet", TRACKED, observed, overwrite=["mbfc_updated"])
 
 
 def _site(domain: str) -> str:

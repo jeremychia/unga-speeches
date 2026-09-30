@@ -50,7 +50,7 @@ dataset:
 	uv run unga dataset
 
 news:
-	uv run unga news $(SESSION)
+	uv run unga news $(SESSION) $(ARGS)
 
 brands:
 	uv run unga brands

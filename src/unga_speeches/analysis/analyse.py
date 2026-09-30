@@ -143,9 +143,38 @@ def build(session: int) -> dict:
             "context": press.context(session, news),
         },
         "race": race.build(session, speeches),
+        "press_years": _press_years(session, attention),
         # every delegation that spoke, including the few with no English text, so names resolve on the page
         "names": _names(session),
     }
+
+
+PRESS_YEARS_BACK = 2  # earlier debates whose press is compared with this one's
+PRESS_YEARS_TOP = 5
+
+
+def _press_years(session: int, current: dict) -> list[dict]:
+    """The delegations each debate's press paid most attention to, measured the same way, for this debate and the ones before."""
+    out = []
+    for s in range(session - PRESS_YEARS_BACK, session + 1):
+        news = press.load_news(s)
+        if not news:
+            continue
+        att = current if s == session else press.attention(load(s), news)
+        out.append(
+            {
+                "session": s,
+                "year": session_year(s),
+                "reports": att["sample_articles"],
+                "countries": att["countries"],
+                "voting": att["foreign_countries"],
+                "top": [
+                    {"slug": r["slug"], "share": r["foreign_share"], "countries": r["foreign_countries"]}
+                    for r in att["rows"][:PRESS_YEARS_TOP]
+                ],
+            }
+        )
+    return out
 
 
 def _speakers(session: int) -> list[dict]:
@@ -158,7 +187,11 @@ def _role_counts(session: int) -> Counter:
 
 
 def _names(session: int) -> dict[str, str]:
-    return {r["slug"]: r["delegation"] for r in _speakers(session)} | {"TWN": "Taiwan"}
+    names = {}
+    for s in range(session - PRESS_YEARS_BACK, session + 1):
+        if (OUTPUT_DIR / f"speeches_{s}.csv").exists():
+            names |= {r["slug"]: r["delegation"] for r in _speakers(s)}
+    return names | {"TWN": "Taiwan"}
 
 
 P5 = ["USA", "CHN", "RUS", "GBR", "FRA"]

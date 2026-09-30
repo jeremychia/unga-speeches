@@ -1,0 +1,92 @@
+outlet,kind,date,url,note,base_region,language
+UN News,article,2025-09-23,https://news.un.org/en/story/2025/09/1165924,US speech,UN,en
+UN News,article,2025-09-23,https://news.un.org/en/story/2025/09/1165918,Guterres opens the debate,UN,en
+UN News,article,2025-09-29,https://news.un.org/en/story/2025/09/1165994,week wrap-up,UN,en
+CNN,article,2025-09-23,https://www.cnn.com/2025/09/23/politics/takeaways-trump-un-speech,US speech takeaways,Americas,en
+CNN,analysis,2025-09-23,https://www.cnn.com/2025/09/23/politics/united-nations-trump-speech-annotated,US speech annotated,Americas,en
+CNN,article,2025-09-26,https://www.cnn.com/2025/09/26/middleeast/netanyahu-un-speech-walkout-latam-intl,Israel speech and walkout,Americas,en
+Fox News,live_coverage,2025-09-23,https://www.foxnews.com/live-news/trump-unga-2025-live-updates-gaza-ukraine-us-funding,US speech live page,Americas,en
+Fox News,article,2025-09-23,https://www.foxnews.com/politics/world-leaders-laugh-squirm-trump-blasts-un-climate-ukraine-gaza-general-assembly,US speech reactions,Americas,en
+CBS News,live_coverage,2025-09-23,https://www.cbsnews.com/live-updates/trump-united-nations-general-assembly-speech-unga/,US speech live page,Americas,en
+NPR,article,2025-09-23,https://www.npr.org/2025/09/23/nx-s1-5546864/trump-foreign-policy-priorities-unga,US speech,Americas,en
+NPR,analysis,2025-09-23,https://www.npr.org/2025/09/23/nx-s1-5546743/how-trumps-speech-to-the-un-landed-as-a-high-level-week-gets-underway,US speech reception,Americas,en
+NPR,article,2025-09-26,https://www.npr.org/sections/goats-and-soda/2025/09/26/g-s1-90731/united-nations-general-assembly,mood of the week,Americas,en
+ABC News,article,2025-09-23,https://abcnews.com/Politics/trump-address-united-nations-general-assembly/story?id=125827572,US speech,Americas,en
+ABC News,article,2025-09-26,https://abcnews.com/Politics/netanyahu-set-give-contentious-speech-united-nations/story?id=125937350,Israel speech,Americas,en
+NBC News,live_coverage,2025-09-23,https://www.nbcnews.com/politics/trump-administration/live-blog/trump-un-gaza-ukraine-tariffs-kamala-harris-china-arizona-live-updates-rcna232652,US speech live blog,Americas,en
+NBC News,live_coverage,2025-09-26,https://www.nbcnews.com/politics/trump-administration/live-blog/trump-comey-ryder-cup-netanyahu-gaza-russia-shutdown-live-updates-rcna232822,Israel speech live blog,Americas,en
+CNBC,article,2025-09-23,https://www.cnbc.com/2025/09/23/trump-un-ga-speech.html,US speech,Americas,en
+PolitiFact,live_coverage,2025-09-22,https://www.politifact.com/article/2025/sep/22/live-fact-checking-donald-trumps-speech-to-un-gene/,US speech live fact-check,Americas,en
+PolitiFact,article,2025-09-23,https://politifact.com/article/2025/sep/23/trump-un-general-assembly-speech/,US speech fact-check,Americas,en
+PolitiFact,article,2025-09-23,https://www.politifact.com/factchecks/2025/sep/23/donald-trump/trump-ended-seven-wars-un-general-assembly/,US speech fact-check,Americas,en
+Foreign Policy,article,2025-09-22,https://foreignpolicy.com/2025/09/22/unga-palestine-two-state-solution-russia-estonia-trump-waltz/,day one,Americas,en
+CBC News,article,2025-09-23,https://www.cbc.ca/news/world/un-general-assembly-tuesday-1.7640896,US speech,Americas,en
+CBC News,analysis,2025-09-23,https://www.cbc.ca/news/world/trump-un-speech-united-nations-general-assembly-2025-1.7640933,US speech analysis,Americas,en
+CBC News,article,2025-09-29,https://www.cbc.ca/news/politics/foreign-affairs-minister-canada-united-nations-speech-1.7646867,Canada speech,Americas,en
+CTV News,article,2025-09-22,https://www.ctvnews.ca/politics/article/carney-says-canada-has-what-the-world-wants-at-a-critical-time/,Canada at the UN,Americas,en
+CTV News,article,2025-09-26,https://www.ctvnews.ca/world/israel-hamas-war/article/netanyahu-calls-canadas-palestine-recognition-disgraceful/,Israel speech,Americas,en
+CTV News,article,2025-09-26,https://www.ctvnews.ca/politics/article/thats-my-job-bob-rae-on-why-he-didnt-walk-out-on-netanyahu-speech-at-un/,walkout,Americas,en
+The Globe and Mail,article,2025-09-23,https://www.theglobeandmail.com/world/article-un-general-assembly-2025-world-leaders/,debate overview,Americas,en
+RTÉ News,article,2025-09-23,https://www.rte.ie/news/world/2025/0923/1534811-un-assembly/,day one,Europe,en
+The Irish Times,analysis,2025-09-23,https://www.irishtimes.com/world/us/2025/09/23/laughter-and-darkness-as-trump-escalates-grievances-at-the-united-nations/,US speech,Europe,en
+Al Jazeera,article,2025-09-23,https://www.aljazeera.com/news/2025/9/23/trump-calls-for-gaza-war-to-stop-immediately-in-unga-speech,US speech on Gaza,Asia,en
+Al Jazeera,article,2025-09-30,https://www.aljazeera.com/news/2025/9/30/un-general-assembly-what-did-world-leaders-say-about-israels-war-on-gaza-4,Gaza roundup,Asia,en
+SCMP,article,2025-09-23,https://www.scmp.com/news/china/diplomacy/article/3326596/trump-attacks-un-fiery-general-assembly-speech-slams-global-institutions-and-aid,US speech,Asia,en
+SCMP,analysis,2025-09-24,https://www.scmp.com/news/china/diplomacy/article/3326724/did-trumps-russia-rant-un-give-china-reason-optimism,US speech China angle,Asia,en
+Dawn,opinion,2025-09-20,https://www.dawn.com/news/1943370/unga-at-80-time-to-act,preview op-ed,Asia,en
+Dawn,article,2025-09-20,https://www.dawn.com/news/1943077,preview,Asia,en
+Korea Times,article,2025-09-24,https://www.koreatimes.co.kr/foreignaffairs/20250924/lee-outlines-vision-to-end-hostility-on-korean-peninsula,South Korea speech,Asia,en
+Jakarta Post,article,2025-09-25,https://www.thejakartapost.com/world/2025/09/25/prabowo-pushes-two-state-solution-multilateralism-in-debut-unga-speech.html,Indonesia speech,Asia,en
+Jakarta Post,opinion,2025-09-26,https://www.thejakartapost.com/opinion/2025/09/26/prabowos-un-showtime,editorial,Asia,en
+The Star,article,2025-09-25,https://www.thestar.com.my/news/nation/2025/09/25/malaysia039s-80th-un-general-assembly-national-statement-to-call-for-reform,Malaysia preview,Asia,en
+Tehran Times,article,2025-09-24,https://www.tehrantimes.com/news/518293/Pezeshkian-says-US-and-Israel-betrayed-trust-and-diplomacy,Iran speech,Asia,en
+Tehran Times,article,2025-09-27,https://www.tehrantimes.com/news/518408/Innocent-lives-at-risk-as-international-community-fails-on-human,Iran follow-up,Asia,en
+CGTN,state_media,2025-09-26,https://news.cgtn.com/news/2025-09-26/Chinese-premier-speaks-at-general-debate-of-80th-session-of-UNGA-1GZjW6vuPsI/p.html,China speech,Asia,en
+CGTN,state_media,2025-09-30,https://news.cgtn.com/news/2025-09-30/UN-General-Assembly-concludes-General-Debate-1H532t83K7e/p.html,debate close,Asia,en
+Xinhua,state_media,2025-09-26,https://english.news.cn/20250926/c5f72f3e5f9144df884b95c986b28916/c.html,China speech,Asia,en
+Xinhua,state_media,2025-09-27,https://english.news.cn/20250927/e4e5c0538c384289ae765ff85e09c1c8/c.html,China follow-up,Asia,en
+Global Times,state_media,2025-09-27,https://www.globaltimes.cn/page/202509/1344627.shtml,China at the debate,Asia,en
+Global Times,state_media,2025-09-23,https://www.globaltimes.cn/page/202509/1344217.shtml,China preview,Asia,en
+China Daily,state_media,2025-09-27,https://global.chinadaily.com.cn/a/202509/27/WS68d7a9dda3108622abca3498.html,China follow-up,Asia,en
+GMA News,article,2025-09-27,https://www.gmanetwork.com/news/topstories/nation/960686/end-suffering-and-starvation-in-gaza-philippines-says-at-un-assembly/story/,Philippines speech,Asia,en
+GMA News,article,2025-09-28,https://www.gmanetwork.com/news/topstories/nation/960845/ph-blasts-china-at-unga-over-arbitral-ruling-rejection-steps-up-security-council-bid/story/,Philippines speech,Asia,en
+Republic World,article,2025-09-24,https://www.republicworld.com/world-news/om-shanti-shanti-om-indonesia-president-concludes-un-general-assembly-speech-with-sanskrit-mantra-watch,Indonesia speech,Asia,en
+Premium Times,article,2025-09-25,https://www.premiumtimesng.com/news/headlines/823516-nigerias-president-warns-un-reform-or-risk-irrelevance.html,Nigeria speech,Africa,en
+Premium Times,article,2025-09-25,https://www.premiumtimesng.com/news/headlines/823576-in-unga-address-nigeria-preaches-peace-two-state-solution-in-palestine-israel-conflict.html,Nigeria speech,Africa,en
+Vanguard,article,2025-09-25,https://www.vanguardngr.com/2025/09/adc-faults-vp-shettimas-un-speech-says-fg-ignoring-insecurity-hunger-at-home/,Nigeria speech reaction,Africa,en
+Vanguard,article,2025-09-23,https://www.vanguardngr.com/2025/09/unga-shettima-to-deliver-nigerias-national-statement-wednesday/,Nigeria preview,Africa,en
+Daily Trust,opinion,2025-10-01,https://dailytrust.com/president-tinubus-bold-statement-at-unga-80-and-its-impact-on-global-governance/,Nigeria speech column,Africa,en
+Daily Trust,article,2025-09-22,https://dailytrust.com/shettima-arrives-in-new-york-for-unga-80/,Nigeria preview,Africa,en
+Legit.ng,article,2025-09-24,https://www.legit.ng/politics/1675778-80th-general-assembly-10-key-takeaways-nigerias-national-statement/,Nigeria speech,Africa,en
+Legit.ng,article,2025-09-24,https://www.legit.ng/politics/1675671-tinubu-joins-global-call-palestinian-statehood-general-assembly/,Nigeria speech,Africa,en
+Arise News,article,2025-09-25,https://www.arise.tv/tinubu-demands-un-security-council-reform-debt-relief-and-fair-mineral-benefits-at-unga-80/,Nigeria speech,Africa,en
+The Star (Kenya),article,2025-09-24,https://www.the-star.co.ke/news/2025-09-24-ruto-pushes-for-un-reforms-demands-security-council-seats,Kenya speech,Africa,en
+The Star (Kenya),article,2025-09-26,https://www.the-star.co.ke/news/2025-09-26-unless-un-is-reformed-it-wont-survive-ruto,Kenya follow-up,Africa,en
+Citizen Digital,article,2025-09-23,https://citizen.digital/news/ruto-acknowledges-palestinian-statehood-commits-to-support-peace-talks-n370153,Kenya at the UN,Africa,en
+Citizen Digital,opinion,2025-09-30,https://citizen.digital/opinion-blogs/opinion-africas-inclusion-indispensable-to-a-just-and-effective-global-order-n370593,Kenya op-ed,Africa,en
+The Standard (Kenya),article,2025-09-24,https://www.standardmedia.co.ke/national/article/2001530297/africa-demands-un-security-council-seats-as-ruto-warns-of-credibility-crisis,Kenya speech,Africa,en
+The Standard (Kenya),article,2025-09-24,https://www.standardmedia.co.ke/politics/article/2001530306/ruto-joins-calls-for-two-state-solution-to-end-the-israel-palestine-conflict,Kenya speech,Africa,en
+MyJoyOnline,analysis,2025-09-25,https://www.myjoyonline.com/ghanas-president-mahama-un-general-assembly-address-asserts-africas-power-shift/,Ghana speech,Africa,en
+MyJoyOnline,article,2025-09-30,https://www.myjoyonline.com/mahamas-un-address-boldest-in-years-from-an-african-leader-prof-agyeman-duah/,Ghana speech reaction,Africa,en
+SABC News,article,2025-09-22,https://www.sabcnews.com/sabcnews/ramaphosa-to-champion-peaceful-resolution-of-conflicts-at-80th-unga/,South Africa preview,Africa,en
+Daily Maverick,article,2025-09-23,https://www.dailymaverick.co.za/article/2025-09-23-trade-now-being-used-as-a-weapon-ramaphosa-tells-un-in-jab-at-trump-tariffs/,South Africa speech,Africa,en
+Daily Maverick,article,2025-09-26,https://www.dailymaverick.co.za/article/2025-09-26-history-will-judge-israel-very-harshly-for-the-atrocities-committed-in-gaza-ramaphosa/,South Africa follow-up,Africa,en
+Morocco World News,article,2025-09-27,https://www.moroccoworldnews.com/2025/09/260412/sahara-2030-world-cup-africa-gaza-aziz-akhannouchs-80th-unga-speech/,Morocco speech,Africa,en
+Morocco World News,article,2025-09-26,https://www.moroccoworldnews.com/2025/09/260314/un-morocco-reaffirms-support-for-two-state-solution-for-palestine/,Morocco at the UN,Africa,en
+Egypt Today,article,2025-09-28,https://www.egypttoday.com/Article/1/142522/Egypt-tells-UNGA-it-will-not-be-party-to-a,Egypt speech,Africa,en
+Daily News Egypt,article,2025-09-28,https://www.dailynewsegypt.com/2025/09/28/egypts-foreign-minister-says-ethiopias-nile-dam-policy-is-destabilising/,Egypt speech,Africa,en
+Daily News Egypt,opinion,2025-09-30,https://www.dailynewsegypt.com/2025/09/30/opinion-egypt-at-unga-2025-can-diplomacy-secure-the-nile-and-food-for-100-million/,Egypt op-ed,Africa,en
+The Namibian,article,2025-09-25,https://www.namibian.com.na/namibia-to-diversify-energy-mix-while-battling-climate-change-nnn-at-un-assembly/,Namibia speech,Africa,en
+Lusaka Times,opinion,2025-09-24,https://www.lusakatimes.com/2025/09/24/fall-from-western-grace-is-hichilema-too-ashamed-to-attend-the-un-general-assembly/,Zambia absence op-ed,Africa,en
+FrontPage Africa,article,2025-09-24,https://frontpageafricaonline.com/news/liberia-pres-boakai-rallies-un-to-act-decisively-on-global-crises-cites-liberias-hard-earned-peace-as-model/,Liberia speech,Africa,en
+FrontPage Africa,article,2025-09-24,https://frontpageafricaonline.com/breaking-news/liberias-seat-belongs-to-africa-president-boakai-tells-un-calls-for-global-peace/,Liberia speech,Africa,en
+RNZ,article,2025-09-29,https://www.rnz.co.nz/news/pacific/574554/what-pacific-island-leaders-told-the-un-general-assembly-about-climate-conflict-and-peace,Pacific roundup,Oceania,en
+RNZ,article,2025-09-25,https://www.rnz.co.nz/international/pacific-news/574186/history-will-not-judge-us-by-our-words-pacific-leaders-climate-call-at-unga,Pacific climate call,Oceania,en
+ABC Australia,article,2025-09-25,https://www.abc.net.au/news/2025-09-25/albanese-united-nations-general-assembly-speech/105815200,Australia speech,Oceania,en
+ABC Australia,article,2025-09-24,https://www.abc.net.au/news/2025-09-24/united-nations-general-assembly-donald-trump-speech/105809190,US speech,Oceania,en
+SBS News,article,2025-09-24,https://www.sbs.com.au/news/article/countries-going-to-hell-five-takeaways-from-trumps-un-speech/q2qd7wirp,US speech takeaways,Oceania,en
+SBS News,article,2025-09-25,https://www.sbs.com.au/news/article/albanese-makes-first-un-address-with-call-for-australia-to-have-security-council-seat/tmkdjguai,Australia speech,Oceania,en
+Samoa Observer,article,2025-09-22,https://www.samoaobserver.ws/category/samoa/116221,Samoa preview,Oceania,en
+PINA,article,2025-09-25,https://pina.com.fj/2025/09/25/small-nations-demand-unity-fairness-and-action-nauru-president-adeang-tells-un/,Nauru speech,Oceania,en
+PINA,article,2025-10-01,https://pina.com.fj/2025/10/01/palau-president-calls-for-climate-justice-ocean-protection-and-un-reform-at-80th-unga/,Palau speech,Oceania,en
+Pacific Media Network,article,2025-09-25,https://pmn.co.nz/read/politics-/pacific-leaders-push-climate-action-gender-equality-and-ocean-protection-at-unga80,Pacific leaders,Oceania,en
