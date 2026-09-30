@@ -95,6 +95,11 @@ def agreement(a: str, b: str) -> float | None:
     return round(len(x & y) / min(len(x), len(y)), 3)
 
 
+def _text(value) -> str | None:
+    """A field's value when it is text; pandas gives a missing one as NaN, which is truthy."""
+    return value if isinstance(value, str) and value else None
+
+
 def _index(frame: pd.DataFrame) -> dict:
     return {(int(r["session"]), r["iso3"]): r for r in frame.to_dict("records")} if not frame.empty else {}
 
@@ -147,14 +152,14 @@ def build() -> Path:
             )
         elif v:
             row.update(
-                speaker_name=HONORIFIC.sub("", v["heading_speaker"] or v["label"]),
-                speaker_title=v["heading_title"],
+                speaker_name=HONORIFIC.sub("", _text(v["heading_speaker"]) or v["label"]),
+                speaker_title=_text(v["heading_title"]),
                 speaker_source="un_verbatim_record",
             )
         elif s:
             row.update(
-                speaker_name=HONORIFIC.sub("", s["heading_speaker"] or s["label"].split("(")[0]).strip(" :"),
-                speaker_title=s["heading_title"],
+                speaker_name=HONORIFIC.sub("", _text(s["heading_speaker"]) or s["label"].split("(")[0]).strip(" :"),
+                speaker_title=_text(s["heading_title"]),
                 speaker_source="un_scanned_record",
             )
         row["role"] = roles.classify(row.get("speaker_title"), g["slug"] if g else ("holy-see" if code == "VAT" else None))
@@ -168,7 +173,7 @@ def build() -> Path:
             )
         elif g and g["original_language"]:
             row.update(spoken_language=g["original_language"], spoken_language_source="gadebate_statement_language")
-        elif s and s["spoken_language"]:
+        elif s and isinstance(s["spoken_language"], str):
             row.update(
                 spoken_language=s["spoken_language"],
                 spoken_language_source="un_scanned_record",
