@@ -1,0 +1,68 @@
+outlet,kind,date,url,note,base_region,language
+UN News,article,2024-09-24,https://news.un.org/en/story/2024/09/1154836,Lula opens the general debate,UN,en
+UN News,article,2024-09-25,https://news.un.org/en/story/2024/09/1154916,Wednesday round-up,UN,en
+UN News,article,2024-09-30,https://news.un.org/en/story/2024/09/1155181,Assembly President closes the debate,UN,en
+CNN,live_coverage,2024-09-24,https://www.cnn.com/world/live-news/biden-speech-un-general-assembly-09-24-24/index.html,opening day live page,Americas,en
+CNN,article,2024-09-21,https://www.cnn.com/2024/09/21/world/unga-general-assembly-world-leaders-intl-latam/index.html,preview,Americas,en
+Fox News,article,2024-09-24,https://www.foxnews.com/world/biden-address-un-general-assembly-last-time-dictators-despots-come-new-york,US speech,Americas,en
+Fox News,article,2024-09-24,https://foxnews.com/politics/biden-warns-final-unga-address-world-inflection-point,US speech,Americas,en
+Fox News,opinion,2024-09-25,https://www.foxnews.com/opinion/bidens-speech-unga-should-set-off-alarm-bells-across-globe,opinion on US speech,Americas,en
+CBS News,article,2024-09-24,https://www.cbsnews.com/news/joe-biden-united-nations-general-assembly-final-speech/,US speech,Americas,en
+NPR,article,2024-09-23,https://www.npr.org/2024/09/23/nx-s1-5120535/world-leaders-gather-at-the-united-nations-this-week-with-a-lot-on-their-plate,preview,Americas,en
+NPR,article,2024-09-27,https://www.npr.org/2024/09/27/nx-s1-5131429/israel-netanyahu-un-speech-lebanon-gaza-iran,Israel speech,Americas,en
+ABC News,article,2024-09-24,https://abcnews.go.com/Politics/wars-weigh-biden-effort-burnish-foreign-policy-legacy/story?id=113939390,US speech,Americas,en
+ABC News,analysis,2024-09-24,https://abcnews.go.com/Politics/wars-middle-east-ukraine-poised-dominate-high-stakes/story?id=113940717,analysis,Americas,en
+NBC News,live_coverage,2024-09-24,https://www.nbcnews.com/news/world/live-blog/united-nations-general-assembly-live-updates-rcna172388,live blog,Americas,en
+NBC News,article,2024-09-24,https://www.nbcnews.com/politics/white-house/biden-deliver-final-un-general-assembly-speech-global-turmoil-election-rcna172231,US speech preview,Americas,en
+NBC News,article,2024-09-27,https://www.nbcnews.com/news/world/netanyahu-un-israel-antisemitism-gaza-lebanon-hezbollah-rcna172977,Israel speech,Americas,en
+CNBC,article,2024-09-24,https://www.cnbc.com/2024/09/24/biden-un-speech-ukraine-gaza-sudan.html,US speech,Americas,en
+CNBC,article,2024-09-27,https://www.cnbc.com/2024/09/27/israels-netanyahu-at-un-says-he-came-to-refute-lies-he-heard-there-this-week-from-other-leaders.html,Israel speech,Americas,en
+Foreign Policy,analysis,2024-09-23,https://foreignpolicy.com/2024/09/23/unga-summit-united-nations-dysfunction-guterres-russia/,preview,Americas,en
+Foreign Policy,article,2024-09-27,https://foreignpolicy.com/2024/09/27/israel-lebanon-strike-nasrallah-netanyahu-unga-speech-iran/,Israel speech,Americas,en
+CBC News,analysis,2024-09-24,https://www.cbc.ca/news/politics/united-nations-israel-gaza-1.7334158,double standards claims,Americas,en
+CTV News,article,2024-09-24,https://www.ctvnews.ca/politics/trudeau-attends-general-assembly-where-biden-makes-final-un-speech-1.7049644,Canada at the debate,Americas,en
+The Globe and Mail,article,2024-09-24,https://www.theglobeandmail.com/canada/article-trudeau-attends-general-assembly-where-biden-makes-final-un-speech/,Canada at the debate,Americas,en
+RTÉ News,explainer,2024-09-22,https://www.rte.ie/news/world/2024/0922/1471245-what-to-expect-at-this-years-un-general-assembly/,preview,Europe,en
+RTÉ News,article,2024-09-24,https://www.rte.ie/news/2024/0924/1471581-taoiseach-abbas/,Ireland at the debate,Europe,en
+TheJournal.ie,explainer,2024-09-22,https://www.thejournal.ie/un-general-assembly-2024-ireland-6490146-Sep2024/,preview,Europe,en
+TheJournal.ie,article,2024-09-24,https://www.thejournal.ie/taoiseach-says-world-not-doing-enough-ahead-of-first-meeting-with-palestine-leader-since-state-recognition-6495607-Sep2024/,Ireland at the debate,Europe,en
+TASS,state_media,2024-09-25,https://tass.com/politics/1847211,Russia during the week,Europe,en
+TASS,state_media,2024-09-28,https://tass.com/politics/1849351,Russia speech day,Europe,en
+Ukrinform,state_media,2024-09-25,https://www.ukrinform.net/rubric-polytics/3909626-zelensky-warns-un-of-possible-nuclear-disaster-if-putin-strikes-npp-in-ukraine.html,Ukraine speech,Europe,en
+Buenos Aires Times,article,2024-09-24,https://www.batimes.com.ar/news/argentina/argentinas-president-javier-milei-accuses-un-of-imposing-ideological-socialist-policies-on-states.phtml,Argentina speech,Americas,en
+SCMP,article,2024-09-28,https://www.scmp.com/news/china/diplomacy/article/3280386/chinas-foreign-minister-wang-yi-calls-mideast-ceasefire-hits-trade-sanctions,China speech,Asia,en
+Dawn,article,2024-09-27,https://www.dawn.com/news/1861477,Pakistan speech,Asia,en
+Dawn,article,2024-10-01,https://www.dawn.com/news/1862260,Pakistan speech reaction,Asia,en
+Korea Times,article,2024-09-28,https://www.koreatimes.co.kr/www/nation/2024/09/120_383277.html,South Korea speech,Asia,en
+Korea Times,opinion,2024-09-22,https://www.koreatimes.co.kr/www/opinion/2024/09/797_382720.html,preview column,Asia,en
+Jakarta Post,article,2024-09-29,https://www.thejakartapost.com/world/2024/09/29/indonesia-walks-out-of-un-general-debate-in-protest-of-israeli-speech.html,walkout and Indonesia speech,Asia,en
+Jakarta Post,opinion,2024-09-28,https://www.thejakartapost.com/opinion/2024/09/28/security-council-on-thin-ice.html,editorial,Asia,en
+Malay Mail,article,2024-09-29,https://www.malaymail.com/news/malaysia/2024/09/29/unga-79-malaysia-to-focus-on-future-readiness-as-asean-chair-in-2025/151944,Malaysia speech,Asia,en
+Malay Mail,article,2024-09-30,https://www.malaymail.com/news/malaysia/2024/09/30/veto-power-islamophobia-and-palestine-malaysia-reaffirms-firm-stance-on-universal-issues-in-tok-mats-unga-speech-says-saifuddin-nasution/152111,Malaysia speech reaction,Asia,en
+The Star,article,2024-09-29,https://www.thestar.com.my/news/nation/2024/09/29/unga79-malaysia-advocates-for-global-south-unity-fair-climate-and-development-solutions,Malaysia speech,Asia,en
+The Star,article,2024-09-28,https://www.thestar.com.my/news/nation/2024/09/28/unga-79-malaysian-delegates-others-walk-out-in-protest-as-israeli-pm-begins-speech,walkout,Asia,en
+Tehran Times,article,2024-09-25,https://www.tehrantimes.com/news/504115/Pezeshkian-Israel-s-insane-savagery-in-Lebanon-must-be-stopped,Iran speech,Asia,en
+CGTN,state_media,2024-09-28,https://news.cgtn.com/news/2024-09-28/Wang-Yi-attends-general-debate-of-79th-session-of-UNGA-1xgQeDDj8e4/p.html,China speech,Asia,en
+Xinhua,state_media,2024-09-24,https://english.news.cn/20240924/8834af2877374f08855d5bbce990a67e/c.html,opening day roundup,Asia,en
+Xinhua,state_media,2024-10-01,https://english.news.cn/20241001/5c4675ff9d834db380778484488651c7/c.html,debate close,Asia,en
+Global Times,state_media,2024-09-29,https://www.globaltimes.cn/page/202409/1320578.shtml,China speech,Asia,en
+Global Times,state_media,2024-10-01,https://www.globaltimes.cn/page/202410/1320644.shtml,debate close,Asia,en
+China Daily,state_media,2024-09-30,https://epaper.chinadaily.com.cn/a/202409/30/WS66f9d69ba3105c25b38eca3c.html,China speech,Asia,en
+Philstar,article,2024-09-30,https://www.philstar.com/headlines/2024/09/30/2389000/philippines-united-nations-assembly-condemns-dangerous-actions-south-china-sea,Philippines speech,Asia,en
+Republic World,article,2024-09-28,https://www.republicworld.com/india/jaishankar-unga-full-speech-big-points-all-you-need-to-know-india-middle-east-russia-ukraine-economy-latest-news,India speech,Asia,en
+Vanguard,article,2024-09-26,https://www.vanguardngr.com/2024/09/unga-79-tinubu-seeks-debt-forgiveness-for-nigeria-others/,Nigeria speech,Africa,en
+Daily Trust,opinion,2024-09-30,https://dailytrust.com/shettimas-un-speech-for-the-ages/,Nigeria speech column,Africa,en
+MyJoyOnline,article,2024-09-24,https://www.myjoyonline.com/akufo-addo-to-deliver-final-address-at-79th-un-general-assembly-on-sept-25/,Ghana preview,Africa,en
+Daily Maverick,article,2024-09-24,https://www.dailymaverick.co.za/article/2024-09-24-south-africa-is-in-a-new-era-an-era-of-great-promise-ramaphosa-tells-un-general-assembly/,South Africa speech,Africa,en
+Morocco World News,article,2024-09-25,https://www.moroccoworldnews.com/2024/09/365403/pm-akhannouch-autonomy-plan-is-the-only-solution-to-end-dispute-over-western-sahara,Morocco speech,Africa,en
+Egypt Today,article,2024-09-28,https://www.egypttoday.com/Article/1/135082/UNGA-79-Egypt-says-%E2%80%98will-not-turn-blind-eye%E2%80%99-to,Egypt speech,Africa,en
+The Namibian,article,2024-09-26,https://www.namibian.com.na/namibia-pushes-for-un-security-council-reform-to-represent-african-interests/,Namibia speech,Africa,en
+FrontPage Africa,article,2024-09-26,https://frontpageafricaonline.com/news/liberia-in-first-address-to-u-n-general-assembly-president-boakai-seeks-support-for-war-and-economic-crimes-courts/,Liberia speech,Africa,en
+RNZ,article,2024-10-01,https://www.rnz.co.nz/news/pacific/529545/unga-wraps-up-with-pacific-islands-leaders-reinforcing-message-on-climate-action,Pacific wrap,Oceania,en
+RNZ,article,2024-09-26,https://www.rnz.co.nz/news/pacific/529098/we-must-accelerate-our-efforts-without-delay-nauru-president-on-deep-sea-mining-at-unga,Nauru speech,Oceania,en
+ABC Australia,article,2024-09-27,https://www.abc.net.au/news/2024-09-27/penny-wong-to-warn-un-general-assembly-of-growing-conflict/104404582,Australia speech,Oceania,en
+ABC Australia,article,2024-09-28,https://www.abc.net.au/news/2024-09-28/benjamin-netanyahu-uses-un-address-to-send-warning-to-iran/104407828,Israel speech,Oceania,en
+SBS News,article,2024-09-27,https://www.sbs.com.au/news/article/penny-wong-makes-2m-lebanon-aid-pledge-urges-un-on-palestinian-state-recognition/acsxdblbq,Australia speech,Oceania,en
+Fiji Village,article,2024-09-21,https://www.fijivillage.com/news/Ratu-Wiliame-leads-Fijian-delegation-to-UNGA-58f4rx/,Fiji preview,Oceania,en
+PINA,article,2024-09-27,https://pina.com.fj/2024/09/27/fijis-president-condemns-chinas-ballistic-missile-test-at-unga/,Fiji speech,Oceania,en
+PINA,article,2024-09-26,https://pina.com.fj/2024/09/26/marshall-islands-calls-for-global-accountability-on-climate-nuclear-testing-and-human-rights-at-unga/,Marshall Islands speech,Oceania,en

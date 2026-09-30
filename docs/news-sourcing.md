@@ -242,3 +242,22 @@ Each sampled outlet's leaning is in `reference/outlets.csv`, kept by [`sources/l
 | `last_checked` | The last refresh that confirmed this version; overwritten on each refresh |
 
 The dates record when a refresh saw a rating, so a change is dated to the first refresh after MBFC made it; `mbfc_updated` shows when MBFC itself revised the page. An outlet that leaves the sample keeps its last version open. `outlets.csv` holds the current values, and a test checks they match the history.
+
+## Earlier debates: 2024 and 2025
+
+The press on the 2024 and 2025 debates is listed in `reference/news_79.csv` and `reference/news_80.csv`, found in the same way as 2026's, among outlets already known to be reachable, and checked by the same rules: downloaded, cut to their paragraphs, and dropped if refused, empty, or published outside the debate week.
+
+| Debate | Found | Kept | Left out |
+| --- | --- | --- | --- |
+| 2024 (session 79), 24–30 September | 78 | 67 | Washington Post ×3 timed out; France 24 and Euronews refused; one ABC wire story gone; a Vanguard preview from 19 September; Al Jazeera's live blogs and ThePrint's pages have no text |
+| 2025 (session 80), 23–29 September | 104 | 91 | A Fox News walkout story turned out to be from 2026; Washington Post ×3 timed out; a Daily Nation column refused; one ABC wire story gone; Japan Times, Korea Times, ThePrint and Matangi Tonga pages have no text |
+
+Four rows about the Summit of the Future or other side events were dropped from each year before downloading. The earlier samples are smaller: 24 and 25 countries' press against 42 in 2026.
+
+## Version history of each report
+
+`reference/news_history_<session>.json` keeps every version of each report, as a slowly changing history (type 2) built by the same code as the leanings history. `make news SESSION=81 ARGS=--refresh` downloads every report again and records any change.
+
+- **Tracked:** the title, publication date, word and paragraph counts, and a SHA-256 fingerprint of the extracted text. A change in any of these closes the current version and opens a new one.
+- **Overwritten in place:** the fingerprint of the page itself and the time it was retrieved, since adverts and timestamps change a page without changing the report.
+- **Not kept:** the text. Each version's page is saved under `data/raw/news/<session>/versions/`, which is not committed.
