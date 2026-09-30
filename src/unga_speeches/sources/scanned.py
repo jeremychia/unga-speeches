@@ -59,18 +59,20 @@ TITLE = (
     r"(?:Mr|Mrs|Miss|Ms|Sir|Dame|Lord|Lady|Prince|Princess|Sheikh|Shaikh|King|Queen|Emir|General|Marshal|Archbishop|Cardinal|Baron|Count"
     r"|Dr|U|Mgr|Monsignor|President|Vice-President|Prime\s+Minister|Chancellor|Emperor|Grand\s+Duke|Crown\s+Prince)"
 )
+# a label starts a line, or follows the previous speaker's last sentence when the ocr puts each word on its own line (1988 to 1991)
+START = r"(?:^|\n|(?<=[.!?:;\"”)])\s)"
 LABEL = re.compile(
-    rf"(?:^|\n)\s*(?:\d{{1,3}}\s*[.,]\s*)?(?P<name>{TITLE}[.•,]?\s+[^():\n]{{1,60}}?)\s*\((?P<country>[^()\n]{{2,70}})\)\s*"
+    rf"{START}\s*(?:\d{{1,3}}\s*[.,]\s*)?(?P<name>{TITLE}[.•,]?\s+[^():]{{1,60}}?)\s*\((?P<country>[^()]{{2,70}})\)\s*"
     r"(?:\((?P<lang>(?:translated|interpretation|spoke)[^)]*)\))?\s*:",
 )
 # the records print a speaker's surname in capitals, so a label survives an ocr-mangled title ("Hr.", "Nr.") or a line break
 CAPS_LABEL = re.compile(
-    r"(?:^|\n)\s*(?:\d{1,3}\s*[.,]\s*)?(?:[A-Za-z][a-z]{0,8}[.•,]?[ \t]+){0,2}(?P<name>[A-Z][A-Z~!'’\-.]{2,}(?:[ \t]+[A-Z][A-Z~!'’\-.]{1,}){0,4})"
-    r"\s*\n?\s*\((?P<country>[^()\n]{2,70})\)\s*(?:\((?P<lang>(?:translated|interpretation|spoke)[^)]*)\))?\s*[:;]"
+    rf"{START}\s*(?:\d{{1,3}}\s*[.,]\s*)?(?:[A-Za-z][a-z]{{0,8}}[.•,]?\s+){{0,2}}(?P<name>[A-Z][A-Z~!'’\-.]{{2,}}(?:\s+[A-Z][A-Z~!'’\-.]{{1,}}){{0,4}})"
+    r"\s*\((?P<country>[^()]{2,70})\)\s*(?:\((?P<lang>(?:translated|interpretation|spoke)[^)]*)\))?\s*[:;]"
 )
 # heads of state from the 1980s are labelled by office alone, under a heading that names their country
 HEAD_LABEL = re.compile(
-    r"(?:^|\n)\s*(?P<name>(?:President|Prime Minister|King|Queen|Emir|Sultan|Chairman|General|Prince|Grand Duke)\s+[A-Z][^():\n]{1,50}?)\s*"
+    rf"{START}\s*(?P<name>(?:President|Prime\s+Minister|King|Queen|Emir|Sultan|Chairman|General|Prince|Grand\s+Duke)\s+[A-Z][^():]{{1,50}}?)\s*"
     r"(?:\((?P<lang>(?:translated|interpretation|spoke)[^)]*)\))?\s*:"
 )
 # the heading can wrap onto a second line of capitals
