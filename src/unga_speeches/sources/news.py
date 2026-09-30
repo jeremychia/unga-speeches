@@ -1,15 +1,18 @@
 """News coverage of a session, listed by hand in reference/news_<session>.csv: downloaded, cached and cut to its paragraphs."""
 
 import csv
+import datetime
 import hashlib
 import json
 import logging
 import re
+import shutil
 from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
 
+from unga_speeches import history
 from unga_speeches.config import GADEBATE_BASE, OUTPUT_DIR, RAW_DIR, REFERENCE_DIR
 from unga_speeches.http import Client
 from unga_speeches.sources import gadebate
@@ -75,8 +78,9 @@ def _is_menu(text: str) -> bool:
     return not re.search(r"[.!?,:;”\"]", text) and capitalised >= MENU_CAPITALS * len(words)
 
 
+HISTORY_TRACKED = ["title", "published", "words", "paragraph_count", "text_sha256"]
 # the days each session's coverage is drawn from: the debate week, with its previews and its wrap-ups
-WINDOWS = {81: ("2026-09-18", "2026-09-30")}
+WINDOWS = {79: ("2024-09-20", "2024-10-02"), 80: ("2025-09-19", "2025-10-01"), 81: ("2026-09-18", "2026-09-30")}
 _DATE = re.compile(r"(20\d\d)-(\d\d)-(\d\d)")
 
 
@@ -150,10 +154,20 @@ def _story_container(soup: BeautifulSoup):
     return best
 
 
-def build(session: int, client: Client | None = None) -> Path:
+def history_path(session: int) -> Path:
+    return REFERENCE_DIR / f"news_history_{session}.json"
+
+
+def build(session: int, client: Client | None = None, observed: str | None = None) -> Path:
+    """Download and extract the session's listed reports, and record each report's version in its history.
+
+    The history keeps what each version was (title, publication date, size and a fingerprint of its text), never the text;
+    each version's page stays under data/raw. With a refreshing client every report is downloaded again, so edits show."""
     client = client or Client()
+    observed = observed or datetime.date.today().isoformat()
     out = OUTPUT_DIR / f"news_{session}.jsonl"
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    versions = []
     with out.open("w", encoding="utf-8") as f:
         for source in sources(session):
             name = hashlib.sha1(source["url"].encode()).hexdigest()[:12]
@@ -178,6 +192,24 @@ def build(session: int, client: Client | None = None) -> Path:
                 continue
             words = sum(len(p.split()) for p in paragraphs)
             log.info("%s %s: %d paragraphs, %d words", source["outlet"], source["date"], len(paragraphs), words)
+            text_sha = hashlib.sha256("\n".join(paragraphs).encode()).hexdigest()
+            snapshot = fetched.path.with_name("versions") / f"{name}.{text_sha[:12]}.html"
+            if not snapshot.exists():
+                snapshot.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(fetched.path, snapshot)
+            versions.append(
+                {
+                    "url": source["url"],
+                    "outlet": source["outlet"],
+                    "title": title,
+                    "published": date,
+                    "words": words,
+                    "paragraph_count": len(paragraphs),
+                    "text_sha256": text_sha,
+                    "page_sha256": fetched.sha256,
+                    "retrieved_at": fetched.retrieved_at,
+                }
+            )
             record = {
                 **source,
                 "title": title,
@@ -188,6 +220,8 @@ def build(session: int, client: Client | None = None) -> Path:
                 "sha256": fetched.sha256,
             }
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    # the page's own bytes change with every advert and timestamp, so only its text, title and date open a new version
+    history.record(history_path(session), versions, "url", HISTORY_TRACKED, observed, overwrite=["page_sha256", "retrieved_at"])
     return out
 
 
