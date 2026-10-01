@@ -27,6 +27,7 @@ LAST_SCANNED_SESSION = 47
 FIRST_SESSION_NUMBERED = 31  # from 1976 each session numbers its own meetings
 LAST_MEETING_BEFORE_31 = 2450  # A/PV.<n> runs to about here by the end of 1975
 SESSION_SPAN = 500  # a session's opening lies within this many meetings of the previous debate's end
+MIN_DEBATE_MEETINGS = 3  # fewer flagged meetings than this, followed by a long gap, is a stray mention
 DEBATE_SCAN_LIMIT = 70  # meetings looked at after a session opens
 MEETINGS_AFTER_DEBATE = 8  # this many in a row without the debate, once it has started, ends it; commemorations can interrupt it
 MONTHS = {m: i for i, m in enumerate(
@@ -190,7 +191,8 @@ def debate_meetings(client: Client, session: int, start: int) -> list[tuple[str,
         # special and emergency sessions can meet in the middle of a regular one, so their meetings are stepped over
         if head["special"]:
             continue
-        if session < FIRST_SESSION_NUMBERED and head["date"] and head["date"].year > session_year(session) + 1:
+        # a session can run past new year (1964-65), but never into the next session's autumn
+        if session < FIRST_SESSION_NUMBERED and head["date"] and head["date"] >= date(session_year(session) + 1, 9, 1):
             break
         seen.append((sym, path))
         if head["debate"]:
@@ -199,6 +201,10 @@ def debate_meetings(client: Client, session: int, start: int) -> list[tuple[str,
         elif flagged:
             since += 1
             if since >= MEETINGS_AFTER_DEBATE:
+                # a stray mention, such as a special session's own "general debate", is not the debate: keep walking
+                if len(flagged) < MIN_DEBATE_MEETINGS:
+                    seen, flagged, since = [], [], 0
+                    continue
                 break
     return seen[flagged[0] : flagged[-1] + 1] if flagged else []
 

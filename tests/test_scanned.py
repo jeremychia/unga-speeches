@@ -48,3 +48,37 @@ def test_the_meeting_date_is_the_one_that_names_its_weekday():
 def test_a_special_session_is_recognised_by_its_heading_not_a_mention():
     assert scanned.SPECIAL.search("THIRD SPECIAL SESSION  New York")
     assert not scanned.SPECIAL.search("as the special session on disarmament decided")
+
+
+def _walk(monkeypatch, meetings):
+    """debate_meetings over stand-in meetings: {number: (date, special, debate)}."""
+    from datetime import date
+
+    monkeypatch.setattr(scanned, "fetch", lambda client, sym: sym if int(sym.rsplit(".", 1)[1]) in meetings else None)
+    monkeypatch.setattr(
+        scanned,
+        "header",
+        lambda sym, early=False: dict(zip(("date", "special", "debate"), meetings[int(sym.rsplit(".", 1)[1])], strict=True)),
+    )
+    found = scanned.debate_meetings(None, 30, 1)
+    assert all(isinstance(d, date) or d is None for d, _, _ in meetings.values())
+    return [int(sym.rsplit(".", 1)[1]) for sym, _ in found]
+
+
+def test_a_stray_mention_before_a_long_gap_does_not_end_the_walk(monkeypatch):
+    from datetime import date
+
+    meetings = {1: (date(1975, 9, 2), False, True)}  # a special session's own "general debate"
+    meetings |= {n: (date(1975, 9, 3), False, False) for n in range(2, 12)}
+    meetings |= {n: (date(1975, 9, 22), False, True) for n in range(12, 20)}
+    meetings |= {n: (date(1975, 10, 9), False, False) for n in range(20, 30)}
+    assert _walk(monkeypatch, meetings) == list(range(12, 20))
+
+
+def test_the_walk_steps_over_special_sessions_and_stops_at_the_next_autumn(monkeypatch):
+    from datetime import date
+
+    meetings = {n: (date(1975, 9, 22), False, True) for n in range(1, 4)}
+    meetings |= {4: (date(1975, 9, 23), True, False), 5: (date(1975, 9, 24), False, True)}
+    meetings |= {6: (date(1976, 9, 21), False, True)}  # the next session's debate
+    assert _walk(monkeypatch, meetings) == [1, 2, 3, 5]

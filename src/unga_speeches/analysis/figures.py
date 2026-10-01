@@ -56,6 +56,7 @@ def _style(theme: dict) -> None:
             "figure.facecolor": theme["surface"],
             "axes.facecolor": theme["surface"],
             "savefig.facecolor": theme["surface"],
+            "svg.hashsalt": "unga-speeches",
             "axes.spines.top": False,
             "axes.spines.right": False,
         }
@@ -71,7 +72,8 @@ def _legend(ax, items: list[tuple[str, str]], theme: dict, loc: str = "lower lef
 
 
 def _save(fig, out_dir: Path, name: str, mode: str) -> None:
-    fig.savefig(out_dir / f"{name}-{mode}.svg", bbox_inches="tight", pad_inches=0.08)
+    # no timestamp and a fixed id salt, so the same data always gives the same file
+    fig.savefig(out_dir / f"{name}-{mode}.svg", bbox_inches="tight", pad_inches=0.08, metadata={"Date": None})
     plt.close(fig)
 
 
