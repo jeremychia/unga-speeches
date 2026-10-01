@@ -41,3 +41,13 @@ Add a row to [`reference/manual_sources.csv`](../reference/manual_sources.csv) w
 ## Tests
 
 Tests in [`tests/`](../tests/) run against saved pages in `tests/fixtures/`, never the network. Add a fixture when a new page layout appears, and a test for the rule that handles it.
+
+## Rerunning and checking the results
+
+**Deterministic, given the same downloads.** Every step after the download is fixed code with no randomness: extracting the PDFs and pages, splitting the records, matching countries and outlets, the topic model (fixed seed), the clustering, and every figure on the page. `make reproducible SESSION=81` builds the page twice and fails if any file differs. The one line that changes from day to day is the build date in the footer.
+
+**Not deterministic: the web.** Pages can change or disappear after they are downloaded. Each download is cached under `data/raw/` with its URL, time and SHA-256 in `data/raw/manifest.jsonl`, so a rerun reads the same bytes; `--refresh` downloads again, and the news and leanings histories record what changed.
+
+**Not reproducible: how the source lists were found.** The news reports and the rating pages were found with a search tool, partly by assistant agents, and search results change. What was found is committed (`reference/news_<session>.csv`, `reference/outlets.csv`, `reference/dnr_brands_2026.csv`), and `docs/news-sourcing.md` logs each search, so the lists can be checked and rerun, but not re-derived.
+
+**To rerun from scratch:** `make session`, `make verbatim`, `make scanned`, `make history`, `make dataset`, `make news`, `make brands`, `make leanings` and `make site`, with the sessions wanted. The downloads are not committed; a published release carries the tables.

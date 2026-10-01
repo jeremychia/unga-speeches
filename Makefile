@@ -1,4 +1,4 @@
-.PHONY: help install test lint format session verbatim scanned history dataset news brands leanings site release publish
+.PHONY: help install test lint format reproducible session verbatim scanned history dataset news brands leanings site release publish
 
 SESSION ?= 81
 SESSIONS ?= 79
@@ -7,6 +7,7 @@ ARGS ?=
 help:
 	@echo "make install                    - install dependencies with uv"
 	@echo "make test                       - run the unit tests (no network)"
+	@echo "make reproducible SESSION=81    - build the page twice from the cached downloads and fail if any file differs"
 	@echo "make lint                       - check style and formatting with ruff"
 	@echo "make session SESSION=81         - build one session from gadebate.un.org (64 onwards)"
 	@echo "make verbatim SESSIONS='78 79'  - split the UN verbatim records of these sessions (48 onwards)"
@@ -67,3 +68,8 @@ release:
 publish: release
 	gh release create "$$(cat dist/TAG)" dist/*.parquet dist/*.csv dist/*.zip dist/SHA256SUMS \
 		--title "Data $$(cat dist/TAG | cut -d- -f2-)" --notes-file reports/sources.md
+
+reproducible:
+	uv run --group analysis unga site $(SESSION) && shasum -a 256 site/data.json site/index.html site/figures/*.svg > /tmp/unga-build-1.sha
+	uv run --group analysis unga site $(SESSION) && shasum -a 256 site/data.json site/index.html site/figures/*.svg > /tmp/unga-build-2.sha
+	diff /tmp/unga-build-1.sha /tmp/unga-build-2.sha && echo "the two builds are identical"
