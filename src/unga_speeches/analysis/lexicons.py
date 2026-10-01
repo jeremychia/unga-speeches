@@ -160,17 +160,33 @@ def densest_sentence(text: str, frame: str) -> str:
 
 
 EVIDENCE_CHARS = 300
+MIN_EVIDENCE_WORDS = 8
+TRAILING_NUMBER = re.compile(r"\s+\d{1,3}\.?$")  # the paragraph number a record prints after a sentence
 # the claim every speech makes about the order, counted in the story and shown with its evidence
 CHARTER_OR_LAW = re.compile(r"\bcharter\b|international law", re.I)
 
 
+def _sentence_spans(text: str) -> list[tuple[int, int]]:
+    spans, start = [], 0
+    for sep in SENTENCE.finditer(text):
+        spans.append((start, sep.start()))
+        start = sep.end()
+    return [*spans, (start, len(text))]
+
+
 def first_mention(verbatim: str, pattern: re.Pattern) -> dict | None:
-    """The first sentence that matches, cut to about EVIDENCE_CHARS around the match, as an exact substring of the text."""
-    for sentence in SENTENCE.split(verbatim):
-        match = pattern.search(sentence)
-        if not match:
+    """The first sentence that matches, cut to about EVIDENCE_CHARS around the match, as an exact substring of the text.
+
+    A match in a fragment of under MIN_EVIDENCE_WORDS, such as a heading, takes in the sentences after it."""
+    spans = _sentence_spans(verbatim)
+    for i, (first, last) in enumerate(spans):
+        if not pattern.search(verbatim[first:last]):
             continue
-        sentence = sentence.strip()
+        for _, following in spans[i + 1 :]:
+            if len(verbatim[first:last].split()) >= MIN_EVIDENCE_WORDS:
+                break
+            last = following
+        sentence = TRAILING_NUMBER.sub("", verbatim[first:last].strip())
         match = pattern.search(sentence)
         start = max(0, match.start() - EVIDENCE_CHARS // 2)
         end = min(len(sentence), start + EVIDENCE_CHARS)
