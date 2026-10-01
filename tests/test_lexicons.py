@@ -1,4 +1,6 @@
-from unga_speeches.analysis.lexicons import densest_sentence, frame_rates, issues, markers
+import re
+
+from unga_speeches.analysis.lexicons import densest_sentence, first_mention, frame_rates, issues, markers
 
 
 def test_ai_counts_only_in_capitals_or_in_full():
@@ -40,3 +42,16 @@ def test_gaza_and_palestinian_statehood_are_separate_issues():
 def test_gaza_or_palestine_covers_any_mention():
     assert issues("The Palestinian people deserve peace.")["Gaza or Palestine"]
     assert not issues("The Palestinian people deserve peace.")["Gaza"]
+
+
+def test_a_heading_that_names_a_state_takes_in_the_sentence_after_it():
+    text = "We thank our partners. TAIWAN Mr. President, the people of Taiwan deserve a voice in this Hall. Next point."
+    hit = first_mention(text, re.compile("Taiwan", re.I))
+    assert hit["text"] == "TAIWAN Mr. President, the people of Taiwan deserve a voice in this Hall."
+    assert hit["text"] in text
+
+
+def test_a_paragraph_number_after_the_sentence_is_left_out():
+    text = "The parties met in Singapore earlier this month to settle the dispute. 23. Peace holds."
+    hit = first_mention(text, re.compile("Singapore"))
+    assert hit["text"] == "The parties met in Singapore earlier this month to settle the dispute."

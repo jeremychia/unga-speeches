@@ -719,6 +719,7 @@ def _network_html(d: dict, name) -> str:
         f"{_upper_first(_listing([name(s) for s in brokers]))} sit between more pairs of states than any others."
     )
     allies_naming, allies_silent = tw["allies_naming"], tw["allies_silent"]
+    said = {e["from"]: e for e in d["mentions"]["edges"] if e["to"] == "TWN"}
     taiwan = (
         f"<b>Naming Taiwan is a matter of recognition, not ideology.</b> All {len(tw['named_by'])} speeches that name Taiwan come from the "
         f"{len(tw['allies'])} states that recognise it"
@@ -741,13 +742,22 @@ def _network_html(d: dict, name) -> str:
         + _p(taiwan)
         + "<table class='data'><thead><tr><th>Recognises Taiwan</th><th>Named it in "
         + str(d["year"])
-        + "</th></tr></thead><tbody>"
+        + "</th><th>What it said</th></tr></thead><tbody>"
         + "".join(
-            f"<tr><td>{name(s)}</td><td>{'yes' if s in allies_naming else ('no' if s in tw['allies_speaking'] else 'gave no speech')}</td></tr>"
+            f"<tr><td>{name(s)}</td><td>{'yes' if s in allies_naming else ('no' if s in tw['allies_speaking'] else 'gave no speech')}</td>"
+            f"<td class='small'>{_evidence(said.get(s))}</td></tr>"
             for s in tw["allies"]
         )
         + f"</tbody></table><p class='small'>Allies as listed by the <a href='{_e(tw['source_url'])}'>US Congressional Research Service</a> and Taiwan's government.</p></div>"
     )
+
+
+def _evidence(edge: dict | None) -> str:
+    """The first sentence where a speech names a state, quoted, with an ellipsis where it was cut."""
+    if not edge or not edge.get("evidence"):
+        return ""
+    ev = edge["evidence"]
+    return f"“{'…' if ev.get('cut_start') else ''}{_e(ev['text'])}{'…' if ev.get('cut_end') else ''}”"
 
 
 def network_shuffles() -> str:
