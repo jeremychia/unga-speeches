@@ -14,20 +14,21 @@
   --cell-lo: #0b0b0b; --cell-hi: #ffffff;
   --c1: #2a78d6; --c2: #eb6834; --c3: #1baf7a; --none: #dcdbd4; --hatch: #c3c2b7;
   --o1: #86b6ef; --o2: #3987e5; --o3: #1c5cab; --o4: #0d366b; --neg: #e34948;
+  --k1: #2a78d6; --k2: #eb6834; --k3: #1baf7a; --k4: #9b4fd1; --k5: #c98f00; --k6: #0f9fb0; --k7: #d6457a; --k8: #7a7a72;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
     --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --series: #3987e5; --link: #86b6ef;
-    --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b; --c1: #3987e5; --c2: #d95926; --c3: #199e70; --none: #484844; --hatch: #383835; --o1: #184f95; --o2: #3987e5; --o3: #86b6ef; --o4: #cde2fb; --neg: #e66767;
+    --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b; --c1: #3987e5; --c2: #d95926; --c3: #199e70; --none: #484844; --hatch: #383835; --o1: #184f95; --o2: #3987e5; --o3: #86b6ef; --o4: #cde2fb; --neg: #e66767; --k1: #5a9be6; --k2: #f08a5d; --k3: #3cc893; --k4: #b47ee0; --k5: #e0ab2a; --k6: #35bccb; --k7: #e86f98; --k8: #a3a39a;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
   --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --series: #3987e5; --link: #86b6ef;
-  --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b; --c1: #3987e5; --c2: #d95926; --c3: #199e70; --none: #484844; --hatch: #383835; --o1: #184f95; --o2: #3987e5; --o3: #86b6ef; --o4: #cde2fb; --neg: #e66767;
+  --r100: #0d366b; --r200: #184f95; --r300: #256abf; --r400: #3987e5; --r500: #6da7ec; --r600: #9ec5f4; --r700: #cde2fb; --cell-lo: #ffffff; --cell-hi: #0b0b0b; --c1: #3987e5; --c2: #d95926; --c3: #199e70; --none: #484844; --hatch: #383835; --o1: #184f95; --o2: #3987e5; --o3: #86b6ef; --o4: #cde2fb; --neg: #e66767; --k1: #5a9be6; --k2: #f08a5d; --k3: #3cc893; --k4: #b47ee0; --k5: #e0ab2a; --k6: #35bccb; --k7: #e86f98; --k8: #a3a39a;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
@@ -191,6 +192,15 @@ ol.timeline time { color: var(--ink-2); font-size: 0.85rem; font-variant-numeric
 .ratio .value { font-variant-numeric: tabular-nums; text-align: right; }
 .ratio .axis { grid-column: 2; display: flex; justify-content: space-between; color: var(--muted); font-size: 0.75rem; }
 .snip { margin: 4px 0 0; color: var(--ink-2); }
+#graph svg { width: 100%; height: auto; display: block; }
+#graph line { stroke: var(--axis); stroke-opacity: 0.35; }
+#graph line.on { stroke: var(--ink); stroke-opacity: 0.8; }
+#graph line.off { stroke-opacity: 0.06; }
+#graph circle { stroke: var(--surface); stroke-width: 1; cursor: pointer; }
+#graph circle.off { opacity: 0.2; }
+#graph text { font-size: 9px; fill: var(--ink-2); pointer-events: none; }
+.yearpick { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 8px 0; }
+.trend svg { width: 100%; height: auto; display: block; }
 footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 @media (max-width: 560px) { h1 { font-size: 1.6rem; } .hbar { grid-template-columns: 42% 1fr auto; } }
 </style>
@@ -198,7 +208,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 <body>
 <nav><div>
   <a href="#answer">The answer</a><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a>
-  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a><a href="#press">Press</a><a href="#race">Next Secretary-General</a><a href="#checked">Checked</a><a href="#week">The week</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a><a href="#press">Press</a><a href="#race">Next Secretary-General</a><a href="#checked">Checked</a><a href="#years">Year by year</a><a href="#week">The week</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
 </div></nav>
 <header id="answer">
   <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
@@ -373,6 +383,22 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <h2>Eight speeches worth reading in full</h2>
     <p>Chosen because each carries one thread of the story. The notes are our reading; the quotes are checked word for word against the source, and the figures come from the data.</p>
     __HIGHLIGHTS__
+  </section>
+
+  <section id="years">
+    <p class="eyebrow">Explore</p>
+    <h2>Year by year</h2>
+    __YEARS__
+    <div class="yearpick"><div><label class="small" for="year-a">Year</label><br><select id="year-a" aria-label="Year"></select></div>
+      <div><label class="small" for="year-b">Compared with</label><br><select id="year-b" aria-label="Compared with"></select></div></div>
+    <div class="facts" id="year-facts"></div>
+    <div class="grid2 two">
+      <figure><h4>Share of speeches raising each issue</h4><div id="year-issues"></div></figure>
+      <figure><h4>The states named by the most speeches</h4><div id="year-named"></div></figure>
+    </div>
+    <figure><h4>Theory vocabulary by region, per 1,000 words</h4><div class="scroll" id="year-frames"></div></figure>
+    <figure><h4>Speeches naming Taiwan, each year</h4><div class="trend" id="taiwan-trend"></div>
+      <figcaption>Click a year to set it as the year above.</figcaption></figure>
   </section>
 
   <section id="country">
@@ -715,7 +741,7 @@ worldMap("map-press", (s) => PRESS_OF[s.slug] ? PRESS_STEPS.find(([cut]) => PRES
 function pairbars(id, items, header = ["Delegation", "Share of press", "Share of words"]) {
   const max = Math.max(...items.flatMap((i) => [i.a, i.b])) || 1;
   $(id).innerHTML = `<div class="pairbars">${items.map((i, k) => `<div class="label" title="${esc(i.label)}">${esc(i.label)}</div><div class="tracks" data-k="${k}"><div style="width:${(100 * i.a / max).toFixed(1)}%;background:var(--c1)"></div><div style="width:${(100 * i.b / max).toFixed(1)}%;background:var(--c2)"></div></div><div class="value">${(100 * i.a).toFixed(1)}% · ${(100 * i.b).toFixed(1)}%</div>`).join("")}</div>`;
-  $(id).querySelectorAll(".tracks").forEach((t) => { const i = items[+t.dataset.k]; hover(t, `<b>${esc(i.label)}</b><br>${esc(header[1])}: ${(100 * i.a).toFixed(1)}%<br>${esc(header[2])}: ${(100 * i.b).toFixed(1)}%`); t.style.cursor = "pointer"; t.dataset.drill = JSON.stringify(i.drill); });
+  $(id).querySelectorAll(".tracks").forEach((t) => { const i = items[+t.dataset.k]; hover(t, `<b>${esc(i.label)}</b><br>${esc(header[1])}: ${(100 * i.a).toFixed(1)}%<br>${esc(header[2])}: ${(100 * i.b).toFixed(1)}%`); if (i.drill) { t.style.cursor = "pointer"; t.dataset.drill = JSON.stringify(i.drill); } });
   $(id).appendChild(tableView(header, items.map((i) => [i.label, (100 * i.a).toFixed(1) + "%", (100 * i.b).toFixed(1) + "%"])));
 }
 pairbars("press-bars", ATT.rows.slice(0, 15).map((r) => ({label: nameOf(r.slug), a: r.foreign_share, b: r.share_of_words, drill: {kind: "press", slug: r.slug}})), ["Delegation", "Share of attention from other countries", "Share of words spoken"]);
@@ -747,6 +773,95 @@ worldMap("map-tone", (s) => s.headline ? TONES[s.headline.tone] : null,
   (s) => s.headline ? drill({kind: "tone", tone: s.headline.tone}) : openProfile(s.slug), "Click for every headline with this tone");
 $("press-sources").innerHTML = "<thead><tr><th>Outlet</th><th>Based in</th><th>Leaning</th><th>Date</th><th>Report</th><th class='n'>Words kept</th></tr></thead><tbody>" +
   P.sources.map((x) => `<tr><td>${esc(x.outlet)}</td><td>${esc(x.base_region || "")}</td><td>${x.mbfc_url && x.mbfc_url.startsWith("http") && x.leaning !== "Not rated" ? `<a href="${esc(x.mbfc_url)}">${esc(x.leaning)}</a>` : esc(x.leaning)}${x.state_media ? " · state media" : ""}</td><td>${esc(x.date)}</td><td><a href="${esc(x.url)}">${esc(x.title || x.url)}</a></td><td class="n">${num(x.words)}</td></tr>`).join("") + "</tbody>";
+
+// ---------- the naming network ----------
+const NET = D.network, GW = 1000, GH = 680, PAD = 30;
+const KS = ["--k1", "--k2", "--k3", "--k4", "--k5", "--k6", "--k7", "--k8"];
+const NODE_OF = (slug) => BY_SLUG[slug] || {slug, region: "", lean: "", delegation: nameOf(slug)};
+const NAMED_BY = {}; NET.edges.forEach((e) => NAMED_BY[e.to] = (NAMED_BY[e.to] || 0) + 1);
+let graphMode = "region";
+function graphGroups(mode) {
+  const value = (slug) => mode === "region" ? (NODE_OF(slug).region || "Not a member") : mode === "lean" ? (NODE_OF(slug).lean || "Not a speaker") : (SIM.blocs[BLOC_OF[slug]] || {label: "Not a speaker"}).label;
+  const order = [...new Set(Object.keys(NET.layout).map(value))].sort((a, b) => Object.keys(NET.layout).filter((s) => value(s) === b).length - Object.keys(NET.layout).filter((s) => value(s) === a).length || a.localeCompare(b));
+  return {value, colour: (slug) => KS[Math.min(order.indexOf(value(slug)), KS.length - 1)], order};
+}
+function drawGraph() {
+  const g = graphGroups(graphMode), pos = NET.layout;
+  const xy = (slug) => [PAD + pos[slug][0] * (GW - 2 * PAD), PAD + pos[slug][1] * (GH - 2 * PAD)];
+  let svg = `<svg viewBox="0 0 ${GW} ${GH}" role="img" aria-label="Network of which delegations name which states">`;
+  NET.edges.forEach((e, i) => { if (!pos[e.from] || !pos[e.to]) return; const [x1, y1] = xy(e.from), [x2, y2] = xy(e.to); svg += `<line data-i="${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; });
+  const labelled = new Set(Object.keys(pos).sort((a, b) => (NAMED_BY[b] || 0) - (NAMED_BY[a] || 0)).slice(0, 15));
+  Object.keys(pos).forEach((slug) => {
+    const [x, y] = xy(slug), r = 2.5 + Math.sqrt(NAMED_BY[slug] || 0) * 1.1;
+    svg += `<circle data-slug="${esc(slug)}" cx="${x}" cy="${y}" r="${r.toFixed(1)}" fill="var(${g.colour(slug)})"/>`;
+    if (labelled.has(slug)) svg += `<text x="${x + r + 2}" y="${y + 3}">${esc(nameOf(slug).replace(/ \(.*\)$/, "").replace("United States of America", "United States").replace("Russian Federation", "Russia").replace("State of Palestine", "Palestine"))}</text>`;
+  });
+  $("graph").innerHTML = svg + "</svg>";
+  $("graph-legend").innerHTML = g.order.slice(0, KS.length).map((v, i) => `<span style="--sw:var(${KS[i]})">${esc(v)}</span>`).join("");
+  const lines = [...$("graph").querySelectorAll("line")], dots = [...$("graph").querySelectorAll("circle")];
+  dots.forEach((c) => {
+    const slug = c.dataset.slug;
+    const out = NET.edges.filter((e) => e.from === slug).length, inn = NET.edges.filter((e) => e.to === slug).length;
+    c.addEventListener("mouseenter", (ev) => {
+      const near = new Set([slug]);
+      lines.forEach((l) => { const e = NET.edges[+l.dataset.i], on = e.from === slug || e.to === slug; l.classList.toggle("on", on); l.classList.toggle("off", !on); if (on) { near.add(e.from); near.add(e.to); } });
+      dots.forEach((d) => d.classList.toggle("off", !near.has(d.dataset.slug)));
+      showTip(ev, `<b>${esc(nameOf(slug))}</b><br>named by ${inn} speeches · names ${out} states<br>${esc(g.value(slug))}`);
+    });
+    c.addEventListener("mousemove", moveTip);
+    c.addEventListener("mouseleave", () => { hideTip(); lines.forEach((l) => l.classList.remove("on", "off")); dots.forEach((d) => d.classList.remove("off")); });
+    c.addEventListener("click", () => drill(BY_SLUG[slug] && out >= inn ? {kind: "names", slug} : {kind: "named", slug}, c));
+  });
+}
+$("graph-mode").querySelectorAll("button").forEach((b) => b.onclick = () => {
+  graphMode = b.dataset.mode;
+  $("graph-mode").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  drawGraph();
+});
+drawGraph();
+
+// ---------- year by year ----------
+const YEARS = D.years, YEAR_OF = Object.fromEntries(YEARS.map((y) => [y.year, y])), ISO = D.iso3_names;
+const isoName = (c) => (ISO[c] || c).replace(/ \(.*\)$/, "");
+$("year-a").innerHTML = $("year-b").innerHTML = [...YEARS].reverse().map((y) => `<option value="${y.year}">${y.year}</option>`).join("");
+$("year-a").value = YEARS[YEARS.length - 1].year; $("year-b").value = YEARS[YEARS.length - 1].year - 10;
+function drawYears() {
+  const a = YEAR_OF[+$("year-a").value], b = YEAR_OF[+$("year-b").value];
+  const fact = (v, label) => `<div><b>${esc(v)}</b><span>${esc(label)}</span></div>`;
+  $("year-facts").innerHTML = [
+    fact(num(a.speeches), `speeches in ${a.year} (${num(b.speeches)} in ${b.year})`),
+    fact(a.heads_share == null ? "–" : pct(a.heads_share), `of member states sent a leader (${b.heads_share == null ? "–" : pct(b.heads_share)} in ${b.year})`),
+    fact(num(a.words_median), `words in the median speech (${num(b.words_median)} in ${b.year})`),
+    fact(String(a.taiwan.length), `speeches named Taiwan (${b.taiwan.length} in ${b.year})`),
+  ].join("");
+  const issues = Object.keys(a.issues).filter((k) => !["Gaza", "Palestinian statehood"].includes(k)).sort((x, y) => a.issues[y] - a.issues[x]);
+  pairbars("year-issues", issues.map((k) => ({label: k, a: a.issues[k], b: b.issues[k], drill: null})), ["Issue", String(a.year), String(b.year)]);
+  $("year-issues").insertAdjacentHTML("beforeend", `<div class="legend"><span style="--sw:var(--c1)">${a.year}</span><span style="--sw:var(--c2)">${b.year}</span></div>`);
+  const list = (y) => `<ol>${y.named.map((n) => `<li>${esc(isoName(n.iso3))} <span class="small">(${n.speeches})</span></li>`).join("")}</ol>`;
+  $("year-named").innerHTML = `<div class="cols5" style="grid-template-columns:1fr 1fr"><div><h4 style="margin:0">${a.year}</h4>${list(a)}</div><div><h4 style="margin:0">${b.year}</h4>${list(b)}</div></div>`;
+  const regions = REGIONS.filter((r) => a.frames[r]);
+  $("year-frames").innerHTML = `<table class="data"><thead><tr><th>Region</th>${D.frames.names.map((f) => `<th class="n">${esc(f)}</th>`).join("")}</tr></thead><tbody>` +
+    regions.map((r) => `<tr><td>${esc(r)}</td>${D.frames.names.map((f) => `<td class="n">${a.frames[r][f].toFixed(1)} <span class="small">(${b.frames[r] ? b.frames[r][f].toFixed(1) : "–"})</span></td>`).join("")}</tr>`).join("") +
+    `</tbody></table><p class="small">${a.year}, with ${b.year} in brackets.</p>`;
+  drawTaiwanTrend(a.year);
+}
+function drawTaiwanTrend(selected) {
+  const W = 1000, H = 220, L = 34, B = 26, T = 12, R = 8, max = Math.max(...YEARS.map((y) => y.taiwan.length)) || 1;
+  const x = (yr) => L + (yr - YEARS[0].year) / (YEARS[YEARS.length - 1].year - YEARS[0].year) * (W - L - R), y = (v) => T + (H - T - B) * (1 - v / max);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Speeches naming Taiwan each year">`;
+  [0, Math.round(max / 2), max].forEach((v) => svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`);
+  svg += `<polyline fill="none" stroke="var(--series)" stroke-width="2" points="${YEARS.map((d) => `${x(d.year)},${y(d.taiwan.length)}`).join(" ")}"/>`;
+  YEARS.forEach((d) => svg += `<circle data-year="${d.year}" cx="${x(d.year)}" cy="${y(d.taiwan.length)}" r="${d.year === selected ? 5 : 3}" fill="var(${d.year === selected ? "--c2" : "--series"})" style="cursor:pointer"/>`);
+  YEARS.filter((d) => d.year % 10 === 0).forEach((d) => svg += `<text x="${x(d.year)}" y="${H - 8}" text-anchor="middle">${d.year}</text>`);
+  $("taiwan-trend").innerHTML = svg + "</svg>";
+  $("taiwan-trend").querySelectorAll("circle").forEach((c) => {
+    const d = YEAR_OF[+c.dataset.year];
+    hover(c, `<b>${d.year}</b><br>${d.taiwan.length} speeches named Taiwan${d.taiwan.length ? ": " + esc(d.taiwan.map(isoName).join(", ")) : ""}`);
+    c.addEventListener("click", () => { $("year-a").value = d.year; drawYears(); });
+  });
+}
+$("year-a").onchange = drawYears; $("year-b").onchange = drawYears;
+drawYears();
 
 // ---------- drill-down ----------
 const DEFINITIONS = {
