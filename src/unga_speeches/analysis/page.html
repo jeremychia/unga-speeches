@@ -42,7 +42,15 @@ p { margin: 8px 0 12px; max-width: 72ch; }
 .lede { color: var(--ink-2); font-size: 1.1rem; }
 .small, figcaption, .note { color: var(--ink-2); font-size: 0.875rem; }
 nav { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--border); }
-nav div { max-width: 1080px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 16px; overflow-x: auto; white-space: nowrap; font-size: 0.9rem; }
+nav > div { max-width: 1080px; margin: 0 auto; padding: 8px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; font-size: 0.9rem; }
+nav details { position: relative; }
+nav summary { color: var(--ink-2); cursor: pointer; list-style: none; }
+nav summary::-webkit-details-marker { display: none; }
+nav summary::after { content: " ▾"; font-size: 0.7em; }
+nav summary:hover, nav details[open] summary { color: var(--ink); }
+nav details > div { position: absolute; top: calc(100% + 8px); left: -12px; min-width: 190px; display: flex; flex-direction: column; padding: 6px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); }
+nav details > div a { padding: 6px 12px; }
+nav details > div a:hover { background: var(--page); }
 nav a { color: var(--ink-2); text-decoration: none; }
 nav a:hover { color: var(--ink); }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
@@ -157,6 +165,10 @@ select { font: inherit; padding: 7px 10px; border-radius: 6px; border: 1px solid
 #drawer ol.items .who { display: flex; justify-content: space-between; gap: 10px; }
 #drawer ol.items .who a { font-weight: 600; }
 #drawer ol.items .val { font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
+ol.context { list-style: none; margin: 8px 0 0; padding: 0; max-height: 420px; overflow-y: auto; border-top: 1px solid var(--border); }
+ol.context li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+ol.context .who { display: flex; justify-content: space-between; gap: 10px; }
+ol.context .ev { color: var(--ink-2); margin-top: 3px; }
 #drawer ol.items .ev { color: var(--ink-2); margin-top: 3px; }
 #drawer .mini { height: 6px; background: var(--grid); border-radius: 3px; margin-top: 4px; position: relative; }
 #drawer .mini span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--series); border-radius: 3px; }
@@ -206,9 +218,8 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 </style>
 </head>
 <body>
-<nav><div>
-  <a href="#answer">The answer</a><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a>
-  <a href="#order">World order</a><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a><a href="#press">Press</a><a href="#race">Next Secretary-General</a><a href="#checked">Checked</a><a href="#years">Year by year</a><a href="#week">The week</a><a href="#reading">How they read</a><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a><a href="#country">By country</a><a href="#speeches">All speeches</a><a href="#method">Method</a>
+<nav aria-label="Sections"><div>
+  <a href="#answer">The answer</a><details><summary>Debate</summary><div><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a><a href="#order">World order</a><a href="#race">Next Secretary-General</a></div></details><details><summary>Theory</summary><div><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a></div></details><details><summary>Press</summary><div><a href="#press">Press</a><a href="#checked">Checked</a><a href="#week">The week</a><a href="#reading">How they read</a></div></details><details><summary>Highlights</summary><div><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a></div></details><details><summary>Explore</summary><div><a href="#years">Year by year</a><a href="#country">By country</a><a href="#speeches">All speeches</a></div></details><a href="#method">Method</a>
 </div></nav>
 <header id="answer">
   <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
@@ -313,7 +324,8 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
       <div class="seg" role="group" aria-label="Direction" id="named-mode" style="margin-left:8px"><button type="button" data-mode="by" aria-pressed="true">Who named it</button><button type="button" data-mode="of" aria-pressed="false">Whom it named</button></div>
       <div class="map" id="map-named"></div><div class="legend" id="legend-named"></div>
       <p class="small" id="named-summary"></p>
-      <figcaption>Shaded by how many times the speech names the state. Click any country to switch to it; the list below the map opens every sentence.</figcaption></figure>
+      <ol class="context" id="named-context"></ol>
+      <figcaption>Shaded by how many times the speech names the state. Click any country to switch to it. Each line quotes the first sentence where the speech names the state.</figcaption></figure>
     <figure><h4>The twenty states named by the most speeches</h4><div id="named-bars"></div>
       <figcaption>Click a bar to read the sentence where each speech first names the state.</figcaption></figure>
   </section>
@@ -717,6 +729,9 @@ function namedMap(slug) {
   $("named-summary").innerHTML = namedMode === "by"
     ? `${esc(nameOf(slug))} is named by <button type="button" class="drill" data-drill='${esc(JSON.stringify(spec))}'>${edges.length} speeches</button>, ${edges.reduce((a, e) => a + e.times, 0)} times in all.${me ? ` It names ${(EDGES_FROM[slug] || []).length} states itself.` : ""}`
     : `${esc(nameOf(slug))} names <button type="button" class="drill" data-drill='${esc(JSON.stringify(spec))}'>${edges.length} states</button>. It is named by ${(EDGES_TO[slug] || []).length} speeches.`;
+  const other = (e) => namedMode === "by" ? e.from : e.to;
+  $("named-context").innerHTML = [...edges].sort((a, b) => b.times - a.times || nameOf(other(a)).localeCompare(nameOf(other(b))))
+    .map((e) => `<li><div class="who"><b>${esc(nameOf(other(e)))}</b><span class="small">${e.times}×</span></div><div class="ev">${evidenceHtml(e)}</div></li>`).join("");
 }
 const namedOptions = [...new Set([...D.speeches.map((s) => s.slug), ...M.most_named.map((x) => x.slug)])].sort((a, b) => nameOf(a).localeCompare(nameOf(b)));
 $("named-pick").innerHTML = namedOptions.map((slug) => `<option value="${esc(slug)}">${esc(nameOf(slug))}</option>`).join("");
@@ -862,6 +877,12 @@ function drawTaiwanTrend(selected) {
 }
 $("year-a").onchange = drawYears; $("year-b").onchange = drawYears;
 drawYears();
+
+// ---------- section menus: one open at a time, closed by a pick, a click elsewhere or Escape ----------
+const MENUS = [...document.querySelectorAll("nav details")];
+MENUS.forEach((m) => m.addEventListener("toggle", () => { if (m.open) MENUS.forEach((o) => { if (o !== m) o.open = false; }); }));
+document.addEventListener("click", (e) => { MENUS.forEach((m) => { if (!m.contains(e.target) || e.target.tagName === "A") m.open = false; }); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") MENUS.forEach((m) => m.open = false); });
 
 // ---------- drill-down ----------
 const DEFINITIONS = {
