@@ -8,9 +8,9 @@ import numpy as np
 import pandas as pd
 import textstat
 
-from unga_speeches.analysis import lexicons, mentions, press, race, similarity, topics, words
+from unga_speeches.analysis import lexicons, mentions, network, press, race, similarity, topics, words, years
 from unga_speeches.analysis.corpus import Speech, load
-from unga_speeches.config import OUTPUT_DIR, session_year
+from unga_speeches.config import OUTPUT_DIR, REFERENCE_DIR, session_year
 
 REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"]
 G20 = set("ARG AUS BRA CAN CHN FRA DEU IND IDN ITA JPN KOR MEX RUS SAU ZAF TUR GBR USA".split())
@@ -88,6 +88,7 @@ def build(session: int) -> dict:
         r["g20"] = r["iso3"] in G20
         r["charter_or_law"] = "UN Charter or international law" in r["evidence"] or bool(CHARTER_OR_LAW.search(s.text))
     named = mentions.build(speeches)
+    sim = similarity.build(speeches, matrix, terms, similar)
     news, coverage = press.load_news(session), press.load_coverage(session)
     outlet_info = {r["outlet"]: r for r in press._registry()}
     attention = press.attention(speeches, news)
@@ -112,7 +113,7 @@ def build(session: int) -> dict:
         "overview": overview,
         "distributions": _distributions(rows, states),
         "anomalies": _anomalies(speeches, rows, similar),
-        "similarity": similarity.build(speeches, matrix, terms, similar),
+        "similarity": sim,
         "topics": _topics(fitted, rows),
         # each speech's topic_weights follow this order, which is the model's, not the sorted one above
         "topic_order": [t.label for t in fitted],
@@ -143,6 +144,11 @@ def build(session: int) -> dict:
             "context": press.context(session, news),
         },
         "race": race.build(session, speeches),
+        "network": network.build(
+            rows + [{"slug": "TWN", "region": "", "status": "not_represented", "lean": ""}], named["edges"], sim["blocs"]
+        ),
+        "years": years.load(),
+        "iso3_names": _iso3_names(),
         "press_years": _press_years(session, attention),
         # every delegation that spoke, including the few with no English text, so names resolve on the page
         "names": _names(session),
@@ -175,6 +181,19 @@ def _press_years(session: int, current: dict) -> list[dict]:
             }
         )
     return out
+
+
+def _iso3_names() -> dict[str, str]:
+    """Names for every code the year-by-year figures use, including states that no longer exist."""
+    with (REFERENCE_DIR / "delegations.csv").open(encoding="utf-8") as f:
+        names = {r["iso3"]: r["name"] for r in csv.DictReader(f) if r["iso3"]}
+    return names | {
+        "CSK": "Czechoslovakia",
+        "DDR": "German Democratic Republic",
+        "YUG": "Yugoslavia",
+        "SCG": "Serbia and Montenegro",
+        "YMD": "Democratic Yemen",
+    }
 
 
 def _speakers(session: int) -> list[dict]:

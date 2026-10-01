@@ -16,7 +16,14 @@ dependencies = [
 
 [dependency-groups]
 dev = ["pytest>=8.0", "ruff>=0.6"]
-analysis = ["geopandas>=1.0", "matplotlib>=3.9", "scikit-learn>=1.5", "seaborn>=0.13", "textstat>=0.7"]
+analysis = [
+    "geopandas>=1.0",
+    "matplotlib>=3.9",
+    "networkx>=3.3",
+    "scikit-learn>=1.5",
+    "seaborn>=0.13",
+    "textstat>=0.7",
+]
 
 [project.scripts]
 unga = "unga_speeches.cli:main"

@@ -3,6 +3,7 @@
 import html
 import json
 import re
+import statistics
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -689,6 +690,72 @@ def _check_beyond(d: dict) -> None:
                 raise ValueError(f"press excerpt is not in its article: {snip['text'][:80]}")
 
 
+def _years_intro(d: dict) -> str:
+    first, last = d["years"][0]["year"], d["years"][-1]["year"]
+    return _p(
+        f"Every debate from {first} to {last}, measured the same way: who spoke and at what rank, the issues raised, the states named, and the theory "
+        "vocabulary of each region. Pick two years to set side by side. The issue word lists were written for today's debate, so older years can "
+        "miss issues phrased differently then; leaders' share is left blank where most speakers' ranks are not known."
+    )
+
+
+def _network_html(d: dict, name) -> str:
+    """What the naming network shows: whether naming follows region, bloc or theory lean, and who names Taiwan."""
+    net = d["network"]
+    h = net["homophily"]
+    brokers = [b["slug"] for b in net["brokers"][:2]]
+    tw = net["taiwan"]
+    profile, everyone = tw["named_by_profile"], tw["all_profile"]
+    critical = profile["leans"].get("Critical and postcolonial", 0)
+    critical_all = everyone["leans"].get("Critical and postcolonial", 0)
+    speakers = sum(everyone["leans"].values())
+    years = {y["year"]: len(y["taiwan"]) for y in d["years"]}
+    peak = max(years, key=years.get)
+    regional = (
+        f"<b>States mostly name their neighbours.</b> {_pct(h['region']['observed'])} of naming pairs stay within one region, against "
+        f"{_pct(h['region']['chance_rewired'])} if states named at random while each kept how many it names and is named by: "
+        f"{h['region']['ratio']:.1f} times chance. Speeches in the same bloc name each other {h['bloc']['ratio']:.1f} times as often as chance, "
+        f"and speeches leaning towards the same theory only {h['lean']['ratio']:.2f} times. Each gap is beyond all {network_shuffles()} random rewirings. "
+        f"{_upper_first(_listing([name(s) for s in brokers]))} sit between more pairs of states than any others."
+    )
+    allies_naming, allies_silent = tw["allies_naming"], tw["allies_silent"]
+    taiwan = (
+        f"<b>Naming Taiwan is a matter of recognition, not ideology.</b> All {len(tw['named_by'])} speeches that name Taiwan come from the "
+        f"{len(tw['allies'])} states that recognise it"
+        + ("; no other state names it" if not tw["non_allies_naming"] else f"; {len(tw['non_allies_naming'])} others do too")
+        + f". {_upper_first(_listing([name(s) for s in allies_silent]))} recognise it but did not name it. "
+        f"The namers are Caribbean, Pacific and African small states, so they share blocs, and {critical} of {len(tw['named_by'])} lean towards "
+        f"critical and postcolonial vocabulary against {_pct(critical_all / speakers)} of all speeches: the language of small island states, "
+        f"not a camp of its own. Over time, {years.get(1971, 0)} speeches named Taiwan in 1971, the year the UN gave China's seat to the People's Republic; "
+        f"about {round(statistics.fmean(years.get(y, 0) for y in range(1995, 2011)))} a year from 1995 to 2010, while its allies pressed for its return, "
+        f"with the most in {peak} ({years[peak]}); and {years.get(d['year'], 0)} this year."
+    )
+    return (
+        _p(regional) + "<figure><h4>Who names whom</h4><div class='seg' role='group' aria-label='Colour by' id='graph-mode'>"
+        "<button type='button' data-mode='region' aria-pressed='true'>Region</button><button type='button' data-mode='lean' aria-pressed='false'>Theory lean</button>"
+        "<button type='button' data-mode='bloc' aria-pressed='false'>Bloc</button></div><div id='graph'></div><div class='legend' id='graph-legend'></div>"
+        "<p class='small' id='graph-info'>Hover a state to see whom it names and who names it; click it for the sentences.</p>"
+        "<figcaption>Each line is one speech naming another state; a state's size is how many speeches name it. The layout is a force layout with a fixed "
+        "seed: states that name each other, or are named by the same speeches, sit close together.</figcaption></figure>"
+        + "<div class='callout'><b>Who names Taiwan</b>"
+        + _p(taiwan)
+        + "<table class='data'><thead><tr><th>Recognises Taiwan</th><th>Named it in "
+        + str(d["year"])
+        + "</th></tr></thead><tbody>"
+        + "".join(
+            f"<tr><td>{name(s)}</td><td>{'yes' if s in allies_naming else ('no' if s in tw['allies_speaking'] else 'gave no speech')}</td></tr>"
+            for s in tw["allies"]
+        )
+        + f"</tbody></table><p class='small'>Allies as listed by the <a href='{_e(tw['source_url'])}'>US Congressional Research Service</a> and Taiwan's government.</p></div>"
+    )
+
+
+def network_shuffles() -> str:
+    from unga_speeches.analysis import network
+
+    return format(network.SHUFFLES, ",")
+
+
 def _year_top(year: dict, name) -> list[str]:
     return [f"{name(t['slug'])} ({_pct(t['share'])})" for t in year["top"][:4]]
 
@@ -794,6 +861,7 @@ def _beyond(d: dict) -> dict[str, str]:
                 else ""
             )
         )
+        + _network_html(d, n)
         + _p(
             "<span class='so-what'>So what:</span> naming a state is how a speech assigns blame or offers solidarity. The most-named are the places at war, not the great powers, "
             "and naming mostly stays close to home."
@@ -1059,6 +1127,7 @@ def _beyond(d: dict) -> dict[str, str]:
         "__PRESS__": press_html,
         "__PRESS_NOTE__": press_note,
         "__PANEL__": panel_html + leaning_html + years_html,
+        "__YEARS__": _years_intro(d),
         "__RACE_TITLE__": "One region campaigned for the next Secretary-General from the podium",
         "__RACE__": race_html,
         "__RACE_TABLE__": race_table,
