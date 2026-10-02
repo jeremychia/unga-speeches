@@ -232,16 +232,17 @@ def build(session: int) -> Path:
         "what to put before the rest of the world, and who to send to say it. Readers of the debate usually want answers to five questions, and this page takes them in turn."
     )
     questions = "".join(
-        f"<div><b>{q}</b><span>{a}</span></div>"
-        for q, a in [
-            ("What is on the world's mind?", "The issues most governments raise unprompted are the world's working agenda."),
-            ("Whose wars count?", "Which crises each region names shows whose suffering reaches the agenda."),
-            ("Who showed up?", "Sending a head of state signals the UN matters; sending a deputy signals less."),
+        f"<a href='#{anchor}'><b>{q}</b><span>{a}</span></a>"
+        for anchor, q, a in [
+            ("agenda", "What is on the world's mind?", "The issues most governments raise unprompted are the world's working agenda."),
+            ("wars", "Whose wars count?", "Which crises each region names shows whose suffering reaches the agenda."),
+            ("leaders", "Who showed up?", "Sending a head of state signals the UN matters; sending a deputy signals less."),
             (
+                "order",
                 "How do states see the order?",
                 "Words for the system, such as rules, reform or multipolarity, show who wants it kept and who wants it changed.",
             ),
-            ("Who stands with whom?", "Speeches that sound alike point to shared positions and blocs."),
+            ("alike", "Who stands with whom?", "Speeches that sound alike point to shared positions and blocs."),
         ]
     )
 
@@ -357,7 +358,8 @@ def build(session: int) -> Path:
 
     pair = an["similar_pairs"][0]
     multipolar_users = [r["delegation"] for r in rows if "Multipolar" in r["markers"]]
-    taiwan = [r["delegation"] for r in rows if "Taiwan" in r["issues"]]
+    delegation_of = {r["slug"]: r["delegation"] for r in rows}
+    taiwan = [delegation_of[s] for s in d["network"]["taiwan"]["named_by"]]  # the naming count, so "Taiwan Strait" alone does not count
 
     def see_all(label: str, **spec) -> str:
         return f"<p class='small' style='margin:6px 0 0'>{_drill(label, **spec)}</p>"
@@ -434,7 +436,7 @@ def build(session: int) -> Path:
         ("Women at the podium", beyond.pop("_women")),
         (
             "Taiwan",
-            f"{_drill(len(taiwan), kind='mention', name='Taiwan')} speeches mention Taiwan, which has no seat and gives no speech: {_e(', '.join(taiwan))}.",
+            f"{_drill(len(taiwan), kind='named', slug='TWN')} speeches name Taiwan, which has no seat and gives no speech: {_e(', '.join(taiwan))}. All of them recognise it.",
         ),
     ]
     notable_html = "".join(f"<div class='callout'><b>{t}</b>{body}</div>" for t, body in notable if body)
@@ -842,7 +844,6 @@ def _beyond(d: dict) -> dict[str, str]:
     usa = next((x for x in most if x["slug"] == "united-states-america"), None)
     rus = next((x for x in most if x["slug"] == "russian-federation"), None)
     top_namer = m["names_most"][0]
-    taiwan = next((x for x in most if x["slug"] == "TWN"), None)
     mutual_examples = [
         p for p in m["mutual"] if p in (["armenia", "azerbaijan"], ["iran-islamic-republic", "israel"], ["cuba", "united-states-america"])
     ]
@@ -852,29 +853,23 @@ def _beyond(d: dict) -> dict[str, str]:
             f"Next come {named_drill(3)} and {named_drill(4)}. Across the debate, a speech named another state in {pairs_total:,} speech-to-state pairs."
         )
         + _p(
+            "<span class='so-what'>So what:</span> naming a state is how a speech assigns blame or offers solidarity. The most-named are the places at war, not the great powers, "
+            "and naming mostly stays close to home."
+        )
+        + _network_html(d, n)
+        + _p(
             (
                 f"Russia is named by fewer speeches than the United States ({rus['speeches']} against {usa['speeches']}), but more insistently: "
                 f"{rus['times']} times against {usa['times']}. "
                 if rus and usa and rus["speeches"] < usa["speeches"] and rus["times"] > usa["times"]
                 else ""
             )
-            + f"{n(top_namer['slug'])} names more states than anyone ({_drill(top_namer['states'], kind='names', slug=top_namer['slug'])}). "
-            f"{_pct(m['same_region_share'])} of all naming stays within the speaker's own region."
+            + f"{n(top_namer['slug'])} names more states than anyone ({_drill(top_namer['states'], kind='names', slug=top_namer['slug'])})."
         )
         + _p(
             f"{len(m['mutual'])} pairs of states name each other"
             + (", among them " + "; ".join(f"{n(a)} and {n(b)}" for a, b in mutual_examples) + "." if mutual_examples else ".")
             + f" {len(m['named_nobody'])} speeches name no other state at all: {', '.join(n(s) for s in m['named_nobody'])}."
-            + (
-                f" Taiwan, which has no seat, is named in {_drill(taiwan['speeches'], kind='named', slug='TWN')} speeches."
-                if taiwan
-                else ""
-            )
-        )
-        + _network_html(d, n)
-        + _p(
-            "<span class='so-what'>So what:</span> naming a state is how a speech assigns blame or offers solidarity. The most-named are the places at war, not the great powers, "
-            "and naming mostly stays close to home."
         )
     )
 
@@ -895,72 +890,69 @@ def _beyond(d: dict) -> dict[str, str]:
     europe = next((b for b in home if b["region"] == "Europe"), None)
     table = att["panel"]
     self_heavy = sorted((t for t in table if t["mentions"] and t["own_share"] >= SELF_HEAVY), key=lambda t: -t["own_share"])
-    press_html = (
-        _p(
-            f"<b>Counting each country's press once, {n(us['slug'])} got {_drill(_pct(us['foreign_share']), kind='press', slug=us['slug'])} of the attention "
-            f"other countries' press paid to foreign delegations, and was named by {us['foreign_countries']} of {att['countries']} countries' outlets.</b> "
-            f"Its speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words. Next come "
-            + _listing([f"{n(r['slug'])} ({_drill(_pct(r['foreign_share']), kind='press', slug=r['slug'])})" for r in top[1:]])
-            + f". {att['named']} of {att['delegations']} delegations were named at all."
-        )
-        + _p(
-            f"The press also heard different issues. {_e(loud['issue'])} got {loud['press_ratio']:.0f} times as much press text per word as podium text. "
-            + (
-                "Issues raised by many speeches got a third or less of their podium share: "
-                + "; ".join(
-                    f"{_e(_issue_phrase(i['issue']))} ({_drill(i['speeches'], kind='mention', name=i['issue'])} speeches, "
-                    f"{'no press' if not i['press_ratio'] else format(i['press_ratio'], '.1f') + '×'})"
-                    for i in quiet
-                )
-                + ". "
-                if quiet
-                else ""
-            )
-            + f"Climate change, raised by {_drill(iss['Climate change']['speeches'], kind='mention', name='Climate change')} speeches, got {iss['Climate change']['press_ratio']:.1f} times its podium share."
-        )
-        + _p(
-            f"<b>Most of each country's press is about itself.</b> The median outlet gives {_pct(att['own_share_median'])} of its mentions to its own country's delegation, "
-            f"and {len(self_heavy)} of {att['countries']} give two-thirds or more, among them "
-            + _listing([f"{_e(t['country'])} ({_pct(t['own_share'])})" for t in self_heavy[:4]])
-            + ". "
-            + "Counted by region, with each country's outlet weighted equally: "
+    press_html = _p(
+        f"<b>Counting each country's press once, {n(us['slug'])} got {_drill(_pct(us['foreign_share']), kind='press', slug=us['slug'])} of the attention "
+        f"other countries' press paid to foreign delegations, and was named by {us['foreign_countries']} of {att['countries']} countries' outlets.</b> "
+        f"Its speaker gave {us['share_of_words'] * 100:.1f}% of the debate's words. Next come "
+        + _listing([f"{n(r['slug'])} ({_drill(_pct(r['foreign_share']), kind='press', slug=r['slug'])})" for r in top[1:]])
+        + f". {att['named']} of {att['delegations']} delegations were named at all."
+    )
+    press_issues = _p(
+        f"<b>The press also heard different issues.</b> {_e(loud['issue'])} got {loud['press_ratio']:.0f} times as much press text per word as podium text. "
+        + (
+            "Issues raised by many speeches got a third or less of their podium share: "
             + "; ".join(
-                f"{REGION_PRESS[b['region']][0]} gave {_pct(b['home_share'])} of their mentions to {REGION_PRESS[b['region']][1]}, "
-                f"which are {_pct(b['home_speaker_share'])} of speakers"
-                for b in home
-                if b["region"] in REGION_PRESS
+                f"{_e(_issue_phrase(i['issue']))} ({_drill(i['speeches'], kind='mention', name=i['issue'])} speeches, "
+                f"{'no press' if not i['press_ratio'] else format(i['press_ratio'], '.1f') + '×'})"
+                for i in quiet
             )
             + ". "
-            + (
-                f"Europe's panel is {_listing([_e(c) for c in europe['countries']])} only, so its figure is mostly the war seen from each side. "
-                if europe
-                else ""
-            )
-            + "The delegation from outside their own region that each names most: "
-            + "; ".join(
-                f"{REGION_PRESS[b['region']][0]}, {n(b['outsider']['slug'])}" for b in home if b["region"] in REGION_PRESS and b["outsider"]
-            )
-            + "."
+            if quiet
+            else ""
         )
-        + _leaning_sentence(att["by_leaning"], n)
-        + _p(
-            f"<b>The UN's own summaries filter too.</b> Of the {iss['Ukraine']['speeches']} speeches that raised Ukraine, the UN press office's summary kept it for "
-            f"{_drill(_pct(iss['Ukraine']['kept_share']), kind='dropped', issue='Ukraine')}. For Palestinian statehood it kept "
-            f"{_drill(_pct(iss['Palestinian statehood']['kept_share']), kind='dropped', issue='Palestinian statehood')}, and for AI "
-            f"{_drill(_pct(iss['Artificial intelligence']['kept_share']), kind='dropped', issue='Artificial intelligence')}. "
-            f"Its headlines are mostly statements or quotes with no reporting verb ({_drill(tones.get('Statement, no verb', 0), kind='tone', tone='Statement, no verb')}); "
-            f"of the rest, {_drill(tones.get('Showcase', 0), kind='tone', tone='Showcase')} showcase, {_drill(tones.get('Appeal', 0), kind='tone', tone='Appeal')} appeal "
-            f"and {_drill(tones.get('Alarm', 0), kind='tone', tone='Alarm')} sound the alarm."
+        + f"Climate change, raised by {_drill(iss['Climate change']['speeches'], kind='mention', name='Climate change')} speeches, got {iss['Climate change']['press_ratio']:.1f} times its podium share."
+    )
+    press_home = _p(
+        f"<b>Most of each country's press is about itself.</b> The median outlet gives {_pct(att['own_share_median'])} of its mentions to its own country's delegation, "
+        f"and {len(self_heavy)} of {att['countries']} give two-thirds or more, among them "
+        + _listing([f"{_e(t['country'])} ({_pct(t['own_share'])})" for t in self_heavy[:4]])
+        + ". "
+        + "Counted by region, with each country's outlet weighted equally: "
+        + "; ".join(
+            f"{REGION_PRESS[b['region']][0]} gave {_pct(b['home_share'])} of their mentions to {REGION_PRESS[b['region']][1]}, "
+            f"which are {_pct(b['home_speaker_share'])} of speakers"
+            for b in home
+            if b["region"] in REGION_PRESS
         )
-        + _p(
-            f"UN News also rewrote {tr['speeches']} speeches for readers in other languages, "
-            + ", ".join(f"{lang} ({k})" for lang, k in tr["languages"][:3])
-            + " most often."
+        + ". "
+        + (
+            f"Europe's panel is {_listing([_e(c) for c in europe['countries']])} only, so its figure is mostly the war seen from each side. "
+            if europe
+            else ""
         )
-        + _p(
-            "<span class='so-what'>So what:</span> the debate the world reads about is narrower than the one given. A handful of outlets follow a handful of speakers, "
-            "and most governments reach a wider audience, if at all, through the UN's own summaries."
+        + "The delegation from outside their own region that each names most: "
+        + "; ".join(
+            f"{REGION_PRESS[b['region']][0]}, {n(b['outsider']['slug'])}" for b in home if b["region"] in REGION_PRESS and b["outsider"]
         )
+        + "."
+    )
+    press_leaning = _leaning_sentence(att["by_leaning"], n)
+    press_un = _p(
+        f"<b>The UN's own summaries filter too.</b> Of the {iss['Ukraine']['speeches']} speeches that raised Ukraine, the UN press office's summary kept it for "
+        f"{_drill(_pct(iss['Ukraine']['kept_share']), kind='dropped', issue='Ukraine')}. For Palestinian statehood it kept "
+        f"{_drill(_pct(iss['Palestinian statehood']['kept_share']), kind='dropped', issue='Palestinian statehood')}, and for AI "
+        f"{_drill(_pct(iss['Artificial intelligence']['kept_share']), kind='dropped', issue='Artificial intelligence')}. "
+        f"Its headlines are mostly statements or quotes with no reporting verb ({_drill(tones.get('Statement, no verb', 0), kind='tone', tone='Statement, no verb')}); "
+        f"of the rest, {_drill(tones.get('Showcase', 0), kind='tone', tone='Showcase')} showcase, {_drill(tones.get('Appeal', 0), kind='tone', tone='Appeal')} appeal "
+        f"and {_drill(tones.get('Alarm', 0), kind='tone', tone='Alarm')} sound the alarm."
+    ) + _p(
+        f"UN News also rewrote {tr['speeches']} speeches for readers in other languages, "
+        + ", ".join(f"{lang} ({k})" for lang, k in tr["languages"][:3])
+        + " most often."
+    )
+    press_html += _p(
+        "<span class='so-what'>So what:</span> the debate the world reads about is narrower than the one given. A handful of outlets follow a handful of speakers, "
+        "and most governments reach a wider audience, if at all, through the UN's own summaries."
     )
     unused = sum(len(t["not_used"]) for t in table)
     big = [t for t in table if t["rule"] == "big brands"]
@@ -1135,8 +1127,11 @@ def _beyond(d: dict) -> dict[str, str]:
         "__NAMING__": naming,
         "__PRESS_TITLE__": "The world heard a narrower debate than the one given",
         "__PRESS__": press_html,
+        "__PRESS_ISSUES__": press_issues,
+        "__PRESS_HOME__": press_home,
+        "__PRESS_UN__": press_un,
         "__PRESS_NOTE__": press_note,
-        "__PANEL__": panel_html + leaning_html + years_html,
+        "__PANEL__": panel_html + press_leaning + leaning_html + years_html,
         "__YEARS__": _years_intro(d),
         "__RACE_TITLE__": "One region campaigned for the next Secretary-General from the podium",
         "__RACE__": race_html,

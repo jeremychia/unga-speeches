@@ -8,7 +8,7 @@
 <style>
 :root {
   color-scheme: light;
-  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #6b6a65;
   --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10); --series: #2a78d6; --link: #1c5cab;
   --r100: #cde2fb; --r200: #9ec5f4; --r300: #6da7ec; --r400: #3987e5; --r500: #256abf; --r600: #184f95; --r700: #0d366b;
   --cell-lo: #0b0b0b; --cell-hi: #ffffff;
@@ -41,6 +41,9 @@ h3 { font-size: 1.05rem; margin: 28px 0 6px; }
 p { margin: 8px 0 12px; max-width: 72ch; }
 .lede { color: var(--ink-2); font-size: 1.1rem; }
 .small, figcaption, .note { color: var(--ink-2); font-size: 0.875rem; }
+:focus-visible { outline: 2px solid var(--series); outline-offset: 2px; }
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 10; padding: 6px 12px; background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 6px; }
+.skip:focus { left: 16px; }
 nav { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--border); }
 nav > div { max-width: 1080px; margin: 0 auto; padding: 8px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; font-size: 0.9rem; }
 nav details { position: relative; }
@@ -106,7 +109,9 @@ ol.messages li::before { content: counter(m); position: absolute; left: 14px; to
 ol.messages a { color: var(--ink); text-decoration: none; font-weight: 600; }
 ol.messages span { display: block; color: var(--ink-2); font-size: 0.92rem; margin-top: 2px; }
 .questions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 12px 0; }
-.questions div { border-left: 3px solid var(--series); padding: 4px 12px; }
+.questions a { display: block; border-left: 3px solid var(--series); padding: 4px 12px; color: var(--ink); text-decoration: none; border-radius: 0 6px 6px 0; }
+.questions a:hover, .questions a:focus-visible { background: var(--surface); }
+.questions a b::after { content: " ↓"; color: var(--series); }
 .questions b { display: block; }
 .questions span { color: var(--ink-2); font-size: 0.9rem; }
 figure picture img { width: 100%; height: auto; display: block; }
@@ -218,8 +223,9 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
 </style>
 </head>
 <body>
+<a class="skip" href="#why">Skip to the findings</a>
 <nav aria-label="Sections"><div>
-  <a href="#answer">The answer</a><details><summary>Debate</summary><div><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a><a href="#order">World order</a><a href="#race">Next Secretary-General</a></div></details><details><summary>Theory</summary><div><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a></div></details><details><summary>Press</summary><div><a href="#press">Press</a><a href="#checked">Checked</a><a href="#week">The week</a><a href="#reading">How they read</a></div></details><details><summary>Highlights</summary><div><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a></div></details><details><summary>Explore</summary><div><a href="#years">Year by year</a><a href="#country">By country</a><a href="#speeches">All speeches</a></div></details><a href="#method">Method</a>
+  <a href="#answer">The answer</a><details><summary>Debate</summary><div><a href="#why">Why it matters</a><a href="#agenda">Agenda</a><a href="#wars">Wars</a><a href="#leaders">Leaders</a><a href="#order">World order</a><a href="#race">Next Secretary-General</a><a href="#reading">How they read</a></div></details><details><summary>Theory</summary><div><a href="#lenses">IR lenses</a><a href="#vocabulary">Words</a><a href="#alike">Who sounds alike</a><a href="#naming">Who names whom</a></div></details><details><summary>Press</summary><div><a href="#press">Press</a><a href="#checked">Checked</a><a href="#week">The week</a></div></details><details><summary>Highlights</summary><div><a href="#notable">What stood out</a><a href="#worth-reading">Worth reading</a></div></details><details><summary>Explore</summary><div><a href="#years">Year by year</a><a href="#country">By country</a><a href="#speeches">All speeches</a></div></details><a href="#method">Method</a>
 </div></nav>
 <header id="answer">
   <p class="eyebrow" style="margin-top:0">The 2026 UN General Debate · __COUNT__ speeches</p>
@@ -278,8 +284,26 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
       <figcaption>Share of each region's speeches that use the phrase at least once. Total speeches in brackets.</figcaption></figure>
   </section>
 
+  <section id="race">
+    <p class="eyebrow">5 · The next Secretary-General</p>
+    <h2>__RACE_TITLE__</h2>
+    __RACE__
+    __RACE_TABLE__
+  </section>
+
+  <section id="reading">
+    <p class="eyebrow">6 · How the speeches read</p>
+    <h2>__READING_TITLE__</h2>
+    __READING__
+    <figure><h4>Every speech, by length and region</h4>__FIG_SWARM__</figure>
+    <div class="grid2">
+      <figure><h4>Reading grade of the written statements</h4><div id="grade-hist"></div></figure>
+      <figure><h4>Share of the filed statement actually said</h4><div id="delivered-hist"></div></figure>
+    </div>
+  </section>
+
   <section id="lenses">
-    <p class="eyebrow">5 · Through international relations theory</p>
+    <p class="eyebrow">7 · Through international relations theory</p>
     <h2>__LENSES_TITLE__</h2>
     __THEORY__
     <figure><h4>Each lens's vocabulary by region, per 1,000 words</h4>__FIG_DOTS__</figure>
@@ -289,7 +313,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
   </section>
 
   <section id="vocabulary">
-    <p class="eyebrow">6 · The words they used</p>
+    <p class="eyebrow">8 · The words they used</p>
     <h2>__VOCAB_TITLE__</h2>
     __VOCAB__
     <div class="grid2">
@@ -302,7 +326,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
   </section>
 
   <section id="alike">
-    <p class="eyebrow">7 · Who sounds like whom</p>
+    <p class="eyebrow">9 · Who sounds like whom</p>
     <h2>__ALIKE_TITLE__</h2>
     __ALIKE__
     <figure><h4>How close every speech is to the one you choose</h4>
@@ -316,7 +340,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
   </section>
 
   <section id="naming">
-    <p class="eyebrow">8 · Who names whom</p>
+    <p class="eyebrow">10 · Who names whom</p>
     <h2>__NAMING_TITLE__</h2>
     __NAMING__
     <figure><h4>Who named the state you choose, or whom it named</h4>
@@ -331,7 +355,7 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
   </section>
 
   <section id="press">
-    <p class="eyebrow">9 · What the world heard</p>
+    <p class="eyebrow">11 · What the world heard</p>
     <h2>__PRESS_TITLE__</h2>
     __PRESS__
     <div class="grid2 two">
@@ -339,12 +363,15 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
       <figure><h4>Attention from other countries' press against share of words spoken</h4><div id="press-bars"></div>
         <div class="legend"><span style="--sw:var(--c1)">Share of attention from other countries' press</span><span style="--sw:var(--c2)">Share of words spoken</span></div></figure>
     </div>
+    __PRESS_HOME__
     <figure><h4>Each region's press: share of mentions going to its own region, against its share of speakers</h4><div id="home-bars"></div>
       <div class="legend"><span style="--sw:var(--c1)">Share of the region's press mentions</span><span style="--sw:var(--c2)">Region's share of speakers</span></div>
       <figcaption>A mention is a paragraph naming a delegation. Each country's outlet counts once, and a region's figure is the average over its countries. Europe's are Russia and Ukraine only. Click a region for the delegations its press named most.</figcaption></figure>
     __PANEL__
+    __PRESS_ISSUES__
     <figure><h4>How much more, or less, the press covered each issue than the speeches did</h4><div id="issue-ratio"></div>
       <figcaption>Mentions per 1,000 words in outside press, divided by the same rate in the speeches, on a logarithmic scale. 1× is equal attention. Hatched: no press mention at all.</figcaption></figure>
+    __PRESS_UN__
     <figure><h4>What the UN press office kept from each speech</h4><div id="kept-bars"></div>
       <figcaption>Of the speeches that raise an issue, the share whose UN summary also names it. Click a bar for the speeches whose summary left it out.</figcaption></figure>
     <figure><h4>The tone of the UN's headline for each speech</h4><div class="map" id="map-tone"></div><div class="legend" id="legend-tone"></div>
@@ -353,45 +380,29 @@ footer { padding: 48px 16px 64px; color: var(--ink-2); font-size: 0.85rem; }
     <details><summary>The news reports used</summary><div class="scroll"><table class="data" id="press-sources"></table></div></details>
   </section>
 
-  <section id="race">
-    <p class="eyebrow">10 · The next Secretary-General</p>
-    <h2>__RACE_TITLE__</h2>
-    __RACE__
-    __RACE_TABLE__
-  </section>
 
   <section id="checked">
-    <p class="eyebrow">11 · Checking the record</p>
+    <p class="eyebrow">12 · Checking the record</p>
     <h2>__CLAIMS_TITLE__</h2>
     __CLAIMS__
   </section>
 
   <section id="week">
-    <p class="eyebrow">12 · The week around the speeches</p>
+    <p class="eyebrow">13 · The week around the speeches</p>
     <h2>What was happening outside the hall</h2>
     <p>The speeches were given against a war in the Gulf, a US visa ban on the Palestinian delegation and a string of deals on the sidelines. Each line quotes a news report downloaded for this page.</p>
     <ol class="timeline">__TIMELINE__</ol>
   </section>
 
-  <section id="reading">
-    <p class="eyebrow">How the speeches read</p>
-    <h2>__READING_TITLE__</h2>
-    __READING__
-    <figure><h4>Every speech, by length and region</h4>__FIG_SWARM__</figure>
-    <div class="grid2">
-      <figure><h4>Reading grade of the written statements</h4><div id="grade-hist"></div></figure>
-      <figure><h4>Share of the filed statement actually said</h4><div id="delivered-hist"></div></figure>
-    </div>
-  </section>
 
   <section id="notable">
-    <p class="eyebrow">Detail</p>
+    <p class="eyebrow">Highlights</p>
     <h2>What stood out</h2>
     <div class="callouts">__NOTABLE__</div>
   </section>
 
   <section id="worth-reading">
-    <p class="eyebrow">Detail</p>
+    <p class="eyebrow">Highlights</p>
     <h2>Eight speeches worth reading in full</h2>
     <p>Chosen because each carries one thread of the story. The notes are our reading; the quotes are checked word for word against the source, and the figures come from the data.</p>
     __HIGHLIGHTS__
@@ -451,6 +462,21 @@ const $ = (id) => document.getElementById(id);
 const pct = (v) => Math.round(v * 100) + "%";
 const num = (v) => v.toLocaleString("en-GB");
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+// each pick is kept in the address, so a reload keeps the view and a link shares it; a pick left at its default is dropped
+const DEFAULTS = {};
+function recall(key, fallback, valid = () => true) {
+  DEFAULTS[key] = String(fallback);
+  let v = null;
+  try { v = new URLSearchParams(location.search).get(key); } catch (e) { v = null; }
+  return v !== null && valid(v) ? v : fallback;
+}
+function remember(key, value) {
+  try {
+    const q = new URLSearchParams(location.search);
+    if (String(value) === DEFAULTS[key]) q.delete(key); else q.set(key, value);
+    history.replaceState(null, "", (q.toString() ? "?" + q : location.pathname) + location.hash);
+  } catch (e) { /* the address cannot change in this frame; the view still works */ }
+}
 const REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 const ROLE_NAMES = {head_of_state_or_government: "Head of state/govt", deputy_head: "Deputy head", foreign_minister: "Foreign minister", other_minister: "Other minister", diplomat: "Diplomat", not_a_state: "Not a state", other: "Other", unclassified: "Unclassified"};
 
@@ -615,10 +641,12 @@ const EXPLORE = [
 const groups = [...new Set(EXPLORE.map((e) => e.group))];
 $("explore-by").innerHTML = groups.map((g) => `<optgroup label="${esc(g)}">` + EXPLORE.map((e, i) => e.group === g ? `<option value="${i}">${esc(e.label)}</option>` : "").join("") + "</optgroup>").join("");
 function explore() {
+  remember("colour", $("explore-by").value);
   const e = EXPLORE[+$("explore-by").value], n = D.speeches.filter(e.test).length;
   worldMap("map-explore", (s) => e.test(s) ? "--c1" : "--none", [[`${e.on} (${n})`, "--c1"], [e.off, "--none"], ["No speech", null]], (s) => e.test(s) ? e.on : e.off);
 }
 $("explore-by").onchange = explore;
+$("explore-by").value = recall("colour", $("explore-by").value, (v) => EXPLORE[+v]);
 explore();
 
 // ---------- country profile ----------
@@ -630,6 +658,7 @@ function openProfile(slug, scroll = true) {
   const s = D.speeches.find((x) => x.slug === slug);
   if (!s) return;
   $("country-pick").value = slug;
+  remember("country", slug);
   // the fitted topics' weights are stored in the model's order, so find each label's index there
   const order = D.topic_order || TOPICS;
   const topicShares = order.map((label, i) => [label, s.topic_weights[i]]).sort((a, b) => b[1] - a[1]).slice(0, 3);
@@ -666,7 +695,7 @@ function openProfile(slug, scroll = true) {
   if (scroll) $("country").scrollIntoView({behavior: "smooth", block: "start"});
 }
 $("country-pick").onchange = () => openProfile($("country-pick").value, false);
-openProfile((D.speeches.find((s) => s.iso3 === "PSE") || D.speeches[0]).slug, false);
+openProfile(recall("country", (D.speeches.find((s) => s.iso3 === "PSE") || D.speeches[0]).slug, (v) => D.speeches.some((s) => s.slug === v)), false);
 document.querySelectorAll("a[data-profile]").forEach((a) => a.onclick = (e) => { e.preventDefault(); openProfile(a.dataset.profile); });
 
 // ---------- vocabulary ----------
@@ -681,6 +710,7 @@ const SIM = D.similarity, SIM_INDEX = Object.fromEntries(SIM.order.map((slug, i)
 const BY_SLUG = Object.fromEntries(D.speeches.map((s) => [s.slug, s]));
 const SIM_STEPS = [[0.05, "--o1"], [0.1, "--o2"], [0.15, "--o3"], [Infinity, "--o4"]];
 function alikeMap(slug) {
+  remember("compare", slug);
   const row = SIM.matrix[SIM_INDEX[slug]], me = BY_SLUG[slug];
   const sim = (s) => row[SIM_INDEX[s.slug]] / 1000;
   worldMap("map-alike", (s) => s.slug === slug ? "--c2" : SIM_STEPS.find(([cut]) => sim(s) < cut)[1],
@@ -691,7 +721,7 @@ function alikeMap(slug) {
 }
 $("alike-pick").innerHTML = [...D.speeches].sort((a, b) => a.delegation.localeCompare(b.delegation)).map((s) => `<option value="${esc(s.slug)}">${esc(s.delegation)}</option>`).join("");
 $("alike-pick").onchange = () => alikeMap($("alike-pick").value);
-alikeMap(SIM.pairs[0].a);
+alikeMap(recall("compare", SIM.pairs[0].a, (v) => v in SIM_INDEX));
 
 $("pairs-table").innerHTML = "<thead><tr><th>Speech</th><th>Closest to</th><th class='n'>Similarity</th><th class='n'>Longest shared passage</th></tr></thead><tbody>" +
   SIM.pairs.map((p) => `<tr><td><a href="#country" data-slug="${esc(p.a)}">${esc(BY_SLUG[p.a].delegation)}</a></td><td><a href="#country" data-slug="${esc(p.b)}">${esc(BY_SLUG[p.b].delegation)}</a></td><td class="n">${p.similarity.toFixed(2)}</td><td class="n">${p.longest_shared_words} ${p.longest_shared_words === 1 ? "word" : "words"}</td></tr>`).join("") + "</tbody>";
@@ -718,6 +748,7 @@ const timesColour = (t) => TIMES_STEPS.find(([cut]) => t <= cut)[1];
 const evidenceHtml = (e) => e && e.evidence ? `“${e.evidence.cut_start ? "…" : ""}${esc(e.evidence.text)}${e.evidence.cut_end ? "…" : ""}”` : "";
 let namedMode = "by";
 function namedMap(slug) {
+  remember("named", slug); remember("direction", namedMode);
   const me = BY_SLUG[slug], edges = namedMode === "by" ? (EDGES_TO[slug] || []) : (EDGES_FROM[slug] || []);
   const times = Object.fromEntries(edges.map((e) => [namedMode === "by" ? e.from : e.to, e.times]));
   worldMap("map-named", (s) => s.slug === slug ? "--c2" : times[s.slug] ? timesColour(times[s.slug]) : "--none",
@@ -741,7 +772,9 @@ $("named-mode").querySelectorAll("button").forEach((b) => b.onclick = () => {
   $("named-mode").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
   namedMap($("named-pick").value);
 });
-namedMap(M.most_named[0].slug);
+namedMode = recall("direction", "by", (v) => v === "by" || v === "of");
+$("named-mode").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.mode === namedMode)));
+namedMap(recall("named", M.most_named[0].slug, (v) => namedOptions.includes(v)));
 const topNamed = M.most_named.slice(0, 20);
 hbar("named-bars", topNamed.map((x) => ({label: nameOf(x.slug), value: x.speeches, tip: `<b>${esc(nameOf(x.slug))}</b><br>named by ${x.speeches} speeches, ${x.times} times in all`})), String, ["State", "Speeches naming it"]);
 drillable("named-bars", (i) => ({kind: "named", slug: topNamed[i].slug}));
@@ -803,7 +836,7 @@ function graphGroups(mode) {
 function drawGraph() {
   const g = graphGroups(graphMode), pos = NET.layout;
   const xy = (slug) => [PAD + pos[slug][0] * (GW - 2 * PAD), PAD + pos[slug][1] * (GH - 2 * PAD)];
-  let svg = `<svg viewBox="0 0 ${GW} ${GH}" role="img" aria-label="Network of which delegations name which states">`;
+  let svg = `<svg viewBox="0 0 ${GW} ${GH}" role="img" aria-label="Network of which delegations name which states. The state picker and map below list the same links.">`;
   NET.edges.forEach((e, i) => { if (!pos[e.from] || !pos[e.to]) return; const [x1, y1] = xy(e.from), [x2, y2] = xy(e.to); svg += `<line data-i="${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; });
   const labelled = new Set(Object.keys(pos).sort((a, b) => (NAMED_BY[b] || 0) - (NAMED_BY[a] || 0)).slice(0, 15));
   Object.keys(pos).forEach((slug) => {
@@ -830,17 +863,21 @@ function drawGraph() {
 }
 $("graph-mode").querySelectorAll("button").forEach((b) => b.onclick = () => {
   graphMode = b.dataset.mode;
+  remember("graph", graphMode);
   $("graph-mode").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
   drawGraph();
 });
+graphMode = recall("graph", "region", (v) => ["region", "lean", "bloc"].includes(v));
+$("graph-mode").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.mode === graphMode)));
 drawGraph();
 
 // ---------- year by year ----------
 const YEARS = D.years, YEAR_OF = Object.fromEntries(YEARS.map((y) => [y.year, y])), ISO = D.iso3_names;
 const isoName = (c) => (ISO[c] || c).replace(/ \(.*\)$/, "");
 $("year-a").innerHTML = $("year-b").innerHTML = [...YEARS].reverse().map((y) => `<option value="${y.year}">${y.year}</option>`).join("");
-$("year-a").value = YEARS[YEARS.length - 1].year; $("year-b").value = YEARS[YEARS.length - 1].year - 10;
+$("year-a").value = recall("year", YEARS[YEARS.length - 1].year, (v) => YEAR_OF[+v]); $("year-b").value = recall("against", YEARS[YEARS.length - 1].year - 10, (v) => YEAR_OF[+v]);
 function drawYears() {
+  remember("year", $("year-a").value); remember("against", $("year-b").value);
   const a = YEAR_OF[+$("year-a").value], b = YEAR_OF[+$("year-b").value];
   const fact = (v, label) => `<div><b>${esc(v)}</b><span>${esc(label)}</span></div>`;
   $("year-facts").innerHTML = [
