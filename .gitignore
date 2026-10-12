@@ -5,3 +5,4 @@ __pycache__/
 # downloads and generated outputs are published as release assets, not committed
 data/
 dist/
+notebooks/figures/
