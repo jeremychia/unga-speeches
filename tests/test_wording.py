@@ -1,6 +1,6 @@
 from unga_speeches.analysis.wording import GAZA_CLASSES, UKRAINE_CLASSES, gaza, ukraine
 
-BLAMES, TALKS, RUSSIAS, MENTIONS, SILENT = UKRAINE_CLASSES
+BLAMES, NO_BLAME, RUSSIAS, SILENT = UKRAINE_CLASSES
 GENOCIDE, CONDUCT, NO_CRITICISM, NO_GAZA = GAZA_CLASSES
 
 
@@ -10,8 +10,8 @@ def test_russia_as_the_one_waging_war_is_blame():
 
 
 def test_even_handed_wording_is_not_blame():
-    assert ukraine("The war between Russia and Ukraine has dragged on for five years.")[0] == TALKS
-    assert ukraine("We call for an end to the Russia-Ukraine war.")[0] == TALKS
+    assert ukraine("The war between Russia and Ukraine has dragged on for five years.")[0] == NO_BLAME
+    assert ukraine("We call for an end to the Russia-Ukraine war.")[0] == NO_BLAME
 
 
 def test_responsibility_and_war_by_russia_are_blame():
@@ -20,18 +20,18 @@ def test_responsibility_and_war_by_russia_are_blame():
 
 
 def test_russia_winning_is_not_russia_blamed():
-    assert ukraine("In Ukraine, everyone thought Russia would win this war in three days, but it didn't work out that way.")[0] == TALKS
+    assert ukraine("In Ukraine, everyone thought Russia would win this war in three days, but it didn't work out that way.")[0] == NO_BLAME
     assert ukraine("Ukraine fights on. Russia's brutal war against Ukraine is a reminder.")[0] == BLAMES
 
 
 def test_a_war_reaching_russia_is_not_russia_acting():
-    assert ukraine("We have had this devastating war in Ukraine, a war that now has backfired into Russia.")[0] == TALKS
+    assert ukraine("We have had this devastating war in Ukraine, a war that now has backfired into Russia.")[0] == NO_BLAME
 
 
 def test_praise_for_russian_support_is_not_blame():
     assert (
         ukraine("Ukraine supports terrorists. Our forces, with the support of the Russian Federation, are on the front line.")[0]
-        == MENTIONS
+        == NO_BLAME
     )
 
 
@@ -44,12 +44,12 @@ def test_russias_own_framing():
 
 
 def test_a_list_of_places_is_a_mention():
-    assert ukraine("Armed conflicts in Ukraine, Iran, Sudan and Palestine demand our attention.")[0] == MENTIONS
+    assert ukraine("Armed conflicts in Ukraine, Iran, Sudan and Palestine demand our attention.")[0] == NO_BLAME
     assert ukraine("Peace is the goal.")[0] == SILENT
 
 
 def test_ligatures_are_unfolded():
-    assert ukraine("The conﬂict in Ukraine, now in its ﬁfth year, is concerning.")[0] == TALKS
+    assert ukraine("The conﬂict in Ukraine, now in its ﬁfth year, is concerning.")[0] == NO_BLAME
 
 
 def test_genocide_counts_only_when_it_is_not_history_or_a_denial():
@@ -79,7 +79,7 @@ def test_hamas_and_the_hostages_are_flagged_separately():
 
 
 def test_a_general_responsibility_is_not_blame():
-    assert ukraine("On Ukraine, Russia has a special responsibility as a permanent member of the Council.")[0] == MENTIONS
+    assert ukraine("On Ukraine, Russia has a special responsibility as a permanent member of the Council.")[0] == NO_BLAME
 
 
 # cases from the independent review
@@ -91,7 +91,9 @@ def test_russia_counts_only_near_ukraine():
 
 
 def test_russians_as_victims_are_not_blame():
-    assert ukraine("Ukraine and Gaza need peace. Dozens of Russians died in the terrorist attack on the Crocus concert hall.")[0] == TALKS
+    assert (
+        ukraine("Ukraine and Gaza need peace. Dozens of Russians died in the terrorist attack on the Crocus concert hall.")[0] == NO_BLAME
+    )
 
 
 def test_aggression_by_someone_else_is_not_blame_of_russia():
@@ -107,9 +109,9 @@ def test_russias_framing_quoted_to_reject_it_is_not_framing():
 
 
 def test_peace_is_a_call_for_talks_and_one_region_is_one_place():
-    assert ukraine("We support a just and lasting peace in Ukraine.")[0] == TALKS
-    assert ukraine("We call for negotiations to end the war in Ukraine and a ceasefire in Gaza and Palestine.")[0] == TALKS
-    assert ukraine("Armed conflicts, including those in Ukraine and the Middle East, threaten humanity.")[0] == MENTIONS
+    assert ukraine("We support a just and lasting peace in Ukraine.")[0] == NO_BLAME
+    assert ukraine("We call for negotiations to end the war in Ukraine and a ceasefire in Gaza and Palestine.")[0] == NO_BLAME
+    assert ukraine("Armed conflicts, including those in Ukraine and the Middle East, threaten humanity.")[0] == NO_BLAME
 
 
 def test_kyiv_names_ukraine():
@@ -143,3 +145,36 @@ def test_other_genocides_and_the_case_title_are_not_gaza_genocide():
 def test_gazans_and_bullets():
     assert gaza("The Gazans are dying under Israeli bombardment.")["class"] == CONDUCT
     assert ukraine("• We meet in hard times. • Russia's war of aggression against Ukraine is a dire threat.")[0] == BLAMES
+
+
+# cases from the audit of every 2026 speech
+
+
+def test_the_war_against_ukraine_names_no_aggressor():
+    assert ukraine("The main challenge remains the war against Ukraine.")[0] == NO_BLAME
+
+
+def test_the_kremlins_formulas_and_nato_as_the_seed_of_the_war():
+    belarus = "We want peace in Ukraine. But any lasting peace is not possible without addressing the root causes, which have been ignored for years."
+    assert ukraine(belarus)[0] == RUSSIAS
+    assert ukraine("Peace in Ukraine needs talks that address the symptoms and root causes of hotspot issues.")[0] == NO_BLAME
+    timor = "The seeds of future wars were sown as NATO began its fast eastbound expansion. As expected, we have had this war in Ukraine."
+    assert ukraine(timor)[0] == RUSSIAS
+
+
+def test_criticism_that_names_no_actor():
+    for sentence in [
+        "There are clear violations of international law in Gaza and the West Bank.",
+        "Palestine has suffered decades of occupation and repression.",
+        "We call for an end to the violence in the West Bank, particularly home demolitions.",
+        "Nowhere is this more painful than in the ongoing persecution of the Palestinian people in Gaza.",
+        "We welcome sanctions on Israeli settlers implicated in violent acts in the West Bank.",
+    ]:
+        assert gaza(sentence)["class"] == CONDUCT, sentence
+
+
+def test_a_genocide_sentence_beside_a_list_of_wars_is_not_gaza_genocide():
+    angola = "We see no peace in sight between Russia and Ukraine, in the Israeli-Palestinian conflict and in the Gulf. We condemn the genocide against defenceless populations."
+    assert gaza(angola)["class"] != GENOCIDE
+    belize = "In Palestine, a settler state continues its campaign. The genocide must end."
+    assert gaza(belize)["class"] == GENOCIDE

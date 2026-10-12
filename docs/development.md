@@ -51,3 +51,12 @@ Tests in [`tests/`](../tests/) run against saved pages in `tests/fixtures/`, nev
 **Not reproducible: how the source lists were found.** The news reports and the rating pages were found with a search tool, partly by assistant agents, and search results change. What was found is committed (`reference/news_<session>.csv`, `reference/outlets.csv`, `reference/dnr_brands_2026.csv`), and `docs/news-sourcing.md` logs each search, so the lists can be checked and rerun, but not re-derived.
 
 **To rerun from scratch:** `make session`, `make verbatim`, `make scanned`, `make history`, `make dataset`, `make news`, `make brands`, `make leanings` and `make site`, with the sessions wanted. The downloads are not committed; a published release carries the tables.
+
+## The analysis notebooks
+
+The two notebooks in `notebooks/` are published as `site/questions.html` and `site/wars.html`.
+
+- **Run a notebook** in Jupyter with the analysis dependencies, then `make notebooks` writes the pages from the notebooks as last run. Every chart is also saved as a square png in `notebooks/figures/`.
+- **The war-wording labels** come from the rules in `src/unga_speeches/analysis/wording.py`. `make wording` writes every label, with the sentence behind it, to `data/output/wording.parquet`; the wars notebook calls the same code.
+- **The blind check of those rules** is in `src/unga_speeches/analysis/wording_check.py`: it redraws each sample with its seed, rebuilds the passages the readers labelled, and scores the rules against the labels in `tests/fixtures/wording_blind_labels.csv`. The readers were AI models, not people, each seeing only the passages.
+- **The Ukraine votes** in `reference/ukraine_votes.csv` come from `make votes`, which reads the vote tables Wikipedia transcribes from the UN Digital Library and refuses to write unless the counts match the official totals.

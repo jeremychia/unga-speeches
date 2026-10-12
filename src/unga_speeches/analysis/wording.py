@@ -1,19 +1,26 @@
 """How a speech describes the wars in Ukraine and Gaza: the strongest framing it uses, and the sentence that shows it.
 
 Each classifier reads the sentences that name the place, and the sentences either side, and returns the first framing it finds,
-strongest first. The evidence sentence is returned so every label can be checked against the text."""
+strongest first. The evidence sentence is returned so every label can be checked against the text. `classify` labels every speech
+in the dataset, and `unga wording` writes the result to data/output/wording.parquet."""
 
 import re
 import unicodedata
 
+import pandas as pd
+
+from unga_speeches.config import OUTPUT_DIR
+
+# naming the war, calling for talks and mentioning Ukraine in passing are one class: a blind check could not tell them apart reliably
 UKRAINE_CLASSES = [
     "blames Russia or calls it aggression",
-    "names the war or calls for talks only",
+    "names Ukraine but blames no one",
     "uses Russia's framing",
-    "mentions Ukraine only",
     "does not mention Ukraine",
 ]
 GAZA_CLASSES = ["calls it genocide", "criticises Israel's conduct", "no criticism of Israel", "does not mention Gaza or Palestine"]
+FIRST_YEAR = {"ukraine": 2022, "gaza": 2024}  # the debates after each war began; the 2023 debate came before 7 October
+MIN_WORDS = 300  # shorter texts are the chair's introduction to a recorded speech, not the speech
 
 # a sentence ends at . ! or ? before a capital, or at a bullet; not after a title such as "Mr." or "H.E."
 SENTENCE = re.compile(r"(?<!\bMr\.)(?<!\bMs\.)(?<!\bDr\.)(?<!\bSt\.)(?<!Mrs\.)(?<!H\.E\.)(?<=[.!?])\s+(?=[A-Z\"“‘(])|\s*[•●▪]\s*")
@@ -21,12 +28,16 @@ _WORDS = r"(?:\W+[\w’'-]+)"
 
 UKRAINE = re.compile(r"\bukrain|\bkyiv\b|\bkiev\b", re.I)
 RUSSIAS_FRAMING = re.compile(
-    r"kyiv regime|kiev regime|ukrainian regime|neo-?nazi|special military operation|last ukrainian|indivisible security|proxy war|collective west",
+    r"kyiv regime|kiev regime|ukrainian regime|neo-?nazi|special military operation|last ukrainian|indivisible security|proxy war|collective west"
+    # the kremlin's own formulas; "root causes" alone is said by neutral states too
+    r"|eliminat\w* (?:the )?root causes|root causes[^.]{0,30}ignored",
     re.I,
 )
 # nato's growth counts as russia's framing only when it is offered as a cause or a threat
-NATO_EXPANSION = re.compile(r"nato(?:'s|’s)? (?:expansion|enlargement)|expansion of nato|eastward expansion", re.I)
-NATO_AS_CAUSE = re.compile(r"threat|provok|root cause|encircl|led to|caus", re.I)
+NATO_EXPANSION = re.compile(
+    r"nato(?:'s|’s)? (?:expansion|enlargement)|expansion of nato|east(?:ward|bound) expansion|ukraine into nato", re.I
+)
+NATO_AS_CAUSE = re.compile(r"threat|provok|root cause|encircl|led to|caus|seeds? of|sown", re.I)
 # russia's framing quoted in order to reject it
 REBUTTAL = re.compile(r"so-called|\blies?\b|false|pretext|propaganda|disinformation|myth|claims?\b", re.I)
 _RUSSIA = r"\b(?:russia(?:n federation)?(?:'s|’s)?|russian(?!s)|putin(?:'s|’s)?|kremlin|moscow)"
@@ -45,21 +56,14 @@ EVEN_HANDED = re.compile(
     r"russia[- /]ukrain|ukrain\w*[- /]russia|between russia and ukraine|between ukraine and russia|russia and ukraine|ukraine and russia|russian-ukrainian|ukrainian-russian",
     re.I,
 )
-AGGRESSION = re.compile(r"\baggression\b|\binvasion\b|\baggressor|war (?:against|on) ukraine", re.I)
+# "the war against ukraine" is left out: it names no aggressor, and two blind readers took it as neutral
+AGGRESSION = re.compile(r"\baggression\b|\binvasion\b|\baggressor", re.I)
 # aggression laid at someone else's door: ukraine, nato, the west, the united states or israel
 OTHER_AGGRESSOR = re.compile(
     r"ukrainian aggression|nato(?:'s|’s)? aggression|western aggression|israeli aggression|american aggression"
     r"|aggression (?:of|by) (?:the )?(?:ukrain|nato|west|united states|israel)|aggression against (?!ukrain)\w+",
     re.I,
 )
-TALKS = re.compile(r"\bpeace|all parties|both parties|settlement|negotiat|ceasefire|cease-fire|dialogue|diploma", re.I)
-NAMES_WAR = re.compile(r"\bwar\b|conflict|crisis|hostilities|fighting|tensions?", re.I)
-# other trouble spots: a sentence that only names the war alongside one of these lists Ukraine in passing
-OTHER_PLACES = {
-    "middle east": r"\bgaza|palestin|israel|middle east|west bank|lebanon|syria|yemen|\biran|gulf",
-    "africa": r"\bsudan|congo|\bdrc\b|sahel|libya|somalia|ethiopia",
-    "elsewhere": r"haiti|myanmar|afghanistan",
-}
 
 GAZA = re.compile(r"\bgaza(?:ns?)?\b|\bpalestin|west bank", re.I)
 GENOCIDE = re.compile(r"genocid", re.I)
@@ -86,7 +90,11 @@ ACT_BY_ISRAEL = re.compile(rf"{_CONDUCT}\w*{_WORDS}{{0,8}}?\W+by (?:the )?(?:isr
 CRITICISM = re.compile(
     r"(?:illegal|unlawful) settlement|settlement (?:expansion|activit|construction)|expansion of (?:illegal )?settlements|settler violence"
     r"|war (?:on|against) (?:gaza|the palestinian)|israeli (?:strikes|bombardment|attacks|military operations)"
-    r"|israeli government(?:'s|’s)? actions|actions of the israeli government|state terrorism",
+    r"|israeli government(?:'s|’s)? actions|actions of the israeli government|state terrorism|israeli settlers"
+    r"|(?:decades of|illegal|ongoing|unlawful|end (?:to )?the) occupation|home demolitions|demolition of (?:homes|houses)"
+    r"|persecution of the palestinian|enforced starvation|starvation (?:as a weapon|of (?:the )?(?:palestinian|civilian|people))"
+    r"|violat[^.]{0,60}(?:in|throughout) (?:gaza|the west bank|the occupied|occupied|palestin)"
+    r"|(?:west bank|occupied (?:palestinian )?territor)[^.]{0,80}(?:violat|violence|illegal|unlawful)",
     re.I,
 )
 NAMES_HAMAS = re.compile(
@@ -106,16 +114,12 @@ def _around(sents: list[str], idx: list[int], width: int = 1) -> list[str]:
     return [sents[j] for j in keep]
 
 
-def _other_places(s: str) -> int:
-    return sum(bool(re.search(p, s, re.I)) for p in OTHER_PLACES.values())
-
-
 def ukraine(text: str) -> tuple[str, str]:
     """The strongest framing a speech uses for the war in Ukraine, and the sentence that shows it."""
     sents = _sentences(text)
     idx = [i for i, s in enumerate(sents) if UKRAINE.search(s)]
     if not idx:
-        return UKRAINE_CLASSES[4], ""
+        return UKRAINE_CLASSES[3], ""
     on = [sents[i] for i in idx]
     near = _around(sents, idx)
     framing = next(
@@ -132,9 +136,7 @@ def ukraine(text: str) -> tuple[str, str]:
         return UKRAINE_CLASSES[0], s
     if s := next((s for s in on if AGGRESSION.search(s) and not EVEN_HANDED.search(s) and not OTHER_AGGRESSOR.search(s)), None):
         return UKRAINE_CLASSES[0], s
-    if s := next((s for s in on if TALKS.search(s) or (NAMES_WAR.search(s) and not _other_places(s))), None):
-        return UKRAINE_CLASSES[1], s
-    return UKRAINE_CLASSES[3], on[0]
+    return UKRAINE_CLASSES[1], on[0]
 
 
 def _israel_acts(s: str) -> bool:
@@ -150,6 +152,23 @@ def _israel_acts(s: str) -> bool:
     return False
 
 
+OTHER_WARS = re.compile(r"ukrain|russia|\bsudan|darfur|congo|myanmar|yemen|\biran|gulf|haiti|sahel|lebanon|syria", re.I)
+
+
+def _around_index(sents: list[str], idx: list[int], width: int = 1) -> list[int]:
+    return sorted({j for i in idx for j in range(i - width, i + width + 1) if 0 <= j < len(sents)})
+
+
+def _gaza_genocide(sents: list[str], j: int, idx: list[int]) -> bool:
+    """whether sentence j calls what is happening in gaza a genocide: it names this war, or it borders a gaza sentence that names no other war."""
+    s = sents[j]
+    if not GENOCIDE.search(s) or CASE_OR_DENIAL.search(s):
+        return False
+    if NAMES_THIS_WAR.search(s):
+        return True
+    return not ELSEWHERE.search(s) and any(abs(i - j) <= 1 and not OTHER_WARS.search(sents[i]) for i in idx)
+
+
 def gaza(text: str) -> dict:
     """The strongest criticism of Israel a speech makes about Gaza, whether it names Hamas or the hostages, and the sentences that show both."""
     sents = _sentences(text)
@@ -158,10 +177,7 @@ def gaza(text: str) -> dict:
         return {"class": GAZA_CLASSES[3], "evidence": "", "hamas": False, "hamas_evidence": ""}
     near = _around(sents, idx)
     hamas = next((s for s in _around(sents, idx, width=2) if NAMES_HAMAS.search(s)), "")
-    genocide = next(
-        (s for s in near if GENOCIDE.search(s) and not CASE_OR_DENIAL.search(s) and (NAMES_THIS_WAR.search(s) or not ELSEWHERE.search(s))),
-        "",
-    )
+    genocide = next((sents[j] for j in _around_index(sents, idx) if _gaza_genocide(sents, j, idx)), "")
     conduct = next((s for s in near if CRITICISM.search(s) or _israel_acts(s)), "")
     if genocide:
         cls, evidence = GAZA_CLASSES[0], genocide
@@ -170,3 +186,25 @@ def gaza(text: str) -> dict:
     else:
         cls, evidence = GAZA_CLASSES[2], sents[idx[0]]
     return {"class": cls, "evidence": evidence, "hamas": bool(hamas), "hamas_evidence": hamas}
+
+
+def classify(frame: pd.DataFrame | None = None) -> pd.DataFrame:
+    """One row per speech since the war in Ukraine began: each war's framing and the sentence behind it, with Gaza left empty before 2024."""
+    if frame is None:
+        frame = pd.read_parquet(OUTPUT_DIR / "speeches.parquet", columns=["session", "year", "iso3", "delegation", "speaker_name", "speaker_title",
+                                                                          "english_source", "english_text_clean"])  # fmt: skip
+    frame = frame[(frame.year >= FIRST_YEAR["ukraine"]) & frame.english_text_clean.notna()]
+    frame = frame[frame.english_text_clean.str.split().str.len() >= MIN_WORDS].reset_index(drop=True)
+    rows = []
+    for text, year in zip(frame.english_text_clean, frame.year, strict=True):
+        ukraine_class, ukraine_evidence = ukraine(text)
+        g = gaza(text) if year >= FIRST_YEAR["gaza"] else {"class": None, "evidence": None, "hamas": None, "hamas_evidence": None}
+        rows.append({"ukraine": ukraine_class, "ukraine_evidence": ukraine_evidence, "gaza": g["class"], "gaza_evidence": g["evidence"],
+                     "hamas": g["hamas"], "hamas_evidence": g["hamas_evidence"]})  # fmt: skip
+    return pd.concat([frame.drop(columns="english_text_clean"), pd.DataFrame(rows)], axis=1)
+
+
+def build() -> str:
+    out = OUTPUT_DIR / "wording.parquet"
+    classify().to_parquet(out, index=False)
+    return str(out)

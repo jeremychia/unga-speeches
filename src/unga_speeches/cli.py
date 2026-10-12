@@ -42,6 +42,9 @@ def main() -> None:
     records = sub.add_parser("verbatim", help="split the UN verbatim records of one or more sessions (48 onwards) into speeches")
     records.add_argument("sessions", type=int, nargs="+")
 
+    sub.add_parser("votes", help="rebuild reference/ukraine_votes.csv from the vote tables, checked against the official totals")
+    sub.add_parser("wording", help="label how every speech since 2022 describes the wars in Ukraine and Gaza (data/output/wording.parquet)")
+
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     if args.command == "session":
@@ -84,6 +87,14 @@ def main() -> None:
         logging.info("wrote %s", dataset.build())
     elif args.command == "history":
         logging.info("wrote %s", ungdc.build_history())
+    elif args.command == "votes":
+        from unga_speeches.sources import votes
+
+        logging.info("wrote %s", votes.build())
+    elif args.command == "wording":
+        from unga_speeches.analysis import wording
+
+        logging.info("wrote %s", wording.build())
 
 
 if __name__ == "__main__":
