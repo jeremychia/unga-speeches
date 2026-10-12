@@ -17,7 +17,7 @@ help:
 	@echo "make news SESSION=81            - download the session's news reports and the UN coverage of each speaker"
 	@echo "make brands                     - download the Digital News Report's biggest online news brands per market"
 	@echo "make leanings SESSION=81        - refresh outlet leanings and record any change in reference/leanings_history.json"
-	@echo "make votes                      - rebuild reference/ukraine_votes.csv from its sources, checked against the official totals"
+	@echo "make votes                      - rebuild reference/un_votes.csv, the votes on Ukraine and Gaza, checked against the official totals"
 	@echo "make wording                    - label how every speech since 2022 describes the wars in Ukraine and Gaza"
 	@echo "make site SESSION=81            - write the session's analysis page to site/"
 	@echo "make notebooks                  - write the analysis notebooks, as last run, to site/ as pages"

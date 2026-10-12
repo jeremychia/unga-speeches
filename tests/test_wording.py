@@ -178,3 +178,16 @@ def test_a_genocide_sentence_beside_a_list_of_wars_is_not_gaza_genocide():
     assert gaza(angola)["class"] != GENOCIDE
     belize = "In Palestine, a settler state continues its campaign. The genocide must end."
     assert gaza(belize)["class"] == GENOCIDE
+
+
+def test_israel_attacked_or_accused_is_not_israel_acting():
+    hamas = "Thousands of Hamas terrorists from Gaza burst into Israel, and they committed unimaginable atrocities."
+    assert gaza(hamas)["class"] == NO_CRITICISM
+    denial = "Israel is accused of deliberately starving the people of Gaza when Israel is deliberately feeding the people of Gaza."
+    assert gaza(denial)["class"] == NO_CRITICISM
+    assert gaza("Israel must stop starving Gaza and Hamas must release the hostages.")["class"] == CONDUCT
+
+
+def test_hamass_attack_named_after_the_act_is_not_israel_acting():
+    sentence = "In Gaza he wants peace with Israel, yet he still refuses to condemn the horrific massacre of 7 October."
+    assert gaza(sentence)["class"] == NO_CRITICISM

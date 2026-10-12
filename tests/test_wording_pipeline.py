@@ -71,3 +71,27 @@ def test_votes_parse_maps_names_and_skips_footnote_links():
 def test_votes_parse_refuses_an_unknown_name():
     with pytest.raises(ValueError):
         votes.parse(WIKITEXT.replace("[[India]]", "[[Atlantis]]"))
+
+
+FLAG_TABLE = """== Voting ==
+{| class="wikitable"
+!In favour (3)<br />''sponsors''!!Abstaining (1)!!Against (1)
+!'''Absent (1)'''
+|- style="vertical-align: top;"
+|
+{| <!-- Nested table -->
+|- style="vertical-align: top;"
+|{{flag|Albania}}<br /> {{flag|Guinea Bissau}}
+|{{flagdeco|ROK}} [[South Korea|Republic of Korea]]
+|}<!-- End of nested table -->
+|{{flag|India}}
+|{{flag|Israel}}
+|{{flag|Hungary}}
+|- style="text-align: center;"
+| colspan="4" |Observer States: {{flag|Holy See}}
+|}"""
+
+
+def test_votes_parse_reads_the_flag_table_layout():
+    # the in-favour column is split by a nested table, one state is a decorative flag and a link, and the observer row is not a vote
+    assert votes.parse(FLAG_TABLE) == {"ALB": "yes", "GNB": "yes", "KOR": "yes", "IND": "abstain", "ISR": "no", "HUN": "absent"}

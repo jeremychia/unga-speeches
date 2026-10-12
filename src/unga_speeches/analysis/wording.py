@@ -84,7 +84,11 @@ _CONDUCT = (
 ISRAEL_TERM = re.compile(rf"\b{_ISRAEL}", re.I)
 CONDUCT = re.compile(_CONDUCT, re.I)
 # between israel and the act, a passive ("was killed") or a shared subject ("israel and palestine must end violations") means israel is not the actor
-NOT_THE_ACTOR = re.compile(r"\b(?:was|were|been|being)\b|\b(?:and|or) (?:the )?palestin|\bhamas|all parties|both sides|both parties", re.I)
+NOT_THE_ACTOR = re.compile(
+    r"\b(?:was|were|been|being)\b|\b(?:and|or) (?:the )?palestin|\bhamas|all parties|both sides|both parties|\baccus|\balleg|\bclaim", re.I
+)
+# israel's attackers named before israel make israel the object of the sentence, not its actor ("Hamas terrorists burst into Israel and ...")
+ATTACKERS = re.compile(r"\bhamas|terroris|hezbollah|houthi|\biran", re.I)
 ACT_BY_ISRAEL = re.compile(rf"{_CONDUCT}\w*{_WORDS}{{0,8}}?\W+by (?:the )?(?:israel|israeli|occupation|occupying)", re.I)
 # criticism that needs no named actor: settlements in occupied land, the war "on" gaza, israeli strikes, the government's actions
 CRITICISM = re.compile(
@@ -144,10 +148,19 @@ def _israel_acts(s: str) -> bool:
     if ACT_BY_ISRAEL.search(s):
         return True
     for actor in ISRAEL_TERM.finditer(s):
+        if ATTACKERS.search(s[: actor.start()]):
+            continue
         after = s[actor.end() :]
         act = CONDUCT.search(after)
         if act and len(after[: act.start()].split()) <= 18 and not NOT_THE_ACTOR.search(after[: act.start()]):
-            if not re.match(r"\w*\W+(?:\w+\W+){0,3}by (?!the israel|israel)", after[act.start() :], re.I):
+            done_by_others = re.match(r"\w*\W+(?:\w+\W+){0,3}by (?!the israel|israel)", after[act.start() :], re.I)
+            # an act "of 7 October" or "by Hamas" is theirs ("the horrific massacre of 7 October")
+            theirs = re.match(
+                r"\w*\W+(?:\w+\W+){0,2}?(?:of|on|by)\W+(?:the\W+)?(?:7(?:th)?\W+(?:of\W+)?october|october\W+7|hamas)",
+                after[act.start() :],
+                re.I,
+            )
+            if not done_by_others and not theirs:
                 return True
     return False
 

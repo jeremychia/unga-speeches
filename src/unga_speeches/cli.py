@@ -42,7 +42,7 @@ def main() -> None:
     records = sub.add_parser("verbatim", help="split the UN verbatim records of one or more sessions (48 onwards) into speeches")
     records.add_argument("sessions", type=int, nargs="+")
 
-    sub.add_parser("votes", help="rebuild reference/ukraine_votes.csv from the vote tables, checked against the official totals")
+    sub.add_parser("votes", help="rebuild reference/un_votes.csv, the votes on Ukraine and Gaza, checked against the official totals")
     sub.add_parser("wording", help="label how every speech since 2022 describes the wars in Ukraine and Gaza (data/output/wording.parquet)")
 
     args = parser.parse_args()
