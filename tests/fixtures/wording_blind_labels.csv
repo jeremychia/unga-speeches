@@ -1,0 +1,141 @@
+sample,war,year,iso3,delegation,label
+review,ukraine,2026,RUS,Russian Federation,uses Russia's framing
+review,ukraine,2026,JOR,Jordan,mentions Ukraine only
+review,ukraine,2026,PRT,Portugal,blames Russia or calls it aggression
+review,ukraine,2026,DEU,Germany,blames Russia or calls it aggression
+review,ukraine,2026,KOR,Republic of Korea,mentions Ukraine only
+review,ukraine,2026,BRB,Barbados,mentions Ukraine only
+review,ukraine,2026,GRC,Greece,blames Russia or calls it aggression
+review,ukraine,2026,COG,Congo,names the war or calls for talks only
+review,ukraine,2026,KNA,Saint Kitts and Nevis,mentions Ukraine only
+review,ukraine,2026,ARE,United Arab Emirates,names the war or calls for talks only
+review,ukraine,2026,JPN,Japan,blames Russia or calls it aggression
+review,ukraine,2026,CAN,Canada,blames Russia or calls it aggression
+review,ukraine,2026,UN-SG,Secretary-General of the United Nations,blames Russia or calls it aggression
+review,ukraine,2026,HRV,Croatia,blames Russia or calls it aggression
+review,ukraine,2026,MDA,Republic of Moldova,blames Russia or calls it aggression
+review,ukraine,2026,SEN,Senegal,mentions Ukraine only
+review,ukraine,2026,DNK,Denmark,blames Russia or calls it aggression
+review,ukraine,2026,EU,European Union,blames Russia or calls it aggression
+review,ukraine,2026,ESP,Spain,blames Russia or calls it aggression
+review,ukraine,2026,VCT,Saint Vincent and the Grenadines,names the war or calls for talks only
+review,ukraine,2022,ROU,Romania,blames Russia or calls it aggression
+review,ukraine,2024,CMR,Cameroon,mentions Ukraine only
+review,ukraine,2024,COD,Democratic Republic of the Congo,names the war or calls for talks only
+review,ukraine,2022,BIH,Bosnia and Herzegovina,blames Russia or calls it aggression
+review,ukraine,2025,MKD,North Macedonia,blames Russia or calls it aggression
+review,ukraine,2025,BLR,Belarus,uses Russia's framing
+review,ukraine,2025,QAT,Qatar,names the war or calls for talks only
+review,ukraine,2023,SRB,Serbia,blames Russia or calls it aggression
+review,ukraine,2022,ISL,Iceland,blames Russia or calls it aggression
+review,ukraine,2025,MCO,Monaco,blames Russia or calls it aggression
+review,ukraine,2023,SUR,Suriname,names the war or calls for talks only
+review,ukraine,2024,LBR,Liberia,names the war or calls for talks only
+review,ukraine,2025,IDN,Indonesia,mentions Ukraine only
+review,ukraine,2024,CHL,Chile,blames Russia or calls it aggression
+review,ukraine,2024,EU,European Union,blames Russia or calls it aggression
+review,ukraine,2025,ITA,Italy,blames Russia or calls it aggression
+review,ukraine,2023,BWA,Botswana,names the war or calls for talks only
+review,ukraine,2024,CZE,Czechia,blames Russia or calls it aggression
+review,ukraine,2022,CYP,Cyprus,blames Russia or calls it aggression
+review,ukraine,2023,SMR,San Marino,blames Russia or calls it aggression
+review,gaza,2026,LBN,Lebanon,no criticism of Israel
+review,gaza,2026,SEN,Senegal,no criticism of Israel
+review,gaza,2026,MRT,Mauritania,no criticism of Israel
+review,gaza,2026,THA,Thailand,no criticism of Israel
+review,gaza,2026,CUB,Cuba,calls it genocide
+review,gaza,2026,KNA,Saint Kitts and Nevis,no criticism of Israel
+review,gaza,2026,KWT,Kuwait,criticises Israel's conduct
+review,gaza,2026,TUR,Türkiye,criticises Israel's conduct
+review,gaza,2026,BRA,Brazil,calls it genocide
+review,gaza,2026,PHL,Philippines,no criticism of Israel
+review,gaza,2026,DJI,Djibouti,criticises Israel's conduct
+review,gaza,2026,BEL,Belgium,no criticism of Israel
+review,gaza,2026,TCD,Chad,no criticism of Israel
+review,gaza,2026,HUN,Hungary,no criticism of Israel
+review,gaza,2026,ESP,Spain,calls it genocide
+review,gaza,2026,UN-PGA,President of the General Assembly (opening),no criticism of Israel
+review,gaza,2026,WSM,Samoa,no criticism of Israel
+review,gaza,2026,IRL,Ireland,criticises Israel's conduct
+review,gaza,2026,ZAF,South Africa,calls it genocide
+review,gaza,2026,JOR,Jordan,criticises Israel's conduct
+review,gaza,2024,SVK,Slovakia,no criticism of Israel
+review,gaza,2024,ERI,Eritrea,no criticism of Israel
+review,gaza,2025,BOL,Bolivia (Plurinational State of),calls it genocide
+review,gaza,2024,IRQ,Iraq,criticises Israel's conduct
+review,gaza,2025,BDI,Burundi,no criticism of Israel
+review,gaza,2024,MLT,Malta,no criticism of Israel
+review,gaza,2025,MEX,Mexico,no criticism of Israel
+review,gaza,2024,LBY,Libya,calls it genocide
+review,gaza,2024,AND,Andorra,no criticism of Israel
+review,gaza,2024,TUR,Türkiye,calls it genocide
+review,gaza,2024,MHL,Marshall Islands,criticises Israel's conduct
+review,gaza,2025,ATG,Antigua and Barbuda,calls it genocide
+review,gaza,2024,PRT,Portugal,criticises Israel's conduct
+review,gaza,2024,MUS,Mauritius,no criticism of Israel
+review,gaza,2025,MKD,North Macedonia,no criticism of Israel
+review,gaza,2024,UN-PGA,President of the General Assembly (opening),no criticism of Israel
+review,gaza,2025,RUS,Russian Federation,criticises Israel's conduct
+review,gaza,2025,STP,Sao Tome and Principe,no criticism of Israel
+review,gaza,2025,SRB,Serbia,no criticism of Israel
+review,gaza,2024,TTO,Trinidad and Tobago,criticises Israel's conduct
+holdout,ukraine,2026,BLZ,Belize,names the war or calls for talks only
+holdout,ukraine,2026,SGP,Singapore,names the war or calls for talks only
+holdout,ukraine,2026,MLI,Mali,mentions Ukraine only
+holdout,ukraine,2026,NER,Niger,mentions Ukraine only
+holdout,ukraine,2026,IND,India,names the war or calls for talks only
+holdout,ukraine,2026,LIE,Liechtenstein,blames Russia or calls it aggression
+holdout,ukraine,2026,NZL,New Zealand,blames Russia or calls it aggression
+holdout,ukraine,2026,UN-PGA,President of the General Assembly (opening),names the war or calls for talks only
+holdout,ukraine,2026,TLS,Timor-Leste,uses Russia's framing
+holdout,ukraine,2026,AUS,Australia,blames Russia or calls it aggression
+holdout,ukraine,2026,GUY,Guyana,names the war or calls for talks only
+holdout,ukraine,2026,HUN,Hungary,blames Russia or calls it aggression
+holdout,ukraine,2026,BGR,Bulgaria,names the war or calls for talks only
+holdout,ukraine,2026,WSM,Samoa,names the war or calls for talks only
+holdout,ukraine,2026,ZAF,South Africa,mentions Ukraine only
+holdout,ukraine,2023,ROU,Romania,blames Russia or calls it aggression
+holdout,ukraine,2022,PRT,Portugal,blames Russia or calls it aggression
+holdout,ukraine,2023,PRY,Paraguay,names the war or calls for talks only
+holdout,ukraine,2025,UN-PGA,President of the General Assembly (opening),blames Russia or calls it aggression
+holdout,ukraine,2024,BEN,Benin,names the war or calls for talks only
+holdout,ukraine,2022,ZAF,South Africa,names the war or calls for talks only
+holdout,ukraine,2025,THA,Thailand,names the war or calls for talks only
+holdout,ukraine,2022,SRB,Serbia,names the war or calls for talks only
+holdout,ukraine,2022,EGY,Egypt,names the war or calls for talks only
+holdout,ukraine,2022,HUN,Hungary,blames Russia or calls it aggression
+holdout,ukraine,2025,CHL,Chile,blames Russia or calls it aggression
+holdout,ukraine,2022,SVK,Slovakia,blames Russia or calls it aggression
+holdout,ukraine,2025,HUN,Hungary,names the war or calls for talks only
+holdout,ukraine,2025,BRB,Barbados,names the war or calls for talks only
+holdout,ukraine,2023,MEX,Mexico,blames Russia or calls it aggression
+holdout,gaza,2026,LTU,Lithuania,no criticism of Israel
+holdout,gaza,2026,GUY,Guyana,no criticism of Israel
+holdout,gaza,2026,UN-SG,Secretary-General of the United Nations,criticises Israel's conduct
+holdout,gaza,2026,LAO,Lao People's Democratic Republic,no criticism of Israel
+holdout,gaza,2026,MAR,Morocco,criticises Israel's conduct
+holdout,gaza,2026,GMB,Gambia,no criticism of Israel
+holdout,gaza,2026,VCT,Saint Vincent and the Grenadines,no criticism of Israel
+holdout,gaza,2026,VNM,Viet Nam,no criticism of Israel
+holdout,gaza,2026,SOM,Somalia,no criticism of Israel
+holdout,gaza,2026,MDV,Maldives,calls it genocide
+holdout,gaza,2026,VAT,Holy See,criticises Israel's conduct
+holdout,gaza,2026,DZA,Algeria,criticises Israel's conduct
+holdout,gaza,2026,SAU,Saudi Arabia,criticises Israel's conduct
+holdout,gaza,2026,NZL,New Zealand,no criticism of Israel
+holdout,gaza,2026,EGY,Egypt,criticises Israel's conduct
+holdout,gaza,2025,CUB,Cuba,calls it genocide
+holdout,gaza,2024,ZAF,South Africa,criticises Israel's conduct
+holdout,gaza,2024,SOM,Somalia,criticises Israel's conduct
+holdout,gaza,2025,LCA,Saint Lucia,calls it genocide
+holdout,gaza,2024,JAM,Jamaica,criticises Israel's conduct
+holdout,gaza,2024,NIC,Nicaragua,calls it genocide
+holdout,gaza,2024,COL,Colombia,calls it genocide
+holdout,gaza,2025,NGA,Nigeria,criticises Israel's conduct
+holdout,gaza,2024,JOR,Jordan,criticises Israel's conduct
+holdout,gaza,2025,AND,Andorra,no criticism of Israel
+holdout,gaza,2025,KAZ,Kazakhstan,no criticism of Israel
+holdout,gaza,2025,NPL,Nepal,no criticism of Israel
+holdout,gaza,2025,LAO,Lao People's Democratic Republic,no criticism of Israel
+holdout,gaza,2025,KEN,Kenya,criticises Israel's conduct
+holdout,gaza,2024,BIH,Bosnia and Herzegovina,no criticism of Israel

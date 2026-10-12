@@ -1,7 +1,7 @@
 from unga_speeches.analysis.wording import GAZA_CLASSES, UKRAINE_CLASSES, gaza, ukraine
 
 BLAMES, TALKS, RUSSIAS, MENTIONS, SILENT = UKRAINE_CLASSES
-GENOCIDE, CONDUCT, HUMANITARIAN, NO_GAZA = GAZA_CLASSES
+GENOCIDE, CONDUCT, NO_CRITICISM, NO_GAZA = GAZA_CLASSES
 
 
 def test_russia_as_the_one_waging_war_is_blame():
@@ -54,8 +54,8 @@ def test_ligatures_are_unfolded():
 
 def test_genocide_counts_only_when_it_is_not_history_or_a_denial():
     assert gaza("What has happened in Gaza is genocide in every sense of the word.")["class"] == GENOCIDE
-    assert gaza("In Gaza we grieve. What genocidal regime gives a million polio vaccinations to the enemy?")["class"] == HUMANITARIAN
-    assert gaza("We remember the Srebrenica genocide. Palestine needs peace.")["class"] == HUMANITARIAN
+    assert gaza("In Gaza we grieve. What genocidal regime gives a million polio vaccinations to the enemy?")["class"] == NO_CRITICISM
+    assert gaza("We remember the Srebrenica genocide. Palestine needs peace.")["class"] == NO_CRITICISM
 
 
 def test_israel_as_the_one_acting_is_criticism_but_israelis_as_victims_are_not():
@@ -63,20 +63,83 @@ def test_israel_as_the_one_acting_is_criticism_but_israelis_as_victims_are_not()
     assert gaza("Gaza suffers. The targeting of civilians by Israeli occupation must end.")["class"] == CONDUCT
     assert (
         gaza("Our soldier was killed while clearing a booby trapped building in Gaza. Israel's oldest son was killed.")["class"]
-        == HUMANITARIAN
+        == NO_CRITICISM
     )
 
 
 def test_a_peaceful_settlement_is_not_a_settlement():
-    assert gaza("We call for a peaceful settlement to the conflict between Israel and Palestine.")["class"] == HUMANITARIAN
+    assert gaza("We call for a peaceful settlement to the conflict between Israel and Palestine.")["class"] == NO_CRITICISM
     assert gaza("Israel's settlements in the West Bank are illegal under international law.")["class"] == CONDUCT
 
 
 def test_hamas_and_the_hostages_are_flagged_separately():
     result = gaza("The terrorist attack on Israel on 7th October 2023 was horrific. Gaza needs aid.")
-    assert result["hamas"] and result["class"] == HUMANITARIAN
+    assert result["hamas"] and result["class"] == NO_CRITICISM
     assert gaza("Peace is the goal.")["class"] == NO_GAZA
 
 
 def test_a_general_responsibility_is_not_blame():
     assert ukraine("On Ukraine, Russia has a special responsibility as a permanent member of the Council.")[0] == MENTIONS
+
+
+# cases from the independent review
+
+
+def test_russia_counts_only_near_ukraine():
+    text = "We stand with Ukraine, Sudan and Haiti. Peace matters to us. Twenty per cent of our territory remains under Russian occupation."
+    assert ukraine(text)[0] != BLAMES
+
+
+def test_russians_as_victims_are_not_blame():
+    assert ukraine("Ukraine and Gaza need peace. Dozens of Russians died in the terrorist attack on the Crocus concert hall.")[0] == TALKS
+
+
+def test_aggression_by_someone_else_is_not_blame_of_russia():
+    assert ukraine("Regarding the case of the Ukrainian aggression against our country, we are vigilant.")[0] != BLAMES
+    assert ukraine("The conflict in Ukraine is the result of NATO aggression against Russia.")[0] != BLAMES
+    assert ukraine("We condemn the aggression against Mali and the Ukrainian authorities' support for terrorism.")[0] != BLAMES
+
+
+def test_russias_framing_quoted_to_reject_it_is_not_framing():
+    assert ukraine("Russia's lies about a so-called special military operation in Ukraine fool no one.")[0] != RUSSIAS
+    assert ukraine("Finland's accession marked NATO's enlargement. We stand with Ukraine.")[0] != RUSSIAS
+    assert ukraine("They will fight down to the last Ukrainian.")[0] == RUSSIAS
+
+
+def test_peace_is_a_call_for_talks_and_one_region_is_one_place():
+    assert ukraine("We support a just and lasting peace in Ukraine.")[0] == TALKS
+    assert ukraine("We call for negotiations to end the war in Ukraine and a ceasefire in Gaza and Palestine.")[0] == TALKS
+    assert ukraine("Armed conflicts, including those in Ukraine and the Middle East, threaten humanity.")[0] == MENTIONS
+
+
+def test_kyiv_names_ukraine():
+    assert ukraine("I was in Kyiv last month, and it gave me a glimpse of life under Russian attack.")[0] == BLAMES
+
+
+def test_more_criticism_of_israel_is_recognised():
+    assert gaza("In Gaza, Israeli strikes continue and aid is blocked.")["class"] == CONDUCT
+    assert gaza("The Israeli occupation of Palestinian territory is unlawful.")["class"] == CONDUCT
+    assert gaza("Israel must stop starving Gaza and Hamas must release the hostages.")["class"] == CONDUCT
+    assert gaza("Gaza has suffered from Israel's state terrorism and its bombardment.")["class"] == CONDUCT
+    assert gaza("We oppose the illegal settlements in the West Bank.")["class"] == CONDUCT
+    assert gaza("This does not justify the Israeli government's actions in Gaza.")["class"] == CONDUCT
+
+
+def test_israel_suffering_or_sharing_the_blame_is_not_criticism():
+    assert gaza("In Gaza we grieve. Israeli families have been brutally murdered.")["class"] == NO_CRITICISM
+    assert gaza("Gaza needs calm. Israel's sovereignty, violated by Iranian missiles, must be respected.")["class"] == NO_CRITICISM
+    assert gaza("Israel and Palestine must both commit to peace in Gaza, and all parties must end violations.")["class"] == NO_CRITICISM
+
+
+def test_other_genocides_and_the_case_title_are_not_gaza_genocide():
+    assert gaza("In El Fasher, genocide is under way. In Gaza, aid must flow.")["class"] != GENOCIDE
+    case = "The Court ruled in Application of the Convention on the Prevention and Punishment of the Crime of Genocide in the Gaza Strip."
+    assert gaza(case)["class"] != GENOCIDE
+    assert gaza("In Gaza, Israel is committing genocide, and we accuse it before the world.")["class"] == GENOCIDE
+    comparison = "The world did not respond to the genocide against Palestinians in Gaza, just as it did not at Srebrenica."
+    assert gaza(comparison)["class"] == GENOCIDE
+
+
+def test_gazans_and_bullets():
+    assert gaza("The Gazans are dying under Israeli bombardment.")["class"] == CONDUCT
+    assert ukraine("• We meet in hard times. • Russia's war of aggression against Ukraine is a dire threat.")[0] == BLAMES
