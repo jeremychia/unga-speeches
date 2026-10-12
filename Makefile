@@ -1,4 +1,4 @@
-.PHONY: help install test lint format reproducible session verbatim scanned history dataset news brands leanings site questions release publish
+.PHONY: help install test lint format reproducible session verbatim scanned history dataset news brands leanings site notebooks release publish
 
 SESSION ?= 81
 SESSIONS ?= 79
@@ -18,7 +18,7 @@ help:
 	@echo "make brands                     - download the Digital News Report's biggest online news brands per market"
 	@echo "make leanings SESSION=81        - refresh outlet leanings and record any change in reference/leanings_history.json"
 	@echo "make site SESSION=81            - write the session's analysis page to site/"
-	@echo "make questions                  - write the four-questions notebook, as last run, to site/questions.html"
+	@echo "make notebooks                  - write the analysis notebooks, as last run, to site/ as pages"
 	@echo "make release                    - package the data into dist/"
 	@echo "make publish                    - upload dist/ as a GitHub release"
 
@@ -63,8 +63,8 @@ leanings:
 site:
 	uv run --group analysis unga site $(SESSION)
 
-questions:
-	uv run --group analysis --with nbconvert python -m unga_speeches.analysis.questions_page
+notebooks:
+	uv run --group analysis --with nbconvert python -m unga_speeches.analysis.notebook_pages
 
 release:
 	uv run unga release
