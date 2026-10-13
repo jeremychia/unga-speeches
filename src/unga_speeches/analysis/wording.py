@@ -18,7 +18,16 @@ UKRAINE_CLASSES = [
     "uses Russia's framing",
     "does not mention Ukraine",
 ]
-GAZA_CLASSES = ["calls it genocide", "criticises Israel's conduct", "no criticism of Israel", "does not mention Gaza or Palestine"]
+# criticism of Israel and blame of Hamas are read separately, so a speech can take one side, both or neither; calling it genocide
+# outranks the rest, as blaming Russia does for Ukraine
+GAZA_CLASSES = [
+    "calls it genocide",
+    "criticises Israel's conduct",
+    "criticises both sides",
+    "blames Hamas or defends Israel",
+    "blames neither side",
+    "does not mention Gaza or Palestine",
+]
 FIRST_YEAR = {"ukraine": 2022, "gaza": 2024}  # the debates after each war began; the 2023 debate came before 7 October
 MIN_WORDS = 300  # shorter texts are the chair's introduction to a recorded speech, not the speech
 
@@ -100,6 +109,26 @@ CRITICISM = re.compile(
     r"|violat[^.]{0,60}(?:in|throughout) (?:gaza|the west bank|the occupied|occupied|palestin)"
     r"|(?:west bank|occupied (?:palestinian )?territor)[^.]{0,80}(?:violat|violence|illegal|unlawful)",
     re.I,
+)
+_ATTACK = r"(?:hamas|7(?:th)? (?:of )?october|october (?:the )?7(?:th)?|seventh of october)"
+# blame of hamas or a defence of israel: condemning hamas or its attack, calling hamas terrorists, a demand that hamas disarm or free the
+# hostages, or israel's right to defend itself; merely naming the hostages, as in a call for a ceasefire, is not taking a side
+ISRAELS_SIDE = re.compile(
+    rf"(?:condemn|deplor|abhor|denounc)\w*[^.]{{0,100}}{_ATTACK}"
+    rf"|(?:horrific|heinous|barbaric|brutal|abhorrent|unimaginable|terrorist|terror)\w*[^.]{{0,40}}(?:attacks?|massacres?|atrocit\w*)[^.]{{0,40}}(?:{_ATTACK}|on israel)"
+    rf"|{_ATTACK}[^.]{{0,100}}(?:terror|massacre|atrocit|horrific|heinous|barbaric|pogrom)"
+    rf"|acts? of terror[^.]{{0,30}}{_ATTACK}|nothing (?:can )?(?:ever )?justif[^.]{{0,60}}{_ATTACK}"
+    r"|hamas[^.]{0,40}(?:disarm|surrender\w* its (?:arms|weapons)|lay down)|disarm[^.]{0,40}hamas|hamas[^.]{0,60}no (?:future )?role"
+    r"|hamas terroris|terroris\w* (?:group |organi[sz]ation )?hamas|terrorists of hamas"
+    r"|hamas (?:must|should) (?:disarm|be disarmed|lay down|release|relinquish|surrender|give up|have no)|disarm\w*(?: of)? hamas|no (?:role|place) for hamas"
+    r"|hamas (?:started|triggered|began|is responsible|bears)"
+    r"|israel(?:'s|’s)? (?:legitimate |inherent )?right to (?:defend|self-defen[cs]e|exist)|right of israel to (?:defend|exist)"
+    r"|israel (?:has|had|retains) (?:a |the |every )?(?:legitimate |inherent )?right to (?:defend|self-defen[cs]e|exist)",
+    re.I,
+)
+# israel's right to defend itself named only to dispute it
+DISPUTED_RIGHT = re.compile(
+    r"pretext|so-called|guise|excuse|(?:cannot|does not|doesn't|can never|no) justif|not a licen[cs]e|not unlimited|is not absolute", re.I
 )
 NAMES_HAMAS = re.compile(
     r"\bhamas\b|hostages?|7 october|october 7|7th of october|october the 7th|seventh of october"
@@ -183,22 +212,34 @@ def _gaza_genocide(sents: list[str], j: int, idx: list[int]) -> bool:
 
 
 def gaza(text: str) -> dict:
-    """The strongest criticism of Israel a speech makes about Gaza, whether it names Hamas or the hostages, and the sentences that show both."""
+    """How a speech describes Gaza: its criticism of Israel, its blame of Hamas or defence of Israel, whether it names Hamas or the hostages at all, and the sentences behind each."""
     sents = _sentences(text)
     idx = [i for i, s in enumerate(sents) if GAZA.search(s)]
     if not idx:
-        return {"class": GAZA_CLASSES[3], "evidence": "", "hamas": False, "hamas_evidence": ""}
-    near = _around(sents, idx)
-    hamas = next((s for s in _around(sents, idx, width=2) if NAMES_HAMAS.search(s)), "")
+        return {"class": GAZA_CLASSES[5], "evidence": "", "hamas": False, "hamas_evidence": "", "israels_side": False, "side_evidence": ""}
+    near, wide = _around(sents, idx), _around(sents, idx, width=2)
+    hamas = next((s for s in wide if NAMES_HAMAS.search(s)), "")
+    side = next((s for s in wide if (m := ISRAELS_SIDE.search(s)) and not ("right" in m.group(0).lower() and DISPUTED_RIGHT.search(s))), "")
     genocide = next((sents[j] for j in _around_index(sents, idx) if _gaza_genocide(sents, j, idx)), "")
     conduct = next((s for s in near if CRITICISM.search(s) or _israel_acts(s)), "")
     if genocide:
         cls, evidence = GAZA_CLASSES[0], genocide
+    elif conduct and side:
+        cls, evidence = GAZA_CLASSES[2], conduct
     elif conduct:
         cls, evidence = GAZA_CLASSES[1], conduct
+    elif side:
+        cls, evidence = GAZA_CLASSES[3], side
     else:
-        cls, evidence = GAZA_CLASSES[2], sents[idx[0]]
-    return {"class": cls, "evidence": evidence, "hamas": bool(hamas), "hamas_evidence": hamas}
+        cls, evidence = GAZA_CLASSES[4], sents[idx[0]]
+    return {
+        "class": cls,
+        "evidence": evidence,
+        "hamas": bool(hamas),
+        "hamas_evidence": hamas,
+        "israels_side": bool(side),
+        "side_evidence": side,
+    }
 
 
 def classify(frame: pd.DataFrame | None = None) -> pd.DataFrame:
@@ -211,9 +252,11 @@ def classify(frame: pd.DataFrame | None = None) -> pd.DataFrame:
     rows = []
     for text, year in zip(frame.english_text_clean, frame.year, strict=True):
         ukraine_class, ukraine_evidence = ukraine(text)
-        g = gaza(text) if year >= FIRST_YEAR["gaza"] else {"class": None, "evidence": None, "hamas": None, "hamas_evidence": None}
+        empty = {"class": None, "evidence": None, "hamas": None, "hamas_evidence": None, "israels_side": None, "side_evidence": None}
+        g = gaza(text) if year >= FIRST_YEAR["gaza"] else empty
         rows.append({"ukraine": ukraine_class, "ukraine_evidence": ukraine_evidence, "gaza": g["class"], "gaza_evidence": g["evidence"],
-                     "hamas": g["hamas"], "hamas_evidence": g["hamas_evidence"]})  # fmt: skip
+                     "hamas": g["hamas"], "hamas_evidence": g["hamas_evidence"], "israels_side": g["israels_side"],
+                     "side_evidence": g["side_evidence"]})  # fmt: skip
     return pd.concat([frame.drop(columns="english_text_clean"), pd.DataFrame(rows)], axis=1)
 
 

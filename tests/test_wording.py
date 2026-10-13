@@ -1,7 +1,9 @@
 from unga_speeches.analysis.wording import GAZA_CLASSES, UKRAINE_CLASSES, gaza, ukraine
 
 BLAMES, NO_BLAME, RUSSIAS, SILENT = UKRAINE_CLASSES
-GENOCIDE, CONDUCT, NO_CRITICISM, NO_GAZA = GAZA_CLASSES
+GENOCIDE, CONDUCT, BOTH, ISRAELS_SIDE, NEITHER, NO_GAZA = GAZA_CLASSES
+CRITICAL = (CONDUCT, BOTH)  # criticises Israel, whether or not it also blames Hamas
+NOT_CRITICAL = (ISRAELS_SIDE, NEITHER)
 
 
 def test_russia_as_the_one_waging_war_is_blame():
@@ -54,27 +56,27 @@ def test_ligatures_are_unfolded():
 
 def test_genocide_counts_only_when_it_is_not_history_or_a_denial():
     assert gaza("What has happened in Gaza is genocide in every sense of the word.")["class"] == GENOCIDE
-    assert gaza("In Gaza we grieve. What genocidal regime gives a million polio vaccinations to the enemy?")["class"] == NO_CRITICISM
-    assert gaza("We remember the Srebrenica genocide. Palestine needs peace.")["class"] == NO_CRITICISM
+    assert gaza("In Gaza we grieve. What genocidal regime gives a million polio vaccinations to the enemy?")["class"] in NOT_CRITICAL
+    assert gaza("We remember the Srebrenica genocide. Palestine needs peace.")["class"] in NOT_CRITICAL
 
 
 def test_israel_as_the_one_acting_is_criticism_but_israelis_as_victims_are_not():
-    assert gaza("In Gaza, Israel has murdered savagely over 70,000 innocents.")["class"] == CONDUCT
-    assert gaza("Gaza suffers. The targeting of civilians by Israeli occupation must end.")["class"] == CONDUCT
+    assert gaza("In Gaza, Israel has murdered savagely over 70,000 innocents.")["class"] in CRITICAL
+    assert gaza("Gaza suffers. The targeting of civilians by Israeli occupation must end.")["class"] in CRITICAL
     assert (
         gaza("Our soldier was killed while clearing a booby trapped building in Gaza. Israel's oldest son was killed.")["class"]
-        == NO_CRITICISM
+        in NOT_CRITICAL
     )
 
 
 def test_a_peaceful_settlement_is_not_a_settlement():
-    assert gaza("We call for a peaceful settlement to the conflict between Israel and Palestine.")["class"] == NO_CRITICISM
-    assert gaza("Israel's settlements in the West Bank are illegal under international law.")["class"] == CONDUCT
+    assert gaza("We call for a peaceful settlement to the conflict between Israel and Palestine.")["class"] in NOT_CRITICAL
+    assert gaza("Israel's settlements in the West Bank are illegal under international law.")["class"] in CRITICAL
 
 
 def test_hamas_and_the_hostages_are_flagged_separately():
     result = gaza("The terrorist attack on Israel on 7th October 2023 was horrific. Gaza needs aid.")
-    assert result["hamas"] and result["class"] == NO_CRITICISM
+    assert result["hamas"] and result["class"] in NOT_CRITICAL
     assert gaza("Peace is the goal.")["class"] == NO_GAZA
 
 
@@ -119,18 +121,18 @@ def test_kyiv_names_ukraine():
 
 
 def test_more_criticism_of_israel_is_recognised():
-    assert gaza("In Gaza, Israeli strikes continue and aid is blocked.")["class"] == CONDUCT
-    assert gaza("The Israeli occupation of Palestinian territory is unlawful.")["class"] == CONDUCT
-    assert gaza("Israel must stop starving Gaza and Hamas must release the hostages.")["class"] == CONDUCT
-    assert gaza("Gaza has suffered from Israel's state terrorism and its bombardment.")["class"] == CONDUCT
-    assert gaza("We oppose the illegal settlements in the West Bank.")["class"] == CONDUCT
-    assert gaza("This does not justify the Israeli government's actions in Gaza.")["class"] == CONDUCT
+    assert gaza("In Gaza, Israeli strikes continue and aid is blocked.")["class"] in CRITICAL
+    assert gaza("The Israeli occupation of Palestinian territory is unlawful.")["class"] in CRITICAL
+    assert gaza("Israel must stop starving Gaza and Hamas must release the hostages.")["class"] in CRITICAL
+    assert gaza("Gaza has suffered from Israel's state terrorism and its bombardment.")["class"] in CRITICAL
+    assert gaza("We oppose the illegal settlements in the West Bank.")["class"] in CRITICAL
+    assert gaza("This does not justify the Israeli government's actions in Gaza.")["class"] in CRITICAL
 
 
 def test_israel_suffering_or_sharing_the_blame_is_not_criticism():
-    assert gaza("In Gaza we grieve. Israeli families have been brutally murdered.")["class"] == NO_CRITICISM
-    assert gaza("Gaza needs calm. Israel's sovereignty, violated by Iranian missiles, must be respected.")["class"] == NO_CRITICISM
-    assert gaza("Israel and Palestine must both commit to peace in Gaza, and all parties must end violations.")["class"] == NO_CRITICISM
+    assert gaza("In Gaza we grieve. Israeli families have been brutally murdered.")["class"] in NOT_CRITICAL
+    assert gaza("Gaza needs calm. Israel's sovereignty, violated by Iranian missiles, must be respected.")["class"] in NOT_CRITICAL
+    assert gaza("Israel and Palestine must both commit to peace in Gaza, and all parties must end violations.")["class"] in NOT_CRITICAL
 
 
 def test_other_genocides_and_the_case_title_are_not_gaza_genocide():
@@ -143,7 +145,7 @@ def test_other_genocides_and_the_case_title_are_not_gaza_genocide():
 
 
 def test_gazans_and_bullets():
-    assert gaza("The Gazans are dying under Israeli bombardment.")["class"] == CONDUCT
+    assert gaza("The Gazans are dying under Israeli bombardment.")["class"] in CRITICAL
     assert ukraine("• We meet in hard times. • Russia's war of aggression against Ukraine is a dire threat.")[0] == BLAMES
 
 
@@ -170,7 +172,7 @@ def test_criticism_that_names_no_actor():
         "Nowhere is this more painful than in the ongoing persecution of the Palestinian people in Gaza.",
         "We welcome sanctions on Israeli settlers implicated in violent acts in the West Bank.",
     ]:
-        assert gaza(sentence)["class"] == CONDUCT, sentence
+        assert gaza(sentence)["class"] in CRITICAL, sentence
 
 
 def test_a_genocide_sentence_beside_a_list_of_wars_is_not_gaza_genocide():
@@ -182,12 +184,33 @@ def test_a_genocide_sentence_beside_a_list_of_wars_is_not_gaza_genocide():
 
 def test_israel_attacked_or_accused_is_not_israel_acting():
     hamas = "Thousands of Hamas terrorists from Gaza burst into Israel, and they committed unimaginable atrocities."
-    assert gaza(hamas)["class"] == NO_CRITICISM
+    assert gaza(hamas)["class"] in NOT_CRITICAL
     denial = "Israel is accused of deliberately starving the people of Gaza when Israel is deliberately feeding the people of Gaza."
-    assert gaza(denial)["class"] == NO_CRITICISM
-    assert gaza("Israel must stop starving Gaza and Hamas must release the hostages.")["class"] == CONDUCT
+    assert gaza(denial)["class"] in NOT_CRITICAL
+    assert gaza("Israel must stop starving Gaza and Hamas must release the hostages.")["class"] in CRITICAL
 
 
 def test_hamass_attack_named_after_the_act_is_not_israel_acting():
     sentence = "In Gaza he wants peace with Israel, yet he still refuses to condemn the horrific massacre of 7 October."
-    assert gaza(sentence)["class"] == NO_CRITICISM
+    assert gaza(sentence)["class"] in NOT_CRITICAL
+
+
+def test_blaming_hamas_or_defending_israel_is_its_own_class():
+    assert gaza("In Gaza, Hamas must release the hostages and disarm.")["class"] == ISRAELS_SIDE
+    assert gaza("Israel has the right to defend itself against Hamas. Gaza must be rebuilt.")["class"] == ISRAELS_SIDE
+    assert gaza("We condemn the horrific attack of 7 October. In Gaza, Israeli strikes continue.")["class"] == BOTH
+
+
+def test_naming_the_hostages_or_disputing_the_right_is_not_taking_a_side():
+    assert gaza("We call for a ceasefire in Gaza and the release of all hostages.")["class"] == NEITHER
+    assert gaza("Israel has the right to defend itself, but not as a pretext to bomb Gaza.")["class"] == NEITHER
+
+
+def test_more_ways_of_blaming_hamas():
+    for sentence in [
+        "Palestinians in Gaza need peace, with Hamas disarmed.",
+        "In Gaza, we must ensure that Hamas surrenders its arms.",
+        "We call on Hamas and other armed groups in Gaza to disarm.",
+        "Nothing can ever justify the acts of terror of the 7th of October, but Gaza needs aid.",
+    ]:
+        assert gaza(sentence)["israels_side"], sentence

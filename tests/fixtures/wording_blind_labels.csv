@@ -1,411 +1,411 @@
-sample,war,year,iso3,delegation,label,hamas
-review,ukraine,2026,RUS,Russian Federation,uses Russia's framing,
-review,ukraine,2026,JOR,Jordan,names Ukraine but blames no one,
-review,ukraine,2026,PRT,Portugal,blames Russia or calls it aggression,
-review,ukraine,2026,DEU,Germany,blames Russia or calls it aggression,
-review,ukraine,2026,KOR,Republic of Korea,names Ukraine but blames no one,
-review,ukraine,2026,BRB,Barbados,names Ukraine but blames no one,
-review,ukraine,2026,GRC,Greece,blames Russia or calls it aggression,
-review,ukraine,2026,COG,Congo,names Ukraine but blames no one,
-review,ukraine,2026,KNA,Saint Kitts and Nevis,names Ukraine but blames no one,
-review,ukraine,2026,ARE,United Arab Emirates,names Ukraine but blames no one,
-review,ukraine,2026,JPN,Japan,blames Russia or calls it aggression,
-review,ukraine,2026,CAN,Canada,blames Russia or calls it aggression,
-review,ukraine,2026,UN-SG,Secretary-General of the United Nations,blames Russia or calls it aggression,
-review,ukraine,2026,HRV,Croatia,blames Russia or calls it aggression,
-review,ukraine,2026,MDA,Republic of Moldova,blames Russia or calls it aggression,
-review,ukraine,2026,SEN,Senegal,names Ukraine but blames no one,
-review,ukraine,2026,DNK,Denmark,blames Russia or calls it aggression,
-review,ukraine,2026,EU,European Union,blames Russia or calls it aggression,
-review,ukraine,2026,ESP,Spain,blames Russia or calls it aggression,
-review,ukraine,2026,VCT,Saint Vincent and the Grenadines,names Ukraine but blames no one,
-review,ukraine,2022,ROU,Romania,blames Russia or calls it aggression,
-review,ukraine,2024,CMR,Cameroon,names Ukraine but blames no one,
-review,ukraine,2024,COD,Democratic Republic of the Congo,names Ukraine but blames no one,
-review,ukraine,2022,BIH,Bosnia and Herzegovina,blames Russia or calls it aggression,
-review,ukraine,2025,MKD,North Macedonia,blames Russia or calls it aggression,
-review,ukraine,2025,BLR,Belarus,uses Russia's framing,
-review,ukraine,2025,QAT,Qatar,names Ukraine but blames no one,
-review,ukraine,2023,SRB,Serbia,blames Russia or calls it aggression,
-review,ukraine,2022,ISL,Iceland,blames Russia or calls it aggression,
-review,ukraine,2025,MCO,Monaco,blames Russia or calls it aggression,
-review,ukraine,2023,SUR,Suriname,names Ukraine but blames no one,
-review,ukraine,2024,LBR,Liberia,names Ukraine but blames no one,
-review,ukraine,2025,IDN,Indonesia,names Ukraine but blames no one,
-review,ukraine,2024,CHL,Chile,blames Russia or calls it aggression,
-review,ukraine,2024,EU,European Union,blames Russia or calls it aggression,
-review,ukraine,2025,ITA,Italy,blames Russia or calls it aggression,
-review,ukraine,2023,BWA,Botswana,names Ukraine but blames no one,
-review,ukraine,2024,CZE,Czechia,blames Russia or calls it aggression,
-review,ukraine,2022,CYP,Cyprus,blames Russia or calls it aggression,
-review,ukraine,2023,SMR,San Marino,blames Russia or calls it aggression,
-review,gaza,2026,LBN,Lebanon,no criticism of Israel,
-review,gaza,2026,SEN,Senegal,no criticism of Israel,
-review,gaza,2026,MRT,Mauritania,no criticism of Israel,
-review,gaza,2026,THA,Thailand,no criticism of Israel,
-review,gaza,2026,CUB,Cuba,calls it genocide,
-review,gaza,2026,KNA,Saint Kitts and Nevis,no criticism of Israel,
-review,gaza,2026,KWT,Kuwait,criticises Israel's conduct,
-review,gaza,2026,TUR,Türkiye,criticises Israel's conduct,
-review,gaza,2026,BRA,Brazil,calls it genocide,
-review,gaza,2026,PHL,Philippines,no criticism of Israel,
-review,gaza,2026,DJI,Djibouti,criticises Israel's conduct,
-review,gaza,2026,BEL,Belgium,no criticism of Israel,
-review,gaza,2026,TCD,Chad,no criticism of Israel,
-review,gaza,2026,HUN,Hungary,no criticism of Israel,
-review,gaza,2026,ESP,Spain,calls it genocide,
-review,gaza,2026,UN-PGA,President of the General Assembly (opening),no criticism of Israel,
-review,gaza,2026,WSM,Samoa,no criticism of Israel,
-review,gaza,2026,IRL,Ireland,criticises Israel's conduct,
-review,gaza,2026,ZAF,South Africa,calls it genocide,
-review,gaza,2026,JOR,Jordan,criticises Israel's conduct,
-review,gaza,2024,SVK,Slovakia,no criticism of Israel,
-review,gaza,2024,ERI,Eritrea,no criticism of Israel,
-review,gaza,2025,BOL,Bolivia (Plurinational State of),calls it genocide,
-review,gaza,2024,IRQ,Iraq,criticises Israel's conduct,
-review,gaza,2025,BDI,Burundi,no criticism of Israel,
-review,gaza,2024,MLT,Malta,no criticism of Israel,
-review,gaza,2025,MEX,Mexico,no criticism of Israel,
-review,gaza,2024,LBY,Libya,calls it genocide,
-review,gaza,2024,AND,Andorra,no criticism of Israel,
-review,gaza,2024,TUR,Türkiye,calls it genocide,
-review,gaza,2024,MHL,Marshall Islands,criticises Israel's conduct,
-review,gaza,2025,ATG,Antigua and Barbuda,calls it genocide,
-review,gaza,2024,PRT,Portugal,criticises Israel's conduct,
-review,gaza,2024,MUS,Mauritius,no criticism of Israel,
-review,gaza,2025,MKD,North Macedonia,no criticism of Israel,
-review,gaza,2024,UN-PGA,President of the General Assembly (opening),no criticism of Israel,
-review,gaza,2025,RUS,Russian Federation,criticises Israel's conduct,
-review,gaza,2025,STP,Sao Tome and Principe,no criticism of Israel,
-review,gaza,2025,SRB,Serbia,no criticism of Israel,
-review,gaza,2024,TTO,Trinidad and Tobago,criticises Israel's conduct,
-holdout,ukraine,2026,BLZ,Belize,names Ukraine but blames no one,
-holdout,ukraine,2026,SGP,Singapore,names Ukraine but blames no one,
-holdout,ukraine,2026,MLI,Mali,names Ukraine but blames no one,
-holdout,ukraine,2026,NER,Niger,names Ukraine but blames no one,
-holdout,ukraine,2026,IND,India,names Ukraine but blames no one,
-holdout,ukraine,2026,LIE,Liechtenstein,blames Russia or calls it aggression,
-holdout,ukraine,2026,NZL,New Zealand,blames Russia or calls it aggression,
-holdout,ukraine,2026,UN-PGA,President of the General Assembly (opening),names Ukraine but blames no one,
-holdout,ukraine,2026,TLS,Timor-Leste,uses Russia's framing,
-holdout,ukraine,2026,AUS,Australia,blames Russia or calls it aggression,
-holdout,ukraine,2026,GUY,Guyana,names Ukraine but blames no one,
-holdout,ukraine,2026,HUN,Hungary,blames Russia or calls it aggression,
-holdout,ukraine,2026,BGR,Bulgaria,names Ukraine but blames no one,
-holdout,ukraine,2026,WSM,Samoa,names Ukraine but blames no one,
-holdout,ukraine,2026,ZAF,South Africa,names Ukraine but blames no one,
-holdout,ukraine,2023,ROU,Romania,blames Russia or calls it aggression,
-holdout,ukraine,2022,PRT,Portugal,blames Russia or calls it aggression,
-holdout,ukraine,2023,PRY,Paraguay,names Ukraine but blames no one,
-holdout,ukraine,2025,UN-PGA,President of the General Assembly (opening),blames Russia or calls it aggression,
-holdout,ukraine,2024,BEN,Benin,names Ukraine but blames no one,
-holdout,ukraine,2022,ZAF,South Africa,names Ukraine but blames no one,
-holdout,ukraine,2025,THA,Thailand,names Ukraine but blames no one,
-holdout,ukraine,2022,SRB,Serbia,names Ukraine but blames no one,
-holdout,ukraine,2022,EGY,Egypt,names Ukraine but blames no one,
-holdout,ukraine,2022,HUN,Hungary,blames Russia or calls it aggression,
-holdout,ukraine,2025,CHL,Chile,blames Russia or calls it aggression,
-holdout,ukraine,2022,SVK,Slovakia,blames Russia or calls it aggression,
-holdout,ukraine,2025,HUN,Hungary,names Ukraine but blames no one,
-holdout,ukraine,2025,BRB,Barbados,names Ukraine but blames no one,
-holdout,ukraine,2023,MEX,Mexico,blames Russia or calls it aggression,
-holdout,gaza,2026,LTU,Lithuania,no criticism of Israel,
-holdout,gaza,2026,GUY,Guyana,no criticism of Israel,
-holdout,gaza,2026,UN-SG,Secretary-General of the United Nations,criticises Israel's conduct,
-holdout,gaza,2026,LAO,Lao People's Democratic Republic,no criticism of Israel,
-holdout,gaza,2026,MAR,Morocco,criticises Israel's conduct,
-holdout,gaza,2026,GMB,Gambia,no criticism of Israel,
-holdout,gaza,2026,VCT,Saint Vincent and the Grenadines,no criticism of Israel,
-holdout,gaza,2026,VNM,Viet Nam,no criticism of Israel,
-holdout,gaza,2026,SOM,Somalia,no criticism of Israel,
-holdout,gaza,2026,MDV,Maldives,calls it genocide,
-holdout,gaza,2026,VAT,Holy See,criticises Israel's conduct,
-holdout,gaza,2026,DZA,Algeria,criticises Israel's conduct,
-holdout,gaza,2026,SAU,Saudi Arabia,criticises Israel's conduct,
-holdout,gaza,2026,NZL,New Zealand,no criticism of Israel,
-holdout,gaza,2026,EGY,Egypt,criticises Israel's conduct,
-holdout,gaza,2025,CUB,Cuba,calls it genocide,
-holdout,gaza,2024,ZAF,South Africa,criticises Israel's conduct,
-holdout,gaza,2024,SOM,Somalia,criticises Israel's conduct,
-holdout,gaza,2025,LCA,Saint Lucia,calls it genocide,
-holdout,gaza,2024,JAM,Jamaica,criticises Israel's conduct,
-holdout,gaza,2024,NIC,Nicaragua,calls it genocide,
-holdout,gaza,2024,COL,Colombia,calls it genocide,
-holdout,gaza,2025,NGA,Nigeria,criticises Israel's conduct,
-holdout,gaza,2024,JOR,Jordan,criticises Israel's conduct,
-holdout,gaza,2025,AND,Andorra,no criticism of Israel,
-holdout,gaza,2025,KAZ,Kazakhstan,no criticism of Israel,
-holdout,gaza,2025,NPL,Nepal,no criticism of Israel,
-holdout,gaza,2025,LAO,Lao People's Democratic Republic,no criticism of Israel,
-holdout,gaza,2025,KEN,Kenya,criticises Israel's conduct,
-holdout,gaza,2024,BIH,Bosnia and Herzegovina,no criticism of Israel,
-full 2026,ukraine,2026,AGO,Angola,names Ukraine but blames no one,
-full 2026,ukraine,2026,AND,Andorra,names Ukraine but blames no one,
-full 2026,ukraine,2026,ARE,United Arab Emirates,names Ukraine but blames no one,
-full 2026,ukraine,2026,AUS,Australia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,AUT,Austria,blames Russia or calls it aggression,
-full 2026,ukraine,2026,BEL,Belgium,blames Russia or calls it aggression,
-full 2026,ukraine,2026,BGR,Bulgaria,names Ukraine but blames no one,
-full 2026,ukraine,2026,BHR,Bahrain,names Ukraine but blames no one,
-full 2026,ukraine,2026,BIH,Bosnia and Herzegovina,blames Russia or calls it aggression,
-full 2026,ukraine,2026,BLR,Belarus,uses Russia's framing,
-full 2026,ukraine,2026,BLZ,Belize,names Ukraine but blames no one,
-full 2026,ukraine,2026,BRA,Brazil,names Ukraine but blames no one,
-full 2026,ukraine,2026,BRB,Barbados,names Ukraine but blames no one,
-full 2026,ukraine,2026,CAN,Canada,blames Russia or calls it aggression,
-full 2026,ukraine,2026,CHN,China,names Ukraine but blames no one,
-full 2026,ukraine,2026,COG,Congo,names Ukraine but blames no one,
-full 2026,ukraine,2026,CZE,Czechia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,DEU,Germany,blames Russia or calls it aggression,
-full 2026,ukraine,2026,DNK,Denmark,blames Russia or calls it aggression,
-full 2026,ukraine,2026,ERI,Eritrea,names Ukraine but blames no one,
-full 2026,ukraine,2026,ESP,Spain,blames Russia or calls it aggression,
-full 2026,ukraine,2026,EST,Estonia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,EU,European Union,blames Russia or calls it aggression,
-full 2026,ukraine,2026,FIN,Finland,blames Russia or calls it aggression,
-full 2026,ukraine,2026,FRA,France,blames Russia or calls it aggression,
-full 2026,ukraine,2026,GBR,United Kingdom of Great Britain and Northern Ireland,blames Russia or calls it aggression,
-full 2026,ukraine,2026,GHA,Ghana,names Ukraine but blames no one,
-full 2026,ukraine,2026,GRC,Greece,blames Russia or calls it aggression,
-full 2026,ukraine,2026,GUY,Guyana,names Ukraine but blames no one,
-full 2026,ukraine,2026,HND,Honduras,names Ukraine but blames no one,
-full 2026,ukraine,2026,HRV,Croatia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,HUN,Hungary,blames Russia or calls it aggression,
-full 2026,ukraine,2026,IND,India,names Ukraine but blames no one,
-full 2026,ukraine,2026,IRL,Ireland,blames Russia or calls it aggression,
-full 2026,ukraine,2026,ISL,Iceland,blames Russia or calls it aggression,
-full 2026,ukraine,2026,ITA,Italy,blames Russia or calls it aggression,
-full 2026,ukraine,2026,JOR,Jordan,names Ukraine but blames no one,
-full 2026,ukraine,2026,JPN,Japan,blames Russia or calls it aggression,
-full 2026,ukraine,2026,KAZ,Kazakhstan,names Ukraine but blames no one,
-full 2026,ukraine,2026,KGZ,Kyrgyzstan,names Ukraine but blames no one,
-full 2026,ukraine,2026,KNA,Saint Kitts and Nevis,names Ukraine but blames no one,
-full 2026,ukraine,2026,KOR,Republic of Korea,names Ukraine but blames no one,
-full 2026,ukraine,2026,LCA,Saint Lucia,names Ukraine but blames no one,
-full 2026,ukraine,2026,LIE,Liechtenstein,blames Russia or calls it aggression,
-full 2026,ukraine,2026,LSO,Lesotho,names Ukraine but blames no one,
-full 2026,ukraine,2026,LTU,Lithuania,blames Russia or calls it aggression,
-full 2026,ukraine,2026,LUX,Luxembourg,blames Russia or calls it aggression,
-full 2026,ukraine,2026,LVA,Latvia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,MCO,Monaco,blames Russia or calls it aggression,
-full 2026,ukraine,2026,MDA,Republic of Moldova,blames Russia or calls it aggression,
-full 2026,ukraine,2026,MLI,Mali,names Ukraine but blames no one,
-full 2026,ukraine,2026,MLT,Malta,blames Russia or calls it aggression,
-full 2026,ukraine,2026,MNE,Montenegro,names Ukraine but blames no one,
-full 2026,ukraine,2026,NER,Niger,names Ukraine but blames no one,
-full 2026,ukraine,2026,NLD,Netherlands (Kingdom of the),blames Russia or calls it aggression,
-full 2026,ukraine,2026,NOR,Norway,blames Russia or calls it aggression,
-full 2026,ukraine,2026,NZL,New Zealand,blames Russia or calls it aggression,
-full 2026,ukraine,2026,PAN,Panama,names Ukraine but blames no one,
-full 2026,ukraine,2026,PHL,Philippines,names Ukraine but blames no one,
-full 2026,ukraine,2026,PLW,Palau,names Ukraine but blames no one,
-full 2026,ukraine,2026,PRT,Portugal,blames Russia or calls it aggression,
-full 2026,ukraine,2026,ROU,Romania,blames Russia or calls it aggression,
-full 2026,ukraine,2026,RUS,Russian Federation,uses Russia's framing,
-full 2026,ukraine,2026,SEN,Senegal,names Ukraine but blames no one,
-full 2026,ukraine,2026,SGP,Singapore,names Ukraine but blames no one,
-full 2026,ukraine,2026,SMR,San Marino,blames Russia or calls it aggression,
-full 2026,ukraine,2026,SRB,Serbia,names Ukraine but blames no one,
-full 2026,ukraine,2026,STP,Sao Tome and Principe,names Ukraine but blames no one,
-full 2026,ukraine,2026,SVK,Slovakia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,SVN,Slovenia,blames Russia or calls it aggression,
-full 2026,ukraine,2026,SWE,Sweden,blames Russia or calls it aggression,
-full 2026,ukraine,2026,TLS,Timor-Leste,uses Russia's framing,
-full 2026,ukraine,2026,TUR,Türkiye,names Ukraine but blames no one,
-full 2026,ukraine,2026,UKR,Ukraine,blames Russia or calls it aggression,
-full 2026,ukraine,2026,UN-PGA,President of the General Assembly (opening),names Ukraine but blames no one,
-full 2026,ukraine,2026,UN-SG,Secretary-General of the United Nations,blames Russia or calls it aggression,
-full 2026,ukraine,2026,USA,United States of America,names Ukraine but blames no one,
-full 2026,ukraine,2026,VAT,Holy See,names Ukraine but blames no one,
-full 2026,ukraine,2026,VCT,Saint Vincent and the Grenadines,names Ukraine but blames no one,
-full 2026,ukraine,2026,WSM,Samoa,names Ukraine but blames no one,
-full 2026,ukraine,2026,ZAF,South Africa,names Ukraine but blames no one,
-full 2026,gaza,2026,AGO,Angola,criticises Israel's conduct,False
-full 2026,gaza,2026,AND,Andorra,no criticism of Israel,False
-full 2026,gaza,2026,ARE,United Arab Emirates,criticises Israel's conduct,True
-full 2026,gaza,2026,AUS,Australia,criticises Israel's conduct,True
-full 2026,gaza,2026,AUT,Austria,criticises Israel's conduct,True
-full 2026,gaza,2026,BEL,Belgium,no criticism of Israel,False
-full 2026,gaza,2026,BFA,Burkina Faso,no criticism of Israel,False
-full 2026,gaza,2026,BGD,Bangladesh,no criticism of Israel,False
-full 2026,gaza,2026,BGR,Bulgaria,no criticism of Israel,True
-full 2026,gaza,2026,BHR,Bahrain,no criticism of Israel,False
-full 2026,gaza,2026,BIH,Bosnia and Herzegovina,calls it genocide,False
-full 2026,gaza,2026,BLR,Belarus,no criticism of Israel,False
-full 2026,gaza,2026,BLZ,Belize,calls it genocide,False
-full 2026,gaza,2026,BRA,Brazil,calls it genocide,True
-full 2026,gaza,2026,BRB,Barbados,no criticism of Israel,False
-full 2026,gaza,2026,BRN,Brunei Darussalam,criticises Israel's conduct,False
-full 2026,gaza,2026,CAN,Canada,criticises Israel's conduct,True
-full 2026,gaza,2026,CHN,China,no criticism of Israel,False
-full 2026,gaza,2026,COG,Congo,no criticism of Israel,False
-full 2026,gaza,2026,COM,Comoros,calls it genocide,False
-full 2026,gaza,2026,CUB,Cuba,calls it genocide,False
-full 2026,gaza,2026,CYP,Cyprus,no criticism of Israel,True
-full 2026,gaza,2026,DJI,Djibouti,criticises Israel's conduct,False
-full 2026,gaza,2026,DNK,Denmark,criticises Israel's conduct,False
-full 2026,gaza,2026,DZA,Algeria,criticises Israel's conduct,False
-full 2026,gaza,2026,EGY,Egypt,criticises Israel's conduct,False
-full 2026,gaza,2026,ESP,Spain,calls it genocide,False
-full 2026,gaza,2026,EST,Estonia,no criticism of Israel,False
-full 2026,gaza,2026,EU,European Union,no criticism of Israel,False
-full 2026,gaza,2026,FIN,Finland,no criticism of Israel,False
-full 2026,gaza,2026,FRA,France,criticises Israel's conduct,True
-full 2026,gaza,2026,GBR,United Kingdom of Great Britain and Northern Ireland,criticises Israel's conduct,True
-full 2026,gaza,2026,GHA,Ghana,criticises Israel's conduct,True
-full 2026,gaza,2026,GMB,Gambia,no criticism of Israel,False
-full 2026,gaza,2026,GRC,Greece,criticises Israel's conduct,True
-full 2026,gaza,2026,GUY,Guyana,no criticism of Israel,False
-full 2026,gaza,2026,HRV,Croatia,no criticism of Israel,False
-full 2026,gaza,2026,HUN,Hungary,no criticism of Israel,False
-full 2026,gaza,2026,IDN,Indonesia,criticises Israel's conduct,False
-full 2026,gaza,2026,IND,India,no criticism of Israel,False
-full 2026,gaza,2026,IRL,Ireland,criticises Israel's conduct,False
-full 2026,gaza,2026,IRN,Iran (Islamic Republic of),criticises Israel's conduct,False
-full 2026,gaza,2026,IRQ,Iraq,no criticism of Israel,False
-full 2026,gaza,2026,ISL,Iceland,criticises Israel's conduct,False
-full 2026,gaza,2026,ISR,Israel,no criticism of Israel,True
-full 2026,gaza,2026,ITA,Italy,no criticism of Israel,True
-full 2026,gaza,2026,JOR,Jordan,criticises Israel's conduct,False
-full 2026,gaza,2026,KAZ,Kazakhstan,no criticism of Israel,False
-full 2026,gaza,2026,KGZ,Kyrgyzstan,no criticism of Israel,False
-full 2026,gaza,2026,KNA,Saint Kitts and Nevis,no criticism of Israel,False
-full 2026,gaza,2026,KWT,Kuwait,criticises Israel's conduct,False
-full 2026,gaza,2026,LAO,Lao People's Democratic Republic,no criticism of Israel,False
-full 2026,gaza,2026,LBN,Lebanon,no criticism of Israel,False
-full 2026,gaza,2026,LBY,Libya,criticises Israel's conduct,False
-full 2026,gaza,2026,LCA,Saint Lucia,no criticism of Israel,False
-full 2026,gaza,2026,LKA,Sri Lanka,no criticism of Israel,False
-full 2026,gaza,2026,LSO,Lesotho,no criticism of Israel,False
-full 2026,gaza,2026,LTU,Lithuania,no criticism of Israel,True
-full 2026,gaza,2026,MAR,Morocco,criticises Israel's conduct,False
-full 2026,gaza,2026,MCO,Monaco,criticises Israel's conduct,True
-full 2026,gaza,2026,MDV,Maldives,calls it genocide,False
-full 2026,gaza,2026,MEX,Mexico,no criticism of Israel,False
-full 2026,gaza,2026,MLI,Mali,no criticism of Israel,False
-full 2026,gaza,2026,MLT,Malta,criticises Israel's conduct,True
-full 2026,gaza,2026,MNE,Montenegro,no criticism of Israel,True
-full 2026,gaza,2026,MOZ,Mozambique,no criticism of Israel,False
-full 2026,gaza,2026,MRT,Mauritania,criticises Israel's conduct,False
-full 2026,gaza,2026,MUS,Mauritius,no criticism of Israel,False
-full 2026,gaza,2026,MYS,Malaysia,criticises Israel's conduct,False
-full 2026,gaza,2026,NAM,Namibia,no criticism of Israel,False
-full 2026,gaza,2026,NER,Niger,no criticism of Israel,False
-full 2026,gaza,2026,NLD,Netherlands (Kingdom of the),no criticism of Israel,False
-full 2026,gaza,2026,NOR,Norway,criticises Israel's conduct,False
-full 2026,gaza,2026,NZL,New Zealand,no criticism of Israel,False
-full 2026,gaza,2026,OMN,Oman,criticises Israel's conduct,False
-full 2026,gaza,2026,PAK,Pakistan,calls it genocide,False
-full 2026,gaza,2026,PHL,Philippines,no criticism of Israel,True
-full 2026,gaza,2026,POL,Poland,no criticism of Israel,False
-full 2026,gaza,2026,PRT,Portugal,no criticism of Israel,False
-full 2026,gaza,2026,PSE,State of Palestine,calls it genocide,False
-full 2026,gaza,2026,QAT,Qatar,calls it genocide,False
-full 2026,gaza,2026,ROU,Romania,no criticism of Israel,True
-full 2026,gaza,2026,RUS,Russian Federation,criticises Israel's conduct,False
-full 2026,gaza,2026,SAU,Saudi Arabia,criticises Israel's conduct,False
-full 2026,gaza,2026,SDN,Sudan,no criticism of Israel,False
-full 2026,gaza,2026,SEN,Senegal,criticises Israel's conduct,False
-full 2026,gaza,2026,SLE,Sierra Leone,no criticism of Israel,False
-full 2026,gaza,2026,SMR,San Marino,criticises Israel's conduct,True
-full 2026,gaza,2026,SOM,Somalia,no criticism of Israel,False
-full 2026,gaza,2026,STP,Sao Tome and Principe,no criticism of Israel,True
-full 2026,gaza,2026,SVK,Slovakia,no criticism of Israel,False
-full 2026,gaza,2026,SVN,Slovenia,no criticism of Israel,False
-full 2026,gaza,2026,SWE,Sweden,no criticism of Israel,False
-full 2026,gaza,2026,TCD,Chad,no criticism of Israel,False
-full 2026,gaza,2026,THA,Thailand,no criticism of Israel,False
-full 2026,gaza,2026,TJK,Tajikistan,no criticism of Israel,False
-full 2026,gaza,2026,TLS,Timor-Leste,no criticism of Israel,False
-full 2026,gaza,2026,TUN,Tunisia,calls it genocide,False
-full 2026,gaza,2026,TUR,Türkiye,criticises Israel's conduct,False
-full 2026,gaza,2026,TZA,United Republic of Tanzania,no criticism of Israel,False
-full 2026,gaza,2026,UN-PGA,President of the General Assembly (opening),no criticism of Israel,False
-full 2026,gaza,2026,UN-SG,Secretary-General of the United Nations,criticises Israel's conduct,True
-full 2026,gaza,2026,USA,United States of America,no criticism of Israel,True
-full 2026,gaza,2026,VAT,Holy See,criticises Israel's conduct,False
-full 2026,gaza,2026,VCT,Saint Vincent and the Grenadines,no criticism of Israel,False
-full 2026,gaza,2026,VNM,Viet Nam,no criticism of Israel,False
-full 2026,gaza,2026,WSM,Samoa,no criticism of Israel,False
-full 2026,gaza,2026,YEM,Yemen,no criticism of Israel,False
-full 2026,gaza,2026,ZAF,South Africa,calls it genocide,False
-final,ukraine,2024,MHL,Marshall Islands,blames Russia or calls it aggression,
-final,ukraine,2023,FRA,France,blames Russia or calls it aggression,
-final,ukraine,2023,KHM,Cambodia,names Ukraine but blames no one,
-final,ukraine,2024,KOR,Republic of Korea,blames Russia or calls it aggression,
-final,ukraine,2025,HRV,Croatia,names Ukraine but blames no one,
-final,ukraine,2022,PNG,Papua New Guinea,names Ukraine but blames no one,
-final,ukraine,2024,NER,Niger,names Ukraine but blames no one,
-final,ukraine,2022,DMA,Dominica,blames Russia or calls it aggression,
-final,ukraine,2024,LUX,Luxembourg,blames Russia or calls it aggression,
-final,ukraine,2022,NZL,New Zealand,blames Russia or calls it aggression,
-final,ukraine,2022,SWE,Sweden,blames Russia or calls it aggression,
-final,ukraine,2023,NOR,Norway,blames Russia or calls it aggression,
-final,ukraine,2023,TUR,Türkiye,names Ukraine but blames no one,
-final,ukraine,2023,AUS,Australia,blames Russia or calls it aggression,
-final,ukraine,2025,BGR,Bulgaria,blames Russia or calls it aggression,
-final,ukraine,2025,MLI,Mali,uses Russia's framing,
-final,ukraine,2024,ESP,Spain,blames Russia or calls it aggression,
-final,ukraine,2023,ZAF,South Africa,names Ukraine but blames no one,
-final,ukraine,2022,FRA,France,blames Russia or calls it aggression,
-final,ukraine,2024,PRY,Paraguay,names Ukraine but blames no one,
-final,ukraine,2023,BLR,Belarus,uses Russia's framing,
-final,ukraine,2024,LVA,Latvia,blames Russia or calls it aggression,
-final,ukraine,2022,NOR,Norway,blames Russia or calls it aggression,
-final,ukraine,2022,BLZ,Belize,blames Russia or calls it aggression,
-final,ukraine,2023,NZL,New Zealand,blames Russia or calls it aggression,
-final,ukraine,2023,PNG,Papua New Guinea,names Ukraine but blames no one,
-final,ukraine,2025,BLZ,Belize,names Ukraine but blames no one,
-final,ukraine,2023,QAT,Qatar,names Ukraine but blames no one,
-final,ukraine,2022,LSO,Lesotho,names Ukraine but blames no one,
-final,ukraine,2022,NAM,Namibia,names Ukraine but blames no one,
-final,ukraine,2024,GEO,Georgia,names Ukraine but blames no one,
-final,ukraine,2024,MKD,North Macedonia,names Ukraine but blames no one,
-final,ukraine,2025,KNA,Saint Kitts and Nevis,names Ukraine but blames no one,
-final,ukraine,2023,COG,Congo,names Ukraine but blames no one,
-final,ukraine,2024,LCA,Saint Lucia,blames Russia or calls it aggression,
-final,ukraine,2023,EU,European Union,blames Russia or calls it aggression,
-final,ukraine,2024,ZAF,South Africa,names Ukraine but blames no one,
-final,ukraine,2022,SLB,Solomon Islands,names Ukraine but blames no one,
-final,ukraine,2023,CMR,Cameroon,names Ukraine but blames no one,
-final,ukraine,2024,ARG,Argentina,blames Russia or calls it aggression,
-final,gaza,2025,EST,Estonia,criticises Israel's conduct,True
-final,gaza,2024,BRA,Brazil,criticises Israel's conduct,True
-final,gaza,2024,LAO,Lao People's Democratic Republic,no criticism of Israel,False
-final,gaza,2025,SLB,Solomon Islands,no criticism of Israel,True
-final,gaza,2025,EGY,Egypt,calls it genocide,True
-final,gaza,2025,UGA,Uganda,no criticism of Israel,False
-final,gaza,2024,FJI,Fiji,no criticism of Israel,False
-final,gaza,2024,MNE,Montenegro,criticises Israel's conduct,True
-final,gaza,2024,LCA,Saint Lucia,criticises Israel's conduct,True
-final,gaza,2025,MLT,Malta,no criticism of Israel,True
-final,gaza,2024,RUS,Russian Federation,criticises Israel's conduct,True
-final,gaza,2025,HND,Honduras,calls it genocide,False
-final,gaza,2025,ARG,Argentina,no criticism of Israel,True
-final,gaza,2024,IRN,Iran (Islamic Republic of),criticises Israel's conduct,False
-final,gaza,2024,NZL,New Zealand,criticises Israel's conduct,True
-final,gaza,2025,UN-PGA-CLOSING,President of the General Assembly (closing),no criticism of Israel,True
-final,gaza,2024,SDN,Sudan,no criticism of Israel,False
-final,gaza,2024,AUT,Austria,no criticism of Israel,True
-final,gaza,2025,NIC,Nicaragua,calls it genocide,False
-final,gaza,2024,DEU,Germany,no criticism of Israel,True
-final,gaza,2025,BRB,Barbados,calls it genocide,True
-final,gaza,2025,BLR,Belarus,no criticism of Israel,False
-final,gaza,2024,GIN,Guinea,no criticism of Israel,False
-final,gaza,2024,CHL,Chile,calls it genocide,True
-final,gaza,2024,GRC,Greece,no criticism of Israel,True
-final,gaza,2025,GRC,Greece,criticises Israel's conduct,True
-final,gaza,2024,MLI,Mali,criticises Israel's conduct,False
-final,gaza,2025,IRL,Ireland,calls it genocide,True
-final,gaza,2025,GHA,Ghana,criticises Israel's conduct,True
-final,gaza,2025,AGO,Angola,calls it genocide,True
-final,gaza,2024,BWA,Botswana,no criticism of Israel,True
-final,gaza,2024,ZWE,Zimbabwe,no criticism of Israel,False
-final,gaza,2024,THA,Thailand,no criticism of Israel,False
-final,gaza,2024,VAT,Holy See,criticises Israel's conduct,True
-final,gaza,2025,SAU,Saudi Arabia,calls it genocide,False
-final,gaza,2025,ZWE,Zimbabwe,no criticism of Israel,False
-final,gaza,2025,YEM,Yemen,no criticism of Israel,False
-final,gaza,2024,HRV,Croatia,no criticism of Israel,True
-final,gaza,2025,UZB,Uzbekistan,no criticism of Israel,False
-final,gaza,2024,MAR,Morocco,criticises Israel's conduct,False
+sample,war,year,iso3,delegation,label,hamas,israels_side
+review,ukraine,2026,RUS,Russian Federation,uses Russia's framing,,
+review,ukraine,2026,JOR,Jordan,names Ukraine but blames no one,,
+review,ukraine,2026,PRT,Portugal,blames Russia or calls it aggression,,
+review,ukraine,2026,DEU,Germany,blames Russia or calls it aggression,,
+review,ukraine,2026,KOR,Republic of Korea,names Ukraine but blames no one,,
+review,ukraine,2026,BRB,Barbados,names Ukraine but blames no one,,
+review,ukraine,2026,GRC,Greece,blames Russia or calls it aggression,,
+review,ukraine,2026,COG,Congo,names Ukraine but blames no one,,
+review,ukraine,2026,KNA,Saint Kitts and Nevis,names Ukraine but blames no one,,
+review,ukraine,2026,ARE,United Arab Emirates,names Ukraine but blames no one,,
+review,ukraine,2026,JPN,Japan,blames Russia or calls it aggression,,
+review,ukraine,2026,CAN,Canada,blames Russia or calls it aggression,,
+review,ukraine,2026,UN-SG,Secretary-General of the United Nations,blames Russia or calls it aggression,,
+review,ukraine,2026,HRV,Croatia,blames Russia or calls it aggression,,
+review,ukraine,2026,MDA,Republic of Moldova,blames Russia or calls it aggression,,
+review,ukraine,2026,SEN,Senegal,names Ukraine but blames no one,,
+review,ukraine,2026,DNK,Denmark,blames Russia or calls it aggression,,
+review,ukraine,2026,EU,European Union,blames Russia or calls it aggression,,
+review,ukraine,2026,ESP,Spain,blames Russia or calls it aggression,,
+review,ukraine,2026,VCT,Saint Vincent and the Grenadines,names Ukraine but blames no one,,
+review,ukraine,2022,ROU,Romania,blames Russia or calls it aggression,,
+review,ukraine,2024,CMR,Cameroon,names Ukraine but blames no one,,
+review,ukraine,2024,COD,Democratic Republic of the Congo,names Ukraine but blames no one,,
+review,ukraine,2022,BIH,Bosnia and Herzegovina,blames Russia or calls it aggression,,
+review,ukraine,2025,MKD,North Macedonia,blames Russia or calls it aggression,,
+review,ukraine,2025,BLR,Belarus,uses Russia's framing,,
+review,ukraine,2025,QAT,Qatar,names Ukraine but blames no one,,
+review,ukraine,2023,SRB,Serbia,blames Russia or calls it aggression,,
+review,ukraine,2022,ISL,Iceland,blames Russia or calls it aggression,,
+review,ukraine,2025,MCO,Monaco,blames Russia or calls it aggression,,
+review,ukraine,2023,SUR,Suriname,names Ukraine but blames no one,,
+review,ukraine,2024,LBR,Liberia,names Ukraine but blames no one,,
+review,ukraine,2025,IDN,Indonesia,names Ukraine but blames no one,,
+review,ukraine,2024,CHL,Chile,blames Russia or calls it aggression,,
+review,ukraine,2024,EU,European Union,blames Russia or calls it aggression,,
+review,ukraine,2025,ITA,Italy,blames Russia or calls it aggression,,
+review,ukraine,2023,BWA,Botswana,names Ukraine but blames no one,,
+review,ukraine,2024,CZE,Czechia,blames Russia or calls it aggression,,
+review,ukraine,2022,CYP,Cyprus,blames Russia or calls it aggression,,
+review,ukraine,2023,SMR,San Marino,blames Russia or calls it aggression,,
+review,gaza,2026,LBN,Lebanon,no criticism of Israel,,
+review,gaza,2026,SEN,Senegal,no criticism of Israel,,
+review,gaza,2026,MRT,Mauritania,no criticism of Israel,,
+review,gaza,2026,THA,Thailand,no criticism of Israel,,
+review,gaza,2026,CUB,Cuba,calls it genocide,,
+review,gaza,2026,KNA,Saint Kitts and Nevis,no criticism of Israel,,
+review,gaza,2026,KWT,Kuwait,criticises Israel's conduct,,
+review,gaza,2026,TUR,Türkiye,criticises Israel's conduct,,
+review,gaza,2026,BRA,Brazil,calls it genocide,,
+review,gaza,2026,PHL,Philippines,no criticism of Israel,,
+review,gaza,2026,DJI,Djibouti,criticises Israel's conduct,,
+review,gaza,2026,BEL,Belgium,no criticism of Israel,,
+review,gaza,2026,TCD,Chad,no criticism of Israel,,
+review,gaza,2026,HUN,Hungary,no criticism of Israel,,
+review,gaza,2026,ESP,Spain,calls it genocide,,
+review,gaza,2026,UN-PGA,President of the General Assembly (opening),no criticism of Israel,,
+review,gaza,2026,WSM,Samoa,no criticism of Israel,,
+review,gaza,2026,IRL,Ireland,criticises Israel's conduct,,
+review,gaza,2026,ZAF,South Africa,calls it genocide,,
+review,gaza,2026,JOR,Jordan,criticises Israel's conduct,,
+review,gaza,2024,SVK,Slovakia,no criticism of Israel,,
+review,gaza,2024,ERI,Eritrea,no criticism of Israel,,
+review,gaza,2025,BOL,Bolivia (Plurinational State of),calls it genocide,,
+review,gaza,2024,IRQ,Iraq,criticises Israel's conduct,,
+review,gaza,2025,BDI,Burundi,no criticism of Israel,,
+review,gaza,2024,MLT,Malta,no criticism of Israel,,
+review,gaza,2025,MEX,Mexico,no criticism of Israel,,
+review,gaza,2024,LBY,Libya,calls it genocide,,
+review,gaza,2024,AND,Andorra,no criticism of Israel,,
+review,gaza,2024,TUR,Türkiye,calls it genocide,,
+review,gaza,2024,MHL,Marshall Islands,criticises Israel's conduct,,
+review,gaza,2025,ATG,Antigua and Barbuda,calls it genocide,,
+review,gaza,2024,PRT,Portugal,criticises Israel's conduct,,
+review,gaza,2024,MUS,Mauritius,no criticism of Israel,,
+review,gaza,2025,MKD,North Macedonia,no criticism of Israel,,
+review,gaza,2024,UN-PGA,President of the General Assembly (opening),no criticism of Israel,,
+review,gaza,2025,RUS,Russian Federation,criticises Israel's conduct,,
+review,gaza,2025,STP,Sao Tome and Principe,no criticism of Israel,,
+review,gaza,2025,SRB,Serbia,no criticism of Israel,,
+review,gaza,2024,TTO,Trinidad and Tobago,criticises Israel's conduct,,
+holdout,ukraine,2026,BLZ,Belize,names Ukraine but blames no one,,
+holdout,ukraine,2026,SGP,Singapore,names Ukraine but blames no one,,
+holdout,ukraine,2026,MLI,Mali,names Ukraine but blames no one,,
+holdout,ukraine,2026,NER,Niger,names Ukraine but blames no one,,
+holdout,ukraine,2026,IND,India,names Ukraine but blames no one,,
+holdout,ukraine,2026,LIE,Liechtenstein,blames Russia or calls it aggression,,
+holdout,ukraine,2026,NZL,New Zealand,blames Russia or calls it aggression,,
+holdout,ukraine,2026,UN-PGA,President of the General Assembly (opening),names Ukraine but blames no one,,
+holdout,ukraine,2026,TLS,Timor-Leste,uses Russia's framing,,
+holdout,ukraine,2026,AUS,Australia,blames Russia or calls it aggression,,
+holdout,ukraine,2026,GUY,Guyana,names Ukraine but blames no one,,
+holdout,ukraine,2026,HUN,Hungary,blames Russia or calls it aggression,,
+holdout,ukraine,2026,BGR,Bulgaria,names Ukraine but blames no one,,
+holdout,ukraine,2026,WSM,Samoa,names Ukraine but blames no one,,
+holdout,ukraine,2026,ZAF,South Africa,names Ukraine but blames no one,,
+holdout,ukraine,2023,ROU,Romania,blames Russia or calls it aggression,,
+holdout,ukraine,2022,PRT,Portugal,blames Russia or calls it aggression,,
+holdout,ukraine,2023,PRY,Paraguay,names Ukraine but blames no one,,
+holdout,ukraine,2025,UN-PGA,President of the General Assembly (opening),blames Russia or calls it aggression,,
+holdout,ukraine,2024,BEN,Benin,names Ukraine but blames no one,,
+holdout,ukraine,2022,ZAF,South Africa,names Ukraine but blames no one,,
+holdout,ukraine,2025,THA,Thailand,names Ukraine but blames no one,,
+holdout,ukraine,2022,SRB,Serbia,names Ukraine but blames no one,,
+holdout,ukraine,2022,EGY,Egypt,names Ukraine but blames no one,,
+holdout,ukraine,2022,HUN,Hungary,blames Russia or calls it aggression,,
+holdout,ukraine,2025,CHL,Chile,blames Russia or calls it aggression,,
+holdout,ukraine,2022,SVK,Slovakia,blames Russia or calls it aggression,,
+holdout,ukraine,2025,HUN,Hungary,names Ukraine but blames no one,,
+holdout,ukraine,2025,BRB,Barbados,names Ukraine but blames no one,,
+holdout,ukraine,2023,MEX,Mexico,blames Russia or calls it aggression,,
+holdout,gaza,2026,LTU,Lithuania,no criticism of Israel,,
+holdout,gaza,2026,GUY,Guyana,no criticism of Israel,,
+holdout,gaza,2026,UN-SG,Secretary-General of the United Nations,criticises Israel's conduct,,
+holdout,gaza,2026,LAO,Lao People's Democratic Republic,no criticism of Israel,,
+holdout,gaza,2026,MAR,Morocco,criticises Israel's conduct,,
+holdout,gaza,2026,GMB,Gambia,no criticism of Israel,,
+holdout,gaza,2026,VCT,Saint Vincent and the Grenadines,no criticism of Israel,,
+holdout,gaza,2026,VNM,Viet Nam,no criticism of Israel,,
+holdout,gaza,2026,SOM,Somalia,no criticism of Israel,,
+holdout,gaza,2026,MDV,Maldives,calls it genocide,,
+holdout,gaza,2026,VAT,Holy See,criticises Israel's conduct,,
+holdout,gaza,2026,DZA,Algeria,criticises Israel's conduct,,
+holdout,gaza,2026,SAU,Saudi Arabia,criticises Israel's conduct,,
+holdout,gaza,2026,NZL,New Zealand,no criticism of Israel,,
+holdout,gaza,2026,EGY,Egypt,criticises Israel's conduct,,
+holdout,gaza,2025,CUB,Cuba,calls it genocide,,
+holdout,gaza,2024,ZAF,South Africa,criticises Israel's conduct,,
+holdout,gaza,2024,SOM,Somalia,criticises Israel's conduct,,
+holdout,gaza,2025,LCA,Saint Lucia,calls it genocide,,
+holdout,gaza,2024,JAM,Jamaica,criticises Israel's conduct,,
+holdout,gaza,2024,NIC,Nicaragua,calls it genocide,,
+holdout,gaza,2024,COL,Colombia,calls it genocide,,
+holdout,gaza,2025,NGA,Nigeria,criticises Israel's conduct,,
+holdout,gaza,2024,JOR,Jordan,criticises Israel's conduct,,
+holdout,gaza,2025,AND,Andorra,no criticism of Israel,,
+holdout,gaza,2025,KAZ,Kazakhstan,no criticism of Israel,,
+holdout,gaza,2025,NPL,Nepal,no criticism of Israel,,
+holdout,gaza,2025,LAO,Lao People's Democratic Republic,no criticism of Israel,,
+holdout,gaza,2025,KEN,Kenya,criticises Israel's conduct,,
+holdout,gaza,2024,BIH,Bosnia and Herzegovina,no criticism of Israel,,
+full 2026,ukraine,2026,AGO,Angola,names Ukraine but blames no one,,
+full 2026,ukraine,2026,AND,Andorra,names Ukraine but blames no one,,
+full 2026,ukraine,2026,ARE,United Arab Emirates,names Ukraine but blames no one,,
+full 2026,ukraine,2026,AUS,Australia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,AUT,Austria,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,BEL,Belgium,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,BGR,Bulgaria,names Ukraine but blames no one,,
+full 2026,ukraine,2026,BHR,Bahrain,names Ukraine but blames no one,,
+full 2026,ukraine,2026,BIH,Bosnia and Herzegovina,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,BLR,Belarus,uses Russia's framing,,
+full 2026,ukraine,2026,BLZ,Belize,names Ukraine but blames no one,,
+full 2026,ukraine,2026,BRA,Brazil,names Ukraine but blames no one,,
+full 2026,ukraine,2026,BRB,Barbados,names Ukraine but blames no one,,
+full 2026,ukraine,2026,CAN,Canada,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,CHN,China,names Ukraine but blames no one,,
+full 2026,ukraine,2026,COG,Congo,names Ukraine but blames no one,,
+full 2026,ukraine,2026,CZE,Czechia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,DEU,Germany,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,DNK,Denmark,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,ERI,Eritrea,names Ukraine but blames no one,,
+full 2026,ukraine,2026,ESP,Spain,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,EST,Estonia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,EU,European Union,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,FIN,Finland,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,FRA,France,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,GBR,United Kingdom of Great Britain and Northern Ireland,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,GHA,Ghana,names Ukraine but blames no one,,
+full 2026,ukraine,2026,GRC,Greece,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,GUY,Guyana,names Ukraine but blames no one,,
+full 2026,ukraine,2026,HND,Honduras,names Ukraine but blames no one,,
+full 2026,ukraine,2026,HRV,Croatia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,HUN,Hungary,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,IND,India,names Ukraine but blames no one,,
+full 2026,ukraine,2026,IRL,Ireland,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,ISL,Iceland,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,ITA,Italy,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,JOR,Jordan,names Ukraine but blames no one,,
+full 2026,ukraine,2026,JPN,Japan,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,KAZ,Kazakhstan,names Ukraine but blames no one,,
+full 2026,ukraine,2026,KGZ,Kyrgyzstan,names Ukraine but blames no one,,
+full 2026,ukraine,2026,KNA,Saint Kitts and Nevis,names Ukraine but blames no one,,
+full 2026,ukraine,2026,KOR,Republic of Korea,names Ukraine but blames no one,,
+full 2026,ukraine,2026,LCA,Saint Lucia,names Ukraine but blames no one,,
+full 2026,ukraine,2026,LIE,Liechtenstein,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,LSO,Lesotho,names Ukraine but blames no one,,
+full 2026,ukraine,2026,LTU,Lithuania,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,LUX,Luxembourg,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,LVA,Latvia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,MCO,Monaco,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,MDA,Republic of Moldova,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,MLI,Mali,names Ukraine but blames no one,,
+full 2026,ukraine,2026,MLT,Malta,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,MNE,Montenegro,names Ukraine but blames no one,,
+full 2026,ukraine,2026,NER,Niger,names Ukraine but blames no one,,
+full 2026,ukraine,2026,NLD,Netherlands (Kingdom of the),blames Russia or calls it aggression,,
+full 2026,ukraine,2026,NOR,Norway,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,NZL,New Zealand,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,PAN,Panama,names Ukraine but blames no one,,
+full 2026,ukraine,2026,PHL,Philippines,names Ukraine but blames no one,,
+full 2026,ukraine,2026,PLW,Palau,names Ukraine but blames no one,,
+full 2026,ukraine,2026,PRT,Portugal,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,ROU,Romania,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,RUS,Russian Federation,uses Russia's framing,,
+full 2026,ukraine,2026,SEN,Senegal,names Ukraine but blames no one,,
+full 2026,ukraine,2026,SGP,Singapore,names Ukraine but blames no one,,
+full 2026,ukraine,2026,SMR,San Marino,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,SRB,Serbia,names Ukraine but blames no one,,
+full 2026,ukraine,2026,STP,Sao Tome and Principe,names Ukraine but blames no one,,
+full 2026,ukraine,2026,SVK,Slovakia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,SVN,Slovenia,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,SWE,Sweden,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,TLS,Timor-Leste,uses Russia's framing,,
+full 2026,ukraine,2026,TUR,Türkiye,names Ukraine but blames no one,,
+full 2026,ukraine,2026,UKR,Ukraine,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,UN-PGA,President of the General Assembly (opening),names Ukraine but blames no one,,
+full 2026,ukraine,2026,UN-SG,Secretary-General of the United Nations,blames Russia or calls it aggression,,
+full 2026,ukraine,2026,USA,United States of America,names Ukraine but blames no one,,
+full 2026,ukraine,2026,VAT,Holy See,names Ukraine but blames no one,,
+full 2026,ukraine,2026,VCT,Saint Vincent and the Grenadines,names Ukraine but blames no one,,
+full 2026,ukraine,2026,WSM,Samoa,names Ukraine but blames no one,,
+full 2026,ukraine,2026,ZAF,South Africa,names Ukraine but blames no one,,
+full 2026,gaza,2026,AGO,Angola,criticises Israel's conduct,False,False
+full 2026,gaza,2026,AND,Andorra,no criticism of Israel,False,False
+full 2026,gaza,2026,ARE,United Arab Emirates,criticises Israel's conduct,True,True
+full 2026,gaza,2026,AUS,Australia,criticises Israel's conduct,True,True
+full 2026,gaza,2026,AUT,Austria,criticises Israel's conduct,True,True
+full 2026,gaza,2026,BEL,Belgium,no criticism of Israel,False,False
+full 2026,gaza,2026,BFA,Burkina Faso,no criticism of Israel,False,False
+full 2026,gaza,2026,BGD,Bangladesh,no criticism of Israel,False,False
+full 2026,gaza,2026,BGR,Bulgaria,no criticism of Israel,True,True
+full 2026,gaza,2026,BHR,Bahrain,no criticism of Israel,False,False
+full 2026,gaza,2026,BIH,Bosnia and Herzegovina,calls it genocide,False,False
+full 2026,gaza,2026,BLR,Belarus,no criticism of Israel,False,False
+full 2026,gaza,2026,BLZ,Belize,calls it genocide,False,False
+full 2026,gaza,2026,BRA,Brazil,calls it genocide,True,True
+full 2026,gaza,2026,BRB,Barbados,no criticism of Israel,False,False
+full 2026,gaza,2026,BRN,Brunei Darussalam,criticises Israel's conduct,False,False
+full 2026,gaza,2026,CAN,Canada,criticises Israel's conduct,True,True
+full 2026,gaza,2026,CHN,China,no criticism of Israel,False,False
+full 2026,gaza,2026,COG,Congo,no criticism of Israel,False,False
+full 2026,gaza,2026,COM,Comoros,calls it genocide,False,False
+full 2026,gaza,2026,CUB,Cuba,calls it genocide,False,False
+full 2026,gaza,2026,CYP,Cyprus,no criticism of Israel,True,True
+full 2026,gaza,2026,DJI,Djibouti,criticises Israel's conduct,False,False
+full 2026,gaza,2026,DNK,Denmark,criticises Israel's conduct,False,False
+full 2026,gaza,2026,DZA,Algeria,criticises Israel's conduct,False,False
+full 2026,gaza,2026,EGY,Egypt,criticises Israel's conduct,False,False
+full 2026,gaza,2026,ESP,Spain,calls it genocide,False,False
+full 2026,gaza,2026,EST,Estonia,no criticism of Israel,False,False
+full 2026,gaza,2026,EU,European Union,no criticism of Israel,False,False
+full 2026,gaza,2026,FIN,Finland,no criticism of Israel,False,False
+full 2026,gaza,2026,FRA,France,criticises Israel's conduct,True,True
+full 2026,gaza,2026,GBR,United Kingdom of Great Britain and Northern Ireland,criticises Israel's conduct,True,True
+full 2026,gaza,2026,GHA,Ghana,criticises Israel's conduct,True,True
+full 2026,gaza,2026,GMB,Gambia,no criticism of Israel,False,False
+full 2026,gaza,2026,GRC,Greece,criticises Israel's conduct,True,True
+full 2026,gaza,2026,GUY,Guyana,no criticism of Israel,False,False
+full 2026,gaza,2026,HRV,Croatia,no criticism of Israel,False,False
+full 2026,gaza,2026,HUN,Hungary,no criticism of Israel,False,False
+full 2026,gaza,2026,IDN,Indonesia,criticises Israel's conduct,False,False
+full 2026,gaza,2026,IND,India,no criticism of Israel,False,False
+full 2026,gaza,2026,IRL,Ireland,criticises Israel's conduct,False,False
+full 2026,gaza,2026,IRN,Iran (Islamic Republic of),criticises Israel's conduct,False,False
+full 2026,gaza,2026,IRQ,Iraq,no criticism of Israel,False,False
+full 2026,gaza,2026,ISL,Iceland,criticises Israel's conduct,False,False
+full 2026,gaza,2026,ISR,Israel,no criticism of Israel,True,True
+full 2026,gaza,2026,ITA,Italy,no criticism of Israel,True,True
+full 2026,gaza,2026,JOR,Jordan,criticises Israel's conduct,False,False
+full 2026,gaza,2026,KAZ,Kazakhstan,no criticism of Israel,False,False
+full 2026,gaza,2026,KGZ,Kyrgyzstan,no criticism of Israel,False,False
+full 2026,gaza,2026,KNA,Saint Kitts and Nevis,no criticism of Israel,False,False
+full 2026,gaza,2026,KWT,Kuwait,criticises Israel's conduct,False,False
+full 2026,gaza,2026,LAO,Lao People's Democratic Republic,no criticism of Israel,False,False
+full 2026,gaza,2026,LBN,Lebanon,no criticism of Israel,False,False
+full 2026,gaza,2026,LBY,Libya,criticises Israel's conduct,False,False
+full 2026,gaza,2026,LCA,Saint Lucia,no criticism of Israel,False,False
+full 2026,gaza,2026,LKA,Sri Lanka,no criticism of Israel,False,False
+full 2026,gaza,2026,LSO,Lesotho,no criticism of Israel,False,False
+full 2026,gaza,2026,LTU,Lithuania,no criticism of Israel,True,True
+full 2026,gaza,2026,MAR,Morocco,criticises Israel's conduct,False,False
+full 2026,gaza,2026,MCO,Monaco,criticises Israel's conduct,True,True
+full 2026,gaza,2026,MDV,Maldives,calls it genocide,False,False
+full 2026,gaza,2026,MEX,Mexico,no criticism of Israel,False,False
+full 2026,gaza,2026,MLI,Mali,no criticism of Israel,False,False
+full 2026,gaza,2026,MLT,Malta,criticises Israel's conduct,True,True
+full 2026,gaza,2026,MNE,Montenegro,no criticism of Israel,True,True
+full 2026,gaza,2026,MOZ,Mozambique,no criticism of Israel,False,False
+full 2026,gaza,2026,MRT,Mauritania,criticises Israel's conduct,False,False
+full 2026,gaza,2026,MUS,Mauritius,no criticism of Israel,False,False
+full 2026,gaza,2026,MYS,Malaysia,criticises Israel's conduct,False,False
+full 2026,gaza,2026,NAM,Namibia,no criticism of Israel,False,False
+full 2026,gaza,2026,NER,Niger,no criticism of Israel,False,False
+full 2026,gaza,2026,NLD,Netherlands (Kingdom of the),no criticism of Israel,False,False
+full 2026,gaza,2026,NOR,Norway,criticises Israel's conduct,False,False
+full 2026,gaza,2026,NZL,New Zealand,no criticism of Israel,False,False
+full 2026,gaza,2026,OMN,Oman,criticises Israel's conduct,False,False
+full 2026,gaza,2026,PAK,Pakistan,calls it genocide,False,False
+full 2026,gaza,2026,PHL,Philippines,no criticism of Israel,True,False
+full 2026,gaza,2026,POL,Poland,no criticism of Israel,False,False
+full 2026,gaza,2026,PRT,Portugal,no criticism of Israel,False,False
+full 2026,gaza,2026,PSE,State of Palestine,calls it genocide,False,False
+full 2026,gaza,2026,QAT,Qatar,calls it genocide,False,False
+full 2026,gaza,2026,ROU,Romania,no criticism of Israel,True,True
+full 2026,gaza,2026,RUS,Russian Federation,criticises Israel's conduct,False,False
+full 2026,gaza,2026,SAU,Saudi Arabia,criticises Israel's conduct,False,False
+full 2026,gaza,2026,SDN,Sudan,no criticism of Israel,False,False
+full 2026,gaza,2026,SEN,Senegal,criticises Israel's conduct,False,False
+full 2026,gaza,2026,SLE,Sierra Leone,no criticism of Israel,False,False
+full 2026,gaza,2026,SMR,San Marino,criticises Israel's conduct,True,True
+full 2026,gaza,2026,SOM,Somalia,no criticism of Israel,False,False
+full 2026,gaza,2026,STP,Sao Tome and Principe,no criticism of Israel,True,False
+full 2026,gaza,2026,SVK,Slovakia,no criticism of Israel,False,False
+full 2026,gaza,2026,SVN,Slovenia,no criticism of Israel,False,False
+full 2026,gaza,2026,SWE,Sweden,no criticism of Israel,False,False
+full 2026,gaza,2026,TCD,Chad,no criticism of Israel,False,False
+full 2026,gaza,2026,THA,Thailand,no criticism of Israel,False,False
+full 2026,gaza,2026,TJK,Tajikistan,no criticism of Israel,False,False
+full 2026,gaza,2026,TLS,Timor-Leste,no criticism of Israel,False,False
+full 2026,gaza,2026,TUN,Tunisia,calls it genocide,False,False
+full 2026,gaza,2026,TUR,Türkiye,criticises Israel's conduct,False,False
+full 2026,gaza,2026,TZA,United Republic of Tanzania,no criticism of Israel,False,False
+full 2026,gaza,2026,UN-PGA,President of the General Assembly (opening),no criticism of Israel,False,False
+full 2026,gaza,2026,UN-SG,Secretary-General of the United Nations,criticises Israel's conduct,True,True
+full 2026,gaza,2026,USA,United States of America,no criticism of Israel,True,True
+full 2026,gaza,2026,VAT,Holy See,criticises Israel's conduct,False,False
+full 2026,gaza,2026,VCT,Saint Vincent and the Grenadines,no criticism of Israel,False,False
+full 2026,gaza,2026,VNM,Viet Nam,no criticism of Israel,False,False
+full 2026,gaza,2026,WSM,Samoa,no criticism of Israel,False,False
+full 2026,gaza,2026,YEM,Yemen,no criticism of Israel,False,False
+full 2026,gaza,2026,ZAF,South Africa,calls it genocide,False,False
+final,ukraine,2024,MHL,Marshall Islands,blames Russia or calls it aggression,,
+final,ukraine,2023,FRA,France,blames Russia or calls it aggression,,
+final,ukraine,2023,KHM,Cambodia,names Ukraine but blames no one,,
+final,ukraine,2024,KOR,Republic of Korea,blames Russia or calls it aggression,,
+final,ukraine,2025,HRV,Croatia,names Ukraine but blames no one,,
+final,ukraine,2022,PNG,Papua New Guinea,names Ukraine but blames no one,,
+final,ukraine,2024,NER,Niger,names Ukraine but blames no one,,
+final,ukraine,2022,DMA,Dominica,blames Russia or calls it aggression,,
+final,ukraine,2024,LUX,Luxembourg,blames Russia or calls it aggression,,
+final,ukraine,2022,NZL,New Zealand,blames Russia or calls it aggression,,
+final,ukraine,2022,SWE,Sweden,blames Russia or calls it aggression,,
+final,ukraine,2023,NOR,Norway,blames Russia or calls it aggression,,
+final,ukraine,2023,TUR,Türkiye,names Ukraine but blames no one,,
+final,ukraine,2023,AUS,Australia,blames Russia or calls it aggression,,
+final,ukraine,2025,BGR,Bulgaria,blames Russia or calls it aggression,,
+final,ukraine,2025,MLI,Mali,uses Russia's framing,,
+final,ukraine,2024,ESP,Spain,blames Russia or calls it aggression,,
+final,ukraine,2023,ZAF,South Africa,names Ukraine but blames no one,,
+final,ukraine,2022,FRA,France,blames Russia or calls it aggression,,
+final,ukraine,2024,PRY,Paraguay,names Ukraine but blames no one,,
+final,ukraine,2023,BLR,Belarus,uses Russia's framing,,
+final,ukraine,2024,LVA,Latvia,blames Russia or calls it aggression,,
+final,ukraine,2022,NOR,Norway,blames Russia or calls it aggression,,
+final,ukraine,2022,BLZ,Belize,blames Russia or calls it aggression,,
+final,ukraine,2023,NZL,New Zealand,blames Russia or calls it aggression,,
+final,ukraine,2023,PNG,Papua New Guinea,names Ukraine but blames no one,,
+final,ukraine,2025,BLZ,Belize,names Ukraine but blames no one,,
+final,ukraine,2023,QAT,Qatar,names Ukraine but blames no one,,
+final,ukraine,2022,LSO,Lesotho,names Ukraine but blames no one,,
+final,ukraine,2022,NAM,Namibia,names Ukraine but blames no one,,
+final,ukraine,2024,GEO,Georgia,names Ukraine but blames no one,,
+final,ukraine,2024,MKD,North Macedonia,names Ukraine but blames no one,,
+final,ukraine,2025,KNA,Saint Kitts and Nevis,names Ukraine but blames no one,,
+final,ukraine,2023,COG,Congo,names Ukraine but blames no one,,
+final,ukraine,2024,LCA,Saint Lucia,blames Russia or calls it aggression,,
+final,ukraine,2023,EU,European Union,blames Russia or calls it aggression,,
+final,ukraine,2024,ZAF,South Africa,names Ukraine but blames no one,,
+final,ukraine,2022,SLB,Solomon Islands,names Ukraine but blames no one,,
+final,ukraine,2023,CMR,Cameroon,names Ukraine but blames no one,,
+final,ukraine,2024,ARG,Argentina,blames Russia or calls it aggression,,
+final,gaza,2025,EST,Estonia,criticises Israel's conduct,True,True
+final,gaza,2024,BRA,Brazil,criticises Israel's conduct,True,True
+final,gaza,2024,LAO,Lao People's Democratic Republic,no criticism of Israel,False,False
+final,gaza,2025,SLB,Solomon Islands,no criticism of Israel,True,True
+final,gaza,2025,EGY,Egypt,calls it genocide,True,False
+final,gaza,2025,UGA,Uganda,no criticism of Israel,False,False
+final,gaza,2024,FJI,Fiji,no criticism of Israel,False,False
+final,gaza,2024,MNE,Montenegro,criticises Israel's conduct,True,True
+final,gaza,2024,LCA,Saint Lucia,criticises Israel's conduct,True,True
+final,gaza,2025,MLT,Malta,no criticism of Israel,True,True
+final,gaza,2024,RUS,Russian Federation,criticises Israel's conduct,True,True
+final,gaza,2025,HND,Honduras,calls it genocide,False,False
+final,gaza,2025,ARG,Argentina,no criticism of Israel,True,False
+final,gaza,2024,IRN,Iran (Islamic Republic of),criticises Israel's conduct,False,False
+final,gaza,2024,NZL,New Zealand,criticises Israel's conduct,True,True
+final,gaza,2025,UN-PGA-CLOSING,President of the General Assembly (closing),no criticism of Israel,True,False
+final,gaza,2024,SDN,Sudan,no criticism of Israel,False,False
+final,gaza,2024,AUT,Austria,no criticism of Israel,True,True
+final,gaza,2025,NIC,Nicaragua,calls it genocide,False,False
+final,gaza,2024,DEU,Germany,no criticism of Israel,True,True
+final,gaza,2025,BRB,Barbados,calls it genocide,True,False
+final,gaza,2025,BLR,Belarus,no criticism of Israel,False,False
+final,gaza,2024,GIN,Guinea,no criticism of Israel,False,False
+final,gaza,2024,CHL,Chile,calls it genocide,True,True
+final,gaza,2024,GRC,Greece,no criticism of Israel,True,True
+final,gaza,2025,GRC,Greece,criticises Israel's conduct,True,True
+final,gaza,2024,MLI,Mali,criticises Israel's conduct,False,False
+final,gaza,2025,IRL,Ireland,calls it genocide,True,True
+final,gaza,2025,GHA,Ghana,criticises Israel's conduct,True,False
+final,gaza,2025,AGO,Angola,calls it genocide,True,True
+final,gaza,2024,BWA,Botswana,no criticism of Israel,True,False
+final,gaza,2024,ZWE,Zimbabwe,no criticism of Israel,False,False
+final,gaza,2024,THA,Thailand,no criticism of Israel,False,False
+final,gaza,2024,VAT,Holy See,criticises Israel's conduct,True,True
+final,gaza,2025,SAU,Saudi Arabia,calls it genocide,False,False
+final,gaza,2025,ZWE,Zimbabwe,no criticism of Israel,False,False
+final,gaza,2025,YEM,Yemen,no criticism of Israel,False,False
+final,gaza,2024,HRV,Croatia,no criticism of Israel,True,True
+final,gaza,2025,UZB,Uzbekistan,no criticism of Israel,False,False
+final,gaza,2024,MAR,Morocco,criticises Israel's conduct,False,False
